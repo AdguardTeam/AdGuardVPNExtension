@@ -163,6 +163,7 @@ export const handlePopupNotifierMessage = async (
         }
         case notifier.types.ACTIVE_PROFILE_CHANGED: {
             vpnStore.handleProfileChanged(message.data);
+            await settingsStore.refreshExclusionsState(message.data.profileId);
             break;
         }
         default: {

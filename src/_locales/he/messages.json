@@ -147,8 +147,37 @@
     "privacy_policy": {
         "message": "מדיניות פרטיות"
     },
+    "settings_title": {
+        "message": "הגדרות"
+    },
     "settings_general_title": {
-        "message": "מצב כללי"
+        "message": "הגדרות כלליות"
+    },
+    "settings_general_description": {
+        "message": "החל על כל הפרופילים. אם תשנה את הפרופיל, ההגדרות יישארו זהות"
+    },
+    "settings_current_profile": {
+        "message": "פרופיל נוכחי: <b>%profile_name%</b>"
+    },
+    "settings_current_profile_description": {
+        "message": "החל על הפרופיל הנוכחי. אם תשנה את הפרופיל, ייתכן שגם ההגדרות ישתנו"
+    },
+    "settings_unlimited_promo_title": {
+        "message": "קבל את הגרסה הבלתי מוגבלת"
+    },
+    "settings_unlimited_promo_feature_speed": {
+        "message": "הזרמה ללא מגבלות מהירות"
+    },
+    "settings_unlimited_promo_feature_locations": {
+        "message": "%count%+ מיקומים מאובטחים | %count%+ מיקום מאובטח | %count%+ מיקומים מאובטחים",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_feature_devices": {
+        "message": "עד %count% מכשירים בחשבון אחד | עד %count% מכשיר בחשבון אחד | עד %count% מכשירים בחשבון אחד",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_upgrade_button": {
+        "message": "שדרג"
     },
     "referral_get_free_traffic": {
         "message": "קבל תעבורת VPN חינמית!"
@@ -297,7 +326,7 @@
         "message": "מצב בררני"
     },
     "context_menu_general_mode": {
-        "message": "מצב כללי"
+        "message": "מצב רגיל"
     },
     "context_menu_export_logs": {
         "message": "ייצא יומנים"
@@ -428,8 +457,8 @@
     "settings_quick_connect_title": {
         "message": "חיבור מהיר"
     },
-    "settings_quick_connect_subtitle": {
-        "message": "מיקום VPN נבחר כאשר אתה לוחץ על התחבר"
+    "settings_quick_connect_description": {
+        "message": "מיקום VPN ברירת מחדל בעת מעבר לפרופיל או פתיחת הדפדפן"
     },
     "settings_quick_connect_last_used": {
         "message": "מיקום האחרון שבו השתמשת"
@@ -539,8 +568,11 @@
     "settings_exclusion_title": {
         "message": "החרגות"
     },
-    "settings_location_label": {
-        "message": "מיקום"
+    "settings_exclusion_general_state": {
+        "message": "ה-VPN פעיל בכל מקום מלבד עבור אתרים ספציפיים"
+    },
+    "settings_exclusion_selective_state": {
+        "message": "ה-VPN פעיל באתרים נבחרים בלבד"
     },
     "settings_location_fastest_title": {
         "message": "המיקום המהיר ביותר"
@@ -548,14 +580,17 @@
     "settings_location_fastest_description": {
         "message": "התחבר אוטומטית למיקום המהיר ביותר"
     },
-    "settings_profiles_title": {
-        "message": "פרופילים"
+    "settings_location_last_used_description": {
+        "message": "התחבר אוטומטית למיקום ששימש לאחרונה"
     },
-    "settings_profiles_sidebar_title": {
-        "message": "פרופיל"
+    "settings_profiles_title": {
+        "message": "נהל פרופילים"
+    },
+    "settings_profiles_manage": {
+        "message": "נהל פרופילים"
     },
     "settings_profiles_subtitle": {
-        "message": "מאפשר להגדיר שרתים ומיקומים של DNS ולנהל רשימות החרגה נפרדות עבור מצבים שונים, כגון עבודה, בית או אחרים"
+        "message": "השתמש ב-VPN לתרחישים שונים, כגון עבודה, בית, ילדים או אחרים. צור פרופיל והגדר עבורו מיקום מועדף, שרת DNS והחרגות"
     },
     "settings_profiles_default_name": {
         "message": "ברירת מחדל"
@@ -573,7 +608,10 @@
         "message": "מחק"
     },
     "settings_profiles_create": {
-        "message": "לִיצוֹר"
+        "message": "צור פרופיל"
+    },
+    "settings_profiles_open_settings": {
+        "message": "הגדרות"
     },
     "settings_profiles_create_modal_title": {
         "message": "צור פרופיל"
@@ -616,9 +654,6 @@
     },
     "settings_profiles_delete_modal_submit": {
         "message": "מחק"
-    },
-    "settings_description_current": {
-        "message": "נוכחי: %mode%"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "איפה ה-VPN פועל"
@@ -695,14 +730,23 @@
     "popup_settings_stats": {
         "message": "סטטיסטיקות"
     },
-    "popup_profiles_title": {
-        "message": "פרופילים"
-    },
-    "popup_profiles_settings": {
-        "message": "הגדרות"
-    },
     "profile_apply_error": {
         "message": "המעבר בין פרופילים נכשל. נסה שוב או פנה לתמיכה"
+    },
+    "profile_switched": {
+        "message": "הועבר אל %profile_name%"
+    },
+    "profile_created": {
+        "message": "פרופיל נוצר"
+    },
+    "profile_deleted": {
+        "message": "פרופיל נמחק"
+    },
+    "profile_deleted_switched": {
+        "message": "פרופיל נמחק. הועברת אל %profile_name%"
+    },
+    "profile_name_updated": {
+        "message": "שם הפרופיל עודכן"
     },
     "popup_settings_free_description": {
         "message": "זמין ב-AdGuard VPN Unlimited"
@@ -876,7 +920,7 @@
         "message": "השאר משוב"
     },
     "popup_compare_button": {
-        "message": "למה האפליקציה טובה יותר"
+        "message": "למה אפליקציית שולחן העבודה טובה יותר"
     },
     "popup_rate_modal_title": {
         "message": "כמה מדהים AdGuard VPN?"

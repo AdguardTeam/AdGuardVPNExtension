@@ -147,8 +147,37 @@
     "privacy_policy": {
         "message": "Πολιτική Απορρήτου"
     },
+    "settings_title": {
+        "message": "Ρυθμίσεις"
+    },
     "settings_general_title": {
-        "message": "Γενικά"
+        "message": "Γενικές ρυθμίσεις"
+    },
+    "settings_general_description": {
+        "message": "Εφαρμογή σε όλα τα προφίλ. Αν αλλάξετε το προφίλ, οι ρυθμίσεις θα παραμείνουν οι ίδιες"
+    },
+    "settings_current_profile": {
+        "message": "Τρέχον προφίλ: <b>%profile_name%</b>"
+    },
+    "settings_current_profile_description": {
+        "message": "Εφαρμογή στο τρέχον προφίλ. Αν αλλάξετε το προφίλ, οι ρυθμίσεις ενδέχεται να αλλάξουν επίσης"
+    },
+    "settings_unlimited_promo_title": {
+        "message": "Αποκτήστε την απεριόριστη έκδοση"
+    },
+    "settings_unlimited_promo_feature_speed": {
+        "message": "Ροή χωρίς όρια ταχύτητας"
+    },
+    "settings_unlimited_promo_feature_locations": {
+        "message": "%count%+ ασφαλείς τοποθεσίες | %count%+ ασφαλής τοποθεσία | %count%+ ασφαλείς τοποθεσίες",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_feature_devices": {
+        "message": "Έως %count% συσκευές σε έναν λογαριασμό | Έως %count% συσκευή σε έναν λογαριασμό | Έως %count% συσκευές σε έναν λογαριασμό",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_upgrade_button": {
+        "message": "Αναβάθμιση"
     },
     "referral_get_free_traffic": {
         "message": "Λάβετε δωρεάν GB!"
@@ -297,7 +326,7 @@
         "message": "Επιλεκτική λειτουργία"
     },
     "context_menu_general_mode": {
-        "message": "Γενική λειτουργία"
+        "message": "Κανονική λειτουργία"
     },
     "context_menu_export_logs": {
         "message": "Εξαγωγή αρχείου καταγραφών"
@@ -428,8 +457,8 @@
     "settings_quick_connect_title": {
         "message": "Γρήγορη σύνδεση"
     },
-    "settings_quick_connect_subtitle": {
-        "message": "Η τοποθεσία VPN επιλέγεται όταν κάνετε κλικ στην Σύνδεση"
+    "settings_quick_connect_description": {
+        "message": "Προεπιλεγμένη τοποθεσία VPN όταν μεταβαίνετε στο προφίλ ή ανοίγετε το πρόγραμμα περιήγησης"
     },
     "settings_quick_connect_last_used": {
         "message": "Τελευταία χρησιμοποιούμενη τοποθεσία"
@@ -539,8 +568,11 @@
     "settings_exclusion_title": {
         "message": "Εξαιρέσεις"
     },
-    "settings_location_label": {
-        "message": "Τοποθεσία"
+    "settings_exclusion_general_state": {
+        "message": "Το VPN είναι ενεργό παντού εκτός από συγκεκριμένες ιστοσελίδες"
+    },
+    "settings_exclusion_selective_state": {
+        "message": "Το VPN είναι ενεργό μόνο για επιλεγμένες ιστοσελίδες"
     },
     "settings_location_fastest_title": {
         "message": "Ταχύτερη τοποθεσία"
@@ -548,14 +580,17 @@
     "settings_location_fastest_description": {
         "message": "Αυτόματη Σύνδεση στην ταχύτερη τοποθεσία"
     },
-    "settings_profiles_title": {
-        "message": "Προφίλ"
+    "settings_location_last_used_description": {
+        "message": "Αυτόματη σύνδεση στην τελευταία χρησιμοποιημένη τοποθεσία"
     },
-    "settings_profiles_sidebar_title": {
-        "message": "Προφίλ"
+    "settings_profiles_title": {
+        "message": "Διαχείριση προφίλ"
+    },
+    "settings_profiles_manage": {
+        "message": "Διαχείριση προφίλ"
     },
     "settings_profiles_subtitle": {
-        "message": "Σας επιτρέπει να ορίσετε διακομιστές DNS και τοποθεσίες και να διατηρείτε ξεχωριστές λίστες εξαιρέσεων για διαφορετικές περιπτώσεις χρήσης, όπως εργασία, σπίτι ή άλλα"
+        "message": "Χρησιμοποιήστε το VPN για διαφορετικά σενάρια, όπως εργασία, σπίτι, παιδιά ή άλλα. Δημιουργήστε ένα προφίλ και ρυθμίστε μια προτιμώμενη τοποθεσία, διακομιστή DNS και εξαιρέσεις για αυτό"
     },
     "settings_profiles_default_name": {
         "message": "Προεπιλεγμένη"
@@ -573,7 +608,10 @@
         "message": "Διαγραφή"
     },
     "settings_profiles_create": {
-        "message": "Δημιουργία"
+        "message": "Δημιουργία προφίλ"
+    },
+    "settings_profiles_open_settings": {
+        "message": "Ρυθμίσεις"
     },
     "settings_profiles_create_modal_title": {
         "message": "Δημιουργία προφίλ"
@@ -616,9 +654,6 @@
     },
     "settings_profiles_delete_modal_submit": {
         "message": "Διαγραφή"
-    },
-    "settings_description_current": {
-        "message": "Τρέχον: %mode%"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Όπου είναι ενεργό το VPN"
@@ -695,14 +730,23 @@
     "popup_settings_stats": {
         "message": "Στατιστικά"
     },
-    "popup_profiles_title": {
-        "message": "Προφίλ"
-    },
-    "popup_profiles_settings": {
-        "message": "Ρυθμίσεις"
-    },
     "profile_apply_error": {
         "message": "Αποτυχία στην εναλλαγή προφίλ. Προσπαθήστε ξανά ή επικοινωνήστε με υποστήριξη"
+    },
+    "profile_switched": {
+        "message": "Έγινε μετάβαση στο %profile_name%"
+    },
+    "profile_created": {
+        "message": "Το προφίλ δημιουργήθηκε"
+    },
+    "profile_deleted": {
+        "message": "Το προφίλ διαγράφηκε"
+    },
+    "profile_deleted_switched": {
+        "message": "Το προφίλ διαγράφηκε. Έγινε μετάβαση στο %profile_name%"
+    },
+    "profile_name_updated": {
+        "message": "Το όνομα προφίλ ενημερώθηκε"
     },
     "popup_settings_free_description": {
         "message": "Διαθέσιμο στο AdGuard VPN Unlimited"
@@ -876,7 +920,7 @@
         "message": "Αφήστε τα σχόλιά σας"
     },
     "popup_compare_button": {
-        "message": "Τι κάνει την εφαρμογή καλύτερη"
+        "message": "Τι κάνει την εφαρμογή επιφάνειας εργασίας καλύτερη"
     },
     "popup_rate_modal_title": {
         "message": "Πόσο καταπληκτικό είναι το AdGuard VPN;"

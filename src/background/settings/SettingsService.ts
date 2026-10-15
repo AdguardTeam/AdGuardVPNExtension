@@ -22,7 +22,7 @@ import { type ProfilesState } from '../schema/profiles/profilesState';
 
 type VersionType = { [x: string]: any; VERSION: string; };
 
-const SCHEME_VERSION = '16';
+const SCHEME_VERSION = '17';
 const THROTTLE_TIMEOUT = 100;
 
 const OLD_DARK_THEME_NAME = 'DARK';
@@ -182,11 +182,7 @@ export class SettingsService {
      * @returns New settings.
      */
     private migrateFrom8to9 = async (oldSettings: Settings): Promise<VersionType> => {
-        const updateExclusionsState = (oldExclusions: OldExclusion[]): {
-            id: string;
-            hostname: string;
-            state: ExclusionState
-        }[] => {
+        const updateExclusionsState = (oldExclusions: OldExclusion[]): ExclusionInterface[] => {
             return oldExclusions.map((exclusion) => {
                 return {
                     id: exclusion.id,
@@ -200,7 +196,7 @@ export class SettingsService {
 
         const migrateExclusions = (exclusions: OldExclusion[]): ExclusionInterface[] => {
             const exclusionsWithUpdatedState = updateExclusionsState(exclusions);
-            const complementedExclusions = complementExclusions(<ExclusionInterface[]>exclusionsWithUpdatedState);
+            const complementedExclusions = complementExclusions(exclusionsWithUpdatedState);
             const exclusionsComplementedWithServices = complementedExclusionsWithServices(
                 complementedExclusions,
                 services,
@@ -541,6 +537,60 @@ export class SettingsService {
     };
 
     /**
+     * Runs settings migration from schema v16 to v17.
+     *
+     * Before v2.12 the "last used location" strategy with a stored location
+     * meant that the profile always connected to that location: picking
+     * a city on the location screen saved exactly this pair. Since v2.12
+     * this strategy means "follow the session location", so such profiles
+     * are converted to the "specific location" strategy to keep their
+     * behavior unchanged.
+     *
+     * @param oldSettings Old settings.
+     *
+     * @returns Updated settings.
+     */
+    public migrateFrom16to17 = (oldSettings: Settings): VersionType => {
+        const profilesState = oldSettings[SETTINGS_IDS.PROFILES_STATE];
+
+        if (!profilesState || !Array.isArray(profilesState.profiles)) {
+            return {
+                ...oldSettings,
+                VERSION: '17',
+            };
+        }
+
+        const nextProfilesState = {
+            ...profilesState,
+            profiles: profilesState.profiles.map((profile: Profile) => {
+                const { settings } = profile;
+
+                // Profiles without a stored location followed the session
+                // location before the update as well, so their strategy is kept.
+                if (!settings
+                    || settings.quickConnect !== QuickConnectSetting.LastUsedLocation
+                    || !settings.selectedLocation?.id) {
+                    return profile;
+                }
+
+                return {
+                    ...profile,
+                    settings: {
+                        ...settings,
+                        quickConnect: QuickConnectSetting.SpecificLocation,
+                    },
+                };
+            }),
+        };
+
+        return {
+            ...oldSettings,
+            VERSION: '17',
+            [SETTINGS_IDS.PROFILES_STATE]: nextProfilesState,
+        };
+    };
+
+    /**
      * In order to add migration, create new function which modifies old settings into new
      * And add this migration under related old settings scheme version
      * For example if your migration function migrates your settings from scheme 4 to 5, then add
@@ -562,6 +612,7 @@ export class SettingsService {
         13: this.migrateFrom13to14,
         14: this.migrateFrom14to15,
         15: this.migrateFrom15to16,
+        16: this.migrateFrom16to17,
     };
 
     private async applyMigrations(oldVersion: number, newVersion: number, oldSettings: Settings): Promise<Settings> {

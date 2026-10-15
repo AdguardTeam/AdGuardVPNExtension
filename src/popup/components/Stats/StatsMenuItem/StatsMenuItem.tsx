@@ -90,7 +90,7 @@ export const StatsMenuItem = observer(() => {
     return (
         <button
             type="button"
-            className="button button--inline extra-options__item stats-menu-item"
+            className="button button--inline extra-options__item extra-options__item--divided stats-menu-item"
             onClick={handleClick}
         >
             <span className="stats-menu-item__row">

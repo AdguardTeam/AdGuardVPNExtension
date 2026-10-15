@@ -1,28 +1,37 @@
 import * as v from 'valibot';
 
-import { type ExperimentSlot, type SessionStartResponse } from '../telemetry/telemetryTypes';
+import {
+    experimentSlotSchema,
+    variantAssignmentSchema,
+    type ExperimentSlot,
+    type VariantAssignment,
+    type SessionStartResponse,
+} from '../schema/telemetry/sessionStartResponse';
 import { browserApi } from '../browserApi';
 import { log } from '../../common/logger';
+import { PromiseQueue } from '../../common/promiseQueue';
 
 import { type ExperimentRegistry } from './constants';
 
-/**
- * Schema for the variant cache stored in browser.storage.local.
- * Maps ExperimentSlot keys to version_name strings.
- */
-const variantCacheSchema = v.record(
-    v.union([
-        v.literal('experiment_1'),
-        v.literal('experiment_2'),
-        v.literal('experiment_3'),
-    ]),
-    v.string(),
-);
+const { decorator: serialized } = new PromiseQueue();
 
 /**
- * In-memory variant cache type.
+ * Schema for the variant cache stored in browser.storage.local.
+ * Maps experiment slots to their experiment and variant names.
  */
-export type VariantCache = Partial<Record<ExperimentSlot, string>>;
+const variantCacheSchema = v.record(experimentSlotSchema, variantAssignmentSchema);
+
+/**
+ * Schema for the legacy variant cache format that stored plain version names.
+ */
+const legacyVariantCacheSchema = v.record(experimentSlotSchema, v.string());
+
+/**
+ * Telemetry-facing variant cache type.
+ */
+export type ExperimentSlotValues = Partial<Record<ExperimentSlot, string>>;
+
+type StoredVariantCache = Partial<Record<ExperimentSlot, VariantAssignment>>;
 
 /**
  * Slot-based A/B test manager for the new split-testing platform.
@@ -43,15 +52,15 @@ class ABTestManager {
     private readonly registry: ExperimentRegistry;
 
     /**
-     * In-memory variant cache. Populated by init() and processResponse().
+     * In-memory variant cache. Loaded lazily by getVariantsCache().
      */
-    private variantCache: VariantCache | null = null;
+    private variantCache: StoredVariantCache | null = null;
 
     /**
      * Promise that resolves when variantCache is loaded from storage.
      * Used for lazy initialization.
      */
-    private variantCachePromise: Promise<VariantCache> | null = null;
+    private variantCachePromise: Promise<StoredVariantCache> | null = null;
 
     /**
      * @param registry Experiment registry entries (slot → experimentId mappings).
@@ -66,7 +75,7 @@ class ABTestManager {
      *
      * @returns Promise that resolves to the variant cache.
      */
-    private async getVariantsCache(): Promise<VariantCache> {
+    private async getVariantsCache(): Promise<StoredVariantCache> {
         if (this.variantCache !== null) {
             return this.variantCache;
         }
@@ -91,45 +100,68 @@ class ABTestManager {
      *
      * @returns Partial record of slot → experimentId for unassigned slots.
      */
-    public async getTestsPayload(): Promise<VariantCache> {
+    public async getTestsPayload(): Promise<ExperimentSlotValues> {
         const cache = await this.getVariantsCache();
-        const tests: VariantCache = {};
+        const tests: ExperimentSlotValues = {};
 
-        const entries = Object.entries(this.registry) as [ExperimentSlot, string][];
-        entries.forEach(([slot, experimentId]) => {
-            if (!cache[slot]) {
-                tests[slot] = experimentId;
+        experimentSlotSchema.options.forEach((slot) => {
+            const experimentId = this.registry[slot];
+
+            if (!experimentId || cache[slot] !== undefined) {
+                return;
             }
+
+            tests[slot] = experimentId;
         });
 
         return tests;
     }
 
     /**
-     * Processes the session_start response, caching returned version_name values.
-     * Only slots present in the registry are accepted; unknown slots are ignored.
+     * Processes the session_start response and caches matching assignments.
+     * Each assignment is validated separately; malformed assignments are
+     * ignored while the remaining slots stay usable.
      *
      * @param response Parsed response from the session_start endpoint.
+     *
+     * @returns Promise that resolves when assignments are persisted.
      */
+    @serialized
     public async processResponse(response: SessionStartResponse): Promise<void> {
         const cache = await this.getVariantsCache();
+        const rejectedSlots: Array<{ slot: ExperimentSlot; reason: string }> = [];
         let hasChanges = false;
 
-        const entries = Object.entries(response.versions) as [
-            ExperimentSlot,
-            SessionStartResponse['versions'][ExperimentSlot],
-        ][];
-
-        entries.forEach(([slot, assignment]) => {
-            if (!(slot in this.registry)) {
+        experimentSlotSchema.options.forEach((slot) => {
+            if (!this.registry[slot]) {
                 return;
             }
 
-            if (assignment?.version_name) {
-                cache[slot] = assignment.version_name;
-                hasChanges = true;
+            const assignment = response.versions[slot];
+
+            if (assignment === undefined) {
+                return;
             }
+
+            const parsed = v.safeParse(variantAssignmentSchema, assignment);
+
+            if (!parsed.success) {
+                rejectedSlots.push({ slot, reason: 'invalid assignment' });
+                return;
+            }
+
+            if (parsed.output.experiment_name !== this.registry[slot]) {
+                rejectedSlots.push({ slot, reason: 'experiment name mismatch' });
+                return;
+            }
+
+            cache[slot] = parsed.output;
+            hasChanges = true;
         });
+
+        if (rejectedSlots.length > 0) {
+            log.debug('[vpn.ABTestManager.processResponse]: Ignoring assignments for registered slots', rejectedSlots);
+        }
 
         if (hasChanges) {
             await this.saveToStorage(cache);
@@ -142,14 +174,15 @@ class ABTestManager {
      *
      * @returns Partial record of slot → version_name for assigned slots only.
      */
-    public async getVariantsForProps(): Promise<VariantCache> {
+    public async getVariantsForProps(): Promise<ExperimentSlotValues> {
         const cache = await this.getVariantsCache();
-        const result: VariantCache = {};
+        const result: ExperimentSlotValues = {};
 
-        const entries = Object.entries(cache) as [ExperimentSlot, string | undefined][];
-        entries.forEach(([slot, versionName]) => {
-            if (versionName) {
-                result[slot] = versionName;
+        experimentSlotSchema.options.forEach((slot) => {
+            const cachedVariant = cache[slot];
+
+            if (cachedVariant !== undefined) {
+                result[slot] = cachedVariant.version_name;
             }
         });
 
@@ -157,12 +190,58 @@ class ABTestManager {
     }
 
     /**
+     * Removes cached variants that do not belong to active experiments.
+     * A variant is retired when its slot is absent from the registry or its
+     * cached experiment name differs from the active experiment ID for that slot.
+     * Remaining variants are persisted, or the storage key is removed when
+     * no variants remain.
+     *
+     * @returns Promise that resolves when retired variants are removed.
+     *
+     * @throws If the variant cache cannot be persisted or removed from storage.
+     */
+    @serialized
+    public async removeRetiredVariants(): Promise<void> {
+        const cache = await this.getVariantsCache();
+        const retiredSlots = experimentSlotSchema.options.filter((slot) => {
+            const cachedVariant = cache[slot];
+
+            if (cachedVariant === undefined) {
+                return false;
+            }
+
+            const experimentId = this.registry[slot];
+
+            return !experimentId || cachedVariant.experiment_name !== experimentId;
+        });
+
+        if (retiredSlots.length === 0) {
+            return;
+        }
+
+        log.debug('[vpn.ABTestManager.removeRetiredVariants]: Removing retired variant slots', retiredSlots);
+
+        retiredSlots.forEach((slot) => {
+            delete cache[slot];
+        });
+
+        if (Object.keys(cache).length === 0) {
+            await browserApi.storage.remove(ABTestManager.VARIANTS_STORAGE_KEY);
+            return;
+        }
+
+        await this.saveToStorage(cache);
+    }
+
+    /**
      * Loads the variant cache from browser.storage.local.
-     * Returns an empty cache if storage is empty or the value fails validation.
+     * Returns an empty cache if storage is empty or the read fails.
+     * Legacy string caches are migrated to the assignment format.
+     * Unsupported formats are removed so assignments can be requested again.
      *
      * @returns Validated variant cache.
      */
-    private async loadFromStorage(): Promise<VariantCache> {
+    private async loadFromStorage(): Promise<StoredVariantCache> {
         let raw: unknown;
 
         try {
@@ -176,30 +255,96 @@ class ABTestManager {
             return {};
         }
 
-        try {
-            const parsed = v.parse(variantCacheSchema, raw);
-            // Drop retired slots that are no longer in the experiment registry so
-            // stale assignments are not re-emitted in telemetry props.
-            const cleaned: VariantCache = {};
-            let hasRetiredSlots = false;
+        const parsed = v.safeParse(variantCacheSchema, raw);
 
-            const entries = Object.entries(parsed) as [ExperimentSlot, string][];
-            entries.forEach(([slot, versionName]) => {
-                if (slot in this.registry) {
-                    cleaned[slot] = versionName;
-                } else {
-                    hasRetiredSlots = true;
+        if (parsed.success) {
+            return parsed.output;
+        }
+
+        const legacyParsed = v.safeParse(legacyVariantCacheSchema, raw);
+
+        if (legacyParsed.success) {
+            const migrated = this.migrateLegacyCache(legacyParsed.output);
+            await this.persistMigratedCache(migrated);
+            return migrated;
+        }
+
+        log.info(
+            '[vpn.ABTestManager.loadFromStorage]: Unsupported variant cache format, resetting assignments',
+            parsed.issues,
+        );
+        await this.clearInvalidCache();
+        return {};
+    }
+
+    /**
+     * Migrates a legacy string variant cache to the assignment format.
+     * The legacy format does not store the experiment name, so entries of
+     * registered slots with a non-empty version name are kept under the
+     * active experiment ID; other entries are dropped and requested again.
+     *
+     * @param legacyCache Legacy slot to version_name cache.
+     *
+     * @returns Migrated assignment cache.
+     */
+    private migrateLegacyCache(legacyCache: ExperimentSlotValues): StoredVariantCache {
+        const migrated: StoredVariantCache = {};
+        const droppedSlots: ExperimentSlot[] = [];
+
+        experimentSlotSchema.options.forEach((slot) => {
+            const versionName = legacyCache[slot];
+            const experimentId = this.registry[slot];
+
+            if (!experimentId || !versionName) {
+                if (versionName !== undefined) {
+                    droppedSlots.push(slot);
                 }
-            });
 
-            if (hasRetiredSlots) {
-                await this.saveToStorage(cleaned);
+                return;
             }
 
-            return cleaned;
+            migrated[slot] = {
+                experiment_name: experimentId,
+                version_name: versionName,
+            };
+        });
+
+        log.debug('[vpn.ABTestManager.migrateLegacyCache]: Migrating legacy variant cache', {
+            migrated: Object.keys(migrated),
+            dropped: droppedSlots,
+        });
+
+        return migrated;
+    }
+
+    /**
+     * Persists a migrated cache, removing the storage key when nothing remains.
+     * Storage errors are caught and logged without blocking the in-memory
+     * migration, so this method never rejects.
+     *
+     * @param migrated Migrated assignment cache.
+     */
+    private async persistMigratedCache(migrated: StoredVariantCache): Promise<void> {
+        try {
+            if (Object.keys(migrated).length === 0) {
+                await browserApi.storage.remove(ABTestManager.VARIANTS_STORAGE_KEY);
+                return;
+            }
+
+            await this.saveToStorage(migrated);
         } catch (e) {
-            log.error('[vpn.ABTestManager.loadFromStorage]: Failed to parse variant cache from storage', e, 'using empty cache');
-            return {};
+            log.warn('[vpn.ABTestManager.persistMigratedCache]: Failed to persist migrated variant cache', e);
+        }
+    }
+
+    /**
+     * Removes a cache with an unsupported format so assignments can be requested again.
+     */
+    private async clearInvalidCache(): Promise<void> {
+        try {
+            await browserApi.storage.remove(ABTestManager.VARIANTS_STORAGE_KEY);
+        } catch (e) {
+            log.error('[vpn.ABTestManager.clearInvalidCache]: Failed to remove invalid variant cache', e);
         }
     }
 
@@ -208,7 +353,7 @@ class ABTestManager {
      *
      * @param cache Variant cache to persist.
      */
-    private async saveToStorage(cache: VariantCache): Promise<void> {
+    private async saveToStorage(cache: StoredVariantCache): Promise<void> {
         await browserApi.storage.set(ABTestManager.VARIANTS_STORAGE_KEY, cache);
     }
 }

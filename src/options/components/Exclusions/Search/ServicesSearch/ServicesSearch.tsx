@@ -6,17 +6,7 @@ import { rootStore } from '../../../../stores';
 import { translator } from '../../../../../common/translator';
 import { Input } from '../../../ui/Input';
 
-/**
- * ServicesSearch component props.
- */
-interface ServicesSearchProps {
-    /**
-     * Whether the component is rendered inside a profile context.
-     */
-    isProfileContext: boolean;
-}
-
-export const ServicesSearch = observer(({ isProfileContext }: ServicesSearchProps) => {
+export const ServicesSearch = observer(() => {
     const { exclusionsStore, telemetryStore } = useContext(rootStore);
     const isTelemetrySent = useRef(false);
 
@@ -27,10 +17,8 @@ export const ServicesSearch = observer(({ isProfileContext }: ServicesSearchProp
         if (!isTelemetrySent.current) {
             isTelemetrySent.current = true;
             telemetryStore.sendCustomEvent(
-                isProfileContext ? TelemetryActionName.ProfileSearchFromList : TelemetryActionName.SearchFromList,
-                isProfileContext
-                    ? TelemetryScreenName.ProfileDialogAddWebsiteExclusion
-                    : TelemetryScreenName.DialogAddWebsiteExclusion,
+                TelemetryActionName.SearchFromList,
+                TelemetryScreenName.DialogAddWebsiteExclusion,
             );
         }
 

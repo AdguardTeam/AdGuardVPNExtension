@@ -1,9 +1,13 @@
 import isEmpty from 'lodash/isEmpty';
 
 import { log } from '../../common/logger';
+import { getLocationWithLowestPing, sleep } from '../../common/helpers';
 import { measurePingWithinLimits } from '../connectivity/pingHelpers';
 import { notifier } from '../../common/notifier';
+import { QuickConnectSetting } from '../../common/constants';
 import { vpnProvider } from '../providers/vpnProvider';
+// eslint-disable-next-line import/no-cycle
+import { credentials } from '../credentials';
 import {
     type LocationInterface,
     type EndpointInterface,
@@ -20,6 +24,12 @@ import { settings } from '../settings';
 import { Location } from './Location';
 import { LocationWithPing } from './LocationWithPing';
 import { LocationsTab } from './locationsEnums';
+
+/**
+ * How long to wait for in-flight ping measurements when resolving
+ * the fastest location.
+ */
+const PINGS_WAIT_TIMEOUT_MS = 1000;
 
 export interface PingData {
     ping: number | null;
@@ -49,10 +59,10 @@ interface LocationsServiceInterface {
     setSelectedLocation(
         profileId: string,
         id: string,
-        options?: { reconnect?: boolean; persistToProfile?: boolean },
-    ): Promise<void>;
+        options?: { reconnect?: boolean; persistToProfile?: boolean; isUserPick?: boolean },
+    ): Promise<boolean>;
     getSelectedLocation(): Promise<LocationInterface | null>;
-    getLocations(): Promise<LocationInterface[]>;
+    shouldResolveFastestLocation(): Promise<boolean>;
     getEndpoint(
         location: LocationInterface,
         forcePrevEndpoint: boolean,
@@ -136,16 +146,6 @@ export class LocationsService implements LocationsServiceInterface {
     }: LocationsServiceParameters) {
         this.storage = storage;
     }
-
-    /**
-     * Gets all available VPN location instances.
-     *
-     * @returns Locations instances.
-     */
-    public getLocations = async (): Promise<LocationInterface[]> => {
-        const { locations } = await this.locationsState.get();
-        return locations;
-    };
 
     public getPingFromCache = async (id: string): Promise<{ locationId: string } & PingsCacheInterface[string]> => {
         const { pingsCache } = await this.locationsState.get();
@@ -433,21 +433,21 @@ export class LocationsService implements LocationsServiceInterface {
         const updatedSelectedLocation = actualSelectedLocation || oldSelectedLocation;
         await this.locationsState.update({ selectedLocation: updatedSelectedLocation });
 
-        // Persist the session location to the active profile so that it stays
-        // up-to-date with server-side changes (e.g. endpoint rotation) and is
-        // available immediately after a browser restart.
-        // Skip persistence when the profile stores a different location that
-        // still exists — this means the popup changed the session location
-        // without persisting, and we must not overwrite the profile choice.
+        // The profile location is kept in sync with the session location
+        // (e.g. after endpoint rotation) so it is available right after
+        // a browser restart.
+        // "Last used location" profiles follow the session location, while
+        // a location pinned to the profile is not overwritten by the popup choice.
         const activeProfileId = profilesService.getActiveProfileId();
         const activeSettings = profilesService.getActiveProfileSettings();
-        const profileLocation = activeSettings.selectedLocation;
+        const { selectedLocation: profileLocation, quickConnect } = activeSettings;
 
+        const followsSessionLocation = quickConnect === QuickConnectSetting.LastUsedLocation;
         const profileLocationMatchesSession = profileLocation?.id === updatedSelectedLocation?.id;
         const profileLocationExists = profileLocation
             && locations.some((location) => location.id === profileLocation.id);
 
-        if (profileLocationMatchesSession || !profileLocationExists) {
+        if (followsSessionLocation || profileLocationMatchesSession || !profileLocationExists) {
             await profilesService.updateProfileSettings(
                 activeProfileId,
                 { selectedLocation: updatedSelectedLocation },
@@ -633,20 +633,46 @@ export class LocationsService implements LocationsServiceInterface {
      * @param options Options for the location change.
      * @param options.reconnect Whether to reconnect VPN if the profile is active.
      * @param options.persistToProfile Whether to save the location to the profile settings.
+     *   "Last used location" profiles always save it, because their location
+     *   follows the location the user connects to.
+     * @param options.isUserPick Whether the location is the user's explicit
+     *   choice (popup list) rather than a location resolved by the extension.
+     *   When omitted, the flag is kept for the same location and cleared for a
+     *   different one.
+     *
+     * @returns True when the location is applied, false when it is not found
+     *   in the locations list.
      */
     public setSelectedLocation = async (
         profileId: string,
         id: string,
-        { reconnect = false, persistToProfile = true }: { reconnect?: boolean; persistToProfile?: boolean } = {},
-    ): Promise<void> => {
+        {
+            reconnect = false,
+            persistToProfile = true,
+            isUserPick,
+        }: { reconnect?: boolean; persistToProfile?: boolean; isUserPick?: boolean } = {},
+    ): Promise<boolean> => {
         const { locations } = await this.locationsState.get();
-        const newSelectedLocation = locations.find((location) => location.id === id) || null;
+        const newSelectedLocation = locations.find((location) => location.id === id);
 
-        if (persistToProfile) {
+        // The locations list may be empty or outdated (e.g. right after
+        // the extension restart, before the locations are fetched):
+        // keep the current location instead of clearing it.
+        if (!newSelectedLocation) {
+            log.warn(`[vpn.LocationsService]: Location "${id}" is not found in the locations list`);
+            return false;
+        }
+
+        const { quickConnect } = profilesService.getProfileSettings(profileId);
+        const followsSessionLocation = quickConnect === QuickConnectSetting.LastUsedLocation;
+
+        if (persistToProfile || followsSessionLocation) {
             await profilesService.updateProfileSettings(
                 profileId,
                 { selectedLocation: newSelectedLocation },
-                () => this.applySelectedLocation(newSelectedLocation, reconnect),
+                async (): Promise<void> => {
+                    await this.applySelectedLocation(newSelectedLocation, reconnect, isUserPick);
+                },
             );
 
             notifier.notifyListeners(
@@ -655,10 +681,12 @@ export class LocationsService implements LocationsServiceInterface {
                 newSelectedLocation,
             );
         } else {
-            await this.applySelectedLocation(newSelectedLocation, reconnect);
+            await this.applySelectedLocation(newSelectedLocation, reconnect, isUserPick);
         }
 
         notifier.notifyListeners(notifier.types.UPDATE_BROWSER_ACTION_ICON);
+
+        return true;
     };
 
     /**
@@ -667,12 +695,23 @@ export class LocationsService implements LocationsServiceInterface {
      *
      * @param selectedLocation New selected location.
      * @param reconnect Whether to reconnect VPN.
+     * @param isUserPick Whether the location is the user's explicit choice;
+     *   when omitted, the flag is kept for the same location (e.g. after an
+     *   endpoint rotation) and cleared for a different one.
      */
     private applySelectedLocation = async (
         selectedLocation: LocationInterface | null,
         reconnect: boolean,
+        isUserPick?: boolean,
     ): Promise<void> => {
-        await this.locationsState.update({ selectedLocation });
+        const { selectedLocation: currentLocation, isSelectedLocationUserPicked } = await this.locationsState.get();
+        const isSameLocation = !!currentLocation && currentLocation.id === selectedLocation?.id;
+        const nextIsUserPicked = isUserPick ?? (isSameLocation && isSelectedLocationUserPicked);
+
+        await this.locationsState.update({
+            selectedLocation,
+            isSelectedLocationUserPicked: nextIsUserPicked,
+        });
         if (reconnect) {
             await this.reconnectIfVpnActive();
         }
@@ -688,9 +727,11 @@ export class LocationsService implements LocationsServiceInterface {
 
         if (!selectedLocation) {
             const activeSettings = profilesService.getActiveProfileSettings();
-            const { selectedLocation: storedLocation } = activeSettings;
+            const { selectedLocation: storedLocation, quickConnect } = activeSettings;
 
-            if (!storedLocation) {
+            // Premium-only locations are returned as-is: the downgrade branch in
+            // Endpoints.updateLocations() moves them to the closest available one.
+            if (!storedLocation || quickConnect === QuickConnectSetting.FastestLocation) {
                 return null;
             }
 
@@ -702,28 +743,282 @@ export class LocationsService implements LocationsServiceInterface {
     };
 
     /**
+     * Resolves the fastest available location for the current user.
+     * Premium-only locations are excluded for free users, mirroring
+     * the endpoint selection flow.
+     *
+     * @param options Resolution options.
+     * @param options.waitForPings Whether to wait for in-flight ping
+     *   measurements before ranking. Callers on UI paths that must not
+     *   block (popup data) pass false; connect flows keep the default.
+     *
+     * @returns The fastest location, or null when it cannot be determined yet.
+     */
+    public resolveFastestLocation = async (
+        { waitForPings = true }: { waitForPings?: boolean } = {},
+    ): Promise<LocationInterface | null> => {
+        const { locations } = await this.locationsState.get();
+
+        if (isEmpty(locations)) {
+            return null;
+        }
+
+        const isPremiumUser = await credentials.isPremiumToken();
+        const filterCandidates = (locationsToFilter: LocationInterface[]): LocationInterface[] => {
+            return isPremiumUser
+                ? locationsToFilter
+                : locationsToFilter.filter((location) => !location.premiumOnly);
+        };
+
+        const pingsCalculated = filterCandidates(locations).every((location) => {
+            return (location.available && location.ping && location.ping > 0) || !location.available;
+        });
+
+        // Not ready yet to determine the fastest location.
+        if (waitForPings && !pingsCalculated && this.isMeasuringPingInProgress()) {
+            await sleep(PINGS_WAIT_TIMEOUT_MS);
+        }
+
+        // The locations list may have been refetched while the pings were being
+        // measured, and the freshly measured pings land in the pings cache first:
+        // rank the locations with the cached pings so the fresh ones are counted.
+        const { locations: actualLocations, pingsCache } = await this.locationsState.get();
+        const locationsWithPings = filterCandidates(actualLocations).map((location) => {
+            const cachedPingData = pingsCache[location.id];
+            if (cachedPingData) {
+                this.setLocationPing(location, cachedPingData.ping);
+                this.setLocationAvailableState(location, cachedPingData.available);
+            }
+            return location;
+        });
+
+        const fastestLocation = getLocationWithLowestPing(locationsWithPings);
+
+        return fastestLocation ? new Location(fastestLocation) : null;
+    };
+
+    /**
+     * Whether the active profile connects to the fastest location.
+     * The connect flow resolves the fastest location only for such profiles;
+     * other strategies reuse the stored location and the saved endpoint.
+     *
+     * @returns True when the active profile's quick connect strategy is "fastest location".
+     */
+    public doesUserPreferFastestLocation = (): boolean => {
+        const { quickConnect } = profilesService.getActiveProfileSettings();
+        return quickConnect === QuickConnectSetting.FastestLocation;
+    };
+
+    /**
+     * Whether the fastest location must be resolved instead of reusing the
+     * session location.
+     *
+     * "Fastest location" profiles follow the currently fastest location, so a
+     * location resolved earlier (or ranked without waiting for pings) must not
+     * be reused — unless the user picked it explicitly in the popup list.
+     * A picked location that is gone from the locations list does not pin the
+     * profile: it cannot be connected to anymore.
+     * Callers add their own conditions: the connect flow also resolves when the
+     * session has no location at all, the display getter additionally requires
+     * the VPN to be disabled.
+     *
+     * @returns True when the fastest location should be resolved.
+     */
+    public shouldResolveFastestLocation = async (): Promise<boolean> => {
+        if (!this.doesUserPreferFastestLocation()) {
+            return false;
+        }
+
+        const { locations, selectedLocation, isSelectedLocationUserPicked } = await this.locationsState.get();
+
+        const isPickedLocationGone = !!selectedLocation
+            && !this.isLocationInList(selectedLocation, locations);
+
+        return !isSelectedLocationUserPicked || isPickedLocationGone;
+    };
+
+    /**
+     * Whether the locations list still contains the location.
+     * A location the backend no longer offers cannot be connected to.
+     *
+     * @param location Location to check.
+     * @param locations Current locations list.
+     *
+     * @returns True when the list contains the location.
+     */
+    private isLocationInList = (
+        location: LocationInterface | null,
+        locations: LocationInterface[],
+    ): boolean => {
+        if (!location) {
+            return false;
+        }
+
+        return locations.some((item) => item.id === location.id);
+    };
+
+    /**
+     * Checks whether the location is available for the current user:
+     * premium-only locations are available only to premium users.
+     *
+     * @param location Location to check.
+     *
+     * @returns True when the user can connect to the location.
+     */
+    private isLocationAvailableForUser = async (location: LocationInterface): Promise<boolean> => {
+        if (!location.premiumOnly) {
+            return true;
+        }
+
+        return credentials.isPremiumToken();
+    };
+
+    /**
+     * Wraps the location stored in the profile settings into a Location
+     * instance when the current user is allowed to connect to it.
+     *
+     * @param storedLocation Location stored in the profile settings.
+     *
+     * @returns Location instance, or null when it is not available for the user.
+     */
+    private resolveStoredLocation = async (
+        storedLocation: LocationInterface | null,
+    ): Promise<LocationInterface | null> => {
+        if (!storedLocation || !await this.isLocationAvailableForUser(storedLocation)) {
+            return null;
+        }
+
+        return new Location(storedLocation);
+    };
+
+    /**
+     * Resolves the fastest location and, unless `persist` is false, stores it
+     * as the selected location of the active profile.
+     * Called by the connect flow ("fastest location" profiles whose session
+     * location is not the user's pick, and profiles without any location) and
+     * by the display getter with `persist: false`.
+     *
+     * @param options Resolution options.
+     * @param options.waitForPings Whether to wait for in-flight ping
+     *   measurements before ranking. See {@link resolveFastestLocation}.
+     * @param options.persist Whether to store the resolved location in the
+     *   session and the active profile. Display-only callers pass false, so
+     *   a location ranked without waiting for pings is not used by the
+     *   connect flow.
+     *
+     * @returns The selected location, or null when it cannot be determined yet.
+     *   A location picked by the user is returned as stored, with its cached
+     *   ping and endpoint.
+     */
+    public selectFastestLocation = async (
+        { waitForPings = true, persist = true }: { waitForPings?: boolean; persist?: boolean } = {},
+    ): Promise<LocationInterface | null> => {
+        const fastestLocation = await this.resolveFastestLocation({ waitForPings });
+
+        const {
+            locations,
+            selectedLocation: currentLocation,
+            isSelectedLocationUserPicked,
+        } = await this.locationsState.get();
+        const isPickedLocationStillValid = isSelectedLocationUserPicked && !!currentLocation
+            && this.isLocationInList(currentLocation, locations)
+            && await this.isLocationAvailableForUser(currentLocation);
+
+        if (isPickedLocationStillValid) {
+            return currentLocation;
+        }
+
+        if (!fastestLocation) {
+            // The locations list is not loaded yet (e.g. the first connect after
+            // a browser restart): fall back to the location stored in the profile
+            // instead of reusing a stale endpoint of the previous session.
+            const { selectedLocation: storedLocation } = profilesService.getActiveProfileSettings();
+
+            // Premium-only locations are not offered to free users, same as in
+            // resolveFastestLocation.
+            if (!storedLocation || !await this.isLocationAvailableForUser(storedLocation)) {
+                return null;
+            }
+
+            const fallbackLocation = new Location(storedLocation);
+
+            if (persist) {
+                await this.applySelectedLocation(fallbackLocation, false);
+            }
+
+            return fallbackLocation;
+        }
+
+        if (persist) {
+            await this.setSelectedLocation(profilesService.getActiveProfileId(), fastestLocation.id, {
+                isUserPick: false,
+            });
+        }
+
+        return fastestLocation;
+    };
+
+    /**
      * Updates the session-cached selected location from the given
      * profile and reconnects the VPN if it is currently connected and
      * the location has changed.
      *
+     * The quick connect strategy decides the target location:
+     * `LastUsedLocation` keeps the current session location and stores it in the profile,
+     * `FastestLocation` resolves the fastest available location and
+     * `SpecificLocation` applies the location pinned to the profile.
+     *
      * @param profileId Profile to apply location for.
      */
     public applyProfileLocation = async (profileId: string): Promise<void> => {
-        const activeSettings = profilesService.getProfileSettings(profileId);
-        const { selectedLocation: storedLocation } = activeSettings;
+        const { selectedLocation: storedLocation, quickConnect } = profilesService.getProfileSettings(profileId);
 
-        const newSelectedLocation = storedLocation
-            ? new Location(storedLocation)
-            : null;
+        if (quickConnect === QuickConnectSetting.LastUsedLocation) {
+            // The session location is kept, but it should be stored in the
+            // profile: new profiles default to this strategy without a location,
+            // and after a browser restart the popup would otherwise resolve the
+            // fastest location while the tunnel reconnects to the last used one.
+            const { selectedLocation: sessionLocation } = await this.locationsState.get();
+
+            if (sessionLocation) {
+                await profilesService.updateProfileSettings(
+                    profileId,
+                    { selectedLocation: sessionLocation },
+                );
+            }
+
+            notifier.notifyListeners(notifier.types.UPDATE_BROWSER_ACTION_ICON);
+            return;
+        }
 
         const { selectedLocation: previousLocation } = await this.locationsState.get();
-        await this.locationsState.update({ selectedLocation: newSelectedLocation });
+
+        let newSelectedLocation: LocationInterface | null = null;
+        if (quickConnect === QuickConnectSetting.FastestLocation) {
+            // The fastest location may not be resolved yet (e.g. right after the
+            // extension restart, before the locations list is loaded): fall back
+            // to the location stored in the profile, otherwise leave the session
+            // empty so the connect flow resolves the fastest location later.
+            // The location of the previously active profile is not used here.
+            newSelectedLocation = await this.resolveFastestLocation()
+                ?? await this.resolveStoredLocation(storedLocation);
+        } else if (storedLocation) {
+            newSelectedLocation = new Location(storedLocation);
+        }
+
+        await this.locationsState.update({
+            selectedLocation: newSelectedLocation,
+            isSelectedLocationUserPicked: false,
+        });
 
         const locationChanged = previousLocation?.id !== newSelectedLocation?.id;
 
         if (locationChanged) {
             await this.reconnectIfVpnActive();
-            notifier.notifyListeners(notifier.types.CURRENT_LOCATION_UPDATED, newSelectedLocation);
+
+            if (newSelectedLocation) {
+                notifier.notifyListeners(notifier.types.CURRENT_LOCATION_UPDATED, newSelectedLocation);
+            }
         }
 
         notifier.notifyListeners(notifier.types.UPDATE_BROWSER_ACTION_ICON);

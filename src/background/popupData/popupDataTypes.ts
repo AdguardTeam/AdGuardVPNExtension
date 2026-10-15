@@ -5,7 +5,7 @@ import type { CanControlProxy } from '../schema';
 import { type VpnExtensionInfoInterface } from '../../common/schema/endpoints/vpnInfo';
 import { type LocationWithPing } from '../endpoints/LocationWithPing';
 import { type LocationsTab } from '../endpoints/locationsEnums';
-import { type VariantCache } from '../abTestManager/ABTestManager';
+import { type ExperimentSlotValues } from '../abTestManager/ABTestManager';
 import { type FlagsStorageData } from '../flagsStorageData';
 import { type LocalePreference } from '../../common/locale';
 
@@ -167,7 +167,7 @@ export interface PopupDataInterface {
     /**
      * Cached A/B experiment variant assignments.
      */
-    experimentVariants?: VariantCache;
+    experimentVariants?: ExperimentSlotValues;
 
     /**
      * Active profile ID.

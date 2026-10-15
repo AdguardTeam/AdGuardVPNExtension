@@ -16,10 +16,17 @@ import {
 import { translator } from '../../../common/translator';
 import { IconButton } from '../../../common/components/Icons';
 import { rootStore } from '../../stores';
-import { PROFILES_PATH } from '../Profiles/profileRoutes';
+import {
+    ABOUT_PATH,
+    ACCOUNT_PATH,
+    FREE_GBS_PATH,
+    GENERAL_PATH,
+    SUPPORT_PATH,
+} from '../routes';
 
 import { SidebarLink } from './SidebarLink';
 import { Rate } from './Rate';
+import { ProfileSwitcher } from './ProfileSwitcher';
 
 import './sidebar.pcss';
 
@@ -28,7 +35,7 @@ import './sidebar.pcss';
  */
 export const Sidebar = observer(() => {
     const {
-        settingsStore, uiStore, telemetryStore, profilesStore,
+        settingsStore, uiStore, telemetryStore,
     } = useContext(rootStore);
 
     const {
@@ -36,8 +43,6 @@ export const Sidebar = observer(() => {
         allQuestsCompleted,
         closeSubComponents,
     } = settingsStore;
-
-    const { activeProfileDisplayName } = profilesStore;
 
     const {
         isSidebarOpen,
@@ -113,44 +118,28 @@ export const Sidebar = observer(() => {
                 </div>
                 <nav className="sidebar__nav" onClick={handleCloseAll}>
                     <SidebarLink
-                        to="/"
+                        to={GENERAL_PATH}
                         telemetryActionName={TelemetryActionName.GeneralSettingsClick}
                         onClick={handleLinkClick}
                     >
-                        {translator.getMessage('settings_general_title')}
+                        {translator.getMessage('settings_title')}
                     </SidebarLink>
                     <SidebarLink
-                        to={PROFILES_PATH}
-                        exact={false}
-                        subtitle={activeProfileDisplayName}
-                        telemetryActionName={TelemetryActionName.ProfilesSettingsClick}
-                        onClick={handleLinkClick}
-                    >
-                        {translator.getMessage('settings_profiles_sidebar_title')}
-                    </SidebarLink>
-                    <SidebarLink
-                        to="/exclusions"
-                        telemetryActionName={TelemetryActionName.ExclusionsSettingsClick}
-                        onClick={handleLinkClick}
-                    >
-                        {translator.getMessage('settings_exclusion_title')}
-                    </SidebarLink>
-                    <SidebarLink
-                        to="/account"
+                        to={ACCOUNT_PATH}
                         telemetryActionName={TelemetryActionName.AccountSettingsClick}
                         onClick={handleLinkClick}
                     >
                         {translator.getMessage('account_title')}
                     </SidebarLink>
                     <SidebarLink
-                        to="/support"
+                        to={SUPPORT_PATH}
                         telemetryActionName={TelemetryActionName.SupportSettingsClick}
                         onClick={handleLinkClick}
                     >
                         {translator.getMessage('options_support_title')}
                     </SidebarLink>
                     <SidebarLink
-                        to="/about"
+                        to={ABOUT_PATH}
                         telemetryActionName={TelemetryActionName.AboutSettingsClick}
                         onClick={handleLinkClick}
                     >
@@ -158,7 +147,7 @@ export const Sidebar = observer(() => {
                     </SidebarLink>
                     {!isPremiumToken && (
                         <SidebarLink
-                            to="/free-gbs"
+                            to={FREE_GBS_PATH}
                             hasBullet={!allQuestsCompleted}
                             telemetryActionName={TelemetryActionName.FreeGbsSettingsClick}
                             onClick={handleLinkClick}
@@ -173,6 +162,7 @@ export const Sidebar = observer(() => {
                     onClick={closeSidebar}
                 />
                 <Rate />
+                <ProfileSwitcher onNavigate={handleCloseAll} />
             </div>
         </div>
     );

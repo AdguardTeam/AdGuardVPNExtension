@@ -22,7 +22,6 @@ import { NoLocationsError } from '../NoLocationsError';
 import { LimitedOfferModal } from '../LimitedOfferModal';
 import { MobileEdgePromo } from '../MobileEdgePromo';
 import { Stats } from '../Stats';
-import { ProfilesScreen } from '../Profiles/ProfilesScreen';
 import { ProfileToast } from '../Profiles/ProfileToast/ProfileToast';
 
 import { PopupScreen } from './popupAppMachineEnums';
@@ -70,6 +69,7 @@ export const derivePopupScreen = (deps: PopupScreenDeps): PopupScreen => {
         hasLimitExceededError,
         showLimitExceededScreen,
         isHostPermissionsGranted,
+        freeUserClickedPremiumLocation,
     } = settingsStore;
 
     const { authenticated, renderUpgradeScreen } = authStore;
@@ -79,7 +79,6 @@ export const derivePopupScreen = (deps: PopupScreenDeps): PopupScreen => {
         isPremiumToken,
         filteredLocations,
         notSearchingAndSavedTab,
-        isProfilesScreenOpen,
     } = vpnStore;
 
     // show browser permission error after user is authenticated
@@ -108,6 +107,14 @@ export const derivePopupScreen = (deps: PopupScreenDeps): PopupScreen => {
         return PopupScreen.LimitExceeded;
     }
 
+    // A free user clicked a premium-only location (AG-57544): the paywall
+    // replaces the locations screen, so it must be checked before it.
+    // Keep separate from the onboarding upgrade check below, which
+    // intentionally loses to the locations screen.
+    if (!isPremiumToken && freeUserClickedPremiumLocation) {
+        return PopupScreen.UpgradeScreen;
+    }
+
     if (isOpenLocationsScreen) {
         return PopupScreen.Locations;
     }
@@ -118,10 +125,6 @@ export const derivePopupScreen = (deps: PopupScreenDeps): PopupScreen => {
 
     if (isOpenStatsScreen) {
         return PopupScreen.Stats;
-    }
-
-    if (isProfilesScreenOpen) {
-        return PopupScreen.Profiles;
     }
 
     return PopupScreen.Main;
@@ -140,8 +143,7 @@ export interface PopupScreenRenderFlags {
     shouldShowRegionNotice: boolean;
     isVpnBlocked: boolean;
     isLimitedOfferActive: boolean;
-    isCurrentTabExcluded: boolean;
-    canBeExcluded: boolean;
+    isSiteExcluded: boolean;
     canControlProxy: boolean;
     premiumPromoEnabled: boolean | null;
 }
@@ -155,9 +157,9 @@ export interface PopupScreenRenderFlags {
  * details specific to that screen — e.g. the options modal
  * (`isOpenOptionsModal`), VPN-blocked /region warnings and the limited-offer
  * modal (`isVpnBlocked`, `shouldShowRegionNotice`, `isLimitedOfferActive`),
- * exclusions vs. settings (`isCurrentTabExcluded`, `canBeExcluded`) and the
- * footer message (`premiumPromoEnabled`). Those flags do not change which
- * screen is active, only what is rendered inside it.
+ * exclusions vs. settings (`isSiteExcluded`) and the footer message
+ * (`premiumPromoEnabled`). Those flags do not change which screen is active,
+ * only what is rendered inside it.
  *
  * `Icons` and `ServerErrorPopup` are intentionally not rendered here: they are
  * lifted to the single top-level return in {@link App} so they render exactly
@@ -177,8 +179,7 @@ export const renderPopupScreen = (
         shouldShowRegionNotice,
         isVpnBlocked,
         isLimitedOfferActive,
-        isCurrentTabExcluded,
-        canBeExcluded,
+        isSiteExcluded,
         canControlProxy,
         premiumPromoEnabled,
     } = flags;
@@ -232,21 +233,13 @@ export const renderPopupScreen = (
             return <Stats />;
         }
 
-        case PopupScreen.Profiles: {
-            return (
-                <>
-                    <ProfilesScreen />
-                    <ProfileToast />
-                </>
-            );
-        }
-
         case PopupScreen.Main:
         default: {
             return (
                 <>
                     <ConnectionsLimitError />
                     <PromoNotificationModal />
+                    <ProfileToast />
                     {isOpenOptionsModal && <ExtraOptions />}
                     <MobileEdgePromo />
                     <Header showMenuButton={authenticated} />
@@ -260,7 +253,7 @@ export const renderPopupScreen = (
                         isLimitedOfferActive
                         && <LimitedOfferModal />
                     }
-                    {isCurrentTabExcluded && canBeExcluded
+                    {isSiteExcluded
                         ? <ExclusionsScreen />
                         : (
                             <>

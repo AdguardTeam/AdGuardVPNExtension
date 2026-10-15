@@ -85,16 +85,9 @@ const exportExclusions = async (profileId: string): Promise<void> => {
 };
 
 /**
- * Actions component props.
+ * Actions component.
  */
-interface ActionsProps {
-    /**
-     * Whether the component is rendered inside a profile context.
-     */
-    isProfileContext: boolean;
-}
-
-export const Actions = observer(({ isProfileContext }: ActionsProps) => {
+export const Actions = observer(() => {
     const { exclusionsStore, notificationsStore, telemetryStore } = useContext(rootStore);
     const { selectListModalOpen } = exclusionsStore;
 
@@ -170,27 +163,19 @@ export const Actions = observer(({ isProfileContext }: ActionsProps) => {
     };
 
     const handleAction = async (action: Action): Promise<void> => {
-        const screenName = isProfileContext
-            ? TelemetryScreenName.ProfileExclusionScreen
-            : TelemetryScreenName.ExclusionsScreen;
-
         switch (action) {
             case Action.Export: {
                 telemetryStore.sendCustomEvent(
-                    isProfileContext
-                        ? TelemetryActionName.ProfileExportExclusionsClick
-                        : TelemetryActionName.ExportExclusionsClick,
-                    screenName,
+                    TelemetryActionName.ActionsExportExclusionsClick,
+                    TelemetryScreenName.ExclusionsScreen,
                 );
                 await exportExclusions(exclusionsStore.effectiveProfileId);
                 break;
             }
             case Action.Import: {
                 telemetryStore.sendCustomEvent(
-                    isProfileContext
-                        ? TelemetryActionName.ProfileOpenImportExclusionsClick
-                        : TelemetryActionName.OpenImportExclusionsClick,
-                    screenName,
+                    TelemetryActionName.ActionsImportExclusionsClick,
+                    TelemetryScreenName.ExclusionsScreen,
                 );
                 if (importEl.current) {
                     importEl.current.click();
@@ -199,10 +184,8 @@ export const Actions = observer(({ isProfileContext }: ActionsProps) => {
             }
             case Action.Remove: {
                 telemetryStore.sendCustomEvent(
-                    isProfileContext
-                        ? TelemetryActionName.ProfileOpenRemoveExclusionsClick
-                        : TelemetryActionName.OpenRemoveExclusionsClick,
-                    screenName,
+                    TelemetryActionName.ActionsRemoveExclusionsClick,
+                    TelemetryScreenName.ExclusionsScreen,
                 );
                 await exclusionsStore.openRemoveAllModal();
                 break;

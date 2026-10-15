@@ -32,16 +32,32 @@ function* turnOnProxy(forcePrevEndpoint = false): Generator<Promise<unknown>, vo
     const entryTime = Date.now();
     try {
         yield credentials.trackInstallation();
-        const selectedLocation: LocationInterface | null = yield locationsService.getSelectedLocation();
-        if (selectedLocation) {
-            const selectedEndpoint: EndpointInterface | null = yield locationsService.getEndpointByLocation(
-                selectedLocation,
-                forcePrevEndpoint,
-            );
+        let selectedLocation: LocationInterface | null = yield locationsService.getSelectedLocation();
 
-            if (selectedEndpoint) {
-                yield proxy.setCurrentEndpoint(selectedEndpoint, selectedLocation);
-            }
+        // Resolve the fastest location so the connect target matches the
+        // location shown in the popup: "fastest location" profiles must not
+        // reuse a location resolved earlier, and a profile without a stored
+        // location (fresh install, new profile) has nothing else to connect to.
+        // A location picked by the user is kept as is.
+        const shouldResolveFastest = !selectedLocation
+            || (yield locationsService.shouldResolveFastestLocation());
+
+        if (shouldResolveFastest) {
+            const resolvedLocation: LocationInterface | null = yield locationsService.selectFastestLocation();
+            selectedLocation = resolvedLocation || selectedLocation;
+        }
+
+        if (!selectedLocation) {
+            throw new Error('The selected location is not resolved yet');
+        }
+
+        const selectedEndpoint: EndpointInterface | null = yield locationsService.getEndpointByLocation(
+            selectedLocation,
+            forcePrevEndpoint,
+        );
+
+        if (selectedEndpoint) {
+            yield proxy.setCurrentEndpoint(selectedEndpoint, selectedLocation);
         }
 
         const accessCredentials: AccessCredentialsData = yield credentials.getAccessCredentials();

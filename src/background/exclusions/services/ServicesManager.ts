@@ -1,15 +1,21 @@
 import browser from 'webextension-polyfill';
 import axios from 'axios';
+import isEqual from 'lodash/isEqual';
 
 import { vpnProvider } from '../../providers/vpnProvider';
 import { browserApi } from '../../browserApi';
+import { i18n } from '../../../common/i18n';
+import { normalizeLanguage } from '../../../common/utils/promo';
 import { log } from '../../../common/logger';
 import { type ServiceDto } from '../../../common/exclusionsConstants';
 import { fetchConfig } from '../../../common/fetch-config';
+import { PromiseQueue } from '../../../common/promiseQueue';
 import { StateData } from '../../stateStorage';
 import { StorageKey, type ServicesInterface, type ServicesIndexType } from '../../schema';
 
 import { type Service } from './Service';
+
+const { decorator: serialized } = new PromiseQueue();
 
 interface ServiceManagerInterface {
     /**
@@ -56,8 +62,20 @@ interface ServiceManagerInterface {
 
     /**
      * Updates services data from server if needed.
+     *
+     * @param force If true, skips the update timeout check and fetches from server.
+     * @param locale Locale to record after a successful fetch. Defaults to the current app locale.
+     * @returns True if the services were fetched from the server; false if the
+     * update was skipped (update timeout has not expired yet) or the fetch failed.
      */
-    updateServices(): Promise<void>;
+    updateServices(force?: boolean, locale?: string): Promise<boolean>;
+
+    /**
+     * Retrieves the locale for which the services were last successfully fetched.
+     *
+     * @returns Locale code or null if services have never been fetched.
+     */
+    getLastUpdateLocale(): Promise<string | null>;
 
     /**
      * Gets exclusions services from server.
@@ -111,6 +129,13 @@ export class ServicesManager implements ServiceManagerInterface {
         const persistentServices = await this.getServicesFromStorage();
         if (persistentServices) {
             await this.setServices(persistentServices);
+
+            const locale = i18n.getUILanguage();
+            const lastUpdateLocale = await this.getLastUpdateLocale();
+            if (lastUpdateLocale !== locale) {
+                await this.updateServices(true, locale);
+            }
+
             return;
         }
 
@@ -189,25 +214,43 @@ export class ServicesManager implements ServiceManagerInterface {
     }
 
     /** @inheritdoc */
-    public async updateServices(): Promise<void> {
-        const { lastUpdateTimeMs } = await this.servicesManagerState.get();
+    @serialized
+    public async updateServices(force = false, locale = i18n.getUILanguage()): Promise<boolean> {
+        const { lastUpdateTimeMs, services: currentServices } = await this.servicesManagerState.get();
+        const normalizedLocale = normalizeLanguage(locale) ?? locale;
 
-        const shouldUpdate = lastUpdateTimeMs === null
+        const shouldUpdate = force
+            || lastUpdateTimeMs === null
             || (Date.now() - lastUpdateTimeMs) > this.UPDATE_TIMEOUT_MS;
 
         if (!shouldUpdate) {
-            return;
+            return false;
         }
 
         try {
             const services = await this.getServicesFromServer();
-            await this.saveServicesInStorage(services);
-            await this.setServices(services);
-            await this.servicesManagerState.update({ lastUpdateTimeMs: Date.now() });
+            const servicesChanged = !isEqual(currentServices, services);
+            if (servicesChanged) {
+                await this.saveServicesInStorage(services);
+                await this.setServices(services);
+            }
+
+            await this.servicesManagerState.update({
+                lastUpdateTimeMs: Date.now(),
+                lastUpdateLocale: normalizedLocale,
+            });
             log.info('[vpn.ServicesManager.updateServices]: Services data updated successfully');
+            return true;
         } catch (e) {
             log.error('[vpn.ServicesManager.updateServices]: ', new Error(`Was unable to get services due to: ${e.message}`));
+            return false;
         }
+    }
+
+    /** @inheritdoc */
+    public async getLastUpdateLocale(): Promise<string | null> {
+        const { lastUpdateLocale } = await this.servicesManagerState.get();
+        return lastUpdateLocale;
     }
 
     /** @inheritdoc */

@@ -19,7 +19,7 @@ interface DepsInput {
     isPremiumToken: boolean;
     filteredLocationsLength: number;
     notSearchingAndSavedTab: boolean;
-    isProfilesScreenOpen: boolean;
+    freeUserClickedPremiumLocation: boolean;
 }
 
 const DEFAULT_INPUT: Required<DepsInput> = {
@@ -35,7 +35,7 @@ const DEFAULT_INPUT: Required<DepsInput> = {
     isPremiumToken: true,
     filteredLocationsLength: 1,
     notSearchingAndSavedTab: true,
-    isProfilesScreenOpen: false,
+    freeUserClickedPremiumLocation: false,
 };
 
 /**
@@ -57,6 +57,7 @@ const makeDeps = (input: Partial<DepsInput> = {}): PopupScreenDeps => {
             hasLimitExceededError: i.hasLimitExceededError,
             showLimitExceededScreen: i.showLimitExceededScreen,
             isHostPermissionsGranted: i.isHostPermissionsGranted,
+            freeUserClickedPremiumLocation: i.freeUserClickedPremiumLocation,
         },
         authStore: {
             authenticated: i.authenticated,
@@ -68,7 +69,6 @@ const makeDeps = (input: Partial<DepsInput> = {}): PopupScreenDeps => {
             isPremiumToken: i.isPremiumToken,
             filteredLocations: Array(i.filteredLocationsLength).fill({}),
             notSearchingAndSavedTab: i.notSearchingAndSavedTab,
-            isProfilesScreenOpen: i.isProfilesScreenOpen,
         },
     } as unknown as PopupScreenDeps;
 };
@@ -87,6 +87,8 @@ describe('derivePopupScreen', () => {
                 hasGlobalError: true,
                 showLimitExceededScreen: true,
                 isOpenLocationsScreen: true,
+                isPremiumToken: false,
+                freeUserClickedPremiumLocation: true,
             }));
 
             expect(screen).toBe(PopupScreen.HostPermissionsError);
@@ -97,6 +99,8 @@ describe('derivePopupScreen', () => {
                 showLimitExceededScreen: true,
                 isOpenLocationsScreen: true,
                 filteredLocationsLength: 0,
+                isPremiumToken: false,
+                freeUserClickedPremiumLocation: true,
             }));
 
             expect(screen).toBe(PopupScreen.NoLocationsError);
@@ -108,6 +112,8 @@ describe('derivePopupScreen', () => {
                 showLimitExceededScreen: true,
                 isOpenLocationsScreen: true,
                 filteredLocationsLength: 0,
+                isPremiumToken: false,
+                freeUserClickedPremiumLocation: true,
             }));
 
             expect(screen).toBe(PopupScreen.GlobalError);
@@ -144,44 +150,63 @@ describe('derivePopupScreen', () => {
             expect(screen).toBe(PopupScreen.LimitExceeded);
         });
 
-        it('locations beats upgrade / stats / profiles', () => {
+        it('locations beats upgrade / stats', () => {
             const screen = derivePopupScreen(makeDeps({
                 isOpenLocationsScreen: true,
                 isPremiumToken: false,
                 renderUpgradeScreen: true,
                 isOpenStatsScreen: true,
-                isProfilesScreenOpen: true,
             }));
 
             expect(screen).toBe(PopupScreen.Locations);
         });
 
-        it('upgrade paywall beats stats and profiles', () => {
+        it('premium-location paywall beats the locations screen', () => {
             const screen = derivePopupScreen(makeDeps({
                 isPremiumToken: false,
-                renderUpgradeScreen: true,
-                isOpenStatsScreen: true,
-                isProfilesScreenOpen: true,
+                isOpenLocationsScreen: true,
+                freeUserClickedPremiumLocation: true,
             }));
 
             expect(screen).toBe(PopupScreen.UpgradeScreen);
         });
 
-        it('stats beats profiles', () => {
+        it('premium-location paywall is only for non-premium users', () => {
+            const screen = derivePopupScreen(makeDeps({
+                isPremiumToken: true,
+                isOpenLocationsScreen: true,
+                freeUserClickedPremiumLocation: true,
+            }));
+
+            expect(screen).toBe(PopupScreen.Locations);
+        });
+
+        it('limit-exceeded beats the premium-location paywall', () => {
+            const screen = derivePopupScreen(makeDeps({
+                isPremiumToken: false,
+                showLimitExceededScreen: true,
+                freeUserClickedPremiumLocation: true,
+            }));
+
+            expect(screen).toBe(PopupScreen.LimitExceeded);
+        });
+
+        it('upgrade paywall beats stats', () => {
+            const screen = derivePopupScreen(makeDeps({
+                isPremiumToken: false,
+                renderUpgradeScreen: true,
+                isOpenStatsScreen: true,
+            }));
+
+            expect(screen).toBe(PopupScreen.UpgradeScreen);
+        });
+
+        it('stats is selected when only its flag is set', () => {
             const screen = derivePopupScreen(makeDeps({
                 isOpenStatsScreen: true,
-                isProfilesScreenOpen: true,
             }));
 
             expect(screen).toBe(PopupScreen.Stats);
-        });
-
-        it('profiles is selected when only its flag is set', () => {
-            const screen = derivePopupScreen(makeDeps({
-                isProfilesScreenOpen: true,
-            }));
-
-            expect(screen).toBe(PopupScreen.Profiles);
         });
     });
 
@@ -190,6 +215,8 @@ describe('derivePopupScreen', () => {
             const screen = derivePopupScreen(makeDeps({
                 authenticated: false,
                 hasGlobalError: false,
+                isPremiumToken: false,
+                freeUserClickedPremiumLocation: true,
             }));
 
             expect(screen).toBe(PopupScreen.NotAuthenticated);

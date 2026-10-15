@@ -53,13 +53,13 @@ export const BackgroundAnimationFF = React.memo(observer(() => {
     };
 
     useEffect(() => {
-        animationService.onTransition((state) => {
+        const listener: Parameters<typeof animationService.onTransition>[0] = (state) => {
             settingsStore.setAnimationState(state.value as AnimationState);
-        });
+        };
+        animationService.onTransition(listener);
 
         return (): void => {
-            // Finish in-progress transition to prevent animation restart
-            settingsStore.handleAnimationEnd();
+            animationService.off(listener);
         };
     }, [settingsStore]);
 
@@ -68,7 +68,9 @@ export const BackgroundAnimationFF = React.memo(observer(() => {
         const currentVideo = videoRefs.current[animationState];
         if (currentVideo) {
             currentVideo.currentTime = 0;
-            currentVideo.play();
+            currentVideo.play().catch(() => {
+                // rejected when a state change pauses the element while it is starting
+            });
         }
 
         Object.entries(videoRefs.current).forEach(([state, video]) => {

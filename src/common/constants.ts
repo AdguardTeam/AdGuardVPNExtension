@@ -12,7 +12,7 @@ import { type LocationWithPing } from '../background/endpoints/LocationWithPing'
 import { type RequestSupportResponse } from '../background/providers/vpnProvider';
 import { type ForwarderUrlQueryKey } from '../background/config';
 import { type PopupDataRetry } from '../background/popupData/popupDataTypes';
-import { type VariantCache } from '../background/abTestManager/ABTestManager';
+import { type ExperimentSlotValues } from '../background/abTestManager/ABTestManager';
 import {
     type TelemetryActionName,
     type TelemetryActionToScreenMap,
@@ -108,6 +108,7 @@ export const THEME_URL_PARAMETER = 'theme';
 export enum QuickConnectSetting {
     LastUsedLocation = 'lastUsedLocation',
     FastestLocation = 'fastestLocation',
+    SpecificLocation = 'specificLocation',
 }
 
 export const QUICK_CONNECT_SETTING_DEFAULT = QuickConnectSetting.LastUsedLocation;
@@ -140,6 +141,7 @@ export enum MessageType {
     REMOVE_EXCLUSION = 'remove.exclusion',
     DISABLE_VPN_BY_URL = 'disable.vpn.by.url',
     ENABLE_VPN_BY_URL = 'enable.vpn.by.url',
+    IS_VPN_ENABLED_BY_URL = 'is.vpn.enabled.by.url',
     DISABLE_OTHER_EXTENSIONS = 'disable.other.extensions',
     IS_AUTHENTICATED = 'is.authenticated',
     CLEAR_PERMISSIONS_ERROR = 'clear.permissions.error',
@@ -293,7 +295,7 @@ export interface GetStartupDataResponse {
     marketingConsent: boolean | null;
     isPremiumToken: boolean;
     selectedLanguage: LocalePreference;
-    experimentVariants: VariantCache;
+    experimentVariants: ExperimentSlotValues;
 }
 
 type DefaultMessage <T> = {
@@ -409,6 +411,13 @@ export type EnableVpnByUrlMessage = {
     type: MessageType.ENABLE_VPN_BY_URL;
     data: {
         url: string;
+    };
+};
+
+export type IsVpnEnabledByUrlMessage = {
+    type: MessageType.IS_VPN_ENABLED_BY_URL;
+    data: {
+        url: string | null;
     };
 };
 
@@ -828,7 +837,7 @@ export interface MessageMap {
     };
     [MessageType.SET_SELECTED_LOCATION]: {
         message: SetSelectedLocationMessage;
-        response: void;
+        response: boolean;
     };
     [MessageType.DEAUTHENTICATE_USER]: {
         message: DefaultMessage<MessageType.DEAUTHENTICATE_USER>;
@@ -861,6 +870,10 @@ export interface MessageMap {
     [MessageType.ENABLE_VPN_BY_URL]: {
         message: EnableVpnByUrlMessage;
         response: void;
+    };
+    [MessageType.IS_VPN_ENABLED_BY_URL]: {
+        message: IsVpnEnabledByUrlMessage;
+        response: boolean;
     };
     [MessageType.REMOVE_EXCLUSION]: {
         message: RemoveExclusionMessage;

@@ -7,7 +7,7 @@ import {
 } from 'vitest';
 
 import { ExclusionsMode, ExclusionState, ExclusionsType } from '../../../src/common/exclusionsConstants';
-import { DEFAULT_PROFILE_ID, type ProfilesOptionsData } from '../../../src/common/profiles';
+import { DEFAULT_PROFILE_ID, ProfileChangeReason, type ProfilesOptionsData } from '../../../src/common/profiles';
 import { DEFAULT_PROFILE_SETTINGS } from '../../../src/background/schema';
 import { type ProfilesState } from '../../../src/background/schema';
 import { ProfilesStore } from '../../../src/options/stores/ProfilesStore';
@@ -479,13 +479,19 @@ describe('ProfilesStore', () => {
     });
 
     describe('handleProfileChanged notifications', () => {
-        it('should not show notification on successful switch', () => {
+        it('should show success notification with the profile name on successful switch', () => {
+            store.setProfilesData(MOCK_PROFILES_DATA);
+
             store.handleProfileChanged({
                 profileId: CUSTOM_PROFILE.id,
                 success: true,
             });
 
-            expect(mockNotificationsStore.notifySuccess).not.toHaveBeenCalled();
+            expect(mockGetMessage).toHaveBeenCalledWith(
+                'profile_switched',
+                { profile_name: CUSTOM_PROFILE.name },
+            );
+            expect(mockNotificationsStore.notifySuccess).toHaveBeenCalledWith(TRANSLATED_DEFAULT_NAME);
             expect(mockNotificationsStore.notifyError).not.toHaveBeenCalled();
         });
 
@@ -499,7 +505,7 @@ describe('ProfilesStore', () => {
             expect(mockNotificationsStore.notifySuccess).not.toHaveBeenCalled();
         });
 
-        it('should show error notification on failed delete-fallback', () => {
+        it('should show error notification on failed switch to the default profile', () => {
             store.handleProfileChanged({
                 profileId: DEFAULT_PROFILE.id,
                 success: false,
@@ -507,6 +513,32 @@ describe('ProfilesStore', () => {
 
             expect(mockNotificationsStore.notifyError).toHaveBeenCalledTimes(1);
             expect(mockNotificationsStore.notifySuccess).not.toHaveBeenCalled();
+        });
+
+        it('should not show notifications for a switch caused by profile deletion', () => {
+            store.setProfilesData(MOCK_PROFILES_DATA);
+
+            store.handleProfileChanged({
+                profileId: DEFAULT_PROFILE.id,
+                success: true,
+                reason: ProfileChangeReason.DeleteFallback,
+            });
+
+            expect(mockNotificationsStore.notifySuccess).not.toHaveBeenCalled();
+            expect(mockNotificationsStore.notifyError).not.toHaveBeenCalled();
+            expect(store.activeProfileId).toBe(DEFAULT_PROFILE.id);
+        });
+
+        it('should not show an error notification for a failed switch caused by profile deletion', () => {
+            store.handleProfileChanged({
+                profileId: CUSTOM_PROFILE.id,
+                success: false,
+                reason: ProfileChangeReason.DeleteFallback,
+            });
+
+            expect(mockNotificationsStore.notifyError).not.toHaveBeenCalled();
+            expect(mockNotificationsStore.notifySuccess).not.toHaveBeenCalled();
+            expect(store.isSwitchingProfile).toBe(false);
         });
 
         it('should still update state on delete-fallback even without notification', () => {

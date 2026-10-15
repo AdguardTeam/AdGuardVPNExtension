@@ -24,7 +24,9 @@ export const enum AnimationEvent {
     AnimationEnded = 'animationEnded',
     LocationSelected = 'locationSelected',
     VpnDisconnectedRetrying = 'vpnDisconnectedRetrying',
-    ExclusionScreenDisplayed = 'exclusionScreenDisplayed',
+    SiteExcluded = 'siteExcluded',
+    InitEnabled = 'initEnabled',
+    InitDisabled = 'initDisabled',
 }
 
 type AnimationSourcesMap = {

@@ -16,6 +16,7 @@ export {
     type ProfilesStateStripped,
     type ProfilesOptionsData,
     type ActiveProfileChangedPayload,
+    ProfileChangeReason,
 } from './types';
 
 export {

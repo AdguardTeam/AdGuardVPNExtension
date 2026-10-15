@@ -95,7 +95,10 @@ export function NotificationItem({ value, onClose }: NotificationItemProps): Rea
     return (
         // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
         <div className={classes} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
-            <Icon name="info" className="notifications__item-icon" />
+            <Icon
+                name={isSuccess ? 'tick' : 'info'}
+                className="notifications__item-icon"
+            />
             <div className="notifications__item-content">
                 <div className="notifications__item-message">
                     {value.message}

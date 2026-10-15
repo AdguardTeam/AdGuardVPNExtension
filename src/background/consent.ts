@@ -2,10 +2,11 @@ import { SETTINGS_IDS } from '../common/constants';
 import { type LocalePreference } from '../common/locale';
 
 import { authCache } from './authentication';
+import { webAuth } from './auth';
 import { forwarder } from './forwarder';
 import { settings } from './settings';
 import { type AuthCacheData } from './authentication/authCacheTypes';
-import { type VariantCache } from './abTestManager/ABTestManager';
+import { type ExperimentSlotValues } from './abTestManager/ABTestManager';
 import { abTestManager } from './abTestManager';
 import { telemetry } from './telemetry';
 
@@ -20,7 +21,7 @@ export type ConsentDataResponse = AuthCacheData & {
      * Experiment variant assignments. Resolved early (same path as consent)
      * so onboarding can decide control vs personalized before startup UI.
      */
-    experimentVariants: VariantCache;
+    experimentVariants: ExperimentSlotValues;
 };
 
 /**
@@ -38,6 +39,11 @@ export type ConsentDataResponse = AuthCacheData & {
  * - `experimentVariants` - Cached A/B experiment variant assignments.
  */
 export const getConsentData = async (): Promise<ConsentDataResponse> => {
+    // Wait for the web authentication flow state to be restored after the service worker
+    // wake-up, so a live in-flight flow is not reported as idle to the consent page
+    // and the popup before the restore has finished.
+    await webAuth.waitForInit();
+
     const {
         policyAgreement,
         helpUsImprove,

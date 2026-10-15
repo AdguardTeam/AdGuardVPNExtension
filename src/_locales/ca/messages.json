@@ -147,8 +147,37 @@
     "privacy_policy": {
         "message": "Política de privacitat"
     },
+    "settings_title": {
+        "message": "Configuració"
+    },
     "settings_general_title": {
-        "message": "General"
+        "message": "Configuració general"
+    },
+    "settings_general_description": {
+        "message": "Aplica a tots els perfils. Si canvieu de perfil, la configuració es mantindrà igual"
+    },
+    "settings_current_profile": {
+        "message": "Perfil actual: <b>%profile_name%</b>"
+    },
+    "settings_current_profile_description": {
+        "message": "Aplica al perfil actual. Si canvieu de perfil, la configuració també pot canviar"
+    },
+    "settings_unlimited_promo_title": {
+        "message": "Obtingueu la versió il·limitada"
+    },
+    "settings_unlimited_promo_feature_speed": {
+        "message": "Streaming sense límits de velocitat"
+    },
+    "settings_unlimited_promo_feature_locations": {
+        "message": "%count%+ ubicacions segures | %count%+ ubicació segura | %count%+ ubicacions segures",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_feature_devices": {
+        "message": "Fins a %count% dispositius en un compte | Fins a %count% dispositius en un compte | Fins a %count% dispositius en un compte",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_upgrade_button": {
+        "message": "Millorar"
     },
     "referral_get_free_traffic": {
         "message": "Obteniu GB gratuïts!"
@@ -428,8 +457,8 @@
     "settings_quick_connect_title": {
         "message": "Connexió ràpida"
     },
-    "settings_quick_connect_subtitle": {
-        "message": "Ubicació VPN seleccionada quan feu clic a Connexió"
+    "settings_quick_connect_description": {
+        "message": "Ubicació VPN per defecte quan canvieu al perfil o obriu el navegador"
     },
     "settings_quick_connect_last_used": {
         "message": "Última ubicació utilitzada"
@@ -539,8 +568,11 @@
     "settings_exclusion_title": {
         "message": "Exclusions"
     },
-    "settings_location_label": {
-        "message": "Ubicació"
+    "settings_exclusion_general_state": {
+        "message": "VPN està activat a tot arreu excepte en llocs web específics"
+    },
+    "settings_exclusion_selective_state": {
+        "message": "VPN està activat només en llocs web seleccionats"
     },
     "settings_location_fastest_title": {
         "message": "Ubicació més ràpida"
@@ -548,14 +580,17 @@
     "settings_location_fastest_description": {
         "message": "Connectar automàticament a la ubicació més ràpida"
     },
-    "settings_profiles_title": {
-        "message": "Perfils"
+    "settings_location_last_used_description": {
+        "message": "Connectar automàticament a l'última ubicació utilitzada"
     },
-    "settings_profiles_sidebar_title": {
-        "message": "Perfil"
+    "settings_profiles_title": {
+        "message": "Gestionar perfils"
+    },
+    "settings_profiles_manage": {
+        "message": "Gestionar perfils"
     },
     "settings_profiles_subtitle": {
-        "message": "Et permet configurar servidors DNS i ubicacions i mantenir llistes d'exclusions separades per a diferents casos d'ús, com ara feina, casa o altres"
+        "message": "Utilitzeu la VPN per a diferents situacions, com ara la feina, casa, els nens o altres. Creeu un perfil i configureu una ubicació preferida, un servidor DNS i exclusions per a aquest"
     },
     "settings_profiles_default_name": {
         "message": "Per defecte"
@@ -573,7 +608,10 @@
         "message": "Esborra"
     },
     "settings_profiles_create": {
-        "message": "Crear"
+        "message": "Crear perfil"
+    },
+    "settings_profiles_open_settings": {
+        "message": "Obre la configuració"
     },
     "settings_profiles_create_modal_title": {
         "message": "Crear perfil"
@@ -616,9 +654,6 @@
     },
     "settings_profiles_delete_modal_submit": {
         "message": "Esborra"
-    },
-    "settings_description_current": {
-        "message": "Actual: %mode%"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "On és VPN activat"
@@ -695,14 +730,23 @@
     "popup_settings_stats": {
         "message": "Estadístiques"
     },
-    "popup_profiles_title": {
-        "message": "Perfils"
-    },
-    "popup_profiles_settings": {
-        "message": "Configuració"
-    },
     "profile_apply_error": {
         "message": "No s'han pogut canviar els perfils. Torneu-ho a provar o contacteu amb el suport"
+    },
+    "profile_switched": {
+        "message": "S'ha canviat a %profile_name%"
+    },
+    "profile_created": {
+        "message": "Perfil creat"
+    },
+    "profile_deleted": {
+        "message": "Perfil eliminat"
+    },
+    "profile_deleted_switched": {
+        "message": "Perfil eliminat. S'ha canviat a %profile_name%"
+    },
+    "profile_name_updated": {
+        "message": "Nom del perfil actualitzat"
     },
     "popup_settings_free_description": {
         "message": "Disponible a AdGuard VPN Unlimited"
@@ -876,7 +920,7 @@
         "message": "Deixar comentari"
     },
     "popup_compare_button": {
-        "message": "Per què l'aplicació és millor"
+        "message": "Per què l'aplicació d'escriptori és millor"
     },
     "popup_rate_modal_title": {
         "message": "Com és de fantàstic AdGuard VPN?"

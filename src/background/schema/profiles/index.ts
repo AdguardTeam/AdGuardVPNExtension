@@ -15,3 +15,9 @@ export {
     PROFILES_STATE_DEFAULTS,
     DEFAULT_PROFILE_SETTINGS,
 } from './profilesState';
+
+export {
+    profileSessionStateScheme,
+    type ProfileSessionState,
+    PROFILE_SESSION_STATE_DEFAULTS,
+} from './profileSessionState';

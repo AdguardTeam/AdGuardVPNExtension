@@ -5,7 +5,7 @@ import qs from 'qs';
 import { getDomain } from 'tldts';
 
 import { log } from '../../common/logger';
-import { getForwarderUrl, getLocationWithLowestPing, sleep } from '../../common/helpers';
+import { getForwarderUrl, getLocationWithLowestPing } from '../../common/helpers';
 import { notifier } from '../../common/notifier';
 import { proxy } from '../proxy';
 import { vpnProvider } from '../providers/vpnProvider';
@@ -22,7 +22,6 @@ import {
     StorageKey,
 } from '../schema';
 import type { VpnExtensionInfoInterface } from '../../common/schema/endpoints/vpnInfo';
-import { QuickConnectSetting } from '../../common/constants';
 import { forwarder } from '../forwarder';
 import { FORWARDER_URL_QUERIES } from '../config';
 import { StateData } from '../stateStorage';
@@ -57,7 +56,7 @@ import { type Location } from './Location';
 export interface EndpointsInterface {
     refreshData(): Promise<void>;
     getVpnInfo(): Promise<VpnExtensionInfoInterface | null>;
-    getSelectedLocation(): Promise<LocationWithPing | null>;
+    getSelectedLocation(options?: { persist?: boolean }): Promise<LocationWithPing | null>;
     getLocations(): Promise<LocationWithPing[]>;
     getLocationsFromServer(): Promise<Location[] | null>
     getVpnFailurePage(): Promise<string>;
@@ -381,60 +380,49 @@ class Endpoints implements EndpointsInterface {
         return locations;
     };
 
-    public getSelectedLocation = async (): Promise<LocationWithPing | null> => {
+    /**
+     * Returns the location to display, resolving the fastest location when
+     * the active profile prefers it, the VPN is disabled and the current
+     * location is not the user's own pick.
+     *
+     * @param options Getter options.
+     * @param options.persist Whether to store the resolved location in the
+     *   session and the active profile. Display-only callers (popup data)
+     *   pass false, so a location ranked without waiting for pings is not
+     *   stored; callers that do store the pick keep waiting for the ping
+     *   measurement, as before.
+     *
+     * @returns Selected location, or null when it cannot be resolved.
+     */
+    public getSelectedLocation = async (
+        { persist = true }: { persist?: boolean } = {},
+    ): Promise<LocationWithPing | null> => {
         const selectedLocation = await locationsService.getSelectedLocation();
         const isVPNDisabled = connectivityService.isVPNDisconnectedIdle() || connectivityService.isVPNIdle();
 
-        const activeSettings = profilesService.getActiveProfileSettings();
-        const doesUserPreferFastestLocation = activeSettings.quickConnect === QuickConnectSetting.FastestLocation;
-
-        // If there is no selected location or user prefers the fastest location and vpn is disabled
-        // we find the fastest location
+        // If there is no selected location, or the user prefers the fastest
+        // location and the VPN is disabled and the current location is not the
+        // user's own pick, we find the fastest location.
         const shouldSelectFasterLocation = !selectedLocation
-            || (doesUserPreferFastestLocation && isVPNDisabled);
+            || (isVPNDisabled && await locationsService.shouldResolveFastestLocation());
 
         if (!shouldSelectFasterLocation) {
             return new LocationWithPing(selectedLocation);
         }
 
-        const locations = await locationsService.getLocations();
-
-        if (isEmpty(locations)) {
-            return null;
-        }
-
-        const isPremiumUser = await credentials.isPremiumToken();
-
-        let filteredLocations = locations;
-        if (!isPremiumUser) {
-            filteredLocations = locations.filter((location) => {
-                return !location.premiumOnly;
-            });
-        }
-
-        const pingsCalculated = filteredLocations.every((location) => {
-            return (location.available
-                && location.ping && location.ping > 0) || !location.available;
+        const fastestLocation = await locationsService.selectFastestLocation({
+            waitForPings: persist,
+            persist,
         });
+        const locationToDisplay = fastestLocation || selectedLocation;
 
-        const PINGS_WAIT_TIMEOUT_MS = 1000;
+        if (!locationToDisplay) {
+            log.debug('[vpn.Endpoints]: The fastest location is not resolved yet');
 
-        // not ready yet to determine default location
-        if (!pingsCalculated && locationsService.isMeasuringPingInProgress()) {
-            await sleep(PINGS_WAIT_TIMEOUT_MS);
-        }
-
-        const fastestLocation = getLocationWithLowestPing(filteredLocations);
-
-        if (!fastestLocation) {
             return null;
         }
 
-        await locationsService.setSelectedLocation(
-            profilesService.getActiveProfileId(),
-            fastestLocation.id,
-        );
-        return new LocationWithPing(fastestLocation);
+        return new LocationWithPing(locationToDisplay);
     };
 
     public getVpnFailurePage = async (): Promise<string> => {

@@ -31,18 +31,12 @@ type ExclusionsProps = {
      * Back button handler. When provided, Title shows a back arrow.
      */
     onBack?: () => void;
-
-    /**
-     * Whether the component is rendered inside a profile context.
-     * Defaults to false.
-     */
-    isProfileContext?: boolean;
 };
 
 /**
  * Exclusions page component.
  */
-export const Exclusions = observer(({ onBack, isProfileContext = false }: ExclusionsProps) => {
+export const Exclusions = observer(({ onBack }: ExclusionsProps) => {
     const { exclusionsStore, telemetryStore } = useContext(rootStore);
 
     useEffect(() => {
@@ -52,7 +46,15 @@ export const Exclusions = observer(({ onBack, isProfileContext = false }: Exclus
         };
     }, [exclusionsStore]);
 
-    const handleProfileHintClick = useProfileRouteNavigation(getProfileRoute);
+    const navigateToProfile = useProfileRouteNavigation(getProfileRoute);
+
+    const handleProfileHintClick = (hintProfileId: string): void => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.AppliesToProfileClick,
+            TelemetryScreenName.ExclusionsScreen,
+        );
+        navigateToProfile(hintProfileId);
+    };
 
     const {
         modeSelectorModalOpen,
@@ -70,13 +72,9 @@ export const Exclusions = observer(({ onBack, isProfileContext = false }: Exclus
         && !confirmAddModalOpen // `DialogExclusionsAddNotValidDomain` rendered on top of this screen
         && !selectListModalOpen; // `DialogImportedExclusions` rendered on top of this screen
 
-    const exclusionsScreenName = isProfileContext
-        ? TelemetryScreenName.ProfileExclusionScreen
-        : TelemetryScreenName.ExclusionsScreen;
-
     useTelemetryPageViewEvent(
         telemetryStore,
-        exclusionsScreenName,
+        TelemetryScreenName.ExclusionsScreen,
         canSendTelemetry,
     );
 
@@ -88,8 +86,8 @@ export const Exclusions = observer(({ onBack, isProfileContext = false }: Exclus
 
     const openModeSelectorModal = (): void => {
         telemetryStore.sendCustomEvent(
-            isProfileContext ? TelemetryActionName.ProfileModeClick : TelemetryActionName.ModeClick,
-            exclusionsScreenName,
+            TelemetryActionName.ModeClick,
+            TelemetryScreenName.ExclusionsScreen,
         );
         exclusionsStore.setModeSelectorModalOpen(true);
     };
@@ -122,8 +120,8 @@ export const Exclusions = observer(({ onBack, isProfileContext = false }: Exclus
 
     const onAddExclusionClick = (): void => {
         telemetryStore.sendCustomEvent(
-            isProfileContext ? TelemetryActionName.ProfileAddWebsiteClick : TelemetryActionName.AddWebsiteClick,
-            exclusionsScreenName,
+            TelemetryActionName.AddWebsiteClick,
+            TelemetryScreenName.ExclusionsScreen,
         );
         exclusionsStore.openAddExclusionModal();
     };
@@ -149,17 +147,15 @@ export const Exclusions = observer(({ onBack, isProfileContext = false }: Exclus
                 subtitle={(
                     <>
                         {modeInfo}
-                        {!isProfileContext && (
-                            <ProfileHint
-                                profileId={exclusionsStore.profileId}
-                                onClick={handleProfileHintClick}
-                            />
-                        )}
+                        <ProfileHint
+                            profileId={exclusionsStore.profileId}
+                            onClick={handleProfileHintClick}
+                        />
                         {renderSelectiveModeWarning()}
-                        <ExclusionsSearch isProfileContext={isProfileContext} />
+                        <ExclusionsSearch />
                     </>
                 )}
-                action={<Actions isProfileContext={isProfileContext} />}
+                action={<Actions />}
             />
             <List />
             {!exclusionsStore.exclusionsSearchValue && (
@@ -171,7 +167,7 @@ export const Exclusions = observer(({ onBack, isProfileContext = false }: Exclus
                     {translator.getMessage('settings_exclusion_add_website')}
                 </Button>
             )}
-            <AddExclusionModal isProfileContext={isProfileContext} />
+            <AddExclusionModal />
             <ConfirmAddModal />
             <ModeSelectorModal />
         </div>

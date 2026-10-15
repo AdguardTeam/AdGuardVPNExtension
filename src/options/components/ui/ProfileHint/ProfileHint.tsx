@@ -8,7 +8,8 @@ import './profile-hint.pcss';
 
 interface ProfileHintProps {
     /**
-     * Profile ID to reference. Falls back to the currently active profile.
+     * Profile ID to reference. Falls back to the currently active profile,
+     * for which the hint is not rendered.
      */
     profileId?: string;
 
@@ -22,22 +23,23 @@ interface ProfileHintProps {
 
 /**
  * Displays "Applies to your **ProfileName** profile" hint
- * when the given profileId matches a known profile and the user
- * has more than one profile.
+ * when the given profileId matches a known profile, the user
+ * has more than one profile, and the profile is not the active one.
  */
 export const ProfileHint = observer(({ profileId, onClick }: ProfileHintProps) => {
     const { profilesStore } = useContext(rootStore);
 
     const effectiveId = profileId ?? profilesStore.activeProfileId;
     const profile = profilesStore.profiles.find((p) => p.id === effectiveId);
+    const isActiveProfile = effectiveId === profilesStore.activeProfileId;
 
-    if (!profile || profilesStore.profiles.length <= 1) {
+    if (!profile || profilesStore.profiles.length <= 1 || isActiveProfile) {
         return null;
     }
 
     const content = reactTranslator.getMessage('settings_applies_to_profile', {
         profile_name: profilesStore.getDisplayName(profile),
-        b: (chunks: string) => <b>{chunks}</b>,
+        b: (chunks: string) => <b className="profile-hint__name">{chunks}</b>,
     });
 
     if (onClick) {

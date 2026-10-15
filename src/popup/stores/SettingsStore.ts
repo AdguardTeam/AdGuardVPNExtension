@@ -54,7 +54,11 @@ export class SettingsStore {
 
     @observable public isMobileEdgePromoBannerVisible: boolean;
 
-    @observable private freeUserClickedPremiumLocation: boolean = false;
+    /**
+     * Whether a free user clicked a premium-only location.
+     * When set, the purchase paywall is shown instead of the locations screen.
+     */
+    @observable private premiumLocationClickedByFreeUser: boolean = false;
 
     @observable private hasLimitExceededDisplayed: boolean = false;
 
@@ -91,6 +95,18 @@ export class SettingsStore {
     @observable public forwarderDomain: string;
 
     private rootStore: RootStore;
+
+    /**
+     * The popup initialization is in progress: the animation is not played
+     * until it finishes (see {@link finishInit}).
+     */
+    private isInitializing: boolean = true;
+
+    /**
+     * Number of the last started exclusion state refresh: the response of an
+     * older refresh is dropped even when it belongs to the same profile.
+     */
+    private refreshGeneration = 0;
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
@@ -136,12 +152,8 @@ export class SettingsStore {
     @action public disableVpnOnCurrentTab = async (): Promise<void> => {
         try {
             await messenger.disableVpnByUrl(this.currentTabHostname);
+            // plays the disconnection animation while connected
             this.setIsExcluded(true);
-            // play disconnection animation,
-            // if user connected to any location and added website to exclusions
-            if (this.isConnected) {
-                animationService.send(AnimationEvent.VpnDisconnected);
-            }
         } catch (e) {
             log.error('[vpn.SettingsStore]: ', e);
         }
@@ -150,12 +162,8 @@ export class SettingsStore {
     @action public enableVpnOnCurrentTab = async (): Promise<void> => {
         try {
             await messenger.enableVpnByUrl(this.currentTabHostname);
+            // plays the connection animation while connected
             this.setIsExcluded(false);
-            // play connection animation,
-            // if user connected to any location and removed website from exclusions
-            if (this.isConnected) {
-                animationService.send(AnimationEvent.VpnConnected);
-            }
         } catch (e) {
             log.error('[vpn.SettingsStore]: ', e);
         }
@@ -166,6 +174,70 @@ export class SettingsStore {
         runInAction(() => {
             this.exclusionsInverted = exclusionsInverted;
         });
+    };
+
+    /**
+     * Re-reads the active profile's exclusion state: the mode flag and whether
+     * VPN is disabled on the current tab. Called when the active profile changes
+     * while the popup is open; the tab url is resolved here if the popup is
+     * still loading. The result is applied only while it is the newest refresh
+     * for the profile that is still active, so a superseded refresh cannot leave
+     * the popup in the layout of a profile that is no longer selected.
+     *
+     * @param profileId Profile whose mode to read.
+     */
+    @action public refreshExclusionsState = async (profileId: string): Promise<void> => {
+        this.refreshGeneration += 1;
+        const generation = this.refreshGeneration;
+        try {
+            const url = await this.resolveCurrentTabUrl();
+            const exclusionsInverted = await messenger.getExclusionsInverted(profileId);
+            const isVpnEnabledByUrl = await messenger.isVpnEnabledByUrl(url);
+            if (generation !== this.refreshGeneration
+                || profileId !== this.rootStore.vpnStore.activeProfileId) {
+                log.debug('[vpn.SettingsStore]: superseded refresh for profile', profileId);
+                return;
+            }
+
+            runInAction(() => {
+                this.exclusionsInverted = exclusionsInverted;
+                this.setIsExcluded(!isVpnEnabledByUrl);
+            });
+        } catch (e) {
+            log.error('[vpn.SettingsStore]: ', e);
+        }
+    };
+
+    /**
+     * Re-reads the exclusions state when a profile switch committed while the
+     * popup data snapshot was in flight: the snapshot belongs to the profile
+     * that was active when the request started, so it must not stay in force.
+     *
+     * @param snapshotProfileId Profile the applied snapshot belongs to.
+     */
+    @action public reconcileExclusionsWithActiveProfile = async (snapshotProfileId: string): Promise<void> => {
+        const { activeProfileId } = this.rootStore.vpnStore;
+        if (activeProfileId === snapshotProfileId) {
+            return;
+        }
+        log.debug('[vpn.SettingsStore]: snapshot of', snapshotProfileId, 'superseded by', activeProfileId);
+        await this.refreshExclusionsState(activeProfileId);
+    };
+
+    /**
+     * Resolves the url of the current tab for the exclusion check: the resolved
+     * hostname when it is available, otherwise the tab url itself — a profile
+     * switch can commit while the popup is still loading, before the hostname is
+     * known, and the background must not treat the tab as routed.
+     *
+     * @returns The url to check the exclusions for, or null when the tab has none.
+     */
+    private resolveCurrentTabUrl = async (): Promise<string | null> => {
+        if (this.currentTabHostname) {
+            return this.currentTabHostname;
+        }
+        const { url } = await tabs.getCurrent();
+        return url || null;
     };
 
     @action public getCurrentTabHostname = async (): Promise<void> => {
@@ -321,8 +393,16 @@ export class SettingsStore {
         });
     };
 
-    @action public setPremiumLocationClickedByFreeUser = (state: boolean): void => {
-        this.freeUserClickedPremiumLocation = state;
+    @computed public get freeUserClickedPremiumLocation(): boolean {
+        return this.premiumLocationClickedByFreeUser;
+    }
+
+    @action public setFreeUserClickedPremiumLocation = (state: boolean): void => {
+        this.premiumLocationClickedByFreeUser = state;
+    };
+
+    @action public clearPremiumLocationPaywall = (): void => {
+        this.premiumLocationClickedByFreeUser = false;
     };
 
     @action public setPromoNotification = (promoNotification: PromoNotificationData): void => {
@@ -354,8 +434,68 @@ export class SettingsStore {
         this.appearanceTheme = value;
     };
 
+    /**
+     * Whether VPN is disabled for the current site: the tab is excluded and its
+     * protocol allows exclusions. Drives the popup layout (exclusions screen or
+     * settings) and the background animation, so both stay in sync.
+     */
+    @computed
+    public get isSiteExcluded(): boolean {
+        return this.isCurrentTabExcluded && this.canBeExcluded;
+    }
+
+    /**
+     * Sets whether the current tab is excluded from VPN and keeps the
+     * background animation in sync with the new routing state of the tab.
+     *
+     * @param value Whether the tab is excluded.
+     */
     @action public setIsExcluded = (value: boolean): void => {
+        const isChanged = this.isCurrentTabExcluded !== value;
         this.isCurrentTabExcluded = value;
+        if (isChanged) {
+            this.updateAnimationStateBySite();
+        }
+    };
+
+    /**
+     * Marks the popup initialization as started: until it finishes, the
+     * animation is not played — it lands on the resulting state instead.
+     */
+    @action public startInit = (): void => {
+        this.isInitializing = true;
+    };
+
+    /**
+     * Completes the popup initialization: the animation lands on the state of
+     * the current tab without playing a transition.
+     */
+    @action public finishInit = (): void => {
+        if (!this.isInitializing) {
+            return;
+        }
+        this.isInitializing = false;
+        const isVpnEnabled = this.isConnected && !this.isSiteExcluded;
+        animationService.send(isVpnEnabled ? AnimationEvent.InitEnabled : AnimationEvent.InitDisabled);
+    };
+
+    /**
+     * Plays the animation of the tab routing state: the disconnection animation
+     * when the site stops being routed through VPN, and the connection one when
+     * it is routed again while the tunnel is up. Does nothing while the popup is
+     * still initializing.
+     */
+    @action private updateAnimationStateBySite = (): void => {
+        if (this.isInitializing) {
+            return;
+        }
+        if (this.isSiteExcluded) {
+            animationService.send(AnimationEvent.SiteExcluded);
+            return;
+        }
+        if (this.isConnected) {
+            animationService.send(AnimationEvent.VpnConnected);
+        }
     };
 
     @action private updateDarkThemeMediaQuery = (): void => {
@@ -389,6 +529,15 @@ export class SettingsStore {
     };
 
     @action private updateAnimationState = (state: ConnectivityState): void => {
+        if (this.isInitializing) {
+            return;
+        }
+        if (this.isSiteExcluded) {
+            // The site is not routed through VPN, so the animation stays in the
+            // disabled state whatever the tunnel state is.
+            animationService.send(AnimationEvent.VpnDisconnected);
+            return;
+        }
         switch (state.value) {
             case ConnectivityStateType.Connected: {
                 animationService.send(AnimationEvent.VpnConnected);

@@ -15,7 +15,8 @@ export const profileSettingsScheme = v.strictObject({
     selectedLocation: v.nullable(locationScheme),
 
     /**
-     * Quick-connect strategy: use last manually selected location or auto-pick fastest.
+     * Quick-connect strategy: use the pinned location, the last used
+     * location, or auto-pick the fastest one.
      */
     quickConnect: v.enum(QuickConnectSetting),
 

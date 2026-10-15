@@ -147,8 +147,37 @@
     "privacy_policy": {
         "message": "سیاست حریم خصوصی"
     },
+    "settings_title": {
+        "message": "تنظیمات"
+    },
     "settings_general_title": {
-        "message": "عمومی"
+        "message": "تنظیمات عمومی"
+    },
+    "settings_general_description": {
+        "message": "اعمال به همه نمایه‌ها. اگر نمایه را تغییر دهید، تنظيمات یکسان باقی می‌ماند"
+    },
+    "settings_current_profile": {
+        "message": "نمایه فعلی: <b>%profile_name%</b>"
+    },
+    "settings_current_profile_description": {
+        "message": "اعمال به نمایه فعلی. اگر نمایه را تغییر دهید، ممکن است تنظيمات نیز تغییر کند"
+    },
+    "settings_unlimited_promo_title": {
+        "message": "نسخه نامحدود را بگیرید"
+    },
+    "settings_unlimited_promo_feature_speed": {
+        "message": "پخش برخط بدون محدودیت سرعت"
+    },
+    "settings_unlimited_promo_feature_locations": {
+        "message": "%count%+ مکان‌های امن | %count%+ مکان امن | %count%+ مکان‌های امن",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_feature_devices": {
+        "message": "تا %count% دستگاه ها در یک حساب | تا %count% دستگاه در یک حساب | تا %count% دستگاه ها در یک حساب کاربری",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_upgrade_button": {
+        "message": "ارتقاء"
     },
     "referral_get_free_traffic": {
         "message": "حجم داده‌های رایگان دریافت کنید!"
@@ -428,8 +457,8 @@
     "settings_quick_connect_title": {
         "message": "اتصال سریع"
     },
-    "settings_quick_connect_subtitle": {
-        "message": "محل VPN انتخاب شده وقتی که روی اتصال کلیک کنید"
+    "settings_quick_connect_description": {
+        "message": "مکان پیش‌فرض VPN هنگام تغییر به نمایه یا باز کردن مرورگر"
     },
     "settings_quick_connect_last_used": {
         "message": "آخرین مکان استفاده شده"
@@ -539,8 +568,11 @@
     "settings_exclusion_title": {
         "message": "مدیریت استثنائات..."
     },
-    "settings_location_label": {
-        "message": "مکان"
+    "settings_exclusion_general_state": {
+        "message": "VPN در همه‌جا فعال است به جز تارنماهای خاص"
+    },
+    "settings_exclusion_selective_state": {
+        "message": "VPN فقط برای تارنماهای انتخاب‌شده فعال است"
     },
     "settings_location_fastest_title": {
         "message": "سریع ترین مکان"
@@ -548,14 +580,17 @@
     "settings_location_fastest_description": {
         "message": "به‌طور خودکار به سریع‌ترین مکان اتصال برقرار می‌کند"
     },
-    "settings_profiles_title": {
-        "message": "نمایه‌ها"
+    "settings_location_last_used_description": {
+        "message": "به‌طور خودکار به آخرین مکان استفاده‌شده اتصال برقرار می‌کند"
     },
-    "settings_profiles_sidebar_title": {
-        "message": "نمایه"
+    "settings_profiles_title": {
+        "message": "مدیریت نمایه‌ها"
+    },
+    "settings_profiles_manage": {
+        "message": "مدیریت نمایه‌ها"
     },
     "settings_profiles_subtitle": {
-        "message": "به شما اجازه می دهد سرورهای DNS و مکان ها را تنظیم کنید و فهرست های استثناهای جداگانه برای موارد استفاده مختلف مانند کار، خانه یا موارد دیگر نگه دارید"
+        "message": "از VPN برای سناریوهای مختلف مانند کار، خانه، کودکان یا موارد دیگر استفاده کنید. یک نمایه ایجاد کنید و مکان ترجیحی، سرور DNS و استثناها را برای آن برپا کنید"
     },
     "settings_profiles_default_name": {
         "message": "پيش فرض"
@@ -573,7 +608,10 @@
         "message": "حذف"
     },
     "settings_profiles_create": {
-        "message": "ایجاد"
+        "message": "ایجاد نمایه"
+    },
+    "settings_profiles_open_settings": {
+        "message": "رفتن به تنظیمات"
     },
     "settings_profiles_create_modal_title": {
         "message": "ایجاد نمایه"
@@ -616,9 +654,6 @@
     },
     "settings_profiles_delete_modal_submit": {
         "message": "حذف"
-    },
-    "settings_description_current": {
-        "message": "فعلی: %mode%"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "کجا VPN روشن است"
@@ -695,14 +730,23 @@
     "popup_settings_stats": {
         "message": "آمار"
     },
-    "popup_profiles_title": {
-        "message": "نمایه‌ها"
-    },
-    "popup_profiles_settings": {
-        "message": "تنظیمات"
-    },
     "profile_apply_error": {
         "message": "تغییر نمایه‌ها ناموفق بود. دوباره تلاش کنید یا با پشتیبانی تماس بگیرید"
+    },
+    "profile_switched": {
+        "message": "به %profile_name% تغییر یافت"
+    },
+    "profile_created": {
+        "message": "نمایه ایجاد شد"
+    },
+    "profile_deleted": {
+        "message": "نمایه حذف شد"
+    },
+    "profile_deleted_switched": {
+        "message": "نمایه حذف شد. به %profile_name% تغییر یافتید"
+    },
+    "profile_name_updated": {
+        "message": "نام نمایه به‌روزرسانی شد"
     },
     "popup_settings_free_description": {
         "message": "در AdGuard VPN Unlimited در دسترس است"
@@ -876,7 +920,7 @@
         "message": "ثبت بازخورد"
     },
     "popup_compare_button": {
-        "message": "چرا برنامه بهتر است"
+        "message": "چرا برنامه رایانه رومیزی بهتر است"
     },
     "popup_rate_modal_title": {
         "message": "AdGuard VPN چقدر عالی است؟"

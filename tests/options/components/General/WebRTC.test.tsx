@@ -6,19 +6,18 @@ import {
     expect,
     vi,
     beforeEach,
+    afterEach,
 } from 'vitest';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, cleanup } from '@testing-library/react';
 
-const mockPush = vi.hoisted(() => vi.fn());
+const mockSendCustomEvent = vi.hoisted(() => vi.fn());
+const mockSetProfileWebRtc = vi.hoisted(() => vi.fn(() => Promise.resolve()));
+const mockUpdateWebRtcCache = vi.hoisted(() => vi.fn());
+const mockLogError = vi.hoisted(() => vi.fn());
 
-vi.mock('react-router-dom', () => ({
-    useHistory: () => ({ push: mockPush }),
+const mockState = vi.hoisted(() => ({
+    webRtcCache: { 'profile-2': false } as Record<string, boolean>,
 }));
-
-/**
- * Mutable profiles array shared across tests.
- */
-const mockProfiles: Array<{ id: string; name: string }> = [];
 
 vi.mock('../../../../src/common/translator', () => ({
     translator: {
@@ -37,32 +36,15 @@ vi.mock('../../../../src/common/translator', () => ({
     },
 }));
 
-vi.mock('../../../../src/common/reactTranslator', () => ({
-    reactTranslator: {
-        getMessage: vi.fn((_key: string, params?: Record<string, unknown>) => {
-            const profileName = (params as Record<string, string>)?.profile_name || '';
-            return (
-                <>
-                    Applies to your
-                    {' '}
-                    <b>{profileName}</b>
-                    {' '}
-                    profile
-                </>
-            );
-        }),
-    },
-}));
-
 vi.mock('../../../../src/common/messenger', () => ({
     messenger: {
-        setProfileWebRtc: vi.fn(),
+        setProfileWebRtc: mockSetProfileWebRtc,
     },
 }));
 
 vi.mock('../../../../src/common/logger', () => ({
     log: {
-        error: vi.fn(),
+        error: mockLogError,
     },
 }));
 
@@ -71,20 +53,13 @@ vi.mock('../../../../src/options/stores', () => {
 
     const store = {
         profilesStore: {
-            get profiles(): Array<{ id: string; name: string }> {
-                return mockProfiles;
-            },
-            get activeProfileId(): string {
-                return 'profile-2';
-            },
             get webRtcCache(): Record<string, boolean> {
-                return { 'profile-2': false };
+                return mockState.webRtcCache;
             },
-            getDisplayName: vi.fn((p: { id: string; name: string }) => p.name),
-            updateWebRtcCache: vi.fn(),
+            updateWebRtcCache: mockUpdateWebRtcCache,
         },
         telemetryStore: {
-            sendCustomEvent: vi.fn(),
+            sendCustomEvent: mockSendCustomEvent,
         },
     };
 
@@ -109,109 +84,99 @@ function renderWebRTC(props: { profileId?: string; isProfileContext?: boolean } 
     return { container };
 }
 
-describe('WebRTC ProfileHint indicator', () => {
+describe('WebRTC', () => {
     beforeEach(() => {
-        mockProfiles.length = 0;
+        mockState.webRtcCache = { 'profile-2': false };
         vi.clearAllMocks();
     });
 
-    describe('visibility when isProfileContext=false (General settings)', () => {
-        it('should render ProfileHint indicator when profiles > 1', () => {
-            mockProfiles.push(
-                { id: 'profile-1', name: 'Default' },
-                { id: 'profile-2', name: 'Work' },
-            );
-            const { container } = renderWebRTC({ isProfileContext: false });
-            const hint = container.querySelector('.profile-hint');
-            expect(hint).not.toBeNull();
-        });
-
-        it('should not render ProfileHint indicator when profiles <= 1', () => {
-            mockProfiles.push({ id: 'profile-1', name: 'Default' });
-            const { container } = renderWebRTC({ isProfileContext: false });
-            const hint = container.querySelector('.profile-hint');
-            expect(hint).toBeNull();
-        });
-
-        it('should display the profile name in the indicator', () => {
-            mockProfiles.push(
-                { id: 'profile-1', name: 'Default' },
-                { id: 'profile-2', name: 'Work' },
-            );
-            const { container } = renderWebRTC({
-                profileId: 'profile-2',
-                isProfileContext: false,
-            });
-            const hint = container.querySelector('.profile-hint');
-            expect(hint).not.toBeNull();
-            expect(hint!.textContent).toContain('Work');
-        });
+    afterEach(() => {
+        cleanup();
     });
 
-    describe('visibility when isProfileContext=true (ProfileDetail)', () => {
-        it('should not render ProfileHint indicator even with 2+ profiles', () => {
-            mockProfiles.push(
-                { id: 'profile-1', name: 'Default' },
-                { id: 'profile-2', name: 'Work' },
-            );
-            const { container } = renderWebRTC({ isProfileContext: true });
-            const hint = container.querySelector('.profile-hint');
-            expect(hint).toBeNull();
-        });
+    it('should render the description and the warning', () => {
+        const { container } = renderWebRTC();
+
+        expect(container.textContent).toContain(
+            'WebRTC can leak your IP address even when using a VPN.',
+        );
+        expect(container.textContent).toContain('May break some websites');
     });
 
-    describe('navigation on click', () => {
-        it('should navigate to the profile detail route on indicator click', () => {
-            mockProfiles.push(
-                { id: 'profile-1', name: 'Default' },
-                { id: 'profile-2', name: 'Work' },
-            );
-            const { container } = renderWebRTC({
-                profileId: 'profile-2',
-                isProfileContext: false,
-            });
-            const hint = container.querySelector('.profile-hint');
-            expect(hint).not.toBeNull();
-            fireEvent.click(hint!);
-            expect(mockPush).toHaveBeenCalledWith('/profiles/profile-2');
-        });
+    it('should not render the ProfileHint indicator', () => {
+        const { container } = renderWebRTC();
 
-        it('should use the profileId prop for navigation, not activeProfileId', () => {
-            mockProfiles.push(
-                { id: 'profile-1', name: 'Default' },
-                { id: 'profile-2', name: 'Work' },
-                { id: 'profile-3', name: 'Home' },
-            );
-            const { container } = renderWebRTC({
-                profileId: 'profile-3',
-                isProfileContext: false,
-            });
-            const hint = container.querySelector('.profile-hint');
-            expect(hint).not.toBeNull();
-            fireEvent.click(hint!);
-            expect(mockPush).toHaveBeenCalledWith('/profiles/profile-3');
-        });
+        expect(container.querySelector('.profile-hint')).toBeNull();
     });
 
-    describe('original description content preserved', () => {
-        it('should still render the description text', () => {
-            mockProfiles.push(
-                { id: 'profile-1', name: 'Default' },
-                { id: 'profile-2', name: 'Work' },
-            );
-            const { container } = renderWebRTC({ isProfileContext: false });
-            expect(container.textContent).toContain(
-                'WebRTC can leak your IP address even when using a VPN.',
-            );
-        });
+    it('should enable WebRTC for the given profile on toggle', async () => {
+        const { container } = renderWebRTC();
 
-        it('should still render the warning text', () => {
-            mockProfiles.push(
-                { id: 'profile-1', name: 'Default' },
-                { id: 'profile-2', name: 'Work' },
-            );
-            const { container } = renderWebRTC({ isProfileContext: false });
-            expect(container.textContent).toContain('May break some websites');
+        fireEvent.click(container.querySelector('.switch')!);
+
+        await vi.waitFor(() => {
+            expect(mockUpdateWebRtcCache).toHaveBeenCalledWith('profile-2', true);
         });
+        expect(mockSetProfileWebRtc).toHaveBeenCalledTimes(1);
+        expect(mockSetProfileWebRtc).toHaveBeenCalledWith('profile-2', true);
+        expect(mockSendCustomEvent).toHaveBeenCalledWith(
+            'enable_webrtc_click',
+            'general_settings_screen',
+        );
+    });
+
+    it('should disable WebRTC and send telemetry in the profile context', async () => {
+        mockState.webRtcCache = { 'profile-2': true };
+
+        const { container } = renderWebRTC({ isProfileContext: true });
+
+        fireEvent.click(container.querySelector('.switch')!);
+
+        expect(mockSetProfileWebRtc).toHaveBeenCalledWith('profile-2', false);
+        expect(mockSendCustomEvent).toHaveBeenCalledWith(
+            'disable_webrtc_click',
+            'profile_settings_screen',
+        );
+    });
+
+    it('should send disable telemetry on the Settings screen outside the profile context', async () => {
+        mockState.webRtcCache = { 'profile-2': true };
+
+        const { container } = renderWebRTC({ isProfileContext: false });
+
+        fireEvent.click(container.querySelector('.switch')!);
+
+        expect(mockSetProfileWebRtc).toHaveBeenCalledWith('profile-2', false);
+        expect(mockSendCustomEvent).toHaveBeenCalledWith(
+            'disable_webrtc_click',
+            'general_settings_screen',
+        );
+    });
+
+    it('should send enable telemetry with the profile settings screen inside the profile context', async () => {
+        const { container } = renderWebRTC({ isProfileContext: true });
+
+        fireEvent.click(container.querySelector('.switch')!);
+
+        await vi.waitFor(() => {
+            expect(mockUpdateWebRtcCache).toHaveBeenCalledWith('profile-2', true);
+        });
+        expect(mockSendCustomEvent).toHaveBeenCalledWith(
+            'enable_webrtc_click',
+            'profile_settings_screen',
+        );
+    });
+
+    it('should log an error when the toggle request fails', async () => {
+        mockSetProfileWebRtc.mockRejectedValueOnce(new Error('failed'));
+
+        const { container } = renderWebRTC();
+
+        fireEvent.click(container.querySelector('.switch')!);
+
+        await vi.waitFor(() => {
+            expect(mockLogError).toHaveBeenCalled();
+        });
+        expect(mockUpdateWebRtcCache).not.toHaveBeenCalled();
     });
 });

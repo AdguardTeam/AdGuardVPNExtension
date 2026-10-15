@@ -86,6 +86,7 @@ const sendEvent = async (event: TelemetryEvent): Promise<void> => {
                 license_status: props.licenseStatus,
                 subscription_duration: props.subscriptionDuration,
                 theme: props.theme,
+                website_exclusions: props.websiteExclusions,
                 ...(props.experiment_1 && { experiment_1: props.experiment_1 }),
                 ...(props.experiment_2 && { experiment_2: props.experiment_2 }),
                 ...(props.experiment_3 && { experiment_3: props.experiment_3 }),

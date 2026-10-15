@@ -1,5 +1,5 @@
 .profile-hint {
-    color: var(--orange-50);
+    color: var(--text-description-description-default);
     display: block;
     margin-top: 4px;
     max-width: 100%;
@@ -9,13 +9,19 @@
     white-space: nowrap;
     width: 100%;
 
+    .profile-hint__name {
+        color: var(--text-links-link-default);
+        font-weight: 400;
+        text-decoration: underline;
+    }
+
     /* Interactive variant (button) */
     &.profile-hint--interactive {
-        text-decoration: underline;
+        cursor: pointer;
         font: inherit;
 
         &:focus-visible {
-            outline: 2px solid var(--orange-50);
+            outline: 2px solid var(--text-links-link-default);
             outline-offset: 2px;
             border-radius: 2px;
         }

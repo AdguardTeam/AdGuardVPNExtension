@@ -15,16 +15,9 @@ export type PersistedExclusions = v.InferOutput<typeof persistedExclusionsScheme
 /**
  * Schema for a single profile's exclusions snapshot (without the `inverted` flag).
  */
-const exclusionsSnapshotScheme = v.omit(persistedExclusionsScheme, ['inverted']);
+export const exclusionsSnapshotScheme = v.omit(persistedExclusionsScheme, ['inverted']);
 
-export const exclusionsStateScheme = v.strictObject({
-    previousExclusionsMap: v.optional(
-        v.record(v.string(), exclusionsSnapshotScheme),
-    ),
-});
-
-export type ExclusionsState = v.InferOutput<typeof exclusionsStateScheme>;
-
-export const EXCLUSIONS_STATE_DEFAULTS: ExclusionsState = {
-    previousExclusionsMap: {},
-};
+/**
+ * Exclusions snapshot inferred from {@link exclusionsSnapshotScheme}.
+ */
+export type ExclusionsSnapshot = v.InferOutput<typeof exclusionsSnapshotScheme>;

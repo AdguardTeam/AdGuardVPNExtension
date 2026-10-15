@@ -90,6 +90,33 @@ describe('AuthSideEffects', () => {
             );
         });
 
+        it('should wait for the dependencies before handling the event', async () => {
+            // Save provided callback
+            let savedCallback: () => Promise<void>;
+            notifierMock.addSpecifiedListener.mockImplementationOnce((_, callback) => {
+                savedCallback = callback;
+            });
+
+            // Init
+            authSideEffects.init();
+
+            // The event arrives before the init chain has finished
+            const handlingPromise = savedCallback!();
+
+            // Let the handler run up to the dependency wait
+            await new Promise((resolve) => { setTimeout(resolve, 0); });
+
+            // Nothing should happen until the dependencies are ready
+            expect(tabsMock.openTab).toHaveBeenCalledTimes(0);
+
+            // The init chain finishes
+            authSideEffects.markDependenciesReady();
+            await handlingPromise;
+
+            // Should handle the event once the dependencies are ready
+            expect(tabsMock.openTab).toHaveBeenCalledTimes(1);
+        });
+
         it('should properly notify and open compare page on first run', async () => {
             // Save provided callback
             let savedCallback: () => Promise<void>;
@@ -99,6 +126,7 @@ describe('AuthSideEffects', () => {
 
             // Init
             authSideEffects.init();
+            authSideEffects.markDependenciesReady();
 
             // Callback should be passed
             expect(savedCallback!).toBeDefined();
@@ -137,6 +165,7 @@ describe('AuthSideEffects', () => {
 
             // Init
             authSideEffects.init();
+            authSideEffects.markDependenciesReady();
 
             // Callback should be passed
             expect(savedCallback!).toBeDefined();

@@ -32,23 +32,16 @@ interface ServiceRowProps {
      * Service data to display.
      */
     service: ServiceDto;
-
-    /**
-     * Whether the component is rendered inside a profile context.
-     */
-    isProfileContext: boolean;
 }
 
-export const ServiceRow = observer(({ service, isProfileContext }: ServiceRowProps) => {
+export const ServiceRow = observer(({ service }: ServiceRowProps) => {
     const { exclusionsStore, telemetryStore } = useContext(rootStore);
 
     const addService = async (e: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
         e.preventDefault();
         telemetryStore.sendCustomEvent(
-            isProfileContext ? TelemetryActionName.ProfileAddWebsiteFromList : TelemetryActionName.AddWebsiteFromList,
-            isProfileContext
-                ? TelemetryScreenName.ProfileDialogAddWebsiteExclusion
-                : TelemetryScreenName.DialogAddWebsiteExclusion,
+            TelemetryActionName.AddWebsiteFromList,
+            TelemetryScreenName.DialogAddWebsiteExclusion,
         );
         exclusionsStore.addToServicesToToggle(service.serviceId);
     };

@@ -1,0 +1,75 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    width: 240px;
+    border-radius: 12px;
+    background-color: var(--fills-backgrounds-page-background-default);
+    box-shadow: var(--big-light-shadow-br);
+    overflow: hidden;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    column-gap: 12px;
+    width: 100%;
+    height: 56px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    padding: 0 16px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: var(--text-main-text-main-default);
+    font-size: 16px;
+    line-height: 1.3;
+    text-align: start;
+    transition: var(--t3) background-color;
+
+    @media (--hover) {
+        &:hover {
+            background-color: var(--fills-backgrounds-page-background-hovered);
+        }
+    }
+
+    &:focus-visible {
+        background-color: var(--fills-backgrounds-page-background-hovered);
+    }
+}
+
+.icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+}
+
+.tick {
+    color: var(--stroke-icons-product-icon-default);
+}
+
+.manageIcon {
+    color: var(--stroke-icons-gray-icons-default);
+}
+
+.name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.divider {
+    height: 1px;
+    flex-shrink: 0;
+    margin: 0 8px;
+    background-color: var(--stroke-dividers-item-divider-default);
+}

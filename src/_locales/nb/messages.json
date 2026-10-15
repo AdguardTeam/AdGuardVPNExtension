@@ -147,8 +147,37 @@
     "privacy_policy": {
         "message": "Personvern"
     },
+    "settings_title": {
+        "message": "Innstillinger"
+    },
     "settings_general_title": {
-        "message": "Generelt"
+        "message": "Generelle innstillinger"
+    },
+    "settings_general_description": {
+        "message": "Bruk på alle profiler. Hvis du endrer profilen, forblir innstillingene de samme"
+    },
+    "settings_current_profile": {
+        "message": "Nåværende profil: <b>%profile_name%</b>"
+    },
+    "settings_current_profile_description": {
+        "message": "Bruk på den nåværende profilen. Hvis du endrer profilen, kan innstillingene også endres"
+    },
+    "settings_unlimited_promo_title": {
+        "message": "Få den ubegrensede versjonen"
+    },
+    "settings_unlimited_promo_feature_speed": {
+        "message": "Strømming uten hastighetsbegrensninger"
+    },
+    "settings_unlimited_promo_feature_locations": {
+        "message": "%count%+ sikre steder | %count%+ sikker plassering | %count%+ sikre steder",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_feature_devices": {
+        "message": "Opptil %count% enheter på én konto | Opptil %count% enhet på én konto | Opptil %count% enheter på én konto",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_upgrade_button": {
+        "message": "Oppgrader"
     },
     "referral_get_free_traffic": {
         "message": "Få gratis GB!"
@@ -297,7 +326,7 @@
         "message": "Selektiv modus"
     },
     "context_menu_general_mode": {
-        "message": "Generell modus"
+        "message": "for alle nettsteder"
     },
     "context_menu_export_logs": {
         "message": "Eksporter logger"
@@ -428,8 +457,8 @@
     "settings_quick_connect_title": {
         "message": "Rask tilkobling"
     },
-    "settings_quick_connect_subtitle": {
-        "message": "VPN-serveren som velges når du klikker på «Koble til»"
+    "settings_quick_connect_description": {
+        "message": "Standard VPN-lokasjon når du bytter til profilen eller åpner nettleseren"
     },
     "settings_quick_connect_last_used": {
         "message": "Siste brukte lokasjon"
@@ -539,8 +568,11 @@
     "settings_exclusion_title": {
         "message": "Unntak"
     },
-    "settings_location_label": {
-        "message": "Posisjon"
+    "settings_exclusion_general_state": {
+        "message": "VPN er på overalt unntatt for bestemte nettsteder"
+    },
+    "settings_exclusion_selective_state": {
+        "message": "VPN er kun på for valgte nettsteder"
     },
     "settings_location_fastest_title": {
         "message": "Raskeste lokasjon"
@@ -548,14 +580,17 @@
     "settings_location_fastest_description": {
         "message": "Koble automatisk til den raskeste lokasjonen"
     },
-    "settings_profiles_title": {
-        "message": "Profiler"
+    "settings_location_last_used_description": {
+        "message": "Koble automatisk til den sist brukte lokasjonen"
     },
-    "settings_profiles_sidebar_title": {
-        "message": "Profil"
+    "settings_profiles_title": {
+        "message": "Administrer profiler"
+    },
+    "settings_profiles_manage": {
+        "message": "Administrer profiler"
     },
     "settings_profiles_subtitle": {
-        "message": "Lar deg sette DNS-servere og lokasjoner og beholde separate ekskluderingslister for ulike brukstilfeller, som arbeid, hjem eller andre"
+        "message": "Bruk VPN til ulike scenarioer, som jobb, hjemme, barn eller annet. Opprett en profil og angi en foretrukket lokasjon, DNS-server og unntak for den"
     },
     "settings_profiles_default_name": {
         "message": "Standard"
@@ -573,7 +608,10 @@
         "message": "Slett"
     },
     "settings_profiles_create": {
-        "message": "Lag"
+        "message": "Opprett profil"
+    },
+    "settings_profiles_open_settings": {
+        "message": "Innstillinger"
     },
     "settings_profiles_create_modal_title": {
         "message": "Opprett profil"
@@ -616,9 +654,6 @@
     },
     "settings_profiles_delete_modal_submit": {
         "message": "Slett"
-    },
-    "settings_description_current": {
-        "message": "Gjeldende: %mode%"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Hvor VPN er aktivert"
@@ -695,14 +730,23 @@
     "popup_settings_stats": {
         "message": "Statistikk"
     },
-    "popup_profiles_title": {
-        "message": "Profiler"
-    },
-    "popup_profiles_settings": {
-        "message": "Innstillinger"
-    },
     "profile_apply_error": {
         "message": "Kunne ikke bytte profiler. Prøv igjen eller kontakt brukerstøtte"
+    },
+    "profile_switched": {
+        "message": "Byttet til %profile_name%"
+    },
+    "profile_created": {
+        "message": "Profil opprettet"
+    },
+    "profile_deleted": {
+        "message": "Profil slettet"
+    },
+    "profile_deleted_switched": {
+        "message": "Profil slettet. Du er byttet til %profile_name%"
+    },
+    "profile_name_updated": {
+        "message": "Profilnavn oppdatert"
     },
     "popup_settings_free_description": {
         "message": "Tilgjengelig i AdGuard VPN Unlimited"
@@ -876,7 +920,7 @@
         "message": "Gi tilbakemelding"
     },
     "popup_compare_button": {
-        "message": "Hvorfor appen er bedre"
+        "message": "Hvorfor skrivebordsappen er bedre"
     },
     "popup_rate_modal_title": {
         "message": "Hvor fantastisk er AdGuard VPN?"

@@ -4,11 +4,10 @@ import { TELEMETRY_API_URL } from '../config';
 import {
     type TelemetryApiEventData,
     type SessionStartRequest,
-    type SessionStartResponse,
     type TelemetryBaseData,
 } from '../telemetry/telemetryTypes';
-import { sessionStartResponseSchema } from '../schema/telemetry/sessionStartResponse';
-import { type VariantCache } from '../abTestManager/ABTestManager';
+import { sessionStartResponseSchema, type SessionStartResponse } from '../schema/telemetry/sessionStartResponse';
+import { type ExperimentSlotValues } from '../abTestManager/ABTestManager';
 
 import { Api, type ConfigInterface } from './Api';
 import { type RequestProps } from './apiTypes';
@@ -55,7 +54,7 @@ class TelemetryApi extends Api {
      */
     public sendSessionStart = async (
         baseData: TelemetryBaseData,
-        tests: VariantCache,
+        tests: ExperimentSlotValues,
     ): Promise<SessionStartResponse> => {
         const { path, method } = TelemetryApi.SEND_SESSION_START;
 
@@ -82,6 +81,7 @@ class TelemetryApi extends Api {
                 logged_in: baseData.props.loggedIn,
                 license_status: baseData.props.licenseStatus,
                 subscription_duration: baseData.props.subscriptionDuration,
+                website_exclusions: baseData.props.websiteExclusions,
             },
             tests,
         };

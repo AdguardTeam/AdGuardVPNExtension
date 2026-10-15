@@ -117,14 +117,13 @@ export class AuthStore {
     };
 
     @action public setShowUpgradeScreen = async (value: boolean): Promise<void> => {
+        if (!value) {
+            this.forceShowUpgradeScreen = false;
+        }
+
         await messenger.setFlag(FLAGS_FIELDS.SHOW_UPGRADE_SCREEN, value);
         runInAction(() => {
             this.showUpgradeScreen = value;
-
-            // Reset forceShowUpgradeScreen if showUpgradeScreen is set to false
-            if (!value) {
-                this.forceShowUpgradeScreen = false;
-            }
         });
     };
 

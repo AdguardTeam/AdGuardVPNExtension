@@ -408,6 +408,20 @@ class Messenger {
         return this.sendMessage(type, { url });
     }
 
+    /**
+     * Checks whether VPN is enabled for the given url in the active profile.
+     *
+     * @param url Url to check; may be a full url or a hostname. A falsy value
+     * (e.g. a non-http tab) counts as enabled.
+     * @returns True if VPN is enabled for the url, false otherwise.
+     */
+    public async isVpnEnabledByUrl(
+        url: string | null,
+    ): Promise<ExtractMessageResponse<MessageType.IS_VPN_ENABLED_BY_URL>> {
+        const type = MessageType.IS_VPN_ENABLED_BY_URL;
+        return this.sendMessage(type, { url });
+    }
+
     public async toggleExclusionState(
         profileId: string,
         id: string,
@@ -580,11 +594,24 @@ class Messenger {
 
     /**
      * Opens Premium Promo Page in new tab.
+     * Uses the popup forwarder query, so purchases are reported as `from=popup`.
      * @returns Promise that resolves when Premium Promo Page is opened.
      */
     public async openPremiumPromoPage():
     Promise<ExtractMessageResponse<MessageType.OPEN_FORWARDER_URL_WITH_EMAIL>> {
         return this.openForwarderUrlWithEmail(ForwarderUrlQueryKey.UpgradeLicense);
+    }
+
+    /**
+     * Opens Premium Promo Page from the settings screens in a new tab.
+     * Uses a separate forwarder query so purchases started in settings are
+     * reported as `from=settings`.
+     *
+     * @returns Promise that resolves when Premium Promo Page is opened.
+     */
+    public async openPremiumPromoPageFromSettings():
+    Promise<ExtractMessageResponse<MessageType.OPEN_FORWARDER_URL_WITH_EMAIL>> {
+        return this.openForwarderUrlWithEmail(ForwarderUrlQueryKey.UpgradeLicenseSettings);
     }
 
     /**
@@ -594,15 +621,6 @@ class Messenger {
     public async openSubscribePromoPage():
     Promise<ExtractMessageResponse<MessageType.OPEN_FORWARDER_URL_WITH_EMAIL>> {
         return this.openForwarderUrlWithEmail(ForwarderUrlQueryKey.Subscribe);
-    }
-
-    /**
-     * Opens Promote Socials Page in new tab.
-     * @returns Promise that resolves when Promote Socials Page is opened.
-     */
-    public async openPromoteSocialsPage():
-    Promise<ExtractMessageResponse<MessageType.OPEN_FORWARDER_URL_WITH_EMAIL>> {
-        return this.openForwarderUrlWithEmail(ForwarderUrlQueryKey.PromoteSocials);
     }
 
     /**

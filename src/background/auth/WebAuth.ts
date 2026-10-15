@@ -6,6 +6,7 @@ import * as v from 'valibot';
 
 import { AUTH_CLIENT_ID } from '../config';
 import { log } from '../../common/logger';
+import { sleep } from '../../common/helpers';
 import { authAccessTokenScheme } from '../schema/auth/authAccessToken';
 import { AuthCacheKey } from '../authentication/authCacheTypes';
 import { type FallbackApiInterface } from '../api/fallbackApi';
@@ -20,6 +21,27 @@ import { webAuthMachine } from './webAuthMachine';
 import { WebAuthAction, WebAuthState } from './webAuthEnums';
 
 /**
+ * Schema for web authentication flow data persisted in the session storage.
+ */
+const webAuthFlowStorageDataSchema = v.object({
+    authState: v.string(),
+    tabId: v.number(),
+});
+
+/**
+ * Set of valid web authentication states.
+ */
+const webAuthStatesSet = new Set<unknown>(Object.values(WebAuthState));
+
+/**
+ * Checks whether the value is a valid web authentication state.
+ *
+ * @param value Value to check.
+ * @returns True if the value is a valid web authentication state.
+ */
+const isWebAuthState = (value: unknown): value is WebAuthState => webAuthStatesSet.has(value);
+
+/**
  * Options for showing error state during web authentication flow.
  */
 interface ShowErrorStateOptions {
@@ -32,6 +54,11 @@ interface ShowErrorStateOptions {
      * Whether the error was caused by tab modification (closed or replaced).
      */
     isCausedByTabModification: boolean;
+
+    /**
+     * Identity of the flow that caused the error.
+     */
+    flowId?: string;
 
     /**
      * Optional error information.
@@ -50,6 +77,14 @@ export interface WebAuthInterface {
      * @param action Action done by the user.
      */
     handleAction(appId: string, action: WebAuthAction): Promise<void>;
+
+    /**
+     * Resolves when the web authentication flow state has been restored
+     * from the session storage after the service worker wake-up.
+     *
+     * @returns Promise that resolves when the flow state is restored.
+     */
+    waitForInit(): Promise<void>;
 }
 
 /**
@@ -114,23 +149,28 @@ export interface WebAuthParameters {
  *    - `<marketingConsent>` - always `false`, because we show Newsletter Screen after user authenticates.
  *    - `<appId>` - ID of the application (value of `appId` parameter).
  *    - `<redirectUri>` - URI to redirect after authentication, see {@link OAUTH_REDIRECT_URL}.
- * 7. Open new tab with constructed URL and save `tabId` and `windowId` to {@link webAuthTabInfo}.
+ * 7. Open new tab with constructed URL and save `tabId` to {@link webAuthTabId}.
  * 8. If something unexpected happens during Steps 2-7, we handle the error gracefully:
  *    - {@link authState} is set to `null`.
- *    - We close the web authentication tab if it was opened, also {@link webAuthTabInfo} is set to `null`.
+ *    - We close the web authentication tab if it was opened, also {@link webAuthTabId} is set to `null`.
  *    - State of flow changed to `WebAuthState.Failed`.
  * 9. User interacts with opened tab and authenticates.
  * 10. After successful authentication web redirects to `<redirectUri>`.
  * 11. We handle the redirect before request even happen in {@link handleOnBeforeRequest} method.
+ *     The redirect must pass the following gates in {@link handleOnBeforeRequestAsync}:
+ *     - The flow is active (auth state is set).
+ *     - The request comes from the web authentication tab (tab ID matches).
+ *     - The `state` param from the redirect URL hash matches the auth state.
  * 12. Final `responseUrl` is received by {@link finishWebAuthFlow} method.
- * 13. Web authentication tab is closed, also {@link webAuthTabInfo} is set to `null`.
+ * 13. Web authentication tab is closed, also {@link webAuthTabId} is set to `null`.
  * 14. We check current state of service:
- *   14.1. If {@link authState} is not defined - we can't match states, so we consider it as error state.
+ *   14.1. If the flow is no longer active (cancelled or replaced by a new flow),
+ *        the stale redirect is ignored as a no-op rather than treated as an error.
  *   14.2. If user is already authenticated - user needs to logout first, do nothing.
  * 15. Extract `hash` part from `responseUrl` and parse it as query params (thats how it passed from backend):
  *   15.1. Validate parsed query params, if everything is valid - continue further, otherwise throw an error.
- *   15.2. Match `state` param from query with {@link authState}, if not equal - throw an error.
- * 16. Reset {@link authState} to `null` - because no longer needed.
+ *   15.2. Match `state` param from query with auth state, if not equal - throw an error.
+ * 16. Reset auth state to `null` - because no longer needed.
  * 17. Authenticate user with given access token via {@link auth.setAccessToken}.
  * 18. Modify flags storage:
  *   - If user logged in - call `flagsStorage.onAuthenticate()` to change appropriate flags,
@@ -138,14 +178,18 @@ export interface WebAuthParameters {
  * 19. Clear {@link authCache} to reset flow state.
  * 20. Notify listeners that web auth flow finished and authenticated.
  *
+ * The flow state is also persisted to the session storage when the flow starts and removed
+ * when it finishes, so it can be restored after the service worker is woken up
+ * (see {@link restoreWebAuthFlow}).
+ *
  * We also track active authentication flow state (steps between 9-10):
  * - If user closes or moves away from web authentication tab to non-auth URLs:
  *    - {@link authState} is set to `null`.
- *    - {@link webAuthTabInfo} is set to `null`.
+ *    - {@link webAuthTabId} is set to `null`.
  *    - State of flow changed to `WebAuthState.FailedByUser`.
  * - If tab couldn't load URL due to network issues or other problems:
  *    - {@link authState} is set to `null`.
- *    - {@link webAuthTabInfo} is set to `null`.
+ *    - {@link webAuthTabId} is set to `null`.
  *    - State of flow changed to `WebAuthState.Failed`.
  * - Also user has ability to:
  *   - Cancel currently active authentication flow, in which we reset all state and close tab if it was open.
@@ -187,6 +231,27 @@ export class WebAuth implements WebAuthInterface {
      * Error string which means that request was aborted.
      */
     private static readonly NET_ABORTED_ERROR = 'net::ERR_ABORTED';
+
+    /**
+     * Session storage key for the web authentication flow data.
+     *
+     * Note: This intentionally lives outside of the {@link StateStorage} {@link StorageKey}
+     * mechanism, because {@link StateStorage} throttles writes by 500ms,
+     * while the flow state must survive an imminent service worker kill,
+     * so it is written directly without any delay.
+     */
+    private static readonly WEB_AUTH_FLOW_STORAGE_KEY = 'webAuthFlowState';
+
+    /**
+     * Delay between attempts to close the web authentication tab.
+     */
+    private static readonly TAB_CLOSE_RETRY_DELAY_MS = 500;
+
+    /**
+     * How long to keep trying to close the web authentication tab while the user
+     * is dragging it before giving up.
+     */
+    private static readonly TAB_CLOSE_RETRY_TIMEOUT_MS = 30 * 1000;
 
     /**
      * Auth service.
@@ -236,9 +301,45 @@ export class WebAuth implements WebAuthInterface {
     private authState: string | null = null;
 
     /**
-     * Information about the web authentication tab.
+     * Identity of the current web authentication flow attempt.
+     *
+     * Unlike {@link authState}, it is assigned synchronously when a flow starts,
+     * before any awaits, so a stale error handler from a previous flow can tell
+     * whether a new flow was started even before the new flow's {@link authState}
+     * is assigned. This lets {@link showErrorState} avoid failing a freshly started
+     * flow while the previous flow is still closing its tab.
      */
-    private webAuthTabInfo: Pick<browser.Tabs.Tab, 'id' | 'windowId'> | null = null;
+    private flowId: string | null = null;
+
+    /**
+     * ID of the web authentication tab.
+     */
+    private webAuthTabId: number | null = null;
+
+    /**
+     * Auth API URL resolved once at the flow start, so the error handler
+     * doesn't have to do network work on the error path.
+     */
+    private authApiUrl: string | null = null;
+
+    /**
+     * Auth API URL resolution started while restoring a flow.
+     */
+    private authApiUrlPromise: Promise<void> | null = null;
+
+    /**
+     * Auth state of the flow that is currently being finished.
+     *
+     * Guards against duplicate processing of the same flow's redirect (e.g. the user
+     * reloads the redirect URL while the tab is being closed), while still allowing
+     * a redirect from a freshly started flow to be handled independently.
+     */
+    private finishingAuthState: string | null = null;
+
+    /**
+     * Promise which resolves when the web authentication flow state is restored from the session storage.
+     */
+    private initPromise: Promise<void>;
 
     /**
      * Constructor.
@@ -264,13 +365,22 @@ export class WebAuth implements WebAuthInterface {
         this.handleOnErrorOccurred = this.handleOnErrorOccurred.bind(this);
         this.handleTabRemoved = this.handleTabRemoved.bind(this);
         this.handleTabReplaced = this.handleTabReplaced.bind(this);
-        this.handleTabAttached = this.handleTabAttached.bind(this);
 
         this.interpreter.onTransition((state) => {
             log.debug(`[vpn.WebAuth.constructor]: WebAuth state transitioned to "${state.value}"`);
-            this.authCache.updateCache(AuthCacheKey.WebAuthFlowState, state.value as WebAuthState);
+            if (isWebAuthState(state.value)) {
+                this.authCache.updateCache(AuthCacheKey.WebAuthFlowState, state.value);
+            } else {
+                log.error(`[vpn.WebAuth.constructor]: Unexpected WebAuth state: "${String(state.value)}".`);
+            }
         });
         this.interpreter.start();
+
+        // Register listeners on the service worker start so they are restored after its wake up
+        this.registerEventListeners();
+
+        // Restore web authentication flow state after the service worker wake up
+        this.initPromise = this.restoreWebAuthFlow();
     }
 
     /**
@@ -278,83 +388,179 @@ export class WebAuth implements WebAuthInterface {
      */
     private async closeWebAuthTab(): Promise<void> {
         // Do nothing if tab is not open
-        const tabId = this.webAuthTabInfo?.id;
+        const tabId = this.webAuthTabId;
         if (typeof tabId !== 'number') {
             return;
         }
 
-        // Clear web authentication tab info
-        this.webAuthTabInfo = null;
+        // Clear web authentication tab id
+        this.webAuthTabId = null;
 
-        // Close tab
-        try {
-            await this.tabs.closeTab(tabId);
-            log.debug(`[vpn.WebAuth.closeWebAuthTab]: Web authentication tab with tabId#${tabId} closed.`);
-        } catch {
-            // It might throw an error if the tab is already closed
-        }
+        // Close the tab, retrying while the user is dragging it. Chrome forbids editing
+        // a tab during a drag, so close attempts fail until the drag is over.
+        await this.closeWebAuthTabWithRetry(tabId);
     }
 
     /**
-     * Attaches web request event listeners needed for web authentication flow.
+     * Closes the web authentication tab, retrying while the user is dragging it.
      *
-     * @throws Error if {@link webAuthTabInfo} is not defined.
+     * Chrome forbids editing tabs while the user is dragging one, so closing the tab
+     * may fail until the drag is over. The tab is polled until it can be closed or
+     * the retry timeout expires.
+     *
+     * @param tabId The ID of the tab to close.
      */
-    private async addWebRequestEventListeners(): Promise<void> {
-        if (!this.webAuthTabInfo) {
-            throw new Error('Cannot attach listeners, because web authentication tab info is not available.');
+    private async closeWebAuthTabWithRetry(tabId: number): Promise<void> {
+        const maxAttempts = Math.ceil(WebAuth.TAB_CLOSE_RETRY_TIMEOUT_MS / WebAuth.TAB_CLOSE_RETRY_DELAY_MS);
+
+        for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
+            // If the tab is already gone, consider it closed
+            try {
+                // eslint-disable-next-line no-await-in-loop
+                await browser.tabs.get(tabId);
+            } catch {
+                log.debug(`[vpn.WebAuth.closeWebAuthTabWithRetry]: Web authentication tab with tabId#${tabId} is already closed.`);
+                return;
+            }
+
+            try {
+                // eslint-disable-next-line no-await-in-loop
+                await this.tabs.closeTab(tabId);
+                log.debug(`[vpn.WebAuth.closeWebAuthTabWithRetry]: Web authentication tab with tabId#${tabId} closed.`);
+                return;
+            } catch {
+                // It might throw an error if the tab is already closed or the user is dragging it
+            }
+
+            // eslint-disable-next-line no-await-in-loop
+            await sleep(WebAuth.TAB_CLOSE_RETRY_DELAY_MS);
         }
 
-        const webRequestOptions: Partial<WebRequest.RequestFilter> = {
-            types: ['main_frame'],
-            tabId: this.webAuthTabInfo.id,
-            windowId: this.webAuthTabInfo.windowId,
-        };
+        log.error(`[vpn.WebAuth.closeWebAuthTabWithRetry]: Failed to close web authentication tab with tabId#${tabId} within ${WebAuth.TAB_CLOSE_RETRY_TIMEOUT_MS}ms.`);
+    }
 
+    /**
+     * Registers event listeners needed for the web authentication flow.
+     *
+     * Note: Listeners are registered on the service worker start and are never removed,
+     * because they are lost when the service worker dies and are not restored by the browser.
+     * Handlers filter events by the restored flow state.
+     */
+    private registerEventListeners(): void {
         browser.webRequest.onBeforeRequest.addListener(this.handleOnBeforeRequest, {
-            ...webRequestOptions,
             urls: [`${WebAuth.OAUTH_REDIRECT_URL}*`],
+            types: ['main_frame'],
         });
 
-        const authApiUrl = `https://${await this.fallbackApi.getAuthApiUrl()}/*`;
+        /**
+         * We can't filter by the auth API URL at registration time, because it is resolved
+         * asynchronously and may change at runtime, and we can't filter by the tab ID,
+         * because it is known only after the flow starts. That's why we filter by all URLs
+         * and check the tab ID and the URL hostname in {@link handleOnErrorOccurred}.
+         */
         browser.webRequest.onErrorOccurred.addListener(this.handleOnErrorOccurred, {
-            ...webRequestOptions,
-            urls: [authApiUrl],
+            urls: ['<all_urls>'],
+            types: ['main_frame'],
         });
-    }
 
-    /**
-     * Attaches event listeners needed for web authentication flow.
-     *
-     * @throws Error if {@link webAuthTabInfo} is not defined.
-     */
-    private async addEventListeners(): Promise<void> {
-        // Remove old listeners first if some of them already applied
-        this.removeEventListeners();
-
-        await this.addWebRequestEventListeners();
         browser.tabs.onRemoved.addListener(this.handleTabRemoved);
         browser.tabs.onReplaced.addListener(this.handleTabReplaced);
-        browser.tabs.onAttached.addListener(this.handleTabAttached);
     }
 
     /**
-     * Removes web request event listeners used for web authentication flow.
+     * Saves web authentication flow state to the session storage.
      */
-    private removeWebRequestEventListeners(): void {
-        browser.webRequest.onBeforeRequest.removeListener(this.handleOnBeforeRequest);
-        browser.webRequest.onErrorOccurred.removeListener(this.handleOnErrorOccurred);
+    private async saveWebAuthFlowToStorage(): Promise<void> {
+        try {
+            // Do nothing if flow state is not defined
+            if (!this.authState || typeof this.webAuthTabId !== 'number') {
+                log.debug('[vpn.WebAuth.saveWebAuthFlowToStorage]: Web authentication flow state is not fully defined, skipping save.');
+                return;
+            }
+
+            const tabId = this.webAuthTabId;
+            await browser.storage.session.set({
+                [WebAuth.WEB_AUTH_FLOW_STORAGE_KEY]: {
+                    authState: this.authState,
+                    tabId,
+                },
+            });
+        } catch (error) {
+            log.error('[vpn.WebAuth.saveWebAuthFlowToStorage]: Failed to save flow state to session storage:', error);
+        }
     }
 
     /**
-     * Removes event listeners used for web authentication flow.
+     * Removes web authentication flow state from the session storage.
      */
-    private removeEventListeners(): void {
-        this.removeWebRequestEventListeners();
+    private async clearWebAuthFlowFromStorage(): Promise<void> {
+        try {
+            await browser.storage.session.remove(WebAuth.WEB_AUTH_FLOW_STORAGE_KEY);
+        } catch (error) {
+            log.error('[vpn.WebAuth.clearWebAuthFlowFromStorage]: Failed to remove flow state from session storage:', error);
+        }
+    }
 
-        browser.tabs.onRemoved.removeListener(this.handleTabRemoved);
-        browser.tabs.onReplaced.removeListener(this.handleTabReplaced);
-        browser.tabs.onAttached.removeListener(this.handleTabAttached);
+    /**
+     * Restores web authentication flow state from the session storage.
+     *
+     * This is needed because the service worker can die at any moment
+     * while the flow is in progress, and the in-memory state would be lost otherwise.
+     */
+    private async restoreWebAuthFlow(): Promise<void> {
+        try {
+            const storageData = await browser.storage.session.get(WebAuth.WEB_AUTH_FLOW_STORAGE_KEY);
+            const rawFlowData = storageData[WebAuth.WEB_AUTH_FLOW_STORAGE_KEY];
+
+            // Do nothing if there is no stored web authentication flow
+            if (rawFlowData === undefined) {
+                return;
+            }
+
+            const webAuthFlowStorageData = v.safeParse(webAuthFlowStorageDataSchema, rawFlowData);
+
+            // The stored entry is unreadable, clear it so it doesn't stay forever
+            if (!webAuthFlowStorageData.success) {
+                log.error('[vpn.WebAuth.restoreWebAuthFlow]: Failed to parse stored web authentication flow state, clearing it:', v.flatten(webAuthFlowStorageData.issues));
+                await this.clearWebAuthFlowFromStorage();
+                return;
+            }
+
+            const { authState, tabId } = webAuthFlowStorageData.output;
+
+            // Check that the web authentication tab is still alive. We intentionally don't check
+            // the tab URL: a valid login can be on an intermediate page (Google/Apple/Facebook)
+            // or on the final redirect, none of which contain the OAuth path.
+            try {
+                await browser.tabs.get(tabId);
+            } catch {
+                // The tab was closed while the service worker was dead, so the stored flow is stale
+                log.debug(`[vpn.WebAuth.restoreWebAuthFlow]: Web authentication tab with tabId#${tabId} no longer exists, clearing flow.`);
+                await this.clearWebAuthFlowFromStorage();
+                return;
+            }
+
+            log.debug(`[vpn.WebAuth.restoreWebAuthFlow]: Restoring web authentication flow with tabId#${tabId}.`);
+
+            // Restore in-memory flow state
+            this.authState = authState;
+            this.flowId = authState;
+            this.webAuthTabId = tabId;
+
+            // Resolve the auth API URL outside initPromise so only the error handler waits for network work
+            this.authApiUrlPromise = this.fallbackApi.getAuthApiUrl()
+                .then((authApiUrl) => {
+                    this.authApiUrl = `https://${authApiUrl}`;
+                })
+                .catch((error) => {
+                    log.error('[vpn.WebAuth.restoreWebAuthFlow]: Failed to resolve auth API URL:', error);
+                });
+
+            // Restore web authentication flow state machine
+            this.interpreter.send(WebAuthAction.Start);
+        } catch (error) {
+            log.error('[vpn.WebAuth.restoreWebAuthFlow]: Failed to restore web authentication flow state:', error);
+        }
     }
 
     /**
@@ -362,27 +568,43 @@ export class WebAuth implements WebAuthInterface {
      *
      * @param shouldCloseWebAuthTab Whether the web authentication tab should be closed.
      * @param isCausedByTabModification Whether the error was caused by tab modification (closed or replaced).
+     * @param flowId Identity of the flow that caused the error.
      * @param error Handled error.
      */
     private async showErrorState({
         shouldCloseWebAuthTab,
         isCausedByTabModification,
+        flowId: failedFlowId,
         error,
     }: ShowErrorStateOptions): Promise<void> {
         if (error) {
             log.error('[vpn.WebAuth.showErrorState]: Error occurred while ongoing web authentication flow: ', error);
         }
 
+        if (failedFlowId && this.flowId !== failedFlowId) {
+            log.debug('[vpn.WebAuth.showErrorState]: Error belongs to an inactive web authentication flow, skipping failure.');
+            return;
+        }
+
+        const { flowId } = this;
+
         // Reset authentication state
         this.authState = null;
+
+        // Remove flow state from the session storage first, so a new flow started
+        // during the close retries doesn't get its persisted state wiped
+        await this.clearWebAuthFlowFromStorage();
 
         // Close tab
         if (shouldCloseWebAuthTab) {
             await this.closeWebAuthTab();
         }
 
-        // Remove listener
-        this.removeEventListeners();
+        // Only fail the flow if no new flow was started while the tab was being closed
+        if (this.authState !== null || this.flowId !== flowId) {
+            log.debug('[vpn.WebAuth.showErrorState]: A new web authentication flow was started, skipping failure.');
+            return;
+        }
 
         // Fail web authentication flow
         const action = isCausedByTabModification
@@ -397,12 +619,17 @@ export class WebAuth implements WebAuthInterface {
      * @param tabId The ID of the removed tab.
      */
     private async handleTabRemoved(tabId: number): Promise<void> {
+        await this.initPromise;
+
         // Do nothing if closed tab is not web auth tab
-        if (this.webAuthTabInfo?.id !== tabId) {
+        if (this.webAuthTabId !== tabId) {
             return;
         }
 
         log.debug(`[vpn.WebAuth.handleTabRemoved]: User closed web authentication tab with tabId#${tabId}`);
+
+        // The tab is gone, so there is nothing to close later
+        this.webAuthTabId = null;
 
         // Show error state
         await this.showErrorState({
@@ -422,57 +649,61 @@ export class WebAuth implements WebAuthInterface {
     }
 
     /**
-     * Handles the attachment of a tab by updating web authentication tab info if necessary.
-     *
-     * @param tabId The ID of the attached tab.
-     * @param attachInfo The attachment information for the attached tab.
-     */
-    private async handleTabAttached(tabId: number, attachInfo: browser.Tabs.OnAttachedAttachInfoType): Promise<void> {
-        // Do nothing if attached tab is not web auth tab
-        if (this.webAuthTabInfo?.id !== tabId) {
-            return;
-        }
-
-        log.debug(`[vpn.WebAuth.handleTabAttached]: Web authentication tab with tabId#${tabId} was attached to windowId#${attachInfo.newWindowId}.`);
-
-        // Update window ID
-        this.webAuthTabInfo.windowId = attachInfo.newWindowId;
-
-        // We should update web request listeners to listen to new window ID
-        this.removeWebRequestEventListeners();
-        await this.addWebRequestEventListeners();
-    }
-
-    /**
      * Handles errors occurred during web requests in the web authentication tab.
      *
      * @param details The details of the web request that caused the error.
      */
     private async handleOnErrorOccurred(details: WebRequest.OnErrorOccurredDetailsType): Promise<void> {
-        /**
-         * We should ignore errors if:
-         * - It's our `redirect_uri` URL - because it's fictional and doesn't exist,
-         *   it may throw `net::ERR_NAME_NOT_RESOLVED` error,
-         *   this handled by {@link handleOnBeforeRequest} method.
-         * - Error is `net::ERR_ABORTED` - because this error may happen when user
-         *   navigate to another URL in the same tab while there are ongoing requests,
-         *   in this case we shouldn't show error state, because user may navigate
-         *   to another social login page or just reload the page.
-         */
-        if (
-            details.url.startsWith(WebAuth.OAUTH_REDIRECT_URL)
-            || details.error === WebAuth.NET_ABORTED_ERROR
-        ) {
-            return;
-        }
+        try {
+            await this.initPromise;
 
-        // Show error state
-        const error = new Error(`Web authentication tab encountered a web request error: ${details.error}`);
-        await this.showErrorState({
-            shouldCloseWebAuthTab: true,
-            isCausedByTabModification: false,
-            error,
-        });
+            // Do nothing if error is not related to the web authentication tab
+            if (details.tabId !== this.webAuthTabId) {
+                return;
+            }
+
+            const { flowId } = this;
+
+            // Do nothing if there is no active flow to fail
+            if (!flowId) {
+                return;
+            }
+
+            /**
+             * We should ignore errors if:
+             * - It's our `redirect_uri` URL - because it's fictional and doesn't exist,
+             *   it may throw `net::ERR_NAME_NOT_RESOLVED` error,
+             *   this handled by {@link handleOnBeforeRequest} method.
+             * - Error is `net::ERR_ABORTED` - because this error may happen when user
+             *   navigate to another URL in the same tab while there are ongoing requests,
+             *   in this case we shouldn't show error state, because user may navigate
+             *   to another social login page or just reload the page.
+             */
+            if (
+                details.url.startsWith(WebAuth.OAUTH_REDIRECT_URL)
+                || details.error === WebAuth.NET_ABORTED_ERROR
+            ) {
+                return;
+            }
+
+            await this.authApiUrlPromise;
+
+            // Do nothing if the auth API host is not resolved or the error URL is unrelated
+            if (!this.authApiUrl || new URL(details.url).hostname !== new URL(this.authApiUrl).hostname) {
+                return;
+            }
+
+            // Show error state
+            const error = new Error(`Web authentication tab encountered a web request error: ${details.error}`);
+            await this.showErrorState({
+                shouldCloseWebAuthTab: true,
+                isCausedByTabModification: false,
+                flowId,
+                error,
+            });
+        } catch (error) {
+            log.error('[vpn.WebAuth.handleOnErrorOccurred]: Error occurred while handling web request error:', error);
+        }
     }
 
     /**
@@ -481,6 +712,8 @@ export class WebAuth implements WebAuthInterface {
      * @param appId Application ID.
      */
     private async startWebAuthFlow(appId: string): Promise<void> {
+        const flowId = nanoid();
+
         try {
             log.debug('[vpn.WebAuth.startWebAuthFlow]: Starting web authentication flow.');
 
@@ -490,9 +723,23 @@ export class WebAuth implements WebAuthInterface {
                 return;
             }
 
+            this.flowId = flowId;
+
             // Do nothing if already authenticated - user must logout first
             if (await this.auth.isAuthenticated(false)) {
                 log.debug('[vpn.WebAuth.startWebAuthFlow]: User is already authenticated, skipping web authentication request.');
+
+                // Do not keep the flow id for a flow that never started
+                if (this.flowId === flowId) {
+                    this.flowId = null;
+                }
+
+                return;
+            }
+
+            // The flow could be cancelled or replaced while checking the auth status
+            if (this.flowId !== flowId) {
+                log.debug('[vpn.WebAuth.startWebAuthFlow]: Web authentication flow is no longer active after checking auth status, aborting start.');
                 return;
             }
 
@@ -501,6 +748,14 @@ export class WebAuth implements WebAuthInterface {
 
             // Construct web authentication URL
             const authApiUrl = `https://${await this.fallbackApi.getAuthApiUrl()}`;
+
+            // The flow could be cancelled or replaced while the auth API URL is being resolved
+            if (this.flowId !== flowId) {
+                log.debug('[vpn.WebAuth.startWebAuthFlow]: Web authentication flow is no longer active after resolving the auth API URL, aborting start.');
+                return;
+            }
+
+            this.authApiUrl = authApiUrl;
             const params = qs.stringify({
                 client_id: AUTH_CLIENT_ID,
                 response_type: WebAuth.AUTH_RESPONSE_TYPE,
@@ -519,18 +774,29 @@ export class WebAuth implements WebAuthInterface {
             const tab = await this.tabs.openTab(webAuthUrl);
             log.debug(`[vpn.WebAuth.startWebAuthFlow]: Web authentication tab with tabId#${tab.id} and windowId#${tab.windowId} opened.`);
 
-            // Save tab ID and window ID to be able to manage it later
-            this.webAuthTabInfo = {
-                id: tab.id,
-                windowId: tab.windowId,
-            };
+            // The tab id is required to manage the tab later
+            if (typeof tab.id !== 'number') {
+                throw new Error('Web authentication tab was opened without an id.');
+            }
 
-            // Attach event listeners
-            await this.addEventListeners();
+            // The flow could be cancelled or replaced while the tab is being opened,
+            // so close the tab opened by this attempt to not leave it stranded
+            if (this.flowId !== flowId) {
+                log.debug(`[vpn.WebAuth.startWebAuthFlow]: Web authentication flow is no longer active after opening the tab, closing the tab with tabId#${tab.id}.`);
+                await this.closeWebAuthTabWithRetry(tab.id);
+                return;
+            }
+
+            // Save tab ID to be able to manage it later
+            this.webAuthTabId = tab.id;
+
+            // Save flow state so it can be restored after the service worker wake up
+            await this.saveWebAuthFlowToStorage();
         } catch (error) {
             await this.showErrorState({
                 shouldCloseWebAuthTab: true,
                 isCausedByTabModification: false,
+                flowId,
                 error,
             });
         }
@@ -543,23 +809,25 @@ export class WebAuth implements WebAuthInterface {
         try {
             log.debug('[vpn.WebAuth.reopenWebAuthFlow]: Reopening web authentication tab');
 
-            // If tab info is unavailable - nothing to reopen
-            if (!this.webAuthTabInfo) {
+            // If tab is unavailable - nothing to reopen
+            const tabId = this.webAuthTabId;
+            if (typeof tabId !== 'number') {
                 log.debug('[vpn.WebAuth.reopenWebAuthFlow]: Web authentication tab is not available for reopening.');
                 return;
             }
 
+            // Read the current window ID from the tab, because the tab can be moved or torn off
+            const tab = await browser.tabs.get(tabId);
+
             // Focus on window
-            if (typeof this.webAuthTabInfo.windowId === 'number') {
-                log.debug(`[vpn.WebAuth.reopenWebAuthFlow]: Focusing on web authentication window with windowId#${this.webAuthTabInfo.windowId}.`);
-                await this.windowsApi.update(this.webAuthTabInfo.windowId, { focused: true });
+            if (typeof tab.windowId === 'number') {
+                log.debug(`[vpn.WebAuth.reopenWebAuthFlow]: Focusing on web authentication window with windowId#${tab.windowId}.`);
+                await this.windowsApi.update(tab.windowId, { focused: true });
             }
 
             // Focus on tab
-            if (typeof this.webAuthTabInfo.id === 'number') {
-                log.debug(`[vpn.WebAuth.reopenWebAuthFlow]: Focusing on web authentication tab with tabId#${this.webAuthTabInfo.id}.`);
-                await this.tabs.focusTab(this.webAuthTabInfo.id);
-            }
+            log.debug(`[vpn.WebAuth.reopenWebAuthFlow]: Focusing on web authentication tab with tabId#${tabId}.`);
+            await this.tabs.focusTab(tabId);
         } catch (error) {
             log.error('[vpn.WebAuth.reopenWebAuthFlow]: Error occurred while reopening web authentication flow: ', error);
         }
@@ -574,28 +842,69 @@ export class WebAuth implements WebAuthInterface {
 
             // Reset authentication state
             this.authState = null;
+            this.flowId = null;
+
+            // Remove flow state from the session storage first, so a new flow started
+            // during the close retries doesn't get its persisted state wiped
+            await this.clearWebAuthFlowFromStorage();
 
             // Close tab if it was opened
             await this.closeWebAuthTab();
-
-            // Remove listeners if it was attached
-            this.removeEventListeners();
         } catch (error) {
             log.error('[vpn.WebAuth.cancelWebAuthFlow]: Error occurred while cancelling web authentication flow: ', error);
         }
     }
 
     /**
-     * Handle the onBeforeRequest event.
+     * Handles the onBeforeRequest event.
      *
      * @param details The details of the web request.
      */
     private handleOnBeforeRequest(details: WebRequest.OnBeforeRequestDetailsType): void {
         /**
-         * Note 1: We don't need to handle success / error here because it was done by method itself.
-         * Note 2: do not log `details` or `details.url`, because it contains sensitive information (token).
+         * Note 1: do not log `details` or `details.url`, because it contains sensitive information (token).
+         * Note 2: we intentionally don't await the async handler, because the listener must return synchronously.
          */
-        this.finishWebAuthFlow(details.url);
+        this.handleOnBeforeRequestAsync(details);
+    }
+
+    /**
+     * Handles the web authentication redirect asynchronously.
+     *
+     * Note: We don't match the request by window ID, because the web authentication tab
+     * can be moved or torn off into another window while the flow is in progress.
+     * Instead we match the `state` param from the redirect URL hash with the stored
+     * authentication state, and additionally check the tab ID in the handler,
+     * which is stable when the tab is moved or torn off (unlike the window ID).
+     *
+     * @param details The details of the web request.
+     */
+    private async handleOnBeforeRequestAsync(details: WebRequest.OnBeforeRequestDetailsType): Promise<void> {
+        try {
+            await this.initPromise;
+
+            if (!this.authState) {
+                log.debug('[vpn.WebAuth.handleOnBeforeRequestAsync]: Web authentication flow is not active, ignoring redirect.');
+                return;
+            }
+
+            if (details.tabId !== this.webAuthTabId) {
+                log.debug(`[vpn.WebAuth.handleOnBeforeRequestAsync]: Redirect from tabId#${details.tabId} is not the web authentication tab, ignoring.`);
+                return;
+            }
+
+            const { hash } = new URL(details.url);
+            const { state } = qs.parse(hash.slice(1));
+
+            if (state !== this.authState) {
+                log.debug('[vpn.WebAuth.handleOnBeforeRequestAsync]: Redirect state does not match the authentication state, ignoring.');
+                return;
+            }
+
+            await this.finishWebAuthFlow(details.url);
+        } catch (error) {
+            log.error('[vpn.WebAuth.handleOnBeforeRequestAsync]: Error occurred while handling web auth redirect:', error);
+        }
     }
 
     /**
@@ -604,24 +913,49 @@ export class WebAuth implements WebAuthInterface {
      * @param responseUrl The response URL from the authentication flow.
      */
     private async finishWebAuthFlow(responseUrl: string): Promise<void> {
+        const { authState, flowId } = this;
+
+        /**
+         * Do nothing if there is no active flow, or if the same flow's redirect
+         * is already being processed (e.g. the user reloads the redirect URL while
+         * the tab is being closed). A redirect from a freshly started flow is still
+         * handled, even while the previous flow is closing its tab.
+         */
+        if (!authState || !flowId || this.finishingAuthState === authState) {
+            return;
+        }
+
+        this.finishingAuthState = authState;
+
         try {
-            // Note: do not log `responseUrl`, because it contains sensitive information (token)
-            log.debug('[vpn.WebAuth.finishWebAuthFlow]: Response URL received for web authentication flow, authenticating user.');
+            // Remove flow state from the session storage first, so a new flow started
+            // while the tab is being closed doesn't get its persisted state wiped
+            await this.clearWebAuthFlowFromStorage();
 
             // Close tab
             await this.closeWebAuthTab();
 
-            // Remove listeners
-            this.removeEventListeners();
+            // Note: do not log `responseUrl`, because it contains sensitive information (token)
+            log.debug('[vpn.WebAuth.finishWebAuthFlow]: Response URL received for web authentication flow, authenticating user.');
 
-            // If authentication state is not defined - we can't match states for validity
-            if (!this.authState) {
-                throw new Error('Authentication state is not set. Please start the web authentication flow first.');
+            /**
+             * If the flow is no longer active (cancelled or replaced by a new flow),
+             * the stale redirect must be a no-op rather than an error.
+             */
+            if (this.authState !== authState) {
+                log.debug('[vpn.WebAuth.finishWebAuthFlow]: Web authentication flow is not active, ignoring response.');
+                return;
             }
 
             // Do nothing if already authenticated - user must logout first
             if (await this.auth.isAuthenticated(false)) {
                 log.debug('[vpn.WebAuth.finishWebAuthFlow]: User is already authenticated, skipping web authentication request.');
+                return;
+            }
+
+            // Re-check after the await, because the flow could be cancelled while checking auth status
+            if (this.authState !== authState) {
+                log.debug('[vpn.WebAuth.finishWebAuthFlow]: Web authentication flow is not active, ignoring response.');
                 return;
             }
 
@@ -649,7 +983,7 @@ export class WebAuth implements WebAuthInterface {
             }
 
             // Match state
-            if (this.authState !== state) {
+            if (authState !== state) {
                 throw new Error('Invalid state received from web authentication flow.');
             }
 
@@ -686,17 +1020,34 @@ export class WebAuth implements WebAuthInterface {
 
             // Finish with success web auth flow
             this.interpreter.send(WebAuthAction.Succeed);
+
+            if (this.flowId === flowId) {
+                this.flowId = null;
+            }
         } catch (error) {
             await this.showErrorState({
                 shouldCloseWebAuthTab: true,
                 isCausedByTabModification: false,
+                flowId,
                 error,
             });
+        } finally {
+            if (this.finishingAuthState === authState) {
+                this.finishingAuthState = null;
+            }
         }
     }
 
     /** @inheritdoc */
+    public async waitForInit(): Promise<void> {
+        await this.initPromise;
+    }
+
+    /** @inheritdoc */
     public async handleAction(appId: string, action: WebAuthAction): Promise<void> {
+        // Wait for the web authentication flow state to be restored
+        await this.initPromise;
+
         // Get is loading state before sending action
         const isLoading = this.interpreter.getSnapshot().matches(WebAuthState.Loading);
 

@@ -88,7 +88,7 @@ export const Location = observer(({ location, onClick, onSaveClick }: LocationPr
         if (locationFitsPremiumToken) {
             onClick(id);
         } else {
-            settingsStore.setPremiumLocationClickedByFreeUser(true);
+            settingsStore.setFreeUserClickedPremiumLocation(true);
         }
     };
 

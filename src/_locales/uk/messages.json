@@ -147,8 +147,37 @@
     "privacy_policy": {
         "message": "Політика конфіденційності"
     },
+    "settings_title": {
+        "message": "Налаштування"
+    },
     "settings_general_title": {
-        "message": "Загальні"
+        "message": "Загальні налаштування"
+    },
+    "settings_general_description": {
+        "message": "Застосувати до всіх профілів. Якщо ви зміните профіль, налаштування залишаться такими самими"
+    },
+    "settings_current_profile": {
+        "message": "Поточний профіль: <b>%profile_name%</b>"
+    },
+    "settings_current_profile_description": {
+        "message": "Застосувати до поточного профілю. Якщо ви зміните профіль, налаштування також можуть змінитися"
+    },
+    "settings_unlimited_promo_title": {
+        "message": "Отримайте безлімітну версію"
+    },
+    "settings_unlimited_promo_feature_speed": {
+        "message": "Стрімінг без обмежень швидкості"
+    },
+    "settings_unlimited_promo_feature_locations": {
+        "message": "%count%+ безпечні місця | %count%+ безпечне місце | %count%+ безпечні місця | %count%+ безпечні місця",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_feature_devices": {
+        "message": "До %count% пристрої на одному акаунті | До %count% пристрій на одному акаунті | До %count% пристрої на одному акаунті | До %count% пристрої на одному акаунті",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_upgrade_button": {
+        "message": "Покращити"
     },
     "referral_get_free_traffic": {
         "message": "Отримайте безплатний VPN-трафік!"
@@ -428,8 +457,8 @@
     "settings_quick_connect_title": {
         "message": "Швидке підʼєднання"
     },
-    "settings_quick_connect_subtitle": {
-        "message": "Яке місцезнаходження вибирати під час натискання «Підʼєднатися»"
+    "settings_quick_connect_description": {
+        "message": "Локація VPN за замовчуванням, якщо перемкнутися на профіль або відкрити браузер"
     },
     "settings_quick_connect_last_used": {
         "message": "Останнє використовуване"
@@ -539,8 +568,11 @@
     "settings_exclusion_title": {
         "message": "Винятки"
     },
-    "settings_location_label": {
-        "message": "Місцезнаходження"
+    "settings_exclusion_general_state": {
+        "message": "VPN увімкнено всюди, окрім певних сайтів"
+    },
+    "settings_exclusion_selective_state": {
+        "message": "VPN увімкнено лише для вибраних сайтів"
     },
     "settings_location_fastest_title": {
         "message": "Найшвидше"
@@ -548,14 +580,17 @@
     "settings_location_fastest_description": {
         "message": "Автоматичне підключення до найшвидшої локації"
     },
-    "settings_profiles_title": {
-        "message": "Профілі"
+    "settings_location_last_used_description": {
+        "message": "Автоматично підʼєднатися до останньої використаної локації"
     },
-    "settings_profiles_sidebar_title": {
-        "message": "Профіль"
+    "settings_profiles_title": {
+        "message": "Керувати профілями"
+    },
+    "settings_profiles_manage": {
+        "message": "Керувати профілями"
     },
     "settings_profiles_subtitle": {
-        "message": "Дозволяє налаштовувати DNS-сервери та розташування, а також зберігати окремі списки виключень для різних сценаріїв використання, таких як робота, дім або інші"
+        "message": "Використовуйте VPN для різних сценаріїв, таких як робота, дім, діти чи інші. Створіть профіль і налаштуйте для нього бажану локацію, DNS-сервер та винятки"
     },
     "settings_profiles_default_name": {
         "message": "Усталений"
@@ -573,7 +608,10 @@
         "message": "Видалити"
     },
     "settings_profiles_create": {
-        "message": "Творити"
+        "message": "Створити профіль"
+    },
+    "settings_profiles_open_settings": {
+        "message": "Відкрити налаштування"
     },
     "settings_profiles_create_modal_title": {
         "message": "Створити профіль"
@@ -616,9 +654,6 @@
     },
     "settings_profiles_delete_modal_submit": {
         "message": "Видалити"
-    },
-    "settings_description_current": {
-        "message": "Поточний: %mode%"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Де увімкнено VPN"
@@ -695,14 +730,23 @@
     "popup_settings_stats": {
         "message": "Статистика"
     },
-    "popup_profiles_title": {
-        "message": "Профілі"
-    },
-    "popup_profiles_settings": {
-        "message": "Налаштування"
-    },
     "profile_apply_error": {
         "message": "Не вдалося переключити профілі. Спробуйте ще раз або зверніться до підтримки"
+    },
+    "profile_switched": {
+        "message": "Перемкнуто на %profile_name%"
+    },
+    "profile_created": {
+        "message": "Профіль створено"
+    },
+    "profile_deleted": {
+        "message": "Профіль видалено"
+    },
+    "profile_deleted_switched": {
+        "message": "Профіль видалено. Вас перемкнуто на %profile_name%"
+    },
+    "profile_name_updated": {
+        "message": "Назву профілю оновлено"
     },
     "popup_settings_free_description": {
         "message": "Доступно в AdGuard VPN Unlimited"
@@ -806,7 +850,7 @@
         "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
     },
     "popup_paywall_b_column_unlimited": {
-        "message": "Необмежений",
+        "message": "Необмежена",
         "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
     },
     "popup_paywall_b_row_vpn_data": {
@@ -876,7 +920,7 @@
         "message": "Поділитись"
     },
     "popup_compare_button": {
-        "message": "Чому програма краща"
+        "message": "Чому програма для настільного ПК краща"
     },
     "popup_rate_modal_title": {
         "message": "Вам подобається AdGuard VPN?"

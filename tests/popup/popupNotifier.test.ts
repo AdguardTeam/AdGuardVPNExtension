@@ -42,6 +42,7 @@ const makeStores = (overrides: {
         setGlobalError: vi.fn(),
         setConnectivityState: vi.fn(),
         openServerErrorPopup: vi.fn(),
+        refreshExclusionsState: vi.fn().mockResolvedValue(undefined),
     },
     telemetryStore: {
         setIsHelpUsImproveEnabled: vi.fn(),
@@ -196,5 +197,38 @@ describe('handlePopupNotifierMessage', () => {
         await expect(
             handlePopupNotifierMessage(message('UNKNOWN_TYPE'), stores, makeSend()),
         ).resolves.toBeUndefined();
+    });
+
+    it('refreshes the exclusions state for the committed profile on ACTIVE_PROFILE_CHANGED', async () => {
+        const stores = makeStores();
+        const payload = { profileId: 'work', success: true };
+
+        await handlePopupNotifierMessage(
+            message(notifier.types.ACTIVE_PROFILE_CHANGED, payload),
+            stores,
+            makeSend(),
+        );
+
+        expect(stores.vpnStore.handleProfileChanged).toHaveBeenCalledWith(payload);
+        expect(stores.settingsStore.refreshExclusionsState).toHaveBeenCalledWith('work');
+        // The refresh applies its result only while the tracker already holds
+        // this profile, so it must run after the profile change is handled.
+        const profileChangeOrder = vi.mocked(stores.vpnStore.handleProfileChanged).mock.invocationCallOrder[0];
+        const refreshOrder = vi.mocked(stores.settingsStore.refreshExclusionsState).mock.invocationCallOrder[0];
+        expect(profileChangeOrder).toBeLessThan(refreshOrder);
+    });
+
+    it('refreshes the exclusions state for the rollback profile on a failed switch', async () => {
+        const stores = makeStores();
+        const payload = { profileId: 'default', success: false };
+
+        await handlePopupNotifierMessage(
+            message(notifier.types.ACTIVE_PROFILE_CHANGED, payload),
+            stores,
+            makeSend(),
+        );
+
+        expect(stores.vpnStore.handleProfileChanged).toHaveBeenCalledWith(payload);
+        expect(stores.settingsStore.refreshExclusionsState).toHaveBeenCalledWith('default');
     });
 });

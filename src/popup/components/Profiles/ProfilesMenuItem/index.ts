@@ -1,1 +1,0 @@
-export { ProfilesMenuItem } from './ProfilesMenuItem';

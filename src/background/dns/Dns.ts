@@ -3,7 +3,7 @@ import { StorageKey, type DnsServerData, type ProfileSettings } from '../schema'
 import { StateData } from '../stateStorage';
 import { log } from '../../common/logger';
 import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from '../../common/dnsConstants';
-import { profilesService } from '../profiles';
+import { profileStateService, profilesService } from '../profiles';
 
 /**
  * DNS service that manages per-profile DNS server selection and custom servers.
@@ -57,10 +57,9 @@ export class Dns {
         const { selectedDnsServer, customDnsServers } = profileSettings;
         const effectiveDnsServerId = selectedDnsServer || DEFAULT_DNS_SERVER.id;
 
-        await this.dnsState.update({
-            customDnsServers,
-            selectedDnsServer: effectiveDnsServerId,
-        });
+        // The selected server id is not written to dnsState here directly:
+        // applyDnsServer persists it and notifies the tunnel about the change.
+        await this.dnsState.update({ customDnsServers });
 
         await this.applyDnsServer(effectiveDnsServerId);
     };
@@ -238,7 +237,10 @@ export class Dns {
             },
         );
 
-        await this.saveBackup(profileId, profileSettings.customDnsServers);
+        // Back up the current list so an accidental removal can be undone.
+        // Note: the backup is temporary undo data and is not migrated from
+        // the legacy `dnsState.backupDnsServersData` key on extension update.
+        await profileStateService.dnsBackup.set(profileId, profileSettings.customDnsServers);
     };
 
     /**
@@ -251,8 +253,7 @@ export class Dns {
     public restoreCustomDnsServersData = async (
         profileId: string,
     ): Promise<DnsServerData[]> => {
-        const { backupDnsServersData } = await this.dnsState.get();
-        const backup = backupDnsServersData[profileId] || [];
+        const backup = await profileStateService.dnsBackup.get(profileId) ?? [];
 
         await profilesService.updateProfileSettings(
             profileId,
@@ -263,39 +264,5 @@ export class Dns {
         );
 
         return backup;
-    };
-
-    /**
-     * Removes the backup of custom DNS servers for a deleted profile.
-     *
-     * @param profileId Profile ID to remove from the backup.
-     */
-    public removeProfileBackup = async (profileId: string): Promise<void> => {
-        const { backupDnsServersData } = await this.dnsState.get();
-        if (profileId in backupDnsServersData) {
-            const updated = { ...backupDnsServersData };
-            delete updated[profileId];
-            await this.dnsState.update({ backupDnsServersData: updated });
-        }
-    };
-
-    /**
-     * Saves a backup of custom DNS servers for the given profile
-     * into session storage.
-     *
-     * @param profileId Profile ID.
-     * @param servers Custom DNS servers list to back up.
-     */
-    private saveBackup = async (
-        profileId: string,
-        servers: DnsServerData[],
-    ): Promise<void> => {
-        const { backupDnsServersData } = await this.dnsState.get();
-        await this.dnsState.update({
-            backupDnsServersData: {
-                ...backupDnsServersData,
-                [profileId]: servers,
-            },
-        });
     };
 }

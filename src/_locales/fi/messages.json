@@ -147,8 +147,37 @@
     "privacy_policy": {
         "message": "Tietosuojakäytäntö"
     },
+    "settings_title": {
+        "message": "Asetukset"
+    },
     "settings_general_title": {
-        "message": "Yleiset"
+        "message": "Yleiset asetukset"
+    },
+    "settings_general_description": {
+        "message": "Sovelletaan kaikkiin profiileihin. Jos vaihdat profiilia, asetukset pysyvät ennallaan"
+    },
+    "settings_current_profile": {
+        "message": "Nykyinen profiili: <b>%profile_name%</b>"
+    },
+    "settings_current_profile_description": {
+        "message": "Käytä nykyiseen profiiliin. Jos vaihdat profiilia, myös asetukset saattavat muuttua"
+    },
+    "settings_unlimited_promo_title": {
+        "message": "Hanki rajoittamaton versio"
+    },
+    "settings_unlimited_promo_feature_speed": {
+        "message": "Suoratoisto ilman nopeusrajoituksia"
+    },
+    "settings_unlimited_promo_feature_locations": {
+        "message": "%count%+ suojatut sijainnit | %count%+ suojattu sijainti | %count%+ suojatut sijainnit",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_feature_devices": {
+        "message": "Enintään %count% laitetta yhdellä tilillä | Enintään %count% laitetta yhdellä tilillä | Enintään %count% laitetta yhdellä tilillä",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_upgrade_button": {
+        "message": "Päivitä"
     },
     "referral_get_free_traffic": {
         "message": "Ansaitse ilmaisia gigatavuja!"
@@ -428,8 +457,8 @@
     "settings_quick_connect_title": {
         "message": "Pikayhteys"
     },
-    "settings_quick_connect_subtitle": {
-        "message": "VPN-sijainti, johon Yhdistä-painike muodostaa yhteyden"
+    "settings_quick_connect_description": {
+        "message": "VPN-oletussijainti, kun vaihdat profiiliin tai avaat selaimen"
     },
     "settings_quick_connect_last_used": {
         "message": "Viimeksi käytetty sijainti"
@@ -539,8 +568,11 @@
     "settings_exclusion_title": {
         "message": "Poikkeukset"
     },
-    "settings_location_label": {
-        "message": "Sijainti"
+    "settings_exclusion_general_state": {
+        "message": "VPN toimii tiettyjä verkkosivustoja lukuun ottamatta kaikkialla"
+    },
+    "settings_exclusion_selective_state": {
+        "message": "VPN on päällä vain valituilla verkkosivustoilla"
     },
     "settings_location_fastest_title": {
         "message": "Nopein sijainti"
@@ -548,14 +580,17 @@
     "settings_location_fastest_description": {
         "message": "Yhdistä automaattisesti nopeimpaan sijaintiin"
     },
-    "settings_profiles_title": {
-        "message": "Profiilit"
+    "settings_location_last_used_description": {
+        "message": "Yhdistä automaattisesti viimeksi käytettyyn sijaintiin"
     },
-    "settings_profiles_sidebar_title": {
-        "message": "Profiilit"
+    "settings_profiles_title": {
+        "message": "Hallitse profiileja"
+    },
+    "settings_profiles_manage": {
+        "message": "Hallitse profiileja"
     },
     "settings_profiles_subtitle": {
-        "message": "Voit asettaa DNS-palvelimia ja sijainteja ja pitää erillisiä poissulkemisluetteloita eri käyttötilanteita varten, kuten työ-, koti- tai muita käyttötilanteita varten"
+        "message": "Käytä VPN: ää eri tilanteissa, kuten töissä, kotona, lasten kanssa tai muussa. Luo profiili ja määritä sille ensisijainen sijainti, DNS-palvelin ja poikkeukset"
     },
     "settings_profiles_default_name": {
         "message": "Oletus"
@@ -573,7 +608,10 @@
         "message": "Poista"
     },
     "settings_profiles_create": {
-        "message": "Luo"
+        "message": "Luo profiili"
+    },
+    "settings_profiles_open_settings": {
+        "message": "Avaa asetukset"
     },
     "settings_profiles_create_modal_title": {
         "message": "Luo profiili"
@@ -616,9 +654,6 @@
     },
     "settings_profiles_delete_modal_submit": {
         "message": "Poista"
-    },
-    "settings_description_current": {
-        "message": "Nykyinen: %mode%"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Missä VPN toimii"
@@ -695,14 +730,23 @@
     "popup_settings_stats": {
         "message": "Tilastot"
     },
-    "popup_profiles_title": {
-        "message": "Profiilit"
-    },
-    "popup_profiles_settings": {
-        "message": "Asetukset"
-    },
     "profile_apply_error": {
         "message": "Profiilin vaihtaminen epäonnistui. Yritä uudelleen tai ota yhteyttä tukeen"
+    },
+    "profile_switched": {
+        "message": "Vaihdettu profiiliin %profile_name%"
+    },
+    "profile_created": {
+        "message": "Profiili luotu"
+    },
+    "profile_deleted": {
+        "message": "Profiili poistettiin"
+    },
+    "profile_deleted_switched": {
+        "message": "Profiili poistettu. Vaihdettu profiiliin %profile_name%"
+    },
+    "profile_name_updated": {
+        "message": "Profiilin nimi päivitetty"
     },
     "popup_settings_free_description": {
         "message": "Saatavilla AdGuard VPN Unlimitedissa"
@@ -876,7 +920,7 @@
         "message": "Lähetä palautetta"
     },
     "popup_compare_button": {
-        "message": "Miksi sovellus on parempi"
+        "message": "Miksi työpöytäsovellus on parempi"
     },
     "popup_rate_modal_title": {
         "message": "Miten mahtava AdGuard VPN on?"

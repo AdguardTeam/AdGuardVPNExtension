@@ -1,10 +1,9 @@
 /**
  * This module manages promo notifications
  */
-import browser from 'webextension-polyfill';
-
 import { getForwarderUrl } from '../common/helpers';
 import { type IconVariants, Prefs } from '../common/prefs';
+import { i18n } from '../common/i18n';
 import { isRuLocale, normalizeLanguage } from '../common/utils/promo';
 import { notifier } from '../common/notifier';
 import promoBannerImageUrl from '../assets/images/newyear25.svg';
@@ -341,14 +340,14 @@ const handleSerbianLocale = (normalizedLocale: string): string => {
 };
 
 /**
- * Scans notification locales and returns the one matching navigator language.
+ * Scans notification locales and returns the one matching the app language.
  *
  * @param notification Notification object.
  *
  * @returns Matching text or null if no language defined.
  */
 const getNotificationText = (notification: PromoNotificationData): NotificationTextRecord | null => {
-    let language = normalizeLanguage(browser.i18n.getUILanguage());
+    let language = normalizeLanguage(i18n.getUILanguage());
 
     if (!language) {
         return null;
@@ -375,13 +374,11 @@ const initNotifications = (): void => {
         const notificationKey = notificationsKeys[i];
         const notification = notifications[notificationKey];
 
-        notification.text = getNotificationText(notification);
-
         const to = new Date(notification.to).getTime();
         const expired = new Date().getTime() > to;
 
-        if (!notification.text || expired) {
-            // Remove expired and invalid
+        if (expired) {
+            // Remove expired notifications.
             delete notifications[notificationKey];
         }
     }
@@ -392,7 +389,7 @@ initNotifications();
 
 let currentNotification: PromoNotificationData | null;
 let notificationCheckTime: number;
-let timeoutId: number;
+let timeoutId: ReturnType<typeof setTimeout>;
 
 /**
  * Marks current notification as viewed
@@ -403,7 +400,7 @@ const setNotificationViewed = async (withDelay: boolean): Promise<void> => {
         clearTimeout(timeoutId);
         timeoutId = setTimeout(() => {
             setNotificationViewed(false);
-        }, NOTIFICATION_DELAY_MS) as any; // TODO setup tsconfig to fix types
+        }, NOTIFICATION_DELAY_MS);
         // do not continue if `withDelay` is true, otherwise it may set a notification as viewed
         return;
     }
@@ -448,6 +445,14 @@ const getCurrentNotification = async (): Promise<PromoNotificationData | null> =
     // Check not often than once in 10 minutes
     const timeSinceLastCheck = currentTime - notificationCheckTime;
     if (notificationCheckTime > 0 && timeSinceLastCheck <= CHECK_TIMEOUT_MS) {
+        if (currentNotification) {
+            const text = getNotificationText(currentNotification);
+            if (text) {
+                currentNotification.text = text;
+            } else {
+                currentNotification = null;
+            }
+        }
         return currentNotification;
     }
 
@@ -472,8 +477,12 @@ const getCurrentNotification = async (): Promise<PromoNotificationData | null> =
             && to > currentTime
             && !viewedNotifications.includes(notification.id)
         ) {
-            currentNotification = notification;
-            return currentNotification;
+            const text = getNotificationText(notification);
+            if (text) {
+                notification.text = text;
+                currentNotification = notification;
+                return currentNotification;
+            }
         }
     }
     currentNotification = null;

@@ -147,8 +147,37 @@
     "privacy_policy": {
         "message": "Zásady ochrany osobních údajů"
     },
+    "settings_title": {
+        "message": "Nastavení"
+    },
     "settings_general_title": {
-        "message": "Obecné"
+        "message": "Obecná nastavení"
+    },
+    "settings_general_description": {
+        "message": "Použít na všechny profily. Pokud změníte profil, nastavení zůstane stejné"
+    },
+    "settings_current_profile": {
+        "message": "Aktuální profil: <b>%profile_name%</b>"
+    },
+    "settings_current_profile_description": {
+        "message": "Použít na aktuální profil. Pokud změníte profil, nastavení se může také změnit"
+    },
+    "settings_unlimited_promo_title": {
+        "message": "Získat neomezenou verzi"
+    },
+    "settings_unlimited_promo_feature_speed": {
+        "message": "Streamování bez omezení rychlosti"
+    },
+    "settings_unlimited_promo_feature_locations": {
+        "message": "%count%+ poloha se zabezpečením | %count%+ polohy se zabezpečením | %count%+ polohy se zabezpečením | %count%+ poloh se zabezpečením",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_feature_devices": {
+        "message": "Až %count% zařízení na jednom účtu | Až %count% zařízení na jednom účtu | Až %count% zařízení na jednom účtu | Až %count% zařízení na jednom účtu",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_upgrade_button": {
+        "message": "Aktualizovat"
     },
     "referral_get_free_traffic": {
         "message": "Získejte GB zdarma!"
@@ -428,8 +457,8 @@
     "settings_quick_connect_title": {
         "message": "Rychlé připojení"
     },
-    "settings_quick_connect_subtitle": {
-        "message": "Umístění VPN vybrané po kliknutí na tlačítko Připojit"
+    "settings_quick_connect_description": {
+        "message": "Výchozí poloha VPN, když přepnete na profil nebo otevřete prohlížeč"
     },
     "settings_quick_connect_last_used": {
         "message": "Naposledy použité umístění"
@@ -539,8 +568,11 @@
     "settings_exclusion_title": {
         "message": "Výjimky"
     },
-    "settings_location_label": {
-        "message": "Umístění"
+    "settings_exclusion_general_state": {
+        "message": "VPN je zapnutá všude kromě konkrétních webových stránek"
+    },
+    "settings_exclusion_selective_state": {
+        "message": "VPN je zapnutá pouze pro vybrané webové stránky"
     },
     "settings_location_fastest_title": {
         "message": "Nejrychlejší umístění"
@@ -548,14 +580,17 @@
     "settings_location_fastest_description": {
         "message": "Automaticky se připojit k nejrychlejšímu umístění"
     },
-    "settings_profiles_title": {
-        "message": "Profily"
+    "settings_location_last_used_description": {
+        "message": "Automaticky se připojit k naposledy použité poloze"
     },
-    "settings_profiles_sidebar_title": {
-        "message": "Profil"
+    "settings_profiles_title": {
+        "message": "Spravovat profily"
+    },
+    "settings_profiles_manage": {
+        "message": "Spravovat profily"
     },
     "settings_profiles_subtitle": {
-        "message": "Umožňuje nastavit DNS servery a umístění a vést samostatné seznamy výjimek pro různé situace, jako je práce, domov nebo jiné"
+        "message": "Používejte VPN pro různé scénáře, jako např. práce, domov, děti nebo jiné. Vytvořte profil a nastavte pro něj preferovanou polohu, DNS server a výjimky"
     },
     "settings_profiles_default_name": {
         "message": "Výchozí"
@@ -573,7 +608,10 @@
         "message": "Vymazat"
     },
     "settings_profiles_create": {
-        "message": "Vytvořit"
+        "message": "Vytvořit profil"
+    },
+    "settings_profiles_open_settings": {
+        "message": "Otevřít nastavení"
     },
     "settings_profiles_create_modal_title": {
         "message": "Vytvořit profil"
@@ -616,9 +654,6 @@
     },
     "settings_profiles_delete_modal_submit": {
         "message": "Vymazat"
-    },
-    "settings_description_current": {
-        "message": "Aktuální: %mode%"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Kde je VPN zapnutá"
@@ -695,14 +730,23 @@
     "popup_settings_stats": {
         "message": "Statistiky"
     },
-    "popup_profiles_title": {
-        "message": "Profily"
-    },
-    "popup_profiles_settings": {
-        "message": "Nastavení"
-    },
     "profile_apply_error": {
         "message": "Nepodařilo se přepnout profil. Zkuste to znovu nebo kontaktujte podporu"
+    },
+    "profile_switched": {
+        "message": "Přepnuto na %profile_name%"
+    },
+    "profile_created": {
+        "message": "Profil vytvořen"
+    },
+    "profile_deleted": {
+        "message": "Profil smazán"
+    },
+    "profile_deleted_switched": {
+        "message": "Profil smazán. Byli jste přepnuti na %profile_name%"
+    },
+    "profile_name_updated": {
+        "message": "Název profilu aktualizován"
     },
     "popup_settings_free_description": {
         "message": "K dispozici v AdGuard VPN Unlimited"
@@ -876,7 +920,7 @@
         "message": "Zanechat zpětnou vazbu"
     },
     "popup_compare_button": {
-        "message": "Proč je aplikace lepší"
+        "message": "Proč je desktopová aplikace lepší"
     },
     "popup_rate_modal_title": {
         "message": "Jak úžasná je AdGuard VPN?"

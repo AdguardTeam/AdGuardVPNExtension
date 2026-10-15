@@ -17,10 +17,13 @@ import {
     TelemetryScreenName,
     TelemetrySubscriptionDuration,
     TelemetryTheme,
+    TelemetryWebsiteExclusion,
 } from '../../../src/background/telemetry/telemetryEnums';
 import { type TelemetryBaseData } from '../../../src/background/telemetry/telemetryTypes';
 import { AppearanceTheme, SETTINGS_IDS, SubscriptionType } from '../../../src/common/constants';
+import { ExclusionsMode } from '../../../src/common/exclusionsConstants';
 import { Prefs, SystemName } from '../../../src/common/prefs';
+import { ProfileChangeReason } from '../../../src/common/profiles';
 import { log } from '../../../src/common/logger';
 import { notifier } from '../../../src/common/notifier';
 import { telemetryApi } from '../../../src/background/api/telemetryApi';
@@ -56,9 +59,14 @@ const mockCredentials = {
 
 const mockAbTestManager = {
     init: vi.fn().mockResolvedValue(undefined),
+    removeRetiredVariants: vi.fn().mockResolvedValue(undefined),
     getTestsPayload: vi.fn().mockReturnValue({}),
     processResponse: vi.fn().mockResolvedValue(undefined),
     getVariantsForProps: vi.fn().mockReturnValue({}),
+};
+
+const mockExclusions = {
+    getActiveProfileExclusionsStats: vi.fn(),
 };
 
 const sendSessionStartSpy = vi.spyOn(telemetryApi, 'sendSessionStart')
@@ -83,6 +91,10 @@ describe('Telemetry', () => {
         mockAuth.isAuthenticated.mockResolvedValue(true);
         mockSettings.getAppearanceTheme.mockReturnValue(AppearanceTheme.System);
         getUILanguageMock.mockReturnValue('en-US');
+        mockExclusions.getActiveProfileExclusionsStats.mockResolvedValue({
+            mode: ExclusionsMode.Regular,
+            hasEnabledExclusions: true,
+        });
         telemetry = new Telemetry({
             storage: mockStorage,
             telemetryProvider: mockTelemetryProvider,
@@ -94,6 +106,8 @@ describe('Telemetry', () => {
             auth: mockAuth,
             // @ts-expect-error - partially mocked credentials
             credentials: mockCredentials,
+            // @ts-expect-error - partially mocked exclusions service
+            exclusions: mockExclusions,
             // @ts-expect-error - partially mocked abTestManager
             abTestManager: mockAbTestManager,
         });
@@ -126,6 +140,7 @@ describe('Telemetry', () => {
             licenseStatus: TelemetryLicenseStatus.Premium,
             subscriptionDuration: TelemetrySubscriptionDuration.Monthly,
             theme: TelemetryTheme.System,
+            websiteExclusions: TelemetryWebsiteExclusion.General,
         },
     };
 
@@ -384,6 +399,73 @@ describe('Telemetry', () => {
                 }),
             });
         });
+
+        it('should send OFF website exclusions when there are no enabled exclusions', async () => {
+            mockExclusions.getActiveProfileExclusionsStats.mockResolvedValue({
+                mode: ExclusionsMode.Regular,
+                hasEnabledExclusions: false,
+            });
+            await telemetry.initState();
+
+            await expectBaseDataPartially({
+                props: expect.objectContaining({
+                    websiteExclusions: TelemetryWebsiteExclusion.Off,
+                }),
+            });
+        });
+
+        it('should send OFF website exclusions in selective mode with no enabled exclusions', async () => {
+            mockExclusions.getActiveProfileExclusionsStats.mockResolvedValue({
+                mode: ExclusionsMode.Selective,
+                hasEnabledExclusions: false,
+            });
+            await telemetry.initState();
+
+            await expectBaseDataPartially({
+                props: expect.objectContaining({
+                    websiteExclusions: TelemetryWebsiteExclusion.Off,
+                }),
+            });
+        });
+
+        it('should still send event if exclusions stats request fails', async () => {
+            mockExclusions.getActiveProfileExclusionsStats.mockRejectedValue(new Error('storage error'));
+            await telemetry.initState();
+
+            await expectBaseDataPartially({
+                props: expect.not.objectContaining({
+                    websiteExclusions: expect.anything(),
+                }),
+            });
+        });
+
+        it('should send GENERAL website exclusions in regular mode with enabled exclusions', async () => {
+            mockExclusions.getActiveProfileExclusionsStats.mockResolvedValue({
+                mode: ExclusionsMode.Regular,
+                hasEnabledExclusions: true,
+            });
+            await telemetry.initState();
+
+            await expectBaseDataPartially({
+                props: expect.objectContaining({
+                    websiteExclusions: TelemetryWebsiteExclusion.General,
+                }),
+            });
+        });
+
+        it('should send SELECTIVE website exclusions in selective mode with enabled exclusions', async () => {
+            mockExclusions.getActiveProfileExclusionsStats.mockResolvedValue({
+                mode: ExclusionsMode.Selective,
+                hasEnabledExclusions: true,
+            });
+            await telemetry.initState();
+
+            await expectBaseDataPartially({
+                props: expect.objectContaining({
+                    websiteExclusions: TelemetryWebsiteExclusion.Selective,
+                }),
+            });
+        });
     });
 
     describe('Telemetry.canSendEvents', () => {
@@ -581,9 +663,108 @@ describe('Telemetry', () => {
             expect(mockTelemetryProvider.sendCustomEvent).toHaveBeenCalledTimes(1);
             vi.useRealTimers();
         });
+
+        it('should not debounce events with different action names', async () => {
+            vi.useFakeTimers();
+            await telemetry.initState();
+
+            await telemetry.sendCustomEventDebounced(
+                TelemetryActionName.OnboardingPurchaseClick,
+                TelemetryScreenName.PurchaseScreen,
+            );
+            await telemetry.sendCustomEventDebounced(
+                TelemetryActionName.SellingBlockDisplayed,
+                TelemetryScreenName.GeneralSettingsScreen,
+            );
+
+            await vi.advanceTimersByTimeAsync(Telemetry.SEND_EVENT_TIMEOUT + 1);
+
+            expect(mockTelemetryProvider.sendCustomEvent).toHaveBeenCalledTimes(2);
+            expect(mockTelemetryProvider.sendCustomEvent).toHaveBeenCalledWith(
+                {
+                    name: TelemetryActionName.OnboardingPurchaseClick,
+                    refName: TelemetryScreenName.PurchaseScreen,
+                },
+                sampleEventBaseData,
+            );
+            expect(mockTelemetryProvider.sendCustomEvent).toHaveBeenCalledWith(
+                {
+                    name: TelemetryActionName.SellingBlockDisplayed,
+                    refName: TelemetryScreenName.GeneralSettingsScreen,
+                },
+                sampleEventBaseData,
+            );
+            vi.useRealTimers();
+        });
+    });
+
+    describe('Telemetry.handleActiveProfileChanged', () => {
+        it('should send the switch profile event when the switch completes', async () => {
+            await telemetry.initState();
+            await sendPageViewEventNotDebounced(TelemetryScreenName.HomeScreen);
+            mockTelemetryProvider.sendCustomEvent.mockClear();
+
+            notifier.notifyListeners(notifier.types.ACTIVE_PROFILE_CHANGED, {
+                profileId: 'profile-2',
+                success: true,
+            });
+
+            await new Promise((resolve) => {
+                setTimeout(resolve, 0);
+            });
+
+            expect(mockTelemetryProvider.sendCustomEvent).toHaveBeenCalledWith(
+                {
+                    name: TelemetryActionName.SwitchProfileClick,
+                    refName: TelemetryScreenName.HomeScreen,
+                },
+                sampleEventBaseData,
+            );
+        });
+
+        it('should not send the switch profile event when the switch fails', async () => {
+            await telemetry.initState();
+            mockTelemetryProvider.sendCustomEvent.mockClear();
+
+            notifier.notifyListeners(notifier.types.ACTIVE_PROFILE_CHANGED, {
+                profileId: 'profile-2',
+                success: false,
+            });
+
+            await new Promise((resolve) => {
+                setTimeout(resolve, 0);
+            });
+
+            expect(mockTelemetryProvider.sendCustomEvent).not.toHaveBeenCalled();
+        });
+
+        it('should not send the switch profile event for the delete fallback', async () => {
+            await telemetry.initState();
+            mockTelemetryProvider.sendCustomEvent.mockClear();
+
+            notifier.notifyListeners(notifier.types.ACTIVE_PROFILE_CHANGED, {
+                profileId: 'profile-2',
+                success: true,
+                reason: ProfileChangeReason.DeleteFallback,
+            });
+
+            await new Promise((resolve) => {
+                setTimeout(resolve, 0);
+            });
+
+            expect(mockTelemetryProvider.sendCustomEvent).not.toHaveBeenCalled();
+        });
     });
 
     describe('Telemetry.runSessionStart', () => {
+        it('should remove retired variants before session_start', async () => {
+            await telemetry.initState();
+
+            expect(mockAbTestManager.removeRetiredVariants).toHaveBeenCalledTimes(1);
+            expect(mockAbTestManager.removeRetiredVariants.mock.invocationCallOrder[0])
+                .toBeLessThan(mockAbTestManager.getTestsPayload.mock.invocationCallOrder[0]);
+        });
+
         it('should call session_start during initState when telemetry is enabled', async () => {
             await telemetry.initState();
 
@@ -603,7 +784,17 @@ describe('Telemetry', () => {
                 setTimeout(resolve, 0);
             });
 
+            expect(mockAbTestManager.removeRetiredVariants).toHaveBeenCalledTimes(1);
             expect(sendSessionStartSpy).not.toHaveBeenCalled();
+        });
+
+        it('should continue session_start when retired variant cleanup fails', async () => {
+            mockAbTestManager.removeRetiredVariants.mockRejectedValueOnce(new Error('Storage error'));
+
+            await expect(telemetry.initState()).resolves.toBeUndefined();
+
+            expect(log.warn).toHaveBeenCalled();
+            expect(sendSessionStartSpy).toHaveBeenCalledTimes(1);
         });
 
         it('should call processResponse with the session_start response', async () => {
@@ -661,6 +852,7 @@ describe('Telemetry', () => {
                         loggedIn: true,
                         licenseStatus: 'PREMIUM',
                         subscriptionDuration: 'MONTHLY',
+                        websiteExclusions: TelemetryWebsiteExclusion.General,
                     }),
                 }),
                 { experiment_1: 'AG-001-feature-a' },
@@ -671,6 +863,8 @@ describe('Telemetry', () => {
             await telemetry.initState();
 
             sendSessionStartSpy.mockClear();
+            mockAbTestManager.removeRetiredVariants.mockClear();
+            mockAbTestManager.getTestsPayload.mockClear();
 
             notifier.notifyListeners(
                 notifier.types.SETTING_UPDATED,
@@ -682,6 +876,9 @@ describe('Telemetry', () => {
                 setTimeout(resolve, 0);
             });
 
+            expect(mockAbTestManager.removeRetiredVariants).toHaveBeenCalledTimes(1);
+            expect(mockAbTestManager.removeRetiredVariants.mock.invocationCallOrder[0])
+                .toBeLessThan(mockAbTestManager.getTestsPayload.mock.invocationCallOrder[0]);
             expect(sendSessionStartSpy).toHaveBeenCalledTimes(1);
         });
 
@@ -743,6 +940,16 @@ describe('Telemetry', () => {
             });
 
             expect(sendSessionStartSpy).toHaveBeenCalledTimes(0);
+        });
+
+        it('should remove retired variants during early assignment checks when telemetry is disabled', async () => {
+            mockSettings.isHelpUsImproveEnabled.mockReturnValueOnce(false);
+
+            await telemetry.ensureExperimentAssignment();
+
+            expect(mockAbTestManager.removeRetiredVariants).toHaveBeenCalledTimes(1);
+            expect(mockAbTestManager.getTestsPayload).not.toHaveBeenCalled();
+            expect(sendSessionStartSpy).not.toHaveBeenCalled();
         });
     });
 

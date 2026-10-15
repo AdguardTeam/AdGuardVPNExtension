@@ -147,8 +147,37 @@
     "privacy_policy": {
         "message": "プライバシーポリシー"
     },
+    "settings_title": {
+        "message": "設定"
+    },
     "settings_general_title": {
-        "message": "一般"
+        "message": "一般設定"
+    },
+    "settings_general_description": {
+        "message": "すべてのプロファイルに適用します。プロファイルを変更しても、設定はそのまま維持されます。"
+    },
+    "settings_current_profile": {
+        "message": "現在のプロファイル: <b>%profile_name%</b>"
+    },
+    "settings_current_profile_description": {
+        "message": "現在のプロファイルに適用します。プロファイルを変更すると、設定も変更される場合があります。"
+    },
+    "settings_unlimited_promo_title": {
+        "message": "無制限版を手に入れよう"
+    },
+    "settings_unlimited_promo_feature_speed": {
+        "message": "通信速度制限なしで動画配信サービスを楽しめる"
+    },
+    "settings_unlimited_promo_feature_locations": {
+        "message": "%count%以上の安全ロケーション | %count%以上の安全ロケーション",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_feature_devices": {
+        "message": "同時に%count%台のデバイスを接続可能 | 同時に%count%台のデバイスを接続可能",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_upgrade_button": {
+        "message": "アップグレード"
     },
     "referral_get_free_traffic": {
         "message": "無料GBをGET！"
@@ -428,8 +457,8 @@
     "settings_quick_connect_title": {
         "message": "クイック接続"
     },
-    "settings_quick_connect_subtitle": {
-        "message": "「接続する」をクリックしたときに選択されるVPNロケーション"
+    "settings_quick_connect_description": {
+        "message": "プロファイルに切り替えた時やブラウザを開いた時に使われるデフォルトVPNロケーションです。"
     },
     "settings_quick_connect_last_used": {
         "message": "最後に接続したロケーション"
@@ -441,7 +470,7 @@
         "message": "ウェブサイトを追加する"
     },
     "settings_exclusion_add_website": {
-        "message": "ウェブサイトの追加"
+        "message": "ウェブサイトを追加する"
     },
     "settings_exclusion_actions": {
         "message": "操作"
@@ -539,8 +568,11 @@
     "settings_exclusion_title": {
         "message": "VPN対象からの除外"
     },
-    "settings_location_label": {
-        "message": "ロケーション"
+    "settings_exclusion_general_state": {
+        "message": "特定のウェブサイトを除き、VPNはどこでもオンになっています。"
+    },
+    "settings_exclusion_selective_state": {
+        "message": "VPNはご指定のウェブサイトにでのみ有効です。"
     },
     "settings_location_fastest_title": {
         "message": "一番速いロケーション"
@@ -548,14 +580,17 @@
     "settings_location_fastest_description": {
         "message": "通信速度が一番速いロケーションに自動接続します。"
     },
-    "settings_profiles_title": {
-        "message": "プロファイル一覧"
+    "settings_location_last_used_description": {
+        "message": "最後に使用したロケーションに自動接続します。"
     },
-    "settings_profiles_sidebar_title": {
-        "message": "プロファイル"
+    "settings_profiles_title": {
+        "message": "プロファイルを管理"
+    },
+    "settings_profiles_manage": {
+        "message": "プロファイルを管理"
     },
     "settings_profiles_subtitle": {
-        "message": "用途ごと（仕事用、自宅用など）にロケーション、VPN対象外リスト、DNSサーバーを個別に設定できます。"
+        "message": "仕事、自宅、子ども用など、さまざまなシーンに合わせてVPNを使い分けることができます。プロファイルを作成し、お好みのロケーション、DNSサーバー、除外を設定してください。"
     },
     "settings_profiles_default_name": {
         "message": "デフォルト"
@@ -573,7 +608,10 @@
         "message": "削除する"
     },
     "settings_profiles_create": {
-        "message": "作成する"
+        "message": "新規プロファイルを作成"
+    },
+    "settings_profiles_open_settings": {
+        "message": "設定を開く"
     },
     "settings_profiles_create_modal_title": {
         "message": "新規プロファイルを作成"
@@ -616,9 +654,6 @@
     },
     "settings_profiles_delete_modal_submit": {
         "message": "削除する"
-    },
-    "settings_description_current": {
-        "message": "現在: %mode%"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "VPNがオンになっている場所"
@@ -695,14 +730,23 @@
     "popup_settings_stats": {
         "message": "統計"
     },
-    "popup_profiles_title": {
-        "message": "プロファイル一覧"
-    },
-    "popup_profiles_settings": {
-        "message": "設定"
-    },
     "profile_apply_error": {
         "message": "プロファイルの切り替えに失敗しました。もう一度お試しいただくか、サポートにお問い合わせください。"
+    },
+    "profile_switched": {
+        "message": "「%profile_name%」に切り替えました。"
+    },
+    "profile_created": {
+        "message": "プロファイルを作成しました。"
+    },
+    "profile_deleted": {
+        "message": "プロファイルを作成しました。"
+    },
+    "profile_deleted_switched": {
+        "message": "プロファイルが削除されました。「%profile_name%」に切り替えました"
+    },
+    "profile_name_updated": {
+        "message": "プロファイル名が更新されました"
     },
     "popup_settings_free_description": {
         "message": "AdGuard VPN の無制限版で利用可能"
@@ -802,7 +846,7 @@
         "message": "AdGuard VPN 無制限版をチェックしてください。1年プランなら67%%お得です。"
     },
     "popup_paywall_b_column_free": {
-        "message": "無料アカウント",
+        "message": "無料版",
         "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
     },
     "popup_paywall_b_column_unlimited": {
@@ -876,7 +920,7 @@
         "message": "ご提案・問題を送信"
     },
     "popup_compare_button": {
-        "message": "アプリ版が優れている理由"
+        "message": "デスクトップアプリ版が優れている理由"
     },
     "popup_rate_modal_title": {
         "message": "AdGuard VPNに満足されていますか？"

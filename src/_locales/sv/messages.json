@@ -147,8 +147,37 @@
     "privacy_policy": {
         "message": "Integritetspolicy"
     },
+    "settings_title": {
+        "message": "Inställningar"
+    },
     "settings_general_title": {
-        "message": "Allmänt"
+        "message": "Allmänna inställningar"
+    },
+    "settings_general_description": {
+        "message": "Tillämpa på alla profiler. Om du ändrar profil förblir inställningarna desamma"
+    },
+    "settings_current_profile": {
+        "message": "Aktuell profil: <b>%profile_name%</b>"
+    },
+    "settings_current_profile_description": {
+        "message": "Tillämpa på aktuell profil. Om du ändrar profil kan inställningarna också ändras"
+    },
+    "settings_unlimited_promo_title": {
+        "message": "Skaffa Unlimited-versionen"
+    },
+    "settings_unlimited_promo_feature_speed": {
+        "message": "Streaming utan hastighetsbegränsningar"
+    },
+    "settings_unlimited_promo_feature_locations": {
+        "message": "%count%+ säkra platser | %count%+ säker plats | %count%+ säkra platser",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_feature_devices": {
+        "message": "Upp till %count% enheter på ett konto | Upp till %count% enhet på ett konto | Upp till %count% enheter på ett konto",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_upgrade_button": {
+        "message": "Uppgradera"
     },
     "referral_get_free_traffic": {
         "message": "Få gratis GBs!"
@@ -428,8 +457,8 @@
     "settings_quick_connect_title": {
         "message": "Snabbanslutning"
     },
-    "settings_quick_connect_subtitle": {
-        "message": "VPN-position väljs när du klickar på Anslut"
+    "settings_quick_connect_description": {
+        "message": "Standard-VPN-plats när du växlar till denna profil eller öppnar webbläsaren"
     },
     "settings_quick_connect_last_used": {
         "message": "Senast använda plats"
@@ -539,8 +568,11 @@
     "settings_exclusion_title": {
         "message": "Exkluderingar"
     },
-    "settings_location_label": {
-        "message": "Plats"
+    "settings_exclusion_general_state": {
+        "message": "VPN är på överallt utom för specifika webbplatser"
+    },
+    "settings_exclusion_selective_state": {
+        "message": "VPN är endast på för utvalda webbplatser"
     },
     "settings_location_fastest_title": {
         "message": "Snabbaste platsen"
@@ -548,14 +580,17 @@
     "settings_location_fastest_description": {
         "message": "Anslut automatiskt till den snabbaste platsen"
     },
-    "settings_profiles_title": {
-        "message": "Profiler"
+    "settings_location_last_used_description": {
+        "message": "Anslut automatiskt till den senast använda platsen"
     },
-    "settings_profiles_sidebar_title": {
-        "message": "Profil"
+    "settings_profiles_title": {
+        "message": "Hantera profiler"
+    },
+    "settings_profiles_manage": {
+        "message": "Hantera profiler"
     },
     "settings_profiles_subtitle": {
-        "message": "Tillåter dig att ställa in DNS-servrar och platser och behålla separata undantagslistor för olika användningsfall, såsom arbete, hem eller andra"
+        "message": "Använd VPN för olika scenarier, såsom arbete, hem, barn eller annat. Skapa en profil och ställ in en föredragen plats, DNS-server och undantag för den"
     },
     "settings_profiles_default_name": {
         "message": "Standard"
@@ -573,7 +608,10 @@
         "message": "Radera"
     },
     "settings_profiles_create": {
-        "message": "Skapa"
+        "message": "Skapa profil"
+    },
+    "settings_profiles_open_settings": {
+        "message": "Inställningar"
     },
     "settings_profiles_create_modal_title": {
         "message": "Skapa profil"
@@ -616,9 +654,6 @@
     },
     "settings_profiles_delete_modal_submit": {
         "message": "Radera"
-    },
-    "settings_description_current": {
-        "message": "Nuvarande: %mode%"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Var VPN är på"
@@ -695,14 +730,23 @@
     "popup_settings_stats": {
         "message": "Statistik"
     },
-    "popup_profiles_title": {
-        "message": "Profiler"
-    },
-    "popup_profiles_settings": {
-        "message": "Inställningar"
-    },
     "profile_apply_error": {
         "message": "Det gick inte att växla profiler. Försök igen eller kontakta support"
+    },
+    "profile_switched": {
+        "message": "Växlat till %profile_name%"
+    },
+    "profile_created": {
+        "message": "Profil skapad"
+    },
+    "profile_deleted": {
+        "message": "Profil borttagen"
+    },
+    "profile_deleted_switched": {
+        "message": "Profil borttagen. Du har växlats till %profile_name%"
+    },
+    "profile_name_updated": {
+        "message": "Namnet på din profil har uppdaterats"
     },
     "popup_settings_free_description": {
         "message": "Tillgänglig i AdGuard VPN Unlimited"
@@ -876,7 +920,7 @@
         "message": "Lämna feedback"
     },
     "popup_compare_button": {
-        "message": "Varför appen är bättre"
+        "message": "Varför skrivbordsappen är bättre"
     },
     "popup_rate_modal_title": {
         "message": "Hur grymt är AdGuard VPN?"

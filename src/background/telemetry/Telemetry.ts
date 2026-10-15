@@ -8,21 +8,25 @@ import { type StorageInterface } from '../browserApi/storage';
 import { type SettingsInterface } from '../settings/settings';
 import { type AuthInterface } from '../auth';
 import { type CredentialsInterface } from '../credentials/Credentials';
+import { type ExclusionsService, type ExclusionsStats } from '../exclusions/ExclusionsService';
 import { Prefs, SystemName } from '../../common/prefs';
+import { type ActiveProfileChangedPayload } from '../../common/profiles';
 import { AppearanceTheme, SETTINGS_IDS, SubscriptionType } from '../../common/constants';
+import { ExclusionsMode } from '../../common/exclusionsConstants';
 import { log } from '../../common/logger';
 import { notifier } from '../../common/notifier';
 import { type ABTestManager } from '../abTestManager/ABTestManager';
 import { telemetryApi } from '../api/telemetryApi';
 
 import {
-    type TelemetryActionName,
+    TelemetryActionName,
     type TelemetryActionToScreenMap,
     TelemetryLicenseStatus,
     TelemetryOs,
     TelemetryScreenName,
     TelemetrySubscriptionDuration,
     TelemetryTheme,
+    TelemetryWebsiteExclusion,
 } from './telemetryEnums';
 import {
     type TelemetryBaseData,
@@ -81,8 +85,9 @@ export interface TelemetryInterface {
 
     /**
      * Ensures experiment variant assignment has completed when telemetry is enabled
-     * and unassigned registry slots remain. Used by popup startup/data paths so
-     * onboarding receives a stable assignment snapshot.
+     * and unassigned registry slots remain. Retired variants are removed even when
+     * telemetry is disabled. Used by popup startup/data paths so onboarding receives
+     * a stable assignment snapshot.
      */
     ensureExperimentAssignment(): Promise<void>;
 }
@@ -122,10 +127,26 @@ export interface TelemetryParameters {
     credentials: CredentialsInterface;
 
     /**
+     * Exclusions service.
+     */
+    exclusions: ExclusionsService;
+
+    /**
      * A/B test manager (slot-based).
      */
     abTestManager: ABTestManager;
 }
+
+/**
+ * Debounced sender of a custom telemetry event.
+ *
+ * The action name is captured when the sender is created, so only the screen
+ * and the label are passed to it.
+ */
+type DebouncedCustomEventSender = (
+    screenName: TelemetryActionToScreenMap[TelemetryActionName],
+    label?: string,
+) => Promise<void> | void;
 
 /**
  * Telemetry service.
@@ -223,6 +244,14 @@ export class Telemetry implements TelemetryInterface {
     };
 
     /**
+     * ExclusionsMode to TelemetryWebsiteExclusion mapper.
+     */
+    private static readonly WEBSITE_EXCLUSIONS_MAPPER: Record<ExclusionsMode, TelemetryWebsiteExclusion> = {
+        [ExclusionsMode.Regular]: TelemetryWebsiteExclusion.General,
+        [ExclusionsMode.Selective]: TelemetryWebsiteExclusion.Selective,
+    };
+
+    /**
      * Browser local storage.
      */
     private storage: StorageInterface;
@@ -251,6 +280,11 @@ export class Telemetry implements TelemetryInterface {
      * Credentials service.
      */
     private credentials: CredentialsInterface;
+
+    /**
+     * Exclusions service.
+     */
+    private exclusions: ExclusionsService;
 
     /**
      * A/B test manager (slot-based).
@@ -321,6 +355,15 @@ export class Telemetry implements TelemetryInterface {
     private openedPages: Set<string> = new Set();
 
     /**
+     * Debounced senders of custom events, one per action name.
+     *
+     * A single shared debounce would cancel pending events with other action
+     * names sent within the timeout — for example, a navigation click event
+     * followed by the selling block display event.
+     */
+    private debouncedCustomEventSenders = new Map<TelemetryActionName, DebouncedCustomEventSender>();
+
+    /**
      * Constructor.
      */
     constructor({
@@ -330,6 +373,7 @@ export class Telemetry implements TelemetryInterface {
         settings,
         auth,
         credentials,
+        exclusions,
         abTestManager,
     }: TelemetryParameters) {
         this.storage = storage;
@@ -338,6 +382,7 @@ export class Telemetry implements TelemetryInterface {
         this.settings = settings;
         this.auth = auth;
         this.credentials = credentials;
+        this.exclusions = exclusions;
         this.abTestManager = abTestManager;
         notifier.addSpecifiedListener(
             notifier.types.PORT_CONNECTED,
@@ -351,16 +396,41 @@ export class Telemetry implements TelemetryInterface {
             notifier.types.SETTING_UPDATED,
             this.handleSettingUpdated.bind(this),
         );
+        notifier.addSpecifiedListener(
+            notifier.types.ACTIVE_PROFILE_CHANGED,
+            this.handleActiveProfileChanged.bind(this),
+        );
     }
 
     /**
-     * Initializes telemetry module state.
+     * Initializes telemetry state and removes retired A/B test variants before
+     * attempting to start the telemetry session.
      */
     public initState = async (): Promise<void> => {
         this.syntheticId = await this.gainSyntheticId();
         this.userAgent = await Telemetry.getUserAgent();
-        this.isInitialized = true;
 
+        await this.safelyRemoveRetiredVariants();
+        this.isInitialized = true;
+        await this.runSessionStart();
+    };
+
+    /**
+     * Removes retired A/B test variants without blocking telemetry initialization.
+     */
+    private safelyRemoveRetiredVariants = async (): Promise<void> => {
+        try {
+            await this.abTestManager.removeRetiredVariants();
+        } catch (e) {
+            log.warn('[vpn.Telemetry]: Failed to remove retired variants', e);
+        }
+    };
+
+    /**
+     * Removes retired variants before starting a telemetry session.
+     */
+    private runSessionStartWithCleanup = async (): Promise<void> => {
+        await this.safelyRemoveRetiredVariants();
         await this.runSessionStart();
     };
 
@@ -401,10 +471,12 @@ export class Telemetry implements TelemetryInterface {
 
     /**
      * Waits for any in-flight session_start, or runs one when telemetry is
-     * enabled and registry slots still need assignment. No-ops when help-us-improve
-     * is disabled or every registered experiment already has a cached variant.
+     * enabled and registry slots still need assignment. Retired variants are
+     * removed regardless of the telemetry setting.
      */
     public ensureExperimentAssignment = async (): Promise<void> => {
+        await this.safelyRemoveRetiredVariants();
+
         if (!this.settings.isHelpUsImproveEnabled()) {
             return;
         }
@@ -539,13 +611,37 @@ export class Telemetry implements TelemetryInterface {
     /**
      * Debounced version of {@link sendCustomEvent}.
      *
+     * Debounced per action name, so events with different action names sent
+     * within the timeout do not cancel each other.
+     *
+     * @param actionName Name of the action.
+     * @param screenName Name of the screen.
+     * @param label Optional label for the event.
+     *
      * @see {@link sendCustomEvent} - For implementation.
      * @see {@link SEND_EVENT_TIMEOUT} - For debounce timeout.
      */
-    public sendCustomEventDebounced = debounce(
-        this.sendCustomEvent.bind(this),
-        Telemetry.SEND_EVENT_TIMEOUT,
-    );
+    public sendCustomEventDebounced<T extends TelemetryActionName>(
+        actionName: T,
+        screenName: TelemetryActionToScreenMap[T],
+        label?: string,
+    ): Promise<void> | void {
+        let sender = this.debouncedCustomEventSenders.get(actionName);
+
+        if (!sender) {
+            const eventActionName: TelemetryActionName = actionName;
+
+            sender = debounce(
+                (screen: TelemetryActionToScreenMap[TelemetryActionName], eventLabel?: string) => (
+                    this.sendCustomEvent(eventActionName, screen, eventLabel)
+                ),
+                Telemetry.SEND_EVENT_TIMEOUT,
+            );
+            this.debouncedCustomEventSenders.set(actionName, sender);
+        }
+
+        return sender(screenName, label);
+    }
 
     /**
      * Checks if telemetry events can be sent.
@@ -603,9 +699,28 @@ export class Telemetry implements TelemetryInterface {
     private handleSettingUpdated(settingId: string, value: unknown): void {
         if (settingId === SETTINGS_IDS.HELP_US_IMPROVE && value === true) {
             if (this.isInitialized) {
-                this.runSessionStart();
+                this.runSessionStartWithCleanup();
             }
         }
+    }
+
+    /**
+     * Handles the ACTIVE_PROFILE_CHANGED event.
+     * Sends the profile switch event when the switch actually completes, so
+     * cancelled or rolled back switches are not counted and the screen is
+     * resolved at the moment the switch finishes.
+     *
+     * @param payload Payload of the ACTIVE_PROFILE_CHANGED event.
+     */
+    private handleActiveProfileChanged(payload: ActiveProfileChangedPayload): void {
+        if (!payload.success || payload.reason) {
+            return;
+        }
+
+        this.sendCustomEvent(
+            TelemetryActionName.SwitchProfileClick,
+            TelemetryScreenName.ContextBasedScreen,
+        );
     }
 
     /**
@@ -734,7 +849,17 @@ export class Telemetry implements TelemetryInterface {
                 : Telemetry.DURATION_MAPPER.Unlimited;
         }
 
-        const experimentVariants = await this.abTestManager.getVariantsForProps();
+        const [experimentVariants, exclusionsStats] = await Promise.all([
+            this.abTestManager.getVariantsForProps(),
+            this.getWebsiteExclusionsStats(),
+        ]);
+
+        let websiteExclusions: TelemetryWebsiteExclusion | undefined;
+        if (exclusionsStats) {
+            websiteExclusions = exclusionsStats.hasEnabledExclusions
+                ? Telemetry.WEBSITE_EXCLUSIONS_MAPPER[exclusionsStats.mode]
+                : TelemetryWebsiteExclusion.Off;
+        }
 
         return {
             appLocale: locale,
@@ -743,8 +868,26 @@ export class Telemetry implements TelemetryInterface {
             licenseStatus,
             subscriptionDuration,
             theme: Telemetry.THEME_MAPPER[appearanceTheme],
+            websiteExclusions,
             ...experimentVariants,
         };
+    }
+
+    /**
+     * Retrieves website exclusions stats for the active profile.
+     *
+     * Never throws: telemetry events must not be blocked by exclusions
+     * state errors. Returns undefined so the caller can omit the prop.
+     *
+     * @returns Exclusions stats or undefined on failure.
+     */
+    private async getWebsiteExclusionsStats(): Promise<ExclusionsStats | undefined> {
+        try {
+            return await this.exclusions.getActiveProfileExclusionsStats();
+        } catch (e) {
+            log.debug('[vpn.Telemetry.getWebsiteExclusionsStats]: Failed to get exclusions stats', e);
+            return undefined;
+        }
     }
 
     /**

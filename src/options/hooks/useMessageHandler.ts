@@ -54,6 +54,12 @@ export const useMessageHandler = (): void => {
                 ) {
                     telemetryStore.setIsHelpUsImproveEnabled(message.value);
                 }
+                if (
+                    message.data === SETTINGS_IDS.PREMIUM_FEATURES_SHOW
+                    && typeof message.value === 'boolean'
+                ) {
+                    settingsStore.setPremiumFeatures(message.value);
+                }
                 break;
             }
             case notifier.types.LANGUAGE_CHANGED: {

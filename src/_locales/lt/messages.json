@@ -147,8 +147,37 @@
     "privacy_policy": {
         "message": "Privatumo Politika"
     },
+    "settings_title": {
+        "message": "Nustatymai"
+    },
     "settings_general_title": {
-        "message": "Bendra"
+        "message": "Bendrieji nustatymai"
+    },
+    "settings_general_description": {
+        "message": "Taikyti visiems profiliams. Jei pakeisite profilį, nustatymai liks tokie patys"
+    },
+    "settings_current_profile": {
+        "message": "Dabartinis profilis: <b>%profile_name%</b>"
+    },
+    "settings_current_profile_description": {
+        "message": "Taikyti dabartiniam profiliui. Jei pakeisite profilį, nustatymai taip pat gali pasikeisti"
+    },
+    "settings_unlimited_promo_title": {
+        "message": "Gaukite neribotą versiją"
+    },
+    "settings_unlimited_promo_feature_speed": {
+        "message": "Srautinis perdavimas be greičio apribojimų"
+    },
+    "settings_unlimited_promo_feature_locations": {
+        "message": "%count%+ saugios vietos | %count%+ saugi vieta | %count%+ saugios vietos | %count%+ saugios vietos",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_feature_devices": {
+        "message": "Iki %count% įrenginių vienoje paskyroje | Iki %count% įrenginio vienoje paskyroje | Iki %count% įrenginių vienoje paskyroje | Iki %count% įrenginių vienoje paskyroje",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_upgrade_button": {
+        "message": "Atnaujinti"
     },
     "referral_get_free_traffic": {
         "message": "Gauti nemokamą GB!"
@@ -428,8 +457,8 @@
     "settings_quick_connect_title": {
         "message": "Greitas prisijungimas"
     },
-    "settings_quick_connect_subtitle": {
-        "message": "VPN vieta pasirinkta, kai spustelite Prijungti"
+    "settings_quick_connect_description": {
+        "message": "Numatytoji VPN vieta, kai persijungiate į profilį arba atveriate naršyklę"
     },
     "settings_quick_connect_last_used": {
         "message": "Paskutinė naudota vieta"
@@ -539,8 +568,11 @@
     "settings_exclusion_title": {
         "message": "Išimtys"
     },
-    "settings_location_label": {
-        "message": "Lokacija"
+    "settings_exclusion_general_state": {
+        "message": "VPN yra įjungta visur, išskyrus konkrečias svetaines"
+    },
+    "settings_exclusion_selective_state": {
+        "message": "VPN yra įjungta tik pasirinktose svetainėse"
     },
     "settings_location_fastest_title": {
         "message": "Greitausia vieta"
@@ -548,14 +580,17 @@
     "settings_location_fastest_description": {
         "message": "Automatiškai prisijungti prie greičiausios vietos"
     },
-    "settings_profiles_title": {
-        "message": "Profiliai"
+    "settings_location_last_used_description": {
+        "message": "Automatiškai prisijungti prie paskutinės naudotos vietos"
     },
-    "settings_profiles_sidebar_title": {
-        "message": "Profilis"
+    "settings_profiles_title": {
+        "message": "Valdyti profilius"
+    },
+    "settings_profiles_manage": {
+        "message": "Valdyti profilius"
     },
     "settings_profiles_subtitle": {
-        "message": "Leidžia jums nustatyti DNS serverius ir vietas bei turėti atskirus išimčių sąrašus skirtingiems naudojimo atvejams, pavyzdžiui, darbui, namams ar kitiems"
+        "message": "Naudokite VPN skirtingiems scenarijams, tokiems kaip darbas, namai, vaikai ar kitiems. Sukurkite profilį ir nustatykite jam pageidaujamą vietą, DNS serverį bei išimtis"
     },
     "settings_profiles_default_name": {
         "message": "Pagal nutylėjimą"
@@ -573,7 +608,10 @@
         "message": "Ištrinti"
     },
     "settings_profiles_create": {
-        "message": "Sukurkite"
+        "message": "Sukurti profilį"
+    },
+    "settings_profiles_open_settings": {
+        "message": "Nustatymai"
     },
     "settings_profiles_create_modal_title": {
         "message": "Sukurti profilį"
@@ -616,9 +654,6 @@
     },
     "settings_profiles_delete_modal_submit": {
         "message": "Ištrinti"
-    },
-    "settings_description_current": {
-        "message": "Dabartinis: %mode%"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Kur yra VPN"
@@ -695,14 +730,23 @@
     "popup_settings_stats": {
         "message": "Statistika"
     },
-    "popup_profiles_title": {
-        "message": "Profiliai"
-    },
-    "popup_profiles_settings": {
-        "message": "Nustatymai"
-    },
     "profile_apply_error": {
         "message": "Nepavyko perjungti profilių. Bandykite dar kartą arba susisiekite su palaikymu"
+    },
+    "profile_switched": {
+        "message": "Perjungta į %profile_name%"
+    },
+    "profile_created": {
+        "message": "Profilis sukurtas"
+    },
+    "profile_deleted": {
+        "message": "Profilis pašalintas"
+    },
+    "profile_deleted_switched": {
+        "message": "Profilis pašalintas. Esate perjungti į %profile_name%"
+    },
+    "profile_name_updated": {
+        "message": "Profilio pavadinimas atnaujintas"
     },
     "popup_settings_free_description": {
         "message": "Prieinama „AdGuard VPN Unlimited“"
@@ -876,7 +920,7 @@
         "message": "Palikite atsiliepimą"
     },
     "popup_compare_button": {
-        "message": "Kodėl programa yra geresnė"
+        "message": "Kodėl darbalaukio programa yra geresnė"
     },
     "popup_rate_modal_title": {
         "message": "Koks nuostabus yra AdGuard VPN?"

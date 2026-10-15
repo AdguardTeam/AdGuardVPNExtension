@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
+import { ProfileSwitcher } from '../../Profiles/ProfileSwitcher';
 
 import { ExcludeSite } from './ExcludeSite/ExcludeSite';
 
@@ -91,6 +92,7 @@ export const GlobalControl = observer(() => {
 
     return (
         <>
+            <ProfileSwitcher />
             <button
                 type="button"
                 className={`button button--medium button--main ${buttonState.className}`}

@@ -283,7 +283,9 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
     };
 
     private sendDnsServerIp = (dnsIp: string): void => {
-        if (!this.ws) {
+        // The socket may still be connecting, and send() throws in that state.
+        // The DNS is re-sent by handleWebsocketOpen once the socket is open.
+        if (!this.ws || this.ws.readyState !== this.ws.OPEN) {
             return;
         }
         const arrBufMessage = this.prepareDnsSettingsMessage(dnsIp);

@@ -1,6 +1,11 @@
 import browser, { type Runtime } from 'webextension-polyfill';
 
-import { MessageType, SETTINGS_IDS, CUSTOM_DNS_ANCHOR_NAME } from '../../common/constants';
+import {
+    MessageType,
+    SETTINGS_IDS,
+    CUSTOM_DNS_ANCHOR_NAME,
+    QuickConnectSetting,
+} from '../../common/constants';
 import { logStorage } from '../../common/log-storage';
 import { log } from '../../common/logger';
 import { notifier } from '../../common/notifier';
@@ -43,6 +48,7 @@ import { type OptionsData } from '../../options/stores/SettingsStore';
 import { type ProfilesOptionsData } from '../../common/profiles';
 import { updateService } from '../updateService';
 import { i18n } from '../../common/i18n';
+import { LANGUAGE_AUTO } from '../../common/locale';
 
 interface EventListeners {
     [index: string]: Runtime.MessageSender;
@@ -230,15 +236,15 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
         }
         case MessageType.SET_SELECTED_LOCATION: {
             const { profileId, locationId, persistToProfile } = message.data;
-            await locationsService.setSelectedLocation(
+            return locationsService.setSelectedLocation(
                 profileId,
                 locationId,
                 {
                     reconnect: true,
                     persistToProfile,
+                    isUserPick: true,
                 },
             );
-            break;
         }
         case MessageType.DEAUTHENTICATE_USER: {
             await auth.deauthenticate();
@@ -276,6 +282,10 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
         case MessageType.ENABLE_VPN_BY_URL: {
             const { url } = message.data;
             return exclusions.enableVpnByUrl(url);
+        }
+        case MessageType.IS_VPN_ENABLED_BY_URL: {
+            const { url } = message.data;
+            return exclusions.isVpnEnabledByUrl(url);
         }
         case MessageType.REMOVE_EXCLUSION: {
             const { id, profileId } = message.data;
@@ -536,6 +546,14 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
             endpoints.getLocationsFromServer().catch((e) => {
                 log.error('[vpn.messaging]: Failed to refetch locations after language change:', e);
             });
+
+            // Refetch exclusions services with the new language (fire-and-forget).
+            const resolvedLocale = language === LANGUAGE_AUTO
+                ? i18n.getUILanguage()
+                : language;
+            exclusions.refreshServicesForCurrentLocale(resolvedLocale).catch((e) => {
+                log.error('[vpn.messaging]: Failed to refetch exclusions services after language change:', e);
+            });
             break;
         }
         case MessageType.GET_INTERFACE_LANGUAGE: {
@@ -584,6 +602,13 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
         case MessageType.SET_PROFILE_QUICK_CONNECT: {
             const { profileId, quickConnect } = message.data;
             await profilesService.updateProfileSettings(profileId, { quickConnect });
+
+            const shouldReapplyLocation = quickConnect === QuickConnectSetting.FastestLocation
+                || quickConnect === QuickConnectSetting.LastUsedLocation;
+
+            if (shouldReapplyLocation && profileId === profilesService.getActiveProfileId()) {
+                await locationsService.applyProfileLocation(profileId);
+            }
             break;
         }
         default:

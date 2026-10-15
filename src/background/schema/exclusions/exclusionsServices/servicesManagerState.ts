@@ -12,6 +12,7 @@ export type ServicesIndexType = v.InferOutput<typeof servicesIndexScheme>;
 
 export const exclusionsServicesManagerScheme = v.strictObject({
     lastUpdateTimeMs: v.nullable(v.number()),
+    lastUpdateLocale: v.optional(v.nullable(v.string()), null),
     services: v.nullable(servicesScheme),
     servicesIndex: servicesIndexScheme,
 });
@@ -20,6 +21,7 @@ export type ServicesManagerState = v.InferOutput<typeof exclusionsServicesManage
 
 export const SERVICES_DEFAULTS: ServicesManagerState = {
     lastUpdateTimeMs: null,
+    lastUpdateLocale: null,
     services: null,
     servicesIndex: {},
 };

@@ -147,8 +147,37 @@
     "privacy_policy": {
         "message": "隐私策略"
     },
+    "settings_title": {
+        "message": "设置"
+    },
     "settings_general_title": {
-        "message": "通用"
+        "message": "常规设置"
+    },
+    "settings_general_description": {
+        "message": "应用于所有配置文件。如果您更改配置文件，设置将保持不变。"
+    },
+    "settings_current_profile": {
+        "message": "当前配置文件：<b>%profile_name%</b>"
+    },
+    "settings_current_profile_description": {
+        "message": "应用于当前配置文件。如果您更改配置文件，设置也可能更改。"
+    },
+    "settings_unlimited_promo_title": {
+        "message": "获取无限版"
+    },
+    "settings_unlimited_promo_feature_speed": {
+        "message": "无速度限制的流媒体"
+    },
+    "settings_unlimited_promo_feature_locations": {
+        "message": "%count%+ 个安全节点 | %count%+ 个安全节点",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_feature_devices": {
+        "message": "一个账号最多支持 %count% 台设备 | 一个账号最多支持 %count% 台设备",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_upgrade_button": {
+        "message": "升级"
     },
     "referral_get_free_traffic": {
         "message": "获取免费流量！"
@@ -297,7 +326,7 @@
         "message": "选择模式"
     },
     "context_menu_general_mode": {
-        "message": "通用模式"
+        "message": "常规模式"
     },
     "context_menu_export_logs": {
         "message": "导出日志"
@@ -428,8 +457,8 @@
     "settings_quick_connect_title": {
         "message": "快速连接"
     },
-    "settings_quick_connect_subtitle": {
-        "message": "当您点击「连接」后选择的 VPN 位置"
+    "settings_quick_connect_description": {
+        "message": "切换配置文件或打开浏览器时使用的默认 VPN 位置"
     },
     "settings_quick_connect_last_used": {
         "message": "最后连接的位置"
@@ -539,8 +568,11 @@
     "settings_exclusion_title": {
         "message": "排除项"
     },
-    "settings_location_label": {
-        "message": "地址"
+    "settings_exclusion_general_state": {
+        "message": "除特定网站外，VPN 在所有位置开启"
+    },
+    "settings_exclusion_selective_state": {
+        "message": "VPN 仅在选定的网站上开启"
     },
     "settings_location_fastest_title": {
         "message": "最快的位置"
@@ -548,14 +580,17 @@
     "settings_location_fastest_description": {
         "message": "自动连接到最快地点"
     },
-    "settings_profiles_title": {
-        "message": "个人档案"
+    "settings_location_last_used_description": {
+        "message": "自动连接到上次使用的位置"
     },
-    "settings_profiles_sidebar_title": {
-        "message": "个人档案"
+    "settings_profiles_title": {
+        "message": "管理配置文件"
+    },
+    "settings_profiles_manage": {
+        "message": "管理配置文件"
     },
     "settings_profiles_subtitle": {
-        "message": "为不同使用场景（如工作、居家或其他）设置 DNS 服务器和地点，并保留独立的排除列表。"
+        "message": "针对不同场景使用 VPN，例如工作、家庭、儿童或其他场景。创建配置文件，并为其设置首选位置、DNS 服务器和排除项。"
     },
     "settings_profiles_default_name": {
         "message": "默认"
@@ -573,7 +608,10 @@
         "message": "删除"
     },
     "settings_profiles_create": {
-        "message": "创建"
+        "message": "创建个人档案"
+    },
+    "settings_profiles_open_settings": {
+        "message": "打开设置"
     },
     "settings_profiles_create_modal_title": {
         "message": "创建个人档案"
@@ -616,9 +654,6 @@
     },
     "settings_profiles_delete_modal_submit": {
         "message": "删除"
-    },
-    "settings_description_current": {
-        "message": "当前：%mode%"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "VPN 在什么网站上处于开启状态"
@@ -695,14 +730,23 @@
     "popup_settings_stats": {
         "message": "统计数据"
     },
-    "popup_profiles_title": {
-        "message": "个人档案"
-    },
-    "popup_profiles_settings": {
-        "message": "设置"
-    },
     "profile_apply_error": {
         "message": "切换个人档案失败。请重试或联系技术支持。"
+    },
+    "profile_switched": {
+        "message": "已切换到 %profile_name%"
+    },
+    "profile_created": {
+        "message": "已创建配置文件"
+    },
+    "profile_deleted": {
+        "message": "已删除配置文件"
+    },
+    "profile_deleted_switched": {
+        "message": "配置文件已删除。您已切换到 %profile_name%"
+    },
+    "profile_name_updated": {
+        "message": "配置文件名称已更新"
     },
     "popup_settings_free_description": {
         "message": "在 AdGuard VPN 无限版中可用"
@@ -796,7 +840,7 @@
         "message": "升级"
     },
     "popup_paywall_b_title": {
-        "message": "已达流量上限，内容加载变慢"
+        "message": "已达数据限额， 内容加载变慢"
     },
     "popup_paywall_b_description": {
         "message": "了解 AdGuard VPN 无限版。订阅年付可省 67%% 的费用。"
@@ -849,7 +893,7 @@
         "message": "AdGuard VPN 无限版"
     },
     "popup_upgrade_b_description": {
-        "message": "畅享高速连接，解锁所有服务器位置及更多功能。"
+        "message": "提供高速连接、访问所有位置以及更多功能。"
     },
     "popup_upgrade_b_feature_speed": {
         "message": "畅享高速流媒体，无限制"
@@ -861,7 +905,7 @@
         "message": "可同时在 %count% 台设备上使用 AdGuard VPN"
     },
     "popup_upgrade_b_feature_dns": {
-        "message": "使用 AdGuard DNS 隐藏网络活动"
+        "message": "额外使用 AdGuard DNS 隐藏您的网络活动"
     },
     "popup_upgrade_b_btn_get_unlimited": {
         "message": "获取无限版"
@@ -876,7 +920,7 @@
         "message": "留下反馈"
     },
     "popup_compare_button": {
-        "message": "为什么应用程序更好"
+        "message": "为什么桌面应用更好"
     },
     "popup_rate_modal_title": {
         "message": "AdGuard VPN 有多棒？"
@@ -1058,7 +1102,7 @@
         "message": "将本地网站添加到排除列表，AdGuard VPN 将对其暂停。"
     },
     "popup_onboarding_bypass_3_title": {
-        "message": "开启DNS防护"
+        "message": "启用 DNS 防护"
     },
     "popup_onboarding_bypass_3_info": {
         "message": "通过内置 DNS 保护设备免受恶意软件侵害"
@@ -1094,24 +1138,24 @@
         "message": "使用无限版本按需定制 VPN"
     },
     "popup_paywall_bypass_feature_1": {
-        "message": "加密流量，无速度限制"
+        "message": "无速度限制的加密流量"
     },
     "popup_paywall_bypass_feature_2": {
-        "message": "一个账号最多支持 %count% 台设备 | 一个账号最多支持 %count% 台设备",
+        "message": "一个账号最多 %count% 台设备 | 一个账号最多 %count% 台设备",
         "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
     },
     "popup_paywall_bypass_feature_3": {
-        "message": "%count%+ 个安全节点 | %count%+ 个安全节点",
+        "message": "%count%+ 个安全位置 | %count%+ 个安全位置",
         "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
     },
     "popup_paywall_basic_title": {
-        "message": "无限制 VPN"
+        "message": "VPN 无限版"
     },
     "popup_paywall_basic_feature_title": {
-        "message": "无限速度"
+        "message": "不限速度"
     },
     "popup_paywall_basic_feature_info": {
-        "message": "无速度限制。从服务提供商那里获得最大价值！"
+        "message": "无速度限制。充分利用您的服务提供商！"
     },
     "popup_paywall_get_unlimited": {
         "message": "获取无限版"
@@ -1120,7 +1164,7 @@
         "message": "稍后再说"
     },
     "popup_upgrade_screen_title": {
-        "message": "升级到无限版"
+        "message": "升级至无限版"
     },
     "popup_upgrade_screen_info_with_devices": {
         "message": "尽享所有地区节点、无限制极速浏览，并支持最多 %maxDevicesAllowed% 台设备同时连接。"
@@ -1132,7 +1176,7 @@
         "message": "唯一一个限制是您的数据永远不会被分享。随心所欲地上网！"
     },
     "popup_upgrade_screen_unlimited_speed": {
-        "message": "无限速度"
+        "message": "不限速度"
     },
     "popup_upgrade_screen_unlimited_speed_desc": {
         "message": "无速度限制。从服务提供商那里获得最大价值！"
@@ -1147,7 +1191,7 @@
         "message": "高达 %potential_num% 台设备"
     },
     "popup_upgrade_screen_connect_devices_desc": {
-        "message": "将自己的所有设备同时连接到 AdGuard VPN，或者保护全家的隐私安全！"
+        "message": "同时将所有设备连接到 AdGuard VPN，或保护全家！"
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "升级"
@@ -1182,10 +1226,10 @@
         "message": "切换至 AdGuard VPN Linux 版，连接更稳定"
     },
     "popup_vpn_blocked_error_details_title": {
-        "message": "切换至桌面版，连接更稳定"
+        "message": "切换到桌面版以获得更稳定的连接"
     },
     "popup_vpn_blocked_error_details_title_mobile": {
-        "message": "切换至移动版，连接更稳定"
+        "message": "切换到移动版以获得更稳定的连接"
     },
     "popup_vpn_blocked_error_details_title_linux": {
         "message": "切换至 AdGuard VPN Linux 版，连接更稳定"
@@ -1227,7 +1271,7 @@
         "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_details_btn": {
-        "message": "获取优惠"
+        "message": "立即抢购"
     },
     "options_exclusions_import_select_title": {
         "message": "如何使用此排除项列表？"
@@ -1283,7 +1327,7 @@
         "message": "了解更多"
     },
     "popup_connections_limit_title": {
-        "message": "达到设备数量上限"
+        "message": "已达到设备数量限制"
     },
     "popup_mobile_edge_promo_text": {
         "message": "获取 Android 版 VPN 扩展"
@@ -1298,10 +1342,10 @@
         "message": "知道了"
     },
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
-        "message": "不再显示"
+        "message": "不再显示此提示"
     },
     "popup_stats": {
-        "message": "统计数据"
+        "message": "统计"
     },
     "popup_stats_disabled_notice": {
         "message": "统计信息已停用"
@@ -1313,7 +1357,7 @@
         "message": "数据"
     },
     "popup_stats_most_used_locations": {
-        "message": "最常用的位置"
+        "message": "最常用位置"
     },
     "popup_stats_usage_time": {
         "message": "时间"
@@ -1356,13 +1400,13 @@
         "message": "取消"
     },
     "popup_stats_menu_clear_stats_btn": {
-        "message": "清除统计数据"
+        "message": "清除统计"
     },
     "popup_stats_menu_clear_stats_title": {
-        "message": "清除统计数据？"
+        "message": "清除统计？"
     },
     "popup_stats_menu_clear_stats_description": {
-        "message": "所有统计数据将被永久删除"
+        "message": "所有统计将被永久删除"
     },
     "popup_stats_menu_clear_stats_clear_btn": {
         "message": "清除"
@@ -1374,13 +1418,13 @@
         "message": "24 小时"
     },
     "popup_stats_range_days_7": {
-        "message": "一周"
+        "message": "7 天"
     },
     "popup_stats_range_days_30": {
-        "message": "一个月"
+        "message": "30 天"
     },
     "popup_stats_range_all_time": {
-        "message": "全时段"
+        "message": "全部时间"
     },
     "popup_stats_data_usage_downloaded": {
         "message": "已下载"
@@ -1422,7 +1466,7 @@
         "message": "要继续匿名浏览，请点击 AdGuard VPN 图标重新登录。"
     },
     "notification_data_limit_reached_title": {
-        "message": "已达到每月流量限制"
+        "message": "已达到每月数据限额"
     },
     "notification_data_limit_reached_description": {
         "message": "VPN 连接速度下降"
@@ -1437,13 +1481,13 @@
         "message": "您已获得 %your_gb%GB 的一次性欢迎奖励。"
     },
     "confirm_email_done_info": {
-        "message": "未使用的流量将自动累积至后续月份。升级至 AdGuard VPN 无限版，即可畅享无限极速浏览，尽享无阻。"
+        "message": "未使用的流量可结转至下个月。使用 AdGuard VPN 无限版，可以不受限制地享受快速浏览。"
     },
     "auth_failed_to_login_title": {
         "message": "登录失败"
     },
     "auth_failed_to_login_description": {
-        "message": "请重试或<a>联系支持人员</a>"
+        "message": "请重试或<a>联系支持</a>。"
     },
     "auth_failed_to_login_description_without_support": {
         "message": "请重试"

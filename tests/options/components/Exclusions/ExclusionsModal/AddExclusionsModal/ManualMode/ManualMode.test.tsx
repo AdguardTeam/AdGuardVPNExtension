@@ -63,10 +63,22 @@ describe('ManualMode', () => {
         vi.clearAllMocks();
     });
 
+    it('should send the add website manually telemetry on submit', () => {
+        const { container } = render(<ManualMode />);
+        typeDomain(container, 'example.com');
+
+        fireEvent.submit(container.querySelector(`#${MANUAL_FORM_ID}`)!);
+
+        expect(mockTelemetryStore.sendCustomEvent).toHaveBeenCalledWith(
+            'add_website_manually',
+            'dialog_add_website_exclusion',
+        );
+    });
+
     it('adds normalized-valid input without opening confirmation', async () => {
         mockExclusionsStore.addUrlToExclusions.mockResolvedValue(2);
 
-        const { container } = render(<ManualMode isProfileContext={false} />);
+        const { container } = render(<ManualMode />);
         typeDomain(container, 'example.com');
 
         fireEvent.submit(container.querySelector(`#${MANUAL_FORM_ID}`)!);
@@ -79,7 +91,7 @@ describe('ManualMode', () => {
     });
 
     it('shows inline error for hard-invalid input', () => {
-        const { container } = render(<ManualMode isProfileContext={false} />);
+        const { container } = render(<ManualMode />);
         typeDomain(container, '*..com');
 
         fireEvent.submit(container.querySelector(`#${MANUAL_FORM_ID}`)!);
@@ -91,7 +103,7 @@ describe('ManualMode', () => {
     });
 
     it('clears inline error when user types again after an invalid submission', () => {
-        const { container } = render(<ManualMode isProfileContext={false} />);
+        const { container } = render(<ManualMode />);
         typeDomain(container, '*..com');
 
         fireEvent.submit(container.querySelector(`#${MANUAL_FORM_ID}`)!);
@@ -104,7 +116,7 @@ describe('ManualMode', () => {
     });
 
     it('shows inline error for single-label non-suffix input', () => {
-        const { container } = render(<ManualMode isProfileContext={false} />);
+        const { container } = render(<ManualMode />);
         typeDomain(container, 'aaaaa');
 
         fireEvent.submit(container.querySelector(`#${MANUAL_FORM_ID}`)!);
@@ -116,7 +128,7 @@ describe('ManualMode', () => {
     });
 
     it('routes TLD-only input to force-add confirmation', () => {
-        const { container } = render(<ManualMode isProfileContext={false} />);
+        const { container } = render(<ManualMode />);
         typeDomain(container, '.com');
 
         fireEvent.submit(container.querySelector(`#${MANUAL_FORM_ID}`)!);
@@ -130,7 +142,7 @@ describe('ManualMode', () => {
     it('trims whitespace-padded valid input before validating and adding', async () => {
         mockExclusionsStore.addUrlToExclusions.mockResolvedValue(1);
 
-        const { container } = render(<ManualMode isProfileContext={false} />);
+        const { container } = render(<ManualMode />);
         typeDomain(container, '  example.com  ');
 
         fireEvent.submit(container.querySelector(`#${MANUAL_FORM_ID}`)!);

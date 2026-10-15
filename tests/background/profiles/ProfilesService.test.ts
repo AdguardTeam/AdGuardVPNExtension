@@ -20,6 +20,7 @@ import {
     isDefaultProfileId,
     type ProfileOperationResponse,
 } from '../../../src/common/profiles';
+import { QuickConnectSetting } from '../../../src/common/constants';
 import { ProfilesService } from '../../../src/background/profiles/ProfilesService';
 import { settings } from '../../../src/background/settings';
 
@@ -85,7 +86,7 @@ describe('ProfilesService', () => {
             expect(profile.settings).toEqual(DEFAULT_PROFILE_SETTINGS);
         });
 
-        it('should inherit selectedLocation from the active profile', async () => {
+        it('should use the last used location strategy for a new profile', async () => {
             const mockLocation: LocationInterface = {
                 id: 'us-nyc',
                 countryName: 'United States',
@@ -99,7 +100,8 @@ describe('ProfilesService', () => {
                 ping: 42,
             };
 
-            // Set a selected location on the active (default) profile.
+            // A new profile follows the last used location,
+            // so the pinned location of the source profile is not inherited.
             await service.updateProfileSettings(
                 DEFAULT_PROFILE_ID,
                 { selectedLocation: mockLocation },
@@ -109,34 +111,10 @@ describe('ProfilesService', () => {
 
             const { profiles } = await service.getProfilesData();
             const created = profiles.find((p) => p.id === profileId)!;
-            expect(created.settings.selectedLocation).toEqual(mockLocation);
-        });
-
-        it('should not share selectedLocation reference with the source profile', async () => {
-            const mockLocation: LocationInterface = {
-                id: 'de-ber',
-                countryName: 'Germany',
-                cityName: 'Berlin',
-                countryCode: 'DE',
-                endpoints: [],
-                coordinates: [52.52, 13.405] as [number, number],
-                premiumOnly: false,
-                pingBonus: 0,
-                virtual: false,
-                ping: 30,
-            };
-
-            await service.updateProfileSettings(
-                DEFAULT_PROFILE_ID,
-                { selectedLocation: mockLocation },
-            );
-
-            const profileId = expectOk(await service.createProfile('Detached'));
-
-            const { profiles } = await service.getProfilesData();
-            const source = profiles.find((p) => p.id === DEFAULT_PROFILE_ID)!;
-            const created = profiles.find((p) => p.id === profileId)!;
-            expect(created.settings.selectedLocation).not.toBe(source.settings.selectedLocation);
+            expect(created.settings.selectedLocation).toBeNull();
+            expect(created.settings.quickConnect)
+                .toBe(DEFAULT_PROFILE_SETTINGS.quickConnect);
+            expect(created.settings.quickConnect).toBe(QuickConnectSetting.LastUsedLocation);
         });
 
         it('should not lose profiles when createProfile is called concurrently', async () => {

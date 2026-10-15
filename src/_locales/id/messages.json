@@ -147,8 +147,37 @@
     "privacy_policy": {
         "message": "Kebijakan Privasi"
     },
+    "settings_title": {
+        "message": "Pengaturan"
+    },
     "settings_general_title": {
-        "message": "Umum"
+        "message": "Pengaturan umum"
+    },
+    "settings_general_description": {
+        "message": "Terapkan ke semua profil. Jika Anda mengubah profil, pengaturan akan tetap sama"
+    },
+    "settings_current_profile": {
+        "message": "Profil saat ini: <b>%profile_name%</b>"
+    },
+    "settings_current_profile_description": {
+        "message": "Terapkan ke profil saat ini. Jika Anda mengubah profil, pengaturan mungkin juga berubah"
+    },
+    "settings_unlimited_promo_title": {
+        "message": "Dapatkan versi Unlimited"
+    },
+    "settings_unlimited_promo_feature_speed": {
+        "message": "Streaming tanpa batas kecepatan"
+    },
+    "settings_unlimited_promo_feature_locations": {
+        "message": "%count%+ lokasi aman | %count%+ lokasi aman",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_feature_devices": {
+        "message": "Hingga %count% perangkat dalam satu akun | Hingga %count% perangkat dalam satu akun",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_upgrade_button": {
+        "message": "Tingkatkan"
     },
     "referral_get_free_traffic": {
         "message": "Dapatkan lalu lintas VPN gratis!"
@@ -297,7 +326,7 @@
         "message": "Mode selektif"
     },
     "context_menu_general_mode": {
-        "message": "Protokol VPN AdGuard"
+        "message": "Mode umum"
     },
     "context_menu_export_logs": {
         "message": "Ekspor catatan"
@@ -428,8 +457,8 @@
     "settings_quick_connect_title": {
         "message": "Koneksi instan"
     },
-    "settings_quick_connect_subtitle": {
-        "message": "Lokasi VPN dipilih ketika Anda mengklik Hubungkan"
+    "settings_quick_connect_description": {
+        "message": "Lokasi VPN standar saat Anda beralih ke profil atau membuka peramban"
     },
     "settings_quick_connect_last_used": {
         "message": "Lokasi yang terakhir digunakan"
@@ -539,8 +568,11 @@
     "settings_exclusion_title": {
         "message": "Pengecualian"
     },
-    "settings_location_label": {
-        "message": "Lokasi"
+    "settings_exclusion_general_state": {
+        "message": "VPN aktif di mana-mana kecuali untuk situs web tertentu"
+    },
+    "settings_exclusion_selective_state": {
+        "message": "VPN hanya aktif untuk situs web yang dipilih"
     },
     "settings_location_fastest_title": {
         "message": "Lokasi tercepat"
@@ -548,14 +580,17 @@
     "settings_location_fastest_description": {
         "message": "Otomatis connect ke lokasi tercepat"
     },
-    "settings_profiles_title": {
-        "message": "Profil"
+    "settings_location_last_used_description": {
+        "message": "Otomatis terhubung ke lokasi yang terakhir digunakan"
     },
-    "settings_profiles_sidebar_title": {
-        "message": "Profil"
+    "settings_profiles_title": {
+        "message": "Mengelola profil"
+    },
+    "settings_profiles_manage": {
+        "message": "Mengelola profil"
     },
     "settings_profiles_subtitle": {
-        "message": "Memungkinkan Anda mengatur server dan lokasi DNS dan menyimpan daftar pengecualian terpisah untuk kasus penggunaan yang berbeda, seperti kantor, rumah, atau lainnya"
+        "message": "Gunakan VPN untuk berbagai skenario, seperti kantor, rumah, anak-anak, atau lainnya. Buat profil dan persiapkan lokasi pilihan, server DNS, dan pengecualian untuknya"
     },
     "settings_profiles_default_name": {
         "message": "Standar"
@@ -573,7 +608,10 @@
         "message": "Hapus"
     },
     "settings_profiles_create": {
-        "message": "Buat"
+        "message": "Buat profil"
+    },
+    "settings_profiles_open_settings": {
+        "message": "Pengaturan"
     },
     "settings_profiles_create_modal_title": {
         "message": "Buat profil"
@@ -616,9 +654,6 @@
     },
     "settings_profiles_delete_modal_submit": {
         "message": "Hapus"
-    },
-    "settings_description_current": {
-        "message": "Saat ini: %mode%"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Dimana VPN aktif"
@@ -695,14 +730,23 @@
     "popup_settings_stats": {
         "message": "Statistik"
     },
-    "popup_profiles_title": {
-        "message": "Profil"
-    },
-    "popup_profiles_settings": {
-        "message": "Pengaturan"
-    },
     "profile_apply_error": {
         "message": "Gagal beralih profil. Coba lagi atau hubungi dukungan"
+    },
+    "profile_switched": {
+        "message": "Beralih ke %profile_name%"
+    },
+    "profile_created": {
+        "message": "Profil dibuat"
+    },
+    "profile_deleted": {
+        "message": "Profil dihapus"
+    },
+    "profile_deleted_switched": {
+        "message": "Profil dihapus. Anda beralih ke %profile_name%"
+    },
+    "profile_name_updated": {
+        "message": "Nama profil diperbarui"
     },
     "popup_settings_free_description": {
         "message": "Tersedia di AdGuard VPN Unlimited"
@@ -876,7 +920,7 @@
         "message": "Beri masukan"
     },
     "popup_compare_button": {
-        "message": "Mengapa aplikasi ini terbaik"
+        "message": "Mengapa aplikasi desktop lebih baik"
     },
     "popup_rate_modal_title": {
         "message": "Seberapa hebat AdGuard VPN?"

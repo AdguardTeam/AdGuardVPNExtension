@@ -7,7 +7,12 @@ import {
 } from 'vitest';
 import browser from 'webextension-polyfill';
 
-import { DEFAULT_STORAGE_DATA, StorageKey } from '../../../src/background/schema';
+import {
+    DEFAULT_STORAGE_DATA,
+    PROFILE_SESSION_STATE_DEFAULTS,
+    StorageKey,
+    type StorageData,
+} from '../../../src/background/schema';
 import { StateStorage } from '../../../src/background/stateStorage/stateStorage';
 import { log } from '../../../src/common/logger';
 
@@ -40,6 +45,24 @@ describe('StateStorage', () => {
         expect(testData).toEqual(DEFAULT_STORAGE_DATA[testKey]);
     });
 
+    it('should keep existing keys when profileSessionState is missing', async () => {
+        const raw: Partial<StorageData> = { ...DEFAULT_STORAGE_DATA };
+        delete raw[StorageKey.ProfileSessionState];
+        raw[StorageKey.UpdateServiceState] = { prevVersion: '1.2.3' };
+
+        sessionStorageGetSpy.mockResolvedValueOnce(raw);
+
+        const stateStorage = new StateStorage();
+
+        const updateState = await stateStorage.getItem(StorageKey.UpdateServiceState);
+        const profileSession = await stateStorage.getItem(StorageKey.ProfileSessionState);
+
+        // Other keys must survive — a required-key validation failure would
+        // reset the whole state to defaults.
+        expect(updateState).toEqual({ prevVersion: '1.2.3' });
+        expect(profileSession).toEqual(PROFILE_SESSION_STATE_DEFAULTS);
+    });
+
     it('should get item from session storage if it existed before', async () => {
         const testKey = StorageKey.UpdateServiceState;
         const testStorage = {
@@ -64,6 +87,30 @@ describe('StateStorage', () => {
 
         // should be existing value
         expect(testData).toEqual(testStorage[testKey]);
+    });
+
+    it('should load legacy services manager state without a locale marker', async () => {
+        const testKey = StorageKey.ExclusionsServicesManagerState;
+        const legacyServicesState = {
+            lastUpdateTimeMs: null,
+            services: null,
+            servicesIndex: {},
+        };
+        const testStorage = {
+            ...DEFAULT_STORAGE_DATA,
+            [testKey]: legacyServicesState,
+        };
+
+        sessionStorageGetSpy.mockResolvedValueOnce(testStorage);
+
+        const stateStorage = new StateStorage();
+        const testData = await stateStorage.getItem(testKey);
+
+        expect(sessionStorageSetMock).not.toHaveBeenCalled();
+        expect(testData).toEqual({
+            ...legacyServicesState,
+            lastUpdateLocale: null,
+        });
     });
 
     it('should set item to session storage properly', async () => {

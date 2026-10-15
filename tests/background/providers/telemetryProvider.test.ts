@@ -15,6 +15,7 @@ import {
     TelemetryScreenName,
     TelemetrySubscriptionDuration,
     TelemetryTheme,
+    TelemetryWebsiteExclusion,
 } from '../../../src/background/telemetry/telemetryEnums';
 import {
     type TelemetryCustomEventData,
@@ -56,6 +57,7 @@ describe('telemetryProvider', () => {
             licenseStatus: TelemetryLicenseStatus.Premium,
             subscriptionDuration: TelemetrySubscriptionDuration.Lifetime,
             theme: TelemetryTheme.System,
+            websiteExclusions: TelemetryWebsiteExclusion.Selective,
         },
     };
     const samplePageViewEventData: TelemetryPageViewEventData = {
@@ -78,6 +80,7 @@ describe('telemetryProvider', () => {
             license_status: sampleBaseData.props?.licenseStatus,
             subscription_duration: sampleBaseData.props?.subscriptionDuration,
             theme: sampleBaseData.props?.theme,
+            website_exclusions: sampleBaseData.props?.websiteExclusions,
         },
     };
 

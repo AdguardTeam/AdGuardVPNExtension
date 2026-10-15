@@ -36,7 +36,7 @@ export const CreateProfileModal = observer((
         onClose,
     }: CreateProfileModalProps,
 ) => {
-    const { telemetryStore } = useContext(rootStore);
+    const { telemetryStore, notificationsStore } = useContext(rootStore);
     const history = useHistory();
 
     useTelemetryPageViewEvent(
@@ -62,9 +62,17 @@ export const CreateProfileModal = observer((
             initialName=""
             onSubmit={handleSubmit}
             onSuccess={(profileId): void => {
-                if (profileId) {
-                    history.push(getProfileRoute(profileId));
-                }
+                notificationsStore.notifySuccess(
+                    translator.getMessage('profile_created'),
+                    {
+                        action: translator.getMessage('settings_profiles_open_settings'),
+                        handler: (): void => {
+                            if (profileId) {
+                                history.push(getProfileRoute(profileId));
+                            }
+                        },
+                    },
+                );
             }}
             onClose={onClose}
         />

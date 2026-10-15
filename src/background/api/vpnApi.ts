@@ -214,7 +214,8 @@ class VpnApi extends Api implements VpnApiInterface {
     ): Promise<VpnCredentials> => {
         const { path, method } = this.GET_VPN_CREDENTIALS;
 
-        const language = browser.i18n.getUILanguage();
+        const language = i18n.getUILanguage();
+        const systemLanguage = browser.i18n.getUILanguage();
 
         const params = {
             app_id: appId,
@@ -223,7 +224,7 @@ class VpnApi extends Api implements VpnApiInterface {
             send_crash_reports: String(helpUsImprove),
             version,
             language,
-            system_language: language,
+            system_language: systemLanguage,
         };
 
         return this.makeRequest<VpnCredentials>(path, { params }, method);
@@ -256,13 +257,14 @@ class VpnApi extends Api implements VpnApiInterface {
     public trackExtensionInstallation = (appId: string, version: string): Promise<unknown> => {
         const { path, method } = this.TRACK_EXTENSION_INSTALL;
 
-        const language = browser.i18n.getUILanguage();
+        const language = i18n.getUILanguage();
+        const systemLanguage = browser.i18n.getUILanguage();
 
         const params = {
             app_id: appId,
             version,
             language,
-            system_language: language,
+            system_language: systemLanguage,
         };
 
         return this.makeRequest(path, { params }, method);
@@ -284,7 +286,7 @@ class VpnApi extends Api implements VpnApiInterface {
 
     public getExclusionsServices = (): Promise<ExclusionsServicesData> => {
         const { path, method } = this.EXCLUSION_SERVICES;
-        const language = browser.i18n.getUILanguage();
+        const language = i18n.getUILanguage();
 
         const params = {
             locale: language,

@@ -9,17 +9,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Unlimited promo block on all settings screens for free users.
+- Profile switcher in the sidebar and in the popup, so the active profile can be changed without opening the profiles screen.
+
 ### Changed
 
+- Settings screen now shows the current profile settings (exclusions, DNS server, quick connect, WebRTC) separately from the general settings.
+- Quick connect supports the last used location strategy next to the fastest and the pinned locations.
+- Profiles screen is renamed to Manage profiles; create, rename and delete actions show snackbars with actions.
 - Migrated CI/CD from Bamboo to GitHub Actions.
+- Retired A/B test assignments are now cleaned up, and legacy string assignments are migrated on update.
+- Centralized temporary per-profile data (DNS backups, exclusions cache and undo snapshots) in a single `ProfileStateService`, so profile deletion cleans up all of it at once.
 
 ### Deprecated
 
 ### Removed
 
+- Advantages section on the Account screen (replaced by the Unlimited promo block).
 - `build.txt` build artifact (was only consumed by the Bamboo pipelines).
 
 ### Fixed
+
+- Exclusion service names now refresh when the extension language changes.
+- Web authentication flow no longer fails when the authorization tab is moved or torn off into another window, or when the service worker is restarted mid-flight.
 
 ### Security
 

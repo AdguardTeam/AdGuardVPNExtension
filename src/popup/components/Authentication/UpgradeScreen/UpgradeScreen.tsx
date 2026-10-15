@@ -35,12 +35,18 @@ export const UpgradeScreen = observer(({
         ctaTelemetry,
         skipTelemetry,
     } = variant ?? getDefaultUpgradeVariant();
-    const { authStore, vpnStore, telemetryStore } = useContext(rootStore);
+    const {
+        authStore,
+        vpnStore,
+        telemetryStore,
+        settingsStore,
+    } = useContext(rootStore);
 
     useTelemetryPageViewEvent(telemetryStore, pageViewScreen);
 
     const onUpgradeClick = async (): Promise<void> => {
         telemetryStore.sendCustomEvent(ctaTelemetry.actionName, ctaTelemetry.screenName);
+        settingsStore.clearPremiumLocationPaywall();
         await authStore.setShowUpgradeScreen(false);
         await vpnStore.openPremiumPromoPage();
         window.close();
@@ -48,6 +54,7 @@ export const UpgradeScreen = observer(({
 
     const onSkipClick = async (): Promise<void> => {
         telemetryStore.sendCustomEvent(skipTelemetry.actionName, skipTelemetry.screenName);
+        settingsStore.clearPremiumLocationPaywall();
         await authStore.setShowUpgradeScreen(false);
     };
 

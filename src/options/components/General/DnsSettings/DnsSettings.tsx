@@ -79,7 +79,15 @@ export const DnsSettings = observer(({ profileId, onBack }: DnsSettingsProps) =>
         canSendTelemetry,
     );
 
-    const handleProfileHintClick = useProfileRouteNavigation(getProfileRoute);
+    const navigateToProfile = useProfileRouteNavigation(getProfileRoute);
+
+    const handleProfileHintClick = (hintProfileId: string): void => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.AppliesToProfileClick,
+            TelemetryScreenName.SettingsDnsServersScreen,
+        );
+        navigateToProfile(hintProfileId);
+    };
 
     const handleGoBack = (): void => {
         if (onBack) {
@@ -154,7 +162,7 @@ export const DnsSettings = observer(({ profileId, onBack }: DnsSettingsProps) =>
                 title={translator.getMessage('settings_dns_label')}
                 onClick={handleGoBack}
                 className="dns-settings__title"
-                subtitle={!profileId && <ProfileHint onClick={handleProfileHintClick} />}
+                subtitle={<ProfileHint profileId={profileId} onClick={handleProfileHintClick} />}
                 subtitleIndent={false}
             />
 

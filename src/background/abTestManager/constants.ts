@@ -1,4 +1,4 @@
-import { type ExperimentSlot } from '../telemetry/telemetryTypes';
+import { type ExperimentSlot } from '../schema/telemetry/sessionStartResponse';
 
 /**
  * Type alias for the experiment registry.
@@ -26,9 +26,10 @@ export const AG55378_ONBOARDING_B_VERSION_NAME = 'AG-55378-personalized-onboardi
  * Registry of active A/B experiments.
  *
  * Each entry maps a fixed Plausible slot (experiment_1/2/3) to an experiment ID.
- * Maximum 3 entries. Add new experiments here when needed.
+ * Maximum 3 entries. Add new experiments here and remove ended ones.
+ * Cached assignments store the experiment ID together with the variant name.
  *
- * Example: { experiment_1: 'AG-47804-trial-a_def' }
+ * Example: { experiment_1: 'AG-47804-trial-a' }
  */
 export const EXPERIMENT_REGISTRY: ExperimentRegistry = {
     [AG55378_ONBOARDING_SLOT]: AG55378_ONBOARDING_EXPERIMENT_ID,

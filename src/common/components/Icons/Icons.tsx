@@ -90,6 +90,10 @@ export const Icons = (): ReactElement => (
             <path d="M17.24 7.84c.37.32.4.87.09 1.23l-6.09 7a.87.87 0 0 1-1.3.03L6.7 12.68a.87.87 0 0 1 1.27-1.2l2.58 2.72 5.46-6.27a.88.88 0 0 1 1.23-.09Z" fill="white" fillRule="evenodd" clipRule="evenodd" />
         </symbol>
 
+        <symbol id="profile" viewBox="0 0 24 21" fill="currentColor">
+            <path d="M12 0c6.628 0 12 5.372 12 12 0 3.385-1.404 6.44-3.658 8.621a9 9 0 0 0-16.685 0A11.96 11.96 0 0 1 0 12C0 5.372 5.372 0 12 0m0 5a4 4 0 1 0 0 8 4 4 0 0 0 0-8" />
+        </symbol>
+
         <symbol
             id="external-link"
             viewBox="0 0 24 24"

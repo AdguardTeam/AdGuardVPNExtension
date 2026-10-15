@@ -34,6 +34,17 @@ export interface ProfileDnsData {
 export type ProfileLocationData = LocationInterface | null;
 
 /**
+ * Why the active profile was changed. Set on the ACTIVE_PROFILE_CHANGED
+ * payload only when the change was not a user-initiated switch.
+ */
+export enum ProfileChangeReason {
+    /**
+     * The active profile was deleted, so the extension fell back to the default one.
+     */
+    DeleteFallback = 'delete_fallback',
+}
+
+/**
  * Payload for the ACTIVE_PROFILE_CHANGED notifier event.
  */
 export interface ActiveProfileChangedPayload {
@@ -46,6 +57,11 @@ export interface ActiveProfileChangedPayload {
      * Whether the profile switch completed successfully.
      */
     success: boolean;
+
+    /**
+     * Why the profile changed. Absent for user-initiated switches.
+     */
+    reason?: ProfileChangeReason;
 }
 
 /**

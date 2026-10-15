@@ -18,6 +18,7 @@ const {
     mockExclusions,
     mockLocationsService,
     mockProfileWebRtcService,
+    mockProfileStateService,
     mockLog,
     mockNotifier,
 } = vi.hoisted(() => ({
@@ -28,17 +29,18 @@ const {
     },
     mockDns: {
         applyProfile: vi.fn().mockResolvedValue(undefined),
-        removeProfileBackup: vi.fn().mockResolvedValue(undefined),
     },
     mockExclusions: {
         applyProfile: vi.fn().mockResolvedValue(undefined),
-        removeProfileData: vi.fn(),
     },
     mockLocationsService: {
         applyProfileLocation: vi.fn().mockResolvedValue(undefined),
     },
     mockProfileWebRtcService: {
         init: vi.fn().mockResolvedValue(undefined),
+    },
+    mockProfileStateService: {
+        clearProfileData: vi.fn().mockResolvedValue(undefined),
     },
     mockLog: {
         info: vi.fn(),
@@ -56,6 +58,11 @@ const {
 
 vi.mock('../../../src/background/profiles/index', () => ({
     profilesService: mockProfilesService,
+    profileStateService: mockProfileStateService,
+}));
+
+vi.mock('../../../src/background/profiles/profileState', () => ({
+    profileStateService: mockProfileStateService,
 }));
 
 vi.mock('../../../src/background/dns', () => ({
@@ -478,7 +485,7 @@ describe('ProfileManager.deleteProfile', () => {
 
         expect(mockProfilesService.setActiveProfile).not.toHaveBeenCalled();
         expect(mockProfilesService.deleteProfile).toHaveBeenCalledWith(CUSTOM_PROFILE_ID);
-        expect(mockExclusions.removeProfileData).toHaveBeenCalledWith(CUSTOM_PROFILE_ID);
+        expect(mockProfileStateService.clearProfileData).toHaveBeenCalledWith(CUSTOM_PROFILE_ID);
     });
 
     it('should switch to Default before deleting the active profile', async () => {
@@ -488,7 +495,7 @@ describe('ProfileManager.deleteProfile', () => {
 
         expect(mockProfilesService.setActiveProfile).toHaveBeenCalledWith(DEFAULT_PROFILE_ID);
         expect(mockProfilesService.deleteProfile).toHaveBeenCalledWith(CUSTOM_PROFILE_ID);
-        expect(mockExclusions.removeProfileData).toHaveBeenCalledWith(CUSTOM_PROFILE_ID);
+        expect(mockProfileStateService.clearProfileData).toHaveBeenCalledWith(CUSTOM_PROFILE_ID);
     });
 
     it('should emit ACTIVE_PROFILE_CHANGED with DeleteFallback reason when deleting active profile', async () => {
@@ -498,34 +505,27 @@ describe('ProfileManager.deleteProfile', () => {
 
         expect(mockNotifier.notifyListeners).toHaveBeenCalledWith(
             mockNotifier.types.ACTIVE_PROFILE_CHANGED,
-            { profileId: DEFAULT_PROFILE_ID, success: true },
+            { profileId: DEFAULT_PROFILE_ID, success: true, reason: 'delete_fallback' },
         );
     });
 
-    it('should clean up exclusions data after deleting', async () => {
+    it('should clear profile state data after deleting', async () => {
         const callOrder: string[] = [];
         mockProfilesService.deleteProfile.mockImplementation(async () => { callOrder.push('delete'); });
-        mockExclusions.removeProfileData.mockImplementation(() => { callOrder.push('removeData'); });
+        mockProfileStateService.clearProfileData.mockImplementation(async () => { callOrder.push('clearData'); });
 
         await ProfileManager.deleteProfile(CUSTOM_PROFILE_ID);
 
-        expect(callOrder).toEqual(['delete', 'removeData']);
+        expect(callOrder).toEqual(['delete', 'clearData']);
     });
 
-    it('should clean up DNS backup data after deleting', async () => {
-        await ProfileManager.deleteProfile(CUSTOM_PROFILE_ID);
-
-        expect(mockDns.removeProfileBackup).toHaveBeenCalledWith(CUSTOM_PROFILE_ID);
-    });
-
-    it('should propagate deleteProfile error and not clean up caches', async () => {
+    it('should propagate deleteProfile error and not clear state', async () => {
         const error = new Error('Cannot delete the system default profile');
         mockProfilesService.deleteProfile.mockRejectedValueOnce(error);
 
         await expect(ProfileManager.deleteProfile(CUSTOM_PROFILE_ID)).rejects.toThrow(error);
 
-        expect(mockExclusions.removeProfileData).not.toHaveBeenCalled();
-        expect(mockDns.removeProfileBackup).not.toHaveBeenCalled();
+        expect(mockProfileStateService.clearProfileData).not.toHaveBeenCalled();
     });
 
     it('should serialize deleteProfile when switchProfile is in progress', async () => {

@@ -1,8 +1,8 @@
-import browser from 'webextension-polyfill';
 import JSZip from 'jszip';
 import * as v from 'valibot';
 
 import { vpnApi } from '../api';
+import { i18n } from '../../common/i18n';
 import { log } from '../../common/logger';
 import {
     type ExclusionServicesDomains,
@@ -201,7 +201,7 @@ const getCurrentLocation = async (): Promise<CurrentLocationData> => {
         location: { latitude, longitude },
     } = currentLocation;
 
-    const locale = browser.i18n.getUILanguage();
+    const locale = i18n.getUILanguage();
     const localizedCityName = city ? getLocalizedName(city.names, locale) : null;
     const localizedCountryName = country ? getLocalizedName(country.names, locale) : null;
 

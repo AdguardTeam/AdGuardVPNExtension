@@ -6,17 +6,7 @@ import { translator } from '../../../../../../common/translator';
 
 import { ServiceCategory } from './ServiceCategory';
 
-/**
- * ServicesList component props.
- */
-interface ServicesListProps {
-    /**
-     * Whether the component is rendered inside a profile context.
-     */
-    isProfileContext: boolean;
-}
-
-export const ServicesList = observer(({ isProfileContext }: ServicesListProps) => {
+export const ServicesList = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
 
     const { categories } = exclusionsStore.preparedServicesData;
@@ -42,7 +32,6 @@ export const ServicesList = observer(({ isProfileContext }: ServicesListProps) =
                         <ServiceCategory
                             key={category.id}
                             category={category}
-                            isProfileContext={isProfileContext}
                         />
                     );
                 })}

@@ -26,6 +26,13 @@ const uiStoreBox = vi.hoisted(() => ({
     },
 }));
 
+const settingsStoreBox = vi.hoisted(() => ({
+    value: {
+        freeUserClickedPremiumLocation: false,
+        clearPremiumLocationPaywall: vi.fn(),
+    },
+}));
+
 vi.mock('../../../../src/common/translator', () => ({
     translator: {
         getMessage: (key: string) => key,
@@ -42,6 +49,7 @@ vi.mock('../../../../src/popup/stores', () => ({
         authStore: { setShowUpgradeScreen },
         vpnStore: { openPremiumPromoPage },
         get uiStore() { return uiStoreBox.value; },
+        get settingsStore() { return settingsStoreBox.value; },
         telemetryStore: { sendCustomEvent, sendPageViewEvent },
     }),
 }));
@@ -59,6 +67,10 @@ describe('UpgradePaywall', () => {
         uiStoreBox.value = {
             isPersonalizedOnboardingVariant: false,
             onboardingGoal: null,
+        };
+        settingsStoreBox.value = {
+            freeUserClickedPremiumLocation: false,
+            clearPremiumLocationPaywall: vi.fn(),
         };
     });
 
@@ -94,17 +106,45 @@ describe('UpgradePaywall', () => {
         expect(screen.getByText('popup_upgrade_b_title_line1')).toBeTruthy();
     });
 
+    it('premium-location click uses default telemetry regardless of the A/B test assignment', async () => {
+        uiStoreBox.value = {
+            isPersonalizedOnboardingVariant: true,
+            onboardingGoal: 'streaming',
+        };
+        settingsStoreBox.value = {
+            freeUserClickedPremiumLocation: true,
+            clearPremiumLocationPaywall: vi.fn(),
+        };
+        render(<UpgradePaywall />);
+
+        expect(screen.getByText('popup_upgrade_b_title_line1')).toBeTruthy();
+        expect(screen.queryByText('popup_paywall_streaming_title')).toBeNull();
+        // default description is shown for the premium-location variant
+        expect(screen.getByText('popup_upgrade_b_description')).toBeTruthy();
+        expect(sendPageViewEvent).toHaveBeenCalledWith('var_b_purchase_screen');
+        expect(sendPageViewEvent).not.toHaveBeenCalledWith('purchase_screen');
+
+        fireEvent.click(screen.getByText('popup_upgrade_b_btn_get_unlimited'));
+        await waitFor(() => expect(openPremiumPromoPage).toHaveBeenCalled());
+        expect(sendCustomEvent).not.toHaveBeenCalledWith(
+            'onboarding_purchase_click',
+            'purchase_screen',
+        );
+    });
+
     it('default variant upgrade click opens promo page and dismisses paywall', async () => {
         render(<UpgradePaywall />);
         fireEvent.click(screen.getByText('popup_upgrade_b_btn_get_unlimited'));
         await waitFor(() => expect(openPremiumPromoPage).toHaveBeenCalled());
         expect(setShowUpgradeScreen).toHaveBeenCalledWith(false);
+        expect(settingsStoreBox.value.clearPremiumLocationPaywall).toHaveBeenCalled();
     });
 
     it('default variant maybe-later click dismisses the paywall', () => {
         render(<UpgradePaywall />);
         fireEvent.click(screen.getByText('popup_upgrade_b_btn_maybe_later'));
         expect(setShowUpgradeScreen).toHaveBeenCalledWith(false);
+        expect(settingsStoreBox.value.clearPremiumLocationPaywall).toHaveBeenCalled();
     });
 
     it('personalized variant maybe-later click dismisses the paywall and sends goal telemetry', () => {

@@ -19,14 +19,16 @@ export const BackgroundAnimationCommon = observer(() => {
     const animationStateToUse = animationState;
 
     useEffect(() => {
-        animationService.onTransition((state) => {
+        const listener: Parameters<typeof animationService.onTransition>[0] = (state) => {
             // new state value on transition is string, but it's actually AnimationState
             settingsStore.setAnimationState(state.value as AnimationState);
-        });
+        };
+        animationService.onTransition(listener);
 
         return (): void => {
-            // Finish in-progress transition to prevent animation restart
-            settingsStore.handleAnimationEnd();
+            // The screen re-mounts on every main <-> exclusions switch, so the
+            // listener must not leak.
+            animationService.off(listener);
         };
     }, [settingsStore]);
 
@@ -56,11 +58,13 @@ export const BackgroundAnimationCommon = observer(() => {
             return undefined;
         }
 
+        let frameId = 0;
+
         const updateCanvas = (video: HTMLVideoElement): void => {
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
-            requestAnimationFrame(() => updateCanvas(video));
+            frameId = requestAnimationFrame(() => updateCanvas(video));
         };
 
         const video = document.createElement('video');
@@ -70,7 +74,11 @@ export const BackgroundAnimationCommon = observer(() => {
         video.addEventListener('ended', handleAnimationEnd);
 
         const loadedDataHandler = async (): Promise<void> => {
-            await video.play();
+            try {
+                await video.play();
+            } catch {
+                return;
+            }
             updateCanvas(video);
         };
         video.addEventListener('loadeddata', loadedDataHandler);
@@ -78,6 +86,9 @@ export const BackgroundAnimationCommon = observer(() => {
         return (): void => {
             video.removeEventListener('loadeddata', loadedDataHandler);
             video.removeEventListener('ended', handleAnimationEnd);
+
+            cancelAnimationFrame(frameId);
+            video.pause();
         };
     }, [sourceUrl, loop]);
 

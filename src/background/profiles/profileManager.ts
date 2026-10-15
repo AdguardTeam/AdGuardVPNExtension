@@ -1,6 +1,6 @@
 import { log } from '../../common/logger';
 import { notifier } from '../../common/notifier';
-import { type ActiveProfileChangedPayload } from '../../common/profiles';
+import { ProfileChangeReason, type ActiveProfileChangedPayload } from '../../common/profiles';
 import { DEFAULT_PROFILE_ID } from '../../common/profiles';
 import { dns } from '../dns';
 import { exclusions } from '../exclusions';
@@ -9,7 +9,7 @@ import { profileWebRtcService } from '../WebRtcService';
 
 import { SerializedQueue } from './serializedQueue';
 
-import { profilesService } from '.';
+import { profileStateService, profilesService } from '.';
 
 const queue = new SerializedQueue();
 const { decorator: serialized } = queue;
@@ -76,6 +76,7 @@ export class ProfileManager {
     private static async applySwitchWithRollback(
         targetId: string,
         rollbackId: string,
+        reason?: ProfileChangeReason,
     ): Promise<void> {
         try {
             await ProfileManager.applyProfileSettings(targetId);
@@ -86,6 +87,7 @@ export class ProfileManager {
             const rollbackPayload: ActiveProfileChangedPayload = {
                 profileId: rollbackId,
                 success: false,
+                ...(reason ? { reason } : {}),
             };
             notifier.notifyListeners(notifier.types.ACTIVE_PROFILE_CHANGED, rollbackPayload);
             try {
@@ -97,7 +99,7 @@ export class ProfileManager {
         }
 
         await profilesService.setActiveProfile(targetId);
-        ProfileManager.emitResultIfLast(targetId);
+        ProfileManager.emitResultIfLast(targetId, reason);
     }
 
     /**
@@ -152,12 +154,12 @@ export class ProfileManager {
             await ProfileManager.applySwitchWithRollback(
                 DEFAULT_PROFILE_ID,
                 profileId,
+                ProfileChangeReason.DeleteFallback,
             );
         }
 
         await profilesService.deleteProfile(profileId);
-        exclusions.removeProfileData(profileId);
-        await dns.removeProfileBackup(profileId);
+        await profileStateService.clearProfileData(profileId);
         log.info(`[vpn.ProfileManager.deleteProfile]: Profile "${profileId}" deleted`);
     }
 
@@ -168,12 +170,13 @@ export class ProfileManager {
      * @param profileId The confirmed active profile ID.
      * @param reason Why the profile changed.
      */
-    private static emitResultIfLast(profileId: string): void {
+    private static emitResultIfLast(profileId: string, reason?: ProfileChangeReason): void {
         if (queue.isLast()) {
             ProfileManager.applyingProfileId = null;
             const payload: ActiveProfileChangedPayload = {
                 profileId,
                 success: true,
+                ...(reason ? { reason } : {}),
             };
             notifier.notifyListeners(notifier.types.ACTIVE_PROFILE_CHANGED, payload);
         }

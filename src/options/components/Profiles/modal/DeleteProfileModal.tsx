@@ -56,7 +56,6 @@ export const DeleteProfileModal = observer(({
 }: DeleteProfileModalProps) => {
     const { globalStore, notificationsStore, telemetryStore } = useContext(rootStore);
     const history = useHistory();
-
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     useTelemetryPageViewEvent(
@@ -90,6 +89,19 @@ export const DeleteProfileModal = observer(({
             );
             await messenger.deleteProfile(profileId);
             await globalStore.getOptionsData(true);
+
+            if (isActive) {
+                notificationsStore.notifySuccess(
+                    translator.getMessage('profile_deleted_switched', {
+                        profile_name: translator.getMessage('settings_profiles_default_name'),
+                    }),
+                );
+            } else {
+                notificationsStore.notifySuccess(
+                    translator.getMessage('profile_deleted'),
+                );
+            }
+
             onClose();
             history.push(PROFILES_PATH);
             return;

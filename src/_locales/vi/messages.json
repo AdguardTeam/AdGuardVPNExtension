@@ -147,8 +147,37 @@
     "privacy_policy": {
         "message": "Chính sách quyền riêng tư"
     },
+    "settings_title": {
+        "message": "Cài đặt"
+    },
     "settings_general_title": {
-        "message": "Tổng quan"
+        "message": "Cài đặt chung"
+    },
+    "settings_general_description": {
+        "message": "Áp dụng cho tất cả hồ sơ. Nếu bạn thay đổi hồ sơ, cài đặt sẽ giữ nguyên"
+    },
+    "settings_current_profile": {
+        "message": "Hồ sơ hiện tại: <b>%profile_name%</b>"
+    },
+    "settings_current_profile_description": {
+        "message": "Áp dụng cho hồ sơ hiện tại. Nếu bạn thay đổi hồ sơ, cài đặt cũng có thể thay đổi"
+    },
+    "settings_unlimited_promo_title": {
+        "message": "Tải ngay phiên bản không giới hạn"
+    },
+    "settings_unlimited_promo_feature_speed": {
+        "message": "Phát trực tuyến không giới hạn tốc độ"
+    },
+    "settings_unlimited_promo_feature_locations": {
+        "message": "%count%+ địa điểm an toàn | %count%+ địa điểm an toàn",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_feature_devices": {
+        "message": "Tối đa %count% thiết bị trên một tài khoản | Tối đa %count% thiết bị trên một tài khoản",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_upgrade_button": {
+        "message": "Cập nhật"
     },
     "referral_get_free_traffic": {
         "message": "Nhận GB miễn phí!"
@@ -428,8 +457,8 @@
     "settings_quick_connect_title": {
         "message": "Kết nối nhanh"
     },
-    "settings_quick_connect_subtitle": {
-        "message": "Địa điểm VPN được chọn khi bạn bấm \"Kết nối\""
+    "settings_quick_connect_description": {
+        "message": "Vị trí VPN mặc định khi bạn chuyển sang hồ sơ hoặc mở trình duyệt"
     },
     "settings_quick_connect_last_used": {
         "message": "Vị trí được sử dụng gần đây nhất"
@@ -441,7 +470,7 @@
         "message": "Thêm trang web"
     },
     "settings_exclusion_add_website": {
-        "message": "Thêm trang web"
+        "message": "Thêm Website"
     },
     "settings_exclusion_actions": {
         "message": "Thao tác"
@@ -539,8 +568,11 @@
     "settings_exclusion_title": {
         "message": "Loại trừ"
     },
-    "settings_location_label": {
-        "message": "Vị trí"
+    "settings_exclusion_general_state": {
+        "message": "VPN bật ở mọi nơi ngoại trừ các trang cụ thể"
+    },
+    "settings_exclusion_selective_state": {
+        "message": "VPN chỉ bật cho các trang đã chọn"
     },
     "settings_location_fastest_title": {
         "message": "Địa điểm nhanh nhất"
@@ -548,14 +580,17 @@
     "settings_location_fastest_description": {
         "message": "Tự động kết nối đến vị trí nhanh nhất"
     },
-    "settings_profiles_title": {
-        "message": "Các hồ sơ"
+    "settings_location_last_used_description": {
+        "message": "Tự động kết nối đến vị trí được sử dụng gần nhất"
     },
-    "settings_profiles_sidebar_title": {
-        "message": "Hồ sơ"
+    "settings_profiles_title": {
+        "message": "Chỉnh sửa hồ sơ"
+    },
+    "settings_profiles_manage": {
+        "message": "Chỉnh sửa hồ sơ"
     },
     "settings_profiles_subtitle": {
-        "message": "Cho phép bạn thiết lập máy chủ DNS và vị trí, đồng thời duy trì các danh sách loại trừ riêng cho các mục đích sử dụng khác nhau, như công việc, gia đình hoặc khác"
+        "message": "Sử dụng VPN cho các tình huống khác nhau, chẳng hạn như công việc, gia đình, trẻ em hoặc trường hợp khác. Tạo một hồ sơ và thiết lập vị trí ưa thích, máy chủ DNS và các loại trừ cho hồ sơ đó"
     },
     "settings_profiles_default_name": {
         "message": "Mặc định"
@@ -573,7 +608,10 @@
         "message": "Xoá"
     },
     "settings_profiles_create": {
-        "message": "Tạo nên"
+        "message": "Tạo hồ sơ"
+    },
+    "settings_profiles_open_settings": {
+        "message": "Mở cài đặt"
     },
     "settings_profiles_create_modal_title": {
         "message": "Tạo hồ sơ"
@@ -616,9 +654,6 @@
     },
     "settings_profiles_delete_modal_submit": {
         "message": "Xoá"
-    },
-    "settings_description_current": {
-        "message": "Hiện tại: %mode%"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "VPN được bật ở đâu"
@@ -695,14 +730,23 @@
     "popup_settings_stats": {
         "message": "Thống kê"
     },
-    "popup_profiles_title": {
-        "message": "Các hồ sơ"
-    },
-    "popup_profiles_settings": {
-        "message": "Cài đặt"
-    },
     "profile_apply_error": {
         "message": "Không thể chuyển hồ sơ. Hãy thử lại hoặc liên hệ hỗ trợ"
+    },
+    "profile_switched": {
+        "message": "Đã chuyển sang %profile_name%"
+    },
+    "profile_created": {
+        "message": "Đã tạo hồ sơ"
+    },
+    "profile_deleted": {
+        "message": "Đã xóa hồ sơ"
+    },
+    "profile_deleted_switched": {
+        "message": "Đã xóa hồ sơ. Bạn đã được chuyển sang %profile_name%"
+    },
+    "profile_name_updated": {
+        "message": "Đã cập nhật tên hồ sơ"
     },
     "popup_settings_free_description": {
         "message": "Có sẵn trong AdGuard VPN Unlimited"
@@ -876,7 +920,7 @@
         "message": "Để lại phản hồi"
     },
     "popup_compare_button": {
-        "message": "Tại sao ứng dụng tốt hơn"
+        "message": "Tại sao ứng dụng máy tính để bàn tốt hơn"
     },
     "popup_rate_modal_title": {
         "message": "AdGuard VPN tuyệt vời như thế nào?"

@@ -18,13 +18,20 @@ import { Preloader } from '../Preloader';
 import { SignedOut } from '../SignedOut';
 import { Sidebar } from '../Sidebar';
 import { General } from '../General';
-import { Exclusions } from '../Exclusions';
+import { UnlimitedPromo } from '../UnlimitedPromo';
 import { Profiles } from '../Profiles';
 import { ProfileDetail } from '../Profiles/ProfileDetail';
 import { ProfileExclusions } from '../Profiles/ProfileExclusions';
 import { ProfileDnsSettings } from '../Profiles/ProfileDnsSettings';
 import { ProfileLocationSettings } from '../Profiles/ProfileLocationSettings';
 import { PROFILES_PATH } from '../Profiles/profileRoutes';
+import {
+    ABOUT_PATH,
+    ACCOUNT_PATH,
+    FREE_GBS_PATH,
+    GENERAL_PATH,
+    SUPPORT_PATH,
+} from '../routes';
 import { Account } from '../Account';
 import { Support } from '../Support';
 import { About } from '../About';
@@ -46,22 +53,22 @@ const getContent = (
                 <div className="content" inert={isContentLocked ? '' : undefined}>
                     <div className="content__wrapper">
                         <Switch>
-                            <Route path="/" exact component={General} />
+                            <Route path={GENERAL_PATH} exact component={General} />
                             <Route path={`${PROFILES_PATH}/:id/exclusions`} component={ProfileExclusions} />
                             <Route path={`${PROFILES_PATH}/:id/dns`} component={ProfileDnsSettings} />
                             <Route path={`${PROFILES_PATH}/:id/location`} component={ProfileLocationSettings} />
                             <Route path={`${PROFILES_PATH}/:id`} exact component={ProfileDetail} />
                             <Route path={PROFILES_PATH} exact component={Profiles} />
-                            <Route path="/exclusions" exact component={Exclusions} />
-                            <Route path="/account" component={Account} />
-                            <Route path="/about" component={About} />
-                            <Route path="/support" component={Support} />
+                            <Route path={ACCOUNT_PATH} component={Account} />
+                            <Route path={ABOUT_PATH} component={About} />
+                            <Route path={SUPPORT_PATH} component={Support} />
                             {!isPremiumToken && (
-                                <Route path="/free-gbs" component={FreeGbs} />
+                                <Route path={FREE_GBS_PATH} component={FreeGbs} />
                             )}
                             <Route component={General} />
                         </Switch>
                     </div>
+                    <UnlimitedPromo />
                 </div>
             </div>
         );

@@ -17,6 +17,11 @@ export interface AuthSideEffectsInterface {
      * Initializes the auth side effects.
      */
     init(): void;
+
+    /**
+     * Marks the modules required by the auth side effects as initialized.
+     */
+    markDependenciesReady(): void;
 }
 
 /**
@@ -96,6 +101,22 @@ export class AuthSideEffects implements AuthSideEffectsInterface {
     private endpoints: EndpointsInterface;
 
     /**
+     * Promise that resolves when the modules required by the auth side effects
+     * are initialized.
+     *
+     * The notifier can deliver the event before the asynchronous init chain is
+     * finished — for example, when the service worker is woken by the web auth
+     * redirect — so the handler must wait for the dependencies instead of running
+     * against uninitialized services.
+     */
+    private dependenciesReady: Promise<void>;
+
+    /**
+     * Resolves {@link dependenciesReady}. Replaced with the promise resolver in the constructor.
+     */
+    private resolveDependenciesReady: () => void = () => {};
+
+    /**
      * Constructor.
      */
     constructor({
@@ -112,6 +133,10 @@ export class AuthSideEffects implements AuthSideEffectsInterface {
         this.forwarder = forwarder;
         this.tabs = tabs;
         this.endpoints = endpoints;
+
+        this.dependenciesReady = new Promise((resolve) => {
+            this.resolveDependenciesReady = resolve;
+        });
     }
 
     /** @inheritdoc */
@@ -122,12 +147,21 @@ export class AuthSideEffects implements AuthSideEffectsInterface {
         );
     }
 
+    /** @inheritdoc */
+    public markDependenciesReady(): void {
+        this.resolveDependenciesReady();
+    }
+
     /**
      * Handles web auth flow successful authentication by:
      * - If it's first run shows notification and opens compare page.
      * - If it's not first run opens success auth page.
      */
     private async handleWebAuthFlowAuthenticated(): Promise<void> {
+        // The event can arrive before the asynchronous init chain is finished,
+        // e.g. when the service worker is woken by the web auth redirect
+        await this.dependenciesReady;
+
         if (this.updateService.isFirstRun) {
             // Start finding locations so when user opens popup they are ready.
             // We don't await it intentionally as it's here just to start the process of location finding.

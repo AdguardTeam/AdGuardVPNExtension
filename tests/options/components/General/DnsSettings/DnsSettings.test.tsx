@@ -10,6 +10,7 @@ import {
 import { render, fireEvent } from '@testing-library/react';
 
 const mockPush = vi.hoisted(() => vi.fn());
+const mockSendCustomEvent = vi.hoisted(() => vi.fn());
 
 vi.mock('react-router-dom', () => ({
     useHistory: () => ({ push: mockPush }),
@@ -101,7 +102,7 @@ vi.mock('../../../../../src/options/stores', () => {
             notifySuccess: vi.fn(),
         },
         telemetryStore: {
-            sendCustomEvent: vi.fn(),
+            sendCustomEvent: mockSendCustomEvent,
         },
         profilesStore: {
             get profiles(): Array<{ id: string; name: string }> {
@@ -152,14 +153,15 @@ describe('DnsSettings ProfileHint indicator', () => {
     });
 
     describe('visibility when profileId is undefined (General settings)', () => {
-        it('should render ProfileHint in title subtitle when profiles > 1', () => {
+        it('should not render ProfileHint for the active profile', () => {
             mockProfiles.push(
                 { id: 'profile-1', name: 'Default' },
                 { id: 'profile-2', name: 'Work' },
             );
             const { container } = renderDnsSettings();
+            // The hint is rendered only for a profile that is not the active one.
             const hint = container.querySelector('.profile-hint');
-            expect(hint).not.toBeNull();
+            expect(hint).toBeNull();
         });
 
         it('should not render ProfileHint in title subtitle when profiles <= 1', () => {
@@ -175,43 +177,46 @@ describe('DnsSettings ProfileHint indicator', () => {
             const hint = container.querySelector('.profile-hint');
             expect(hint).toBeNull();
         });
+    });
 
-        it('should display the active profile name in the subtitle', () => {
+    describe('visibility when profileId is provided (ProfileDnsSettings)', () => {
+        it('should render ProfileHint for a non-active profile', () => {
             mockProfiles.push(
                 { id: 'profile-1', name: 'Default' },
                 { id: 'profile-2', name: 'Work' },
             );
-            const { container } = renderDnsSettings();
+            const { container } = renderDnsSettings({ profileId: 'profile-1' });
             const hint = container.querySelector('.profile-hint');
-            expect(hint).not.toBeNull();
-            expect(hint!.textContent).toContain('Work');
-        });
-    });
 
-    describe('visibility when profileId is provided (ProfileDnsSettings)', () => {
-        it('should not render ProfileHint in title subtitle even with 2+ profiles', () => {
+            expect(hint).not.toBeNull();
+            expect(hint!.textContent).toContain('Default');
+        });
+
+        it('should not render ProfileHint for the active profile', () => {
             mockProfiles.push(
                 { id: 'profile-1', name: 'Default' },
                 { id: 'profile-2', name: 'Work' },
             );
             const { container } = renderDnsSettings({ profileId: 'profile-2' });
             const hint = container.querySelector('.profile-hint');
+
             expect(hint).toBeNull();
         });
-    });
 
-    describe('navigation on click', () => {
-        it('should navigate to the active profile DNS route on indicator click', () => {
+        it('should send the applies_to_profile_click telemetry on hint click', () => {
             mockProfiles.push(
                 { id: 'profile-1', name: 'Default' },
                 { id: 'profile-2', name: 'Work' },
             );
-            const { container } = renderDnsSettings();
-            const hint = container.querySelector('.profile-hint');
-            expect(hint).not.toBeNull();
-            fireEvent.click(hint!);
-            // activeProfileId is 'profile-2', so navigates to /profiles/profile-2
-            expect(mockPush).toHaveBeenCalledWith('/profiles/profile-2');
+            const { container } = renderDnsSettings({ profileId: 'profile-1' });
+
+            fireEvent.click(container.querySelector('.profile-hint--interactive')!);
+
+            expect(mockSendCustomEvent).toHaveBeenCalledWith(
+                'applies_to_profile_click',
+                'settings_dns_servers_screen',
+            );
+            expect(mockPush).toHaveBeenCalledWith('/profiles/profile-1');
         });
     });
 });

@@ -81,6 +81,24 @@ describe('ProfileHint', () => {
             const { container } = renderHint({ profileId: 'nonexistent' });
             expect(container.innerHTML).toBe('');
         });
+
+        it('should return null when the profile is the active one', () => {
+            mockProfiles.push(
+                { id: 'profile-1', name: 'Default' },
+                { id: 'profile-2', name: 'Work' },
+            );
+            const { container } = renderHint({ profileId: 'profile-1' });
+            expect(container.innerHTML).toBe('');
+        });
+
+        it('should return null when profileId is omitted (the active profile)', () => {
+            mockProfiles.push(
+                { id: 'profile-1', name: 'Default' },
+                { id: 'profile-2', name: 'Work' },
+            );
+            const { container } = renderHint();
+            expect(container.innerHTML).toBe('');
+        });
     });
 
     describe('text content', () => {
@@ -166,18 +184,6 @@ describe('ProfileHint', () => {
             fireEvent.click(button!);
             expect(onClick).toHaveBeenCalledTimes(1);
             expect(onClick).toHaveBeenCalledWith('profile-2');
-        });
-
-        it('should fire onClick with activeProfileId when profileId is omitted', () => {
-            const onClick = vi.fn();
-            mockProfiles.push(
-                { id: 'profile-1', name: 'Default' },
-                { id: 'profile-2', name: 'Work' },
-            );
-            const { container } = renderHint({ onClick });
-            const button = container.querySelector('button');
-            fireEvent.click(button!);
-            expect(onClick).toHaveBeenCalledWith('profile-1');
         });
     });
 });

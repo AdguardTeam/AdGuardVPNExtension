@@ -102,10 +102,19 @@ const syncInitModules = (): void => {
     // to catch clicks that wake up the service worker
     contextMenu.init();
     tabs.init();
+    // the auth side effects listener must be registered synchronously as well,
+    // because the web auth redirect can wake up the service worker and the event
+    // may be emitted before the asynchronous init chain finishes
+    authSideEffects.init();
 };
 
 /**
  * Initializes asynchronous and dependant synchronous modules.
+ *
+ * When the chain finishes — successfully or not — the auth side effects dependencies
+ * are marked as ready. The web auth redirect can wake the service worker before the
+ * chain finishes, and the auth side effects handler waits for them; resolving even on
+ * failure keeps a completed login from hanging forever.
  */
 const asyncInitModules = async (): Promise<void> => {
     log.info(`[vpn.main]: Starting AdGuard VPN ${appStatus.appVersion}`);
@@ -138,7 +147,6 @@ const asyncInitModules = async (): Promise<void> => {
         permissionsChecker.init(); // should be initiated before auth module
         networkConnectionObserver.init(); // uses permissionsChecker and connectivityService
         await auth.init();
-        authSideEffects.init();
         await telemetry.initState();
         notifications.init(telemetry);
         // update browser action items after settings.init() because it uses settings
@@ -160,6 +168,8 @@ const asyncInitModules = async (): Promise<void> => {
         log.info(`[vpn.main]: Extension loaded all necessary modules in ${initDoneDate - initStartDate} ms`);
     } catch (e) {
         log.error('[vpn.main]: Unable to start extension because of error:', e && e.message);
+    } finally {
+        authSideEffects.markDependenciesReady();
     }
 };
 

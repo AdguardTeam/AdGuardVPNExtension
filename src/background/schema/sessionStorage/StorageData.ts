@@ -8,16 +8,12 @@ import {
     DEFAULT_HOST_CREDENTIALS_REPOSITORY,
     hostCredentialsRepositoryScheme,
 } from '../proxy';
-import {
-    exclusionsServicesManagerScheme,
-    exclusionsStateScheme,
-    SERVICES_DEFAULTS,
-    EXCLUSIONS_STATE_DEFAULTS,
-} from '../exclusions';
+import { exclusionsServicesManagerScheme, SERVICES_DEFAULTS } from '../exclusions';
 import { updateServiceStateScheme } from '../updateService';
 import { CREDENTIALS_STATE_DEFAULTS, credentialsStateScheme } from '../credentials';
 import { AUTH_STATE_DEFAULTS, authStateScheme } from '../auth';
 import { DNS_STATE_DEFAULTS, dnsStateScheme } from '../dns';
+import { PROFILE_SESSION_STATE_DEFAULTS, profileSessionStateScheme } from '../profiles';
 import { ENDPOINTS_TLD_EXCLUSIONS_DEFAULTS, endpointsTldExclusionsScheme } from '../proxy/endpointsTldExclusions';
 import { PERMISSIONS_CHECKER_DEFAULTS, permissionsCheckerStateScheme } from '../permissionsChecker';
 import { ENDPOINTS_STATE_DEFAULTS, endpointsStateScheme } from '../endpoints';
@@ -29,12 +25,12 @@ import { limitedOfferStorageDataScheme } from '../limitedOffer';
 export const enum StorageKey {
     FallbackInfo = 'fallbackInfo',
     ProxyState = 'proxyState',
-    ExclusionsState = 'exclusionsState',
     ExclusionsServicesManagerState = 'exclusionsServicesManagerState',
     UpdateServiceState = 'updateServiceState',
     CredentialsState = 'credentialsState',
     AuthState = 'authState',
     DnsState = 'dnsState',
+    ProfileSessionState = 'profileSessionState',
     EndpointsTldExclusions = 'endpointsTldExclusions',
     PermissionsChecker = 'permissionsChecker',
     Endpoints = 'endpoints',
@@ -49,12 +45,17 @@ export const enum StorageKey {
 export const storageDataScheme = v.object({
     [StorageKey.FallbackInfo]: v.nullable(fallbackInfoScheme),
     [StorageKey.ProxyState]: proxyStateScheme,
-    [StorageKey.ExclusionsState]: exclusionsStateScheme,
     [StorageKey.ExclusionsServicesManagerState]: exclusionsServicesManagerScheme,
     [StorageKey.UpdateServiceState]: updateServiceStateScheme,
     [StorageKey.CredentialsState]: credentialsStateScheme,
     [StorageKey.AuthState]: authStateScheme,
     [StorageKey.DnsState]: dnsStateScheme,
+    // Optional with a default: old sessions lack this key, and a required key
+    // would fail the whole-schema validation and reset the entire state.
+    [StorageKey.ProfileSessionState]: v.optional(
+        profileSessionStateScheme,
+        PROFILE_SESSION_STATE_DEFAULTS,
+    ),
     [StorageKey.EndpointsTldExclusions]: endpointsTldExclusionsScheme,
     [StorageKey.PermissionsChecker]: permissionsCheckerStateScheme,
     [StorageKey.Endpoints]: endpointsStateScheme,
@@ -73,10 +74,10 @@ export const DEFAULT_STORAGE_DATA: StorageData = {
     [StorageKey.FallbackInfo]: null,
     [StorageKey.CredentialsState]: CREDENTIALS_STATE_DEFAULTS,
     [StorageKey.UpdateServiceState]: {},
-    [StorageKey.ExclusionsState]: EXCLUSIONS_STATE_DEFAULTS,
     [StorageKey.ExclusionsServicesManagerState]: SERVICES_DEFAULTS,
     [StorageKey.AuthState]: AUTH_STATE_DEFAULTS,
     [StorageKey.DnsState]: DNS_STATE_DEFAULTS,
+    [StorageKey.ProfileSessionState]: PROFILE_SESSION_STATE_DEFAULTS,
     [StorageKey.EndpointsTldExclusions]: ENDPOINTS_TLD_EXCLUSIONS_DEFAULTS,
     [StorageKey.PermissionsChecker]: PERMISSIONS_CHECKER_DEFAULTS,
     [StorageKey.Endpoints]: ENDPOINTS_STATE_DEFAULTS,

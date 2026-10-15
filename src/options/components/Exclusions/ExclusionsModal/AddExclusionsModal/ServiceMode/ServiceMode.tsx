@@ -15,17 +15,7 @@ export const SERVICE_FORM_ID = 'add-exclusion-form-service';
 /**
  * Service mode component.
  */
-/**
- * ServiceMode component props.
- */
-interface ServiceModeProps {
-    /**
-     * Whether the component is rendered inside a profile context.
-     */
-    isProfileContext: boolean;
-}
-
-export const ServiceMode = observer(({ isProfileContext }: ServiceModeProps) => {
+export const ServiceMode = observer(() => {
     const { exclusionsStore, notificationsStore, telemetryStore } = useContext(rootStore);
 
     const closeModal = (): void => {
@@ -68,8 +58,8 @@ export const ServiceMode = observer(({ isProfileContext }: ServiceModeProps) => 
             className="service-mode"
             onSubmit={handleSaveServices}
         >
-            <ServicesSearch isProfileContext={isProfileContext} />
-            <ServicesList isProfileContext={isProfileContext} />
+            <ServicesSearch />
+            <ServicesList />
         </form>
     );
 });

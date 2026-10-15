@@ -18,9 +18,8 @@ export {
 } from './exclusionsServices';
 
 export {
-    exclusionsStateScheme,
-    type ExclusionsState,
-    EXCLUSIONS_STATE_DEFAULTS,
+    exclusionsSnapshotScheme,
+    type ExclusionsSnapshot,
     persistedExclusionsScheme,
     type PersistedExclusions,
 } from './exclusionsState';

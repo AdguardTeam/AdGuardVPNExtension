@@ -1,10 +1,15 @@
 import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
-import { Redirect, useHistory, useParams } from 'react-router-dom';
+import {
+    Redirect,
+    useHistory,
+    useLocation,
+    useParams,
+} from 'react-router-dom';
 
 import { rootStore } from '../../../stores';
 import { Exclusions } from '../../Exclusions';
-import { getProfileRoute, PROFILES_PATH } from '../profileRoutes';
+import { getProfileSubScreenOrigin, PROFILES_PATH } from '../profileRoutes';
 
 /**
  * Wrapper that switches ExclusionsStore to the given profile
@@ -13,6 +18,7 @@ import { getProfileRoute, PROFILES_PATH } from '../profileRoutes';
 export const ProfileExclusions = observer(() => {
     const { profilesStore, exclusionsStore } = useContext(rootStore);
     const history = useHistory();
+    const location = useLocation();
     const { id } = useParams<{ id: string }>();
 
     const profile = profilesStore.profiles.find((p) => p.id === id);
@@ -34,10 +40,10 @@ export const ProfileExclusions = observer(() => {
     }
 
     const handleBack = (): void => {
-        history.push(getProfileRoute(id));
+        history.push(getProfileSubScreenOrigin(location.search, id));
     };
 
     return (
-        <Exclusions onBack={handleBack} isProfileContext />
+        <Exclusions onBack={handleBack} />
     );
 });

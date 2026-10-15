@@ -21,20 +21,24 @@ import styles from './profiles.module.pcss';
  */
 export const ProfilesList = observer(() => {
     const { profilesStore, telemetryStore } = useContext(rootStore);
-    const { profiles, isSwitchingProfile } = profilesStore;
+    const { profiles, isSwitchingProfile, activeProfileId } = profilesStore;
 
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+
+    // `DialogCreateProfile` is rendered on top of this screen,
+    // so the page view is re-sent when the dialog closes.
     useTelemetryPageViewEvent(
         telemetryStore,
-        TelemetryScreenName.ProfilesScreen,
+        TelemetryScreenName.ManageProfilesScreen,
+        !isCreateModalOpen,
     );
-    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
     const isLimitReached = profiles.length >= MAX_PROFILES_COUNT;
 
     const handleOpenCreateModal = (): void => {
         telemetryStore.sendCustomEvent(
-            TelemetryActionName.CreateProfilesClick,
-            TelemetryScreenName.ProfilesScreen,
+            TelemetryActionName.CreateProfileClick,
+            TelemetryScreenName.ManageProfilesScreen,
         );
         setIsCreateModalOpen(true);
     };
@@ -44,10 +48,10 @@ export const ProfilesList = observer(() => {
     };
 
     const handleProfileSelect = async (id: string): Promise<void> => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.ChooseProfilesClick,
-            TelemetryScreenName.ProfilesScreen,
-        );
+        if (id === activeProfileId) {
+            return;
+        }
+
         await profilesStore.setActiveProfile(id);
     };
 
@@ -85,14 +89,16 @@ export const ProfilesList = observer(() => {
                 );
             })}
             {!isLimitReached && (
-                <Button
-                    variant="transparent"
-                    beforeIconName="plus"
-                    onClick={handleOpenCreateModal}
-                    className={styles.createBtn}
-                >
-                    {translator.getMessage('settings_profiles_create')}
-                </Button>
+                <>
+                    <div className={styles.divider} />
+                    <Button
+                        variant="transparent"
+                        beforeIconName="plus"
+                        onClick={handleOpenCreateModal}
+                    >
+                        {translator.getMessage('settings_profiles_create')}
+                    </Button>
+                </>
             )}
             <CreateProfileModal
                 isOpen={isCreateModalOpen}

@@ -10,6 +10,7 @@
     font-size: 16px;
     line-height: 26px;
     border-radius: 8px;
+    padding: 8px 0;
 
     &__overlay {
         background-color: transparent;
@@ -44,8 +45,11 @@
 
         &--compare {
             font-weight: 500;
+        }
+
+        /* Increase specificity to override the .button border */
+        &.extra-options__item--divided {
             border-top: 1px solid var(--grayd8);
-            border-bottom: 1px solid var(--grayd8);
         }
     }
 }

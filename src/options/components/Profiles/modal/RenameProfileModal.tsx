@@ -2,11 +2,14 @@ import React, { useContext, type ReactElement } from 'react';
 import { observer } from 'mobx-react';
 
 import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
-import { type ProfileOperationResponse } from '../../../../common/profiles';
+import { type ProfileOperationResponse, ProfileNameValidationResult } from '../../../../common/profiles';
 import { messenger } from '../../../../common/messenger';
+import { log } from '../../../../common/logger';
+import { getErrorMessage } from '../../../../common/utils/error';
 import { translator } from '../../../../common/translator';
 import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
 import { rootStore } from '../../../stores';
+import { getValidationErrorMessage } from '../profileValidation';
 
 import { ProfileNameModal } from './ProfileNameModal';
 
@@ -44,7 +47,7 @@ export const RenameProfileModal = observer(({
     currentName,
     onClose,
 }: RenameProfileModalProps): ReactElement => {
-    const { telemetryStore } = useContext(rootStore);
+    const { telemetryStore, notificationsStore, globalStore } = useContext(rootStore);
 
     useTelemetryPageViewEvent(
         telemetryStore,
@@ -68,6 +71,33 @@ export const RenameProfileModal = observer(({
             inputLabel={translator.getMessage('settings_profiles_rename_modal_name_label')}
             initialName={currentName}
             onSubmit={handleSubmit}
+            onSuccess={(): void => {
+                notificationsStore.notifySuccess(
+                    translator.getMessage('profile_name_updated'),
+                    {
+                        action: translator.getMessage('settings_exclusions_undo'),
+                        handler: async (): Promise<void> => {
+                            try {
+                                const response = await messenger.renameProfile(profileId, currentName);
+
+                                if (response.result !== ProfileNameValidationResult.Ok) {
+                                    const validationMessage = getValidationErrorMessage(response.result);
+
+                                    if (validationMessage) {
+                                        notificationsStore.notifyError(validationMessage);
+                                    }
+                                    return;
+                                }
+
+                                await globalStore.getOptionsData(true);
+                            } catch (e) {
+                                log.error('[vpn.RenameProfileModal]: failed to undo rename:', e);
+                                notificationsStore.notifyError(getErrorMessage(e));
+                            }
+                        },
+                    },
+                );
+            }}
             onClose={onClose}
         />
     );

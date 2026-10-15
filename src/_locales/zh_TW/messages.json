@@ -147,8 +147,37 @@
     "privacy_policy": {
         "message": "隱私政策"
     },
+    "settings_title": {
+        "message": "設定"
+    },
     "settings_general_title": {
-        "message": "一般"
+        "message": "一般設定"
+    },
+    "settings_general_description": {
+        "message": "套用至所有設定檔。如果您變更設定檔，設定將保持不變。"
+    },
+    "settings_current_profile": {
+        "message": "目前設定檔：<b>%profile_name%</b>"
+    },
+    "settings_current_profile_description": {
+        "message": "套用至目前設定檔。如果您變更設定檔，設定也可能變更。"
+    },
+    "settings_unlimited_promo_title": {
+        "message": "取得無限版"
+    },
+    "settings_unlimited_promo_feature_speed": {
+        "message": "無速度限制的串流媒體"
+    },
+    "settings_unlimited_promo_feature_locations": {
+        "message": "%count%+ 個安全位置 | %count%+ 個安全位置",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_feature_devices": {
+        "message": "一個帳戶最多支援 %count% 台裝置 | 一個帳戶最多支援 %count% 台裝置",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_upgrade_button": {
+        "message": "升級"
     },
     "referral_get_free_traffic": {
         "message": "取得免費的流量！"
@@ -428,8 +457,8 @@
     "settings_quick_connect_title": {
         "message": "快速連線"
     },
-    "settings_quick_connect_subtitle": {
-        "message": "當您點擊「連線」後選擇的 VPN 位置"
+    "settings_quick_connect_description": {
+        "message": "切換設定檔或開啟瀏覽器時使用的預設 VPN 位置"
     },
     "settings_quick_connect_last_used": {
         "message": "最後連線的位置"
@@ -539,8 +568,11 @@
     "settings_exclusion_title": {
         "message": "例外"
     },
-    "settings_location_label": {
-        "message": "位置"
+    "settings_exclusion_general_state": {
+        "message": "除了特定網站外，VPN 在所有位置開啟"
+    },
+    "settings_exclusion_selective_state": {
+        "message": "VPN 僅在選定的網站上開啟"
     },
     "settings_location_fastest_title": {
         "message": "最快的位置"
@@ -548,14 +580,17 @@
     "settings_location_fastest_description": {
         "message": "自動連線到最快位置"
     },
-    "settings_profiles_title": {
-        "message": "個人檔案"
+    "settings_location_last_used_description": {
+        "message": "自動連線到上次使用的位置"
     },
-    "settings_profiles_sidebar_title": {
-        "message": "個人檔案"
+    "settings_profiles_title": {
+        "message": "管理設定檔"
+    },
+    "settings_profiles_manage": {
+        "message": "管理設定檔"
     },
     "settings_profiles_subtitle": {
-        "message": "為不同使用場景（如工作、居家或其他）設定 DNS 伺服器和地點，並保留獨立的例外清單。"
+        "message": "針對不同場景使用 VPN，例如工作、家庭、兒童或其他場景。建立設定檔，並為其設定首選位置、DNS 伺服器和排除項目。"
     },
     "settings_profiles_default_name": {
         "message": "預設"
@@ -573,7 +608,10 @@
         "message": "刪除"
     },
     "settings_profiles_create": {
-        "message": "建立"
+        "message": "建立個人檔案"
+    },
+    "settings_profiles_open_settings": {
+        "message": "開啟設定"
     },
     "settings_profiles_create_modal_title": {
         "message": "建立個人檔案"
@@ -616,9 +654,6 @@
     },
     "settings_profiles_delete_modal_submit": {
         "message": "刪除"
-    },
-    "settings_description_current": {
-        "message": "目前：%mode%"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "VPN 在哪些網站上處於啟用狀態"
@@ -695,14 +730,23 @@
     "popup_settings_stats": {
         "message": "統計資訊"
     },
-    "popup_profiles_title": {
-        "message": "個人檔案"
-    },
-    "popup_profiles_settings": {
-        "message": "設定"
-    },
     "profile_apply_error": {
         "message": "切換個人檔案失敗。請重試或聯絡技術支援。"
+    },
+    "profile_switched": {
+        "message": "已切換到 %profile_name%"
+    },
+    "profile_created": {
+        "message": "已建立設定檔"
+    },
+    "profile_deleted": {
+        "message": "已刪除設定檔"
+    },
+    "profile_deleted_switched": {
+        "message": "設定檔已刪除。您已切換到 %profile_name%"
+    },
+    "profile_name_updated": {
+        "message": "設定檔名稱已更新"
     },
     "popup_settings_free_description": {
         "message": "在 AdGuard VPN 無限版中可用"
@@ -876,7 +920,7 @@
         "message": "留下回饋意見"
     },
     "popup_compare_button": {
-        "message": "為什麼應用程式更好"
+        "message": "為什麼桌面應用程式更好"
     },
     "popup_rate_modal_title": {
         "message": "AdGuard VPN 有多棒？"

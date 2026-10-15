@@ -107,6 +107,10 @@ class FlagsStorage implements FlagsStorageInterface {
     /** @inheritdoc */
     public set = async (key: string, value: boolean): Promise<void> => {
         if (!this.flagsStorageData) {
+            await this.init();
+        }
+
+        if (!this.flagsStorageData) {
             log.error('[vpn.FlagsStorage]: Unable to get flags data from storage');
             return;
         }

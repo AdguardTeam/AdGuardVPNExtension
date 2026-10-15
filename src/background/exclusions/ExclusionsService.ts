@@ -13,53 +13,29 @@ import {
     type ServiceDto,
     type ToggleServicesResult,
 } from '../../common/exclusionsConstants';
-import { type ExclusionInterface, type PersistedExclusions, StorageKey } from '../schema';
+import {
+    DEFAULT_PROFILE_SETTINGS,
+    type ExclusionInterface,
+    type ExclusionsSnapshot,
+    type PersistedExclusions,
+} from '../schema';
 import { getETld, getSubdomain, isWildcard } from '../../common/utils/url';
 import { getNormalizedExclusionHostname } from '../../common/utils/exclusionsNormalization';
+import { normalizeLanguage } from '../../common/utils/promo';
+import { i18n } from '../../common/i18n';
+import { LANGUAGE_AUTO } from '../../common/locale';
 import { notifier } from '../../common/notifier';
-import { profilesService } from '../profiles';
+import { PromiseQueue } from '../../common/promiseQueue';
+import { profileStateService, profilesService } from '../profiles';
 import { proxy } from '../proxy';
-import { StateData } from '../stateStorage';
 
 import { ExclusionsHandler, type AddExclusionArgs } from './exclusions/ExclusionsHandler';
+import { type ExclusionsHandlers, type ProfileExclusionsEntry } from './profileExclusionsTypes';
 import { servicesManager } from './services/ServicesManager';
 import { ExclusionsTree } from './ExclusionsTree';
 import { type ExclusionNode } from './ExclusionNode';
 
-/**
- * Handlers for the two exclusion modes of a profile.
- */
-interface ExclusionsHandlers {
-    /**
-     * Regular mode exclusions handler.
-     */
-    regularModeHandler: ExclusionsHandler;
-
-    /**
-     * Selective mode exclusions handler.
-     */
-    selectiveModeHandler: ExclusionsHandler;
-}
-
-/**
- * Combined per-profile exclusions data: handlers, inverted flag, and tree.
- */
-interface ProfileExclusionsEntry {
-    /**
-     * Handlers for regular and selective exclusion modes.
-     */
-    handlers: ExclusionsHandlers;
-
-    /**
-     * Whether the profile uses selective (inverted) mode.
-     */
-    inverted: boolean;
-
-    /**
-     * Exclusions tree built from the current mode's handler.
-     */
-    tree: ExclusionsTree;
-}
+const { decorator: serialized } = new PromiseQueue();
 
 /**
  * Context for performing exclusion operations on a specific profile.
@@ -97,18 +73,18 @@ interface ProfileExclusionsContext {
 }
 
 /**
- * Snapshot of a profile's exclusions at a point in time.
+ * Exclusions mode and enabled exclusions presence for the active profile.
  */
-interface ExclusionsSnapshot {
+export interface ExclusionsStats {
     /**
-     * Regular mode exclusions at the time of the snapshot.
+     * Current exclusions mode.
      */
-    regular: ExclusionInterface[];
+    mode: ExclusionsMode;
 
     /**
-     * Selective mode exclusions at the time of the snapshot.
+     * Whether the current mode has at least one enabled exclusion.
      */
-    selective: ExclusionInterface[];
+    hasEnabledExclusions: boolean;
 }
 
 /**
@@ -145,27 +121,6 @@ const isAllExclusionsListsEmpty = (handlers: ExclusionsHandlers): boolean => {
 };
 
 export class ExclusionsService {
-    /**
-     * Persistent state storage for undo snapshots.
-     */
-    private exclusionsState = new StateData(StorageKey.ExclusionsState);
-
-    /**
-     * Per-profile exclusions data (handlers, inverted flag, tree).
-     * Stores resolved promises for cached entries and in-flight promises
-     * for profiles currently being loaded.
-     */
-    private profileDataMap = new Map<string, Promise<ProfileExclusionsEntry>>();
-
-    /**
-     * Removes cached exclusions data for a deleted profile.
-     *
-     * @param profileId Profile ID to remove from the cache.
-     */
-    public removeProfileData(profileId: string): void {
-        this.profileDataMap.delete(profileId);
-    }
-
     /**
      * Initializes the exclusions service by loading handlers for the active profile.
      */
@@ -262,7 +217,8 @@ export class ExclusionsService {
 
     /**
      * Creates or retrieves the exclusions entry for a profile.
-     * Entries are cached in profileDataMap and reused across calls.
+     * Entries are cached in profileStateService.exclusionsCache and reused
+     * across calls.
      * Concurrent calls for the same profile share the same in-flight promise.
      *
      * @param profileId Profile ID to ensure entry for.
@@ -270,12 +226,7 @@ export class ExclusionsService {
     private async getOrCreateProfileData(
         profileId: string,
     ): Promise<ProfileExclusionsEntry> {
-        const existing = this.profileDataMap.get(profileId);
-        if (existing) {
-            return existing;
-        }
-
-        const loadPromise = (async (): Promise<ProfileExclusionsEntry> => {
+        const loadPromise = profileStateService.exclusionsCache.getOrCreate(profileId, async () => {
             const settings = profilesService.getProfileSettings(profileId);
             const { exclusions } = settings;
             const { inverted } = exclusions;
@@ -303,14 +254,16 @@ export class ExclusionsService {
             await this.updateTreeForProfile(entry);
 
             return entry;
-        })();
+        });
 
-        this.profileDataMap.set(profileId, loadPromise);
+        if (!loadPromise) {
+            throw new Error(`[vpn.ExclusionsService.getOrCreateProfileData]: Profile ${profileId} was deleted`);
+        }
 
         try {
             return await loadPromise;
         } catch (error) {
-            this.profileDataMap.delete(profileId);
+            await profileStateService.exclusionsCache.delete(profileId);
             throw error;
         }
     }
@@ -321,7 +274,7 @@ export class ExclusionsService {
      * @param profileId Profile ID to save exclusions for.
      */
     private async saveProfileExclusions(profileId: string): Promise<void> {
-        const profileEntry = await this.profileDataMap.get(profileId);
+        const profileEntry = await profileStateService.exclusionsCache.get(profileId);
         if (!profileEntry) {
             throw new Error(`[vpn.ExclusionsService]: Profile entry not found for id: ${profileId}`);
         }
@@ -348,7 +301,7 @@ export class ExclusionsService {
      * @param profileId Profile ID whose exclusions to apply.
      */
     private async applyProxyBypass(profileId: string): Promise<void> {
-        const entry = await this.profileDataMap.get(profileId);
+        const entry = await profileStateService.exclusionsCache.get(profileId);
         if (!entry) {
             return;
         }
@@ -411,6 +364,36 @@ export class ExclusionsService {
     }
 
     /**
+     * Retrieves exclusions mode and enabled exclusions presence for the active profile.
+     *
+     * Uses the in-memory profile entry when available, otherwise persisted settings.
+     *
+     * @throws If the profile data cannot be loaded.
+     * @returns Current mode and enabled exclusions presence.
+     */
+    public async getActiveProfileExclusionsStats(): Promise<ExclusionsStats> {
+        const profileId = profilesService.getActiveProfileId();
+        const entry = await profileStateService.exclusionsCache.get(profileId);
+
+        if (!entry) {
+            const { exclusions = DEFAULT_PROFILE_SETTINGS.exclusions } = profilesService.getActiveProfileSettings();
+            const mode = exclusions.inverted ? ExclusionsMode.Selective : ExclusionsMode.Regular;
+
+            return {
+                mode,
+                hasEnabledExclusions: exclusions[mode].some(({ state }) => state === ExclusionState.Enabled),
+            };
+        }
+
+        const currentModeHandler = getCurrentModeHandler(entry);
+
+        return {
+            mode: currentModeHandler.mode,
+            hasEnabledExclusions: countEnabledExclusions(currentModeHandler.exclusions) > 0,
+        };
+    }
+
+    /**
      * Sets exclusions mode.
      *
      * @param profileId Profile ID.
@@ -437,18 +420,59 @@ export class ExclusionsService {
     }
 
     /**
-     * Force-refreshes the services catalogue from the server and rebuilds
-     * exclusion trees for every loaded profile. Called when the user
-     * changes locale or manually triggers a refresh, bypassing the
-     * normal TTL-based cache in ServicesManager.
+     * Force-fetches the services catalogue from the server (bypassing the
+     * update timeout) and rebuilds exclusion trees for every loaded profile.
+     * Used to recover when the services list came back empty.
      */
     public async forceUpdateServices(): Promise<void> {
-        await servicesManager.updateServices();
+        await servicesManager.updateServices(true);
+        await this.rebuildTrees();
+    }
+
+    /**
+     * Refetches exclusion services when the interface language changed,
+     * rebuilds the trees and notifies the options page for every loaded
+     * profile so the exclusions list is refreshed after a successful fetch.
+     *
+     * @param locale Current interface locale preference.
+     */
+    @serialized
+    public async refreshServicesForCurrentLocale(locale: string): Promise<void> {
+        const resolvedLocale = locale === LANGUAGE_AUTO
+            ? i18n.getUILanguage()
+            : normalizeLanguage(locale) ?? locale;
+        const lastUpdateLocale = await servicesManager.getLastUpdateLocale();
+
+        if (lastUpdateLocale === resolvedLocale) {
+            return;
+        }
+
+        const servicesUpdated = await servicesManager.updateServices(true, resolvedLocale);
+        if (!servicesUpdated) {
+            return;
+        }
+
+        await this.rebuildTrees();
+
+        const loadedProfileIds = await profileStateService.exclusionsCache.getProfileIds();
+        loadedProfileIds.forEach((profileId) => {
+            notifier.notifyListeners(notifier.types.EXCLUSIONS_DATA_UPDATED, profileId);
+        });
+    }
+
+    /**
+     * Rebuilds exclusion trees for every loaded profile.
+     */
+    private async rebuildTrees(): Promise<void> {
+        const profileIds = await profileStateService.exclusionsCache.getProfileIds();
 
         await Promise.all(
-            Array.from(this.profileDataMap.values()).map(async (entryPromise) => {
-                const entry = await entryPromise;
-                return this.updateTreeForProfile(entry);
+            profileIds.map(async (profileId) => {
+                const entry = await profileStateService.exclusionsCache.get(profileId);
+                if (entry) {
+                    return this.updateTreeForProfile(entry);
+                }
+                return undefined;
             }),
         );
     }
@@ -1070,13 +1094,7 @@ export class ExclusionsService {
             selective: structuredClone(selectiveModeHandler.exclusions),
         };
 
-        const state = await this.exclusionsState.get();
-        await this.exclusionsState.update({
-            previousExclusionsMap: {
-                ...state.previousExclusionsMap,
-                [ctx.profileId]: snapshot,
-            },
-        });
+        await profileStateService.exclusionsSnapshots.set(ctx.profileId, snapshot);
     }
 
     /**
@@ -1086,9 +1104,7 @@ export class ExclusionsService {
      */
     public async restoreExclusions(profileId: string): Promise<void> {
         const ctx = await this.getProfileContext(profileId);
-        const state = await this.exclusionsState.get();
-        const previousExclusionsMap = state.previousExclusionsMap ?? {};
-        const snapshot = previousExclusionsMap[ctx.profileId];
+        const snapshot = await profileStateService.exclusionsSnapshots.get(ctx.profileId);
 
         if (!snapshot) {
             return;
@@ -1099,9 +1115,6 @@ export class ExclusionsService {
         await selectiveModeHandler.setExclusions(snapshot.selective);
         await ctx.updateTree();
 
-        const nextMap = Object.fromEntries(
-            Object.entries(previousExclusionsMap).filter(([id]) => id !== ctx.profileId),
-        );
-        await this.exclusionsState.update({ previousExclusionsMap: nextMap });
+        await profileStateService.exclusionsSnapshots.delete(ctx.profileId);
     }
 }

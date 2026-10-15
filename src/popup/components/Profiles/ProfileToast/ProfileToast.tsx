@@ -27,11 +27,14 @@ const AUTO_DISMISS_SECONDS = 5;
 const AUTO_DISMISS_MS = AUTO_DISMISS_SECONDS * ONE_SECOND_MS;
 
 /**
- * Toast notification for profile switch result in the popup.
+ * Toast notification for a failed profile switch in the popup.
+ * Successful switches are reported by the options page only.
  */
 export const ProfileToast = observer(() => {
     const { vpnStore } = useContext(rootStore);
     const { profileSwitchNotification } = vpnStore;
+
+    const isVisible = profileSwitchNotification > 0;
 
     const [isClosing, setIsClosing] = useState(false);
     const rootRef = useRef<HTMLDivElement>(null);
@@ -58,7 +61,7 @@ export const ProfileToast = observer(() => {
     }, [vpnStore]);
 
     useEffect(() => {
-        if (profileSwitchNotification === 0) {
+        if (!isVisible) {
             return undefined;
         }
 
@@ -79,9 +82,9 @@ export const ProfileToast = observer(() => {
         return (): void => {
             clearTimeout(autoDismissTimer);
         };
-    }, [profileSwitchNotification, dismiss]);
+    }, [profileSwitchNotification, isVisible, dismiss]);
 
-    if (profileSwitchNotification === 0) {
+    if (!isVisible) {
         return null;
     }
 
@@ -96,7 +99,9 @@ export const ProfileToast = observer(() => {
                 name="info"
                 className={styles.error}
             />
-            <span className={styles.message}>{translator.getMessage('profile_apply_error')}</span>
+            <span className={styles.message}>
+                {translator.getMessage('profile_apply_error')}
+            </span>
             <IconButton name="cross" onClick={dismiss} />
         </div>
     );

@@ -147,8 +147,37 @@
     "privacy_policy": {
         "message": "سياسة الخصوصية"
     },
+    "settings_title": {
+        "message": "الإعدادات"
+    },
     "settings_general_title": {
-        "message": "عام"
+        "message": "الإعدادات العامة"
+    },
+    "settings_general_description": {
+        "message": "تطبيق على جميع الملفات الشخصية. إذا قمت بتغيير الملف الشخصي، فستظل الإعدادات كما هي"
+    },
+    "settings_current_profile": {
+        "message": "الملف الشخصي الحالي: <b>%profile_name%</b>"
+    },
+    "settings_current_profile_description": {
+        "message": "تطبيق على الملف الشخصي الحالي. إذا قمت بتغيير الملف الشخصي، فقد تتغير الإعدادات أيضًا"
+    },
+    "settings_unlimited_promo_title": {
+        "message": "احصل على إصدار غير محدود"
+    },
+    "settings_unlimited_promo_feature_speed": {
+        "message": "البث بدون قيود على السرعة"
+    },
+    "settings_unlimited_promo_feature_locations": {
+        "message": "%count%+ موقع آمن | %count%+ موقع آمن | %count%+ موقعين آمنين | %count%+ مواقع آمنة | %count%+ موقعًا آمنًا | %count%+ موقع آمن",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_feature_devices": {
+        "message": "حتى %count% جهاز في حساب واحد | حتى %count% جهاز في حساب واحد | حتى %count% جهازين في حساب واحد | حتى %count% أجهزة في حساب واحد | حتى %count% جهازًا في حساب واحد | حتى %count% جهاز في حساب واحد",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_upgrade_button": {
+        "message": "ترقية"
     },
     "referral_get_free_traffic": {
         "message": "احصل على جيجا مجانية!"
@@ -428,8 +457,8 @@
     "settings_quick_connect_title": {
         "message": "اتصال سريع"
     },
-    "settings_quick_connect_subtitle": {
-        "message": "يتم تحديد موقع الـ VPN عند النقر فوق اتصال"
+    "settings_quick_connect_description": {
+        "message": "موقع VPN الافتراضي عند التبديل إلى الملف الشخصي أو فتح المتصفح"
     },
     "settings_quick_connect_last_used": {
         "message": "آخر موقع تم استخدامه"
@@ -539,8 +568,11 @@
     "settings_exclusion_title": {
         "message": "الاستثناءات"
     },
-    "settings_location_label": {
-        "message": "الموقع"
+    "settings_exclusion_general_state": {
+        "message": "VPN قيد التشغيل في كل مكان باستثناء مواقع محددة"
+    },
+    "settings_exclusion_selective_state": {
+        "message": "VPN قيد التشغيل فقط للمواقع المحددة"
     },
     "settings_location_fastest_title": {
         "message": "أسرع المواقع"
@@ -548,14 +580,17 @@
     "settings_location_fastest_description": {
         "message": "الاتصال تلقائيًا بأسرع موقع"
     },
-    "settings_profiles_title": {
-        "message": "الملفات الشخصية"
+    "settings_location_last_used_description": {
+        "message": "الاتصال تلقائيًا بآخر موقع مستخدم"
     },
-    "settings_profiles_sidebar_title": {
-        "message": "ملف شخصي"
+    "settings_profiles_title": {
+        "message": "إدارة الملفات الشخصية"
+    },
+    "settings_profiles_manage": {
+        "message": "إدارة الملفات الشخصية"
     },
     "settings_profiles_subtitle": {
-        "message": "يسمح لك بتعيين خوادم DNS والمواقع والاحتفاظ بقوائم استثناءات منفصلة لحالات استخدام مختلفة، مثل العمل أو المنزل أو غيرها"
+        "message": "استخدم VPN لسيناريوهات مختلفة، مثل العمل أو المنزل أو الأطفال أو غيرها. أنشئ ملفًا شخصيًا وقم بإعداد موقع مفضل وخادم DNS والاستثناءات له"
     },
     "settings_profiles_default_name": {
         "message": "افتراضي"
@@ -573,7 +608,10 @@
         "message": "حذف"
     },
     "settings_profiles_create": {
-        "message": "إنشاء"
+        "message": "إنشاء ملف شخصي"
+    },
+    "settings_profiles_open_settings": {
+        "message": "افتح الإعدادات"
     },
     "settings_profiles_create_modal_title": {
         "message": "إنشاء ملف شخصي"
@@ -616,9 +654,6 @@
     },
     "settings_profiles_delete_modal_submit": {
         "message": "حذف"
-    },
-    "settings_description_current": {
-        "message": "الحالي: %mode%"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "مكان تشغيل VPN"
@@ -695,14 +730,23 @@
     "popup_settings_stats": {
         "message": "إحصائيات"
     },
-    "popup_profiles_title": {
-        "message": "الملفات الشخصية"
-    },
-    "popup_profiles_settings": {
-        "message": "الإعدادات"
-    },
     "profile_apply_error": {
         "message": "فشل تبديل الملفات الشخصية. حاول مرة أخرى أو تواصل مع الدعم"
+    },
+    "profile_switched": {
+        "message": "تم التبديل إلى %profile_name%"
+    },
+    "profile_created": {
+        "message": "تم إنشاء الملف الشخصي"
+    },
+    "profile_deleted": {
+        "message": "تم حذف الملف الشخصي"
+    },
+    "profile_deleted_switched": {
+        "message": "تم حذف الملف الشخصي. تم التبديل إلى %profile_name%"
+    },
+    "profile_name_updated": {
+        "message": "تم تحديث اسم الملف الشخصي"
     },
     "popup_settings_free_description": {
         "message": "متوفر في AdGuard VPN Unlimited"
@@ -876,7 +920,7 @@
         "message": "أُترك تعليقاً"
     },
     "popup_compare_button": {
-        "message": "لماذا التطبيق أفضل"
+        "message": "لماذا تطبيق سطح المكتب أفضل"
     },
     "popup_rate_modal_title": {
         "message": "ما مدى رضاك عن AdGuard VPN؟"

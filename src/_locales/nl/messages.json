@@ -147,8 +147,37 @@
     "privacy_policy": {
         "message": "Privacybeleid"
     },
+    "settings_title": {
+        "message": "Instellingen"
+    },
     "settings_general_title": {
-        "message": "Algemeen"
+        "message": "Algemene instellingen"
+    },
+    "settings_general_description": {
+        "message": "Van toepassing op alle profielen. Als je van profiel wisselt, blijven de instellingen behouden"
+    },
+    "settings_current_profile": {
+        "message": "Huidig profiel: <b>%profile_name%</b>"
+    },
+    "settings_current_profile_description": {
+        "message": "Toepassen op het huidige profiel. Als je van profiel wisselt, kunnen de instellingen ook veranderen"
+    },
+    "settings_unlimited_promo_title": {
+        "message": "Onbeperkte versie verkrijgen"
+    },
+    "settings_unlimited_promo_feature_speed": {
+        "message": "Streamen zonder snelheidsbeperkingen"
+    },
+    "settings_unlimited_promo_feature_locations": {
+        "message": "%count%+ beveiligde locaties | %count%+ beveiligde locatie | %count%+ beveiligde locaties",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_feature_devices": {
+        "message": "Maximaal %count% apparaten per account | Maximaal %count% apparaat per account | Maximaal %count% apparaten per account",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_upgrade_button": {
+        "message": "Opwaarderen"
     },
     "referral_get_free_traffic": {
         "message": "Gratis GB's verkrijgen!"
@@ -297,7 +326,7 @@
         "message": "Selectieve modus"
     },
     "context_menu_general_mode": {
-        "message": "Algemene modus"
+        "message": "Standaard modus"
     },
     "context_menu_export_logs": {
         "message": "Logboeken exporteren"
@@ -428,8 +457,8 @@
     "settings_quick_connect_title": {
         "message": "Snel verbinding maken"
     },
-    "settings_quick_connect_subtitle": {
-        "message": "VPN-locatie geselecteerd wanneer je op Verbinden klikt"
+    "settings_quick_connect_description": {
+        "message": "Standaard VPN-locatie wanneer je naar het profiel overschakelt of de browser opent"
     },
     "settings_quick_connect_last_used": {
         "message": "Laatst gebruikte locatie"
@@ -539,8 +568,11 @@
     "settings_exclusion_title": {
         "message": "Uitsluitingen"
     },
-    "settings_location_label": {
-        "message": "Locatie"
+    "settings_exclusion_general_state": {
+        "message": "VPN staat overal aan, behalve op specifieke websites"
+    },
+    "settings_exclusion_selective_state": {
+        "message": "VPN staat alleen aan voor geselecteerde websites"
     },
     "settings_location_fastest_title": {
         "message": "Snelste locatie"
@@ -548,14 +580,17 @@
     "settings_location_fastest_description": {
         "message": "Automatisch verbinden met de snelste locatie"
     },
-    "settings_profiles_title": {
-        "message": "Profielen"
+    "settings_location_last_used_description": {
+        "message": "Automatisch verbinding maken met de laatst gebruikte locatie"
     },
-    "settings_profiles_sidebar_title": {
-        "message": "Profiel"
+    "settings_profiles_title": {
+        "message": "Profielen beheren"
+    },
+    "settings_profiles_manage": {
+        "message": "Profielen beheren"
     },
     "settings_profiles_subtitle": {
-        "message": "Hiermee kun je DNS-servers en locaties instellen en aparte uitsluitingslijsten bijhouden voor verschillende gebruikssituaties, zoals werk, thuis of andere toepassingen"
+        "message": "Gebruik een VPN voor verschillende situaties, zoals werk, thuis, kinderen of andere doeleinden. Maak een profiel aan en stel daarvoor een voorkeurslocatie, DNS-server en uitsluitingen in"
     },
     "settings_profiles_default_name": {
         "message": "Standaard"
@@ -573,7 +608,10 @@
         "message": "Verwijderen"
     },
     "settings_profiles_create": {
-        "message": "Aanmaken"
+        "message": "Profiel aanmaken"
+    },
+    "settings_profiles_open_settings": {
+        "message": "Instellingen openen"
     },
     "settings_profiles_create_modal_title": {
         "message": "Profiel aanmaken"
@@ -616,9 +654,6 @@
     },
     "settings_profiles_delete_modal_submit": {
         "message": "Verwijderen"
-    },
-    "settings_description_current": {
-        "message": "Huidige: %mode%"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Waar VPN is ingeschakeld"
@@ -695,14 +730,23 @@
     "popup_settings_stats": {
         "message": "Statistieken"
     },
-    "popup_profiles_title": {
-        "message": "Profielen"
-    },
-    "popup_profiles_settings": {
-        "message": "Instellingen"
-    },
     "profile_apply_error": {
         "message": "Wisselen profielen mislukt. Probeer het opnieuw of neem contact op met de ondersteuning"
+    },
+    "profile_switched": {
+        "message": "Overgeschakeld naar %profile_name%"
+    },
+    "profile_created": {
+        "message": "Profiel aangemaakt"
+    },
+    "profile_deleted": {
+        "message": "Profiel verwijderd"
+    },
+    "profile_deleted_switched": {
+        "message": "Profiel verwijderd. Je bent overgeschakeld naar %profile_name%"
+    },
+    "profile_name_updated": {
+        "message": "Profielnaam bijgewerkt"
     },
     "popup_settings_free_description": {
         "message": "Beschikbaar in AdGuard VPN Onbeperkt"
@@ -876,7 +920,7 @@
         "message": "Feedback geven"
     },
     "popup_compare_button": {
-        "message": "Waarom de app beter is"
+        "message": "Waarom de bureaublad-app beter is"
     },
     "popup_rate_modal_title": {
         "message": "Hoe geweldig is AdGuard VPN?"

@@ -17,7 +17,8 @@ import {
     type ProfilesStateStripped,
     type ActiveProfileChangedPayload,
     DEFAULT_PROFILE_ID,
-    isDefaultProfileId,
+    ProfileChangeReason,
+    getProfileDisplayName,
     ProfileSwitchTracker,
 } from '../../common/profiles';
 import { log } from '../../common/logger';
@@ -299,15 +300,12 @@ export class ProfilesStore {
      * @param profile Profile to get the display name for.
      */
     public getDisplayName(profile: ProfileInfo): string {
-        if (isDefaultProfileId(profile.id)) {
-            return translator.getMessage('settings_profiles_default_name');
-        }
-        return profile.name;
+        return getProfileDisplayName(profile.id, profile.name);
     }
 
     /**
      * Returns the display name for the active profile.
-     * Used in the sidebar subtitle.
+     * Used by the sidebar profile switcher.
      */
     @computed
     public get activeProfileDisplayName(): string | undefined {
@@ -329,10 +327,25 @@ export class ProfilesStore {
     public handleProfileChanged(payload: ActiveProfileChangedPayload): void {
         this.switchTracker.completeSwitch(payload);
 
+        if (payload.reason === ProfileChangeReason.DeleteFallback) {
+            return;
+        }
+
+        const { notificationsStore } = this.rootStore;
+
         if (!payload.success) {
-            const { notificationsStore } = this.rootStore;
             notificationsStore.notifyError(
                 translator.getMessage('profile_apply_error'),
+            );
+            return;
+        }
+
+        const profile = this.profiles.find((p) => p.id === payload.profileId);
+        if (profile) {
+            notificationsStore.notifySuccess(
+                translator.getMessage('profile_switched', {
+                    profile_name: this.getDisplayName(profile),
+                }),
             );
         }
     }
@@ -353,7 +366,6 @@ export class ProfilesStore {
      * The activeProfileId is updated only by ACTIVE_PROFILE_CHANGED event.
      *
      * @param profileId ID of the profile to activate.
-     * @throws If the background fails to switch the profile.
      */
     public async setActiveProfile(profileId: string): Promise<void> {
         if (this.activeProfileId === profileId) {

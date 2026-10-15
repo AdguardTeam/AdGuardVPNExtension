@@ -1,10 +1,15 @@
 import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
-import { Redirect, useHistory, useParams } from 'react-router-dom';
+import {
+    Redirect,
+    useHistory,
+    useLocation,
+    useParams,
+} from 'react-router-dom';
 
 import { rootStore } from '../../../stores';
 import { DnsSettings } from '../../General/DnsSettings';
-import { getProfileRoute, PROFILES_PATH } from '../profileRoutes';
+import { getProfileSubScreenOrigin, PROFILES_PATH } from '../profileRoutes';
 
 /**
  * Wrapper that sets dnsStore.profileId for the current route profile
@@ -13,6 +18,7 @@ import { getProfileRoute, PROFILES_PATH } from '../profileRoutes';
 export const ProfileDnsSettings = observer(() => {
     const { profilesStore, dnsStore } = useContext(rootStore);
     const history = useHistory();
+    const location = useLocation();
     const { id } = useParams<{ id: string }>();
 
     const profile = profilesStore.profiles.find((p) => p.id === id);
@@ -34,7 +40,7 @@ export const ProfileDnsSettings = observer(() => {
     }
 
     const handleBack = (): void => {
-        history.push(getProfileRoute(id));
+        history.push(getProfileSubScreenOrigin(location.search, id));
     };
 
     return (

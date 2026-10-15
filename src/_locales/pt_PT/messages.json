@@ -147,8 +147,37 @@
     "privacy_policy": {
         "message": "Política de privacidade"
     },
+    "settings_title": {
+        "message": "Definições"
+    },
     "settings_general_title": {
-        "message": "Geral"
+        "message": "Definições gerais"
+    },
+    "settings_general_description": {
+        "message": "Aplicar a todos os perfis. Se alterar o perfil, as definições permanecerão as mesmas"
+    },
+    "settings_current_profile": {
+        "message": "Perfil atual: <b>%profile_name%</b>"
+    },
+    "settings_current_profile_description": {
+        "message": "Aplicar ao perfil atual. Se alterar o perfil, as definições também podem mudar"
+    },
+    "settings_unlimited_promo_title": {
+        "message": "Obtenha a versão ilimitada"
+    },
+    "settings_unlimited_promo_feature_speed": {
+        "message": "Streaming sem limites de velocidade"
+    },
+    "settings_unlimited_promo_feature_locations": {
+        "message": "%count%+ locais seguros | %count%+ local seguro | %count%+ locais seguros",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_feature_devices": {
+        "message": "Até %count% dispositivos numa conta | Até %count% dispositivo numa conta | Até %count% dispositivos numa conta",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_upgrade_button": {
+        "message": "Atualização"
     },
     "referral_get_free_traffic": {
         "message": "Obtenha GBs grátis!"
@@ -428,8 +457,8 @@
     "settings_quick_connect_title": {
         "message": "Conexão rápida"
     },
-    "settings_quick_connect_subtitle": {
-        "message": "A localização da VPN é selecionada quando você clica em Conectar"
+    "settings_quick_connect_description": {
+        "message": "Localização VPN predefinida quando troca para o perfil ou abre o navegador"
     },
     "settings_quick_connect_last_used": {
         "message": "Último local utilizado"
@@ -539,8 +568,11 @@
     "settings_exclusion_title": {
         "message": "Exclusões"
     },
-    "settings_location_label": {
-        "message": "Localização"
+    "settings_exclusion_general_state": {
+        "message": "A VPN está ativa em todos os lugares, exceto em sítios Web específicos"
+    },
+    "settings_exclusion_selective_state": {
+        "message": "A VPN está ativa apenas para sítios Web selecionados"
     },
     "settings_location_fastest_title": {
         "message": "Localização mais rápida"
@@ -548,14 +580,17 @@
     "settings_location_fastest_description": {
         "message": "Conectar automaticamente ao local mais rápido"
     },
-    "settings_profiles_title": {
-        "message": "Perfis"
+    "settings_location_last_used_description": {
+        "message": "Ligar automaticamente à última localização utilizada"
     },
-    "settings_profiles_sidebar_title": {
-        "message": "Perfil"
+    "settings_profiles_title": {
+        "message": "Gerir perfis"
+    },
+    "settings_profiles_manage": {
+        "message": "Gerir perfis"
     },
     "settings_profiles_subtitle": {
-        "message": "Permite-lhe definir servidores DNS e locais e manter listas de exclusões separadas para diferentes casos de uso, como trabalho, casa ou outros"
+        "message": "Utilize a VPN para diferentes cenários, tais como trabalho, casa, crianças ou outros. Crie um perfil e configure uma localização preferida, servidor DNS e exclusões para o mesmo"
     },
     "settings_profiles_default_name": {
         "message": "Predefinido"
@@ -573,7 +608,10 @@
         "message": "Apagar"
     },
     "settings_profiles_create": {
-        "message": "Criar"
+        "message": "Criar perfil"
+    },
+    "settings_profiles_open_settings": {
+        "message": "Abrir definições"
     },
     "settings_profiles_create_modal_title": {
         "message": "Criar perfil"
@@ -616,9 +654,6 @@
     },
     "settings_profiles_delete_modal_submit": {
         "message": "Apagar"
-    },
-    "settings_description_current": {
-        "message": "Atual: %mode%"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Onde a VPN está ativada"
@@ -695,14 +730,23 @@
     "popup_settings_stats": {
         "message": "Estatísticas"
     },
-    "popup_profiles_title": {
-        "message": "Perfis"
-    },
-    "popup_profiles_settings": {
-        "message": "Definições"
-    },
     "profile_apply_error": {
         "message": "Falha ao alternar perfis. Tente novamente ou entre em contato com o suporte"
+    },
+    "profile_switched": {
+        "message": "Mudou para %profile_name%"
+    },
+    "profile_created": {
+        "message": "Perfil criado"
+    },
+    "profile_deleted": {
+        "message": "Perfil apagado"
+    },
+    "profile_deleted_switched": {
+        "message": "Perfil apagado. Mudou para %profile_name%"
+    },
+    "profile_name_updated": {
+        "message": "Nome do perfil atualizado"
     },
     "popup_settings_free_description": {
         "message": "Disponível no AdGuard VPN Ilimitado"
@@ -876,7 +920,7 @@
         "message": "Deixar feedback"
     },
     "popup_compare_button": {
-        "message": "Por que o aplicativo é melhor"
+        "message": "Por que a aplicação de ambiente de trabalho é melhor"
     },
     "popup_rate_modal_title": {
         "message": "Quão incrível é o AdGuard VPN?"

@@ -13,13 +13,13 @@ import {
 } from '../../../background/telemetry/telemetryEnums';
 import { rootStore } from '../../stores';
 import { RequestStatus, COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
+import { FREE_GBS_PATH } from '../routes';
 import { Title } from '../ui/Title';
 import { Controls } from '../ui/Controls';
 
 import { InviteFriend } from './InviteFriend';
 import { ConfirmEmail } from './ConfirmEmail';
 import { AddDevice } from './AddDevice';
-import { PromoteSocials } from './PromoteSocials';
 
 import './free-gbs.pcss';
 
@@ -59,11 +59,6 @@ interface RenderItemProps {
 }
 
 /**
- * Free GBs page route.
- */
-const FREE_GBS = 'free-gbs';
-
-/**
  * Free GBs invite friend page query.
  */
 const INVITE_FRIEND = 'invite-friend';
@@ -77,11 +72,6 @@ const CONFIRM_EMAIL = 'confirm-email';
  * Free GBs add device page query.
  */
 const ADD_DEVICE = 'add-device';
-
-/**
- * Free GBs promote socials page query.
- */
-const PROMOTE_SOCIALS = 'promote-socials';
 
 /**
  * Free GBs page component.
@@ -111,14 +101,12 @@ export const FreeGbs = observer(() => {
     const isInviteFriendPage = query.has(INVITE_FRIEND);
     const isConfirmEmailPage = query.has(CONFIRM_EMAIL);
     const isAddDevicePage = query.has(ADD_DEVICE);
-    const isPromoteSocialsPage = query.has(PROMOTE_SOCIALS);
     const isLoading = bonusesDataRequestStatus !== RequestStatus.Done;
 
     // Don't send telemetry for FreeGbScreen when a nested screen is rendered on top of it
     const canSendTelemetry = !isInviteFriendPage
         && !isConfirmEmailPage
-        && !isAddDevicePage
-        && !isPromoteSocialsPage;
+        && !isAddDevicePage;
 
     useTelemetryPageViewEvent(
         telemetryStore,
@@ -127,11 +115,11 @@ export const FreeGbs = observer(() => {
     );
 
     const goBackHandler = (): void => {
-        history.push(`/${FREE_GBS}`);
+        history.push(FREE_GBS_PATH);
     };
 
     const clickItemHandler = (query: string): void => {
-        history.push(`/${FREE_GBS}?${query}`);
+        history.push(`${FREE_GBS_PATH}?${query}`);
     };
 
     const inviteFriendTitle = translator.getMessage('settings_free_gbs_invite_friend_count', {
@@ -163,14 +151,6 @@ export const FreeGbs = observer(() => {
             query: ADD_DEVICE,
             completed: addDeviceQuestCompleted,
             telemetryActionName: TelemetryActionName.AddGbDeviceClick,
-        },
-        {
-            title: translator.getMessage('settings_free_gbs_promote_socials'),
-            status: translator.getMessage('settings_free_gbs_promote_socials_get_gb', { num: COMPLETE_TASK_BONUS_GB }),
-            statusDone: '', // This section has no completion criteria.
-            query: PROMOTE_SOCIALS,
-            completed: false,
-            telemetryActionName: TelemetryActionName.PromoteSocialsClick,
         },
     ];
 
@@ -213,10 +193,6 @@ export const FreeGbs = observer(() => {
 
     if (isAddDevicePage) {
         return <AddDevice goBackHandler={goBackHandler} />;
-    }
-
-    if (isPromoteSocialsPage) {
-        return <PromoteSocials goBackHandler={goBackHandler} />;
     }
 
     if (isLoading) {

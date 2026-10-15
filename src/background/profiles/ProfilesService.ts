@@ -150,13 +150,6 @@ export class ProfilesService {
 
         const settings = structuredClone(DEFAULT_PROFILE_SETTINGS);
 
-        // Inherit the active profile's selected location so every new
-        // profile starts with a concrete location value.
-        const activeProfile = state.profiles.find((p) => p.id === state.activeProfileId);
-        if (activeProfile?.settings.selectedLocation) {
-            settings.selectedLocation = structuredClone(activeProfile.settings.selectedLocation);
-        }
-
         const profile: Profile = {
             id: nanoid(),
             name: trimmedName,

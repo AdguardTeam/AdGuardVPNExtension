@@ -138,7 +138,7 @@ export enum PopupScreen {
 
     /**
      * Upgrade paywall shown to non-premium users
-     * (forced, e.g. via the Stats menu item).
+     * (forced, e.g. via the Stats menu item, or after clicking a premium-only location).
      */
     UpgradeScreen = 'upgradeScreen',
 
@@ -146,11 +146,6 @@ export enum PopupScreen {
      * Stats screen (premium users only).
      */
     Stats = 'stats',
-
-    /**
-     * Profiles selection screen.
-     */
-    Profiles = 'profiles',
 }
 
 /**

@@ -12,6 +12,8 @@ import { render, fireEvent } from '@testing-library/react';
 const mockPush = vi.hoisted(() => vi.fn());
 const mockProfiles = vi.hoisted(() => [] as Array<{ id: string; name: string }>);
 const mockExclusionsProfileId = vi.hoisted(() => ({ value: undefined as string | undefined }));
+const mockSendCustomEvent = vi.hoisted(() => vi.fn());
+const mockSendPageViewEvent = vi.hoisted(() => vi.fn());
 
 vi.mock('react-router-dom', () => ({
     useHistory: () => ({ push: mockPush }),
@@ -37,10 +39,6 @@ vi.mock('../../../../src/common/reactTranslator', () => ({
             );
         }),
     },
-}));
-
-vi.mock('../../../../src/common/telemetry/useTelemetryPageViewEvent', () => ({
-    useTelemetryPageViewEvent: vi.fn(),
 }));
 
 vi.mock('../../../../src/options/stores', () => {
@@ -86,8 +84,8 @@ vi.mock('../../../../src/options/stores', () => {
             getDisplayName: vi.fn((p: { id: string; name: string }) => p.name),
         },
         telemetryStore: {
-            sendCustomEvent: vi.fn(),
-            sendPageViewEvent: vi.fn(),
+            sendCustomEvent: mockSendCustomEvent,
+            sendPageViewEvent: mockSendPageViewEvent,
         },
         settingsStore: {
             isPremiumToken: false,
@@ -100,66 +98,68 @@ vi.mock('../../../../src/options/stores', () => {
 // eslint-disable-next-line import/first
 import { Exclusions } from '../../../../src/options/components/Exclusions/Exclusions';
 
-function renderExclusions(props: { isProfileContext?: boolean } = {}): {
-    container: HTMLElement;
-} {
-    const { container } = render(
-        <Exclusions isProfileContext={props.isProfileContext ?? false} />,
-    );
+function renderExclusions(): { container: HTMLElement } {
+    const { container } = render(<Exclusions />);
     return { container };
 }
 
-describe('Exclusions ProfileHint', () => {
+describe('Exclusions', () => {
     beforeEach(() => {
         vi.clearAllMocks();
         mockProfiles.length = 0;
         mockExclusionsProfileId.value = undefined;
     });
 
-    describe('General context (isProfileContext=false)', () => {
-        it('should render ProfileHint when profiles > 1', () => {
-            mockProfiles.push(
-                { id: 'profile-1', name: 'Default' },
-                { id: 'profile-2', name: 'Work' },
-            );
-            const { container } = renderExclusions({ isProfileContext: false });
-            const hint = container.querySelector('.profile-hint');
-            expect(hint).not.toBeNull();
-        });
-
-        it('should not render ProfileHint when profiles <= 1', () => {
-            mockProfiles.push({ id: 'profile-1', name: 'Default' });
-            const { container } = renderExclusions({ isProfileContext: false });
-            const hint = container.querySelector('.profile-hint');
-            expect(hint).toBeNull();
-        });
-
-        it('should navigate to profile exclusions route on ProfileHint click', () => {
-            mockProfiles.push(
-                { id: 'profile-1', name: 'Default' },
-                { id: 'profile-2', name: 'Work' },
-            );
-            const { container } = renderExclusions({ isProfileContext: false });
-            // After implementation, ProfileHint renders as button with class
-            // "profile-hint profile-hint--interactive"
-            const button = container.querySelector('.profile-hint--interactive');
-            expect(button).not.toBeNull();
-            fireEvent.click(button!);
-            // exclusionsStore.profileId is undefined in General context,
-            // so ProfileHint falls back to activeProfileId ('profile-1')
-            expect(mockPush).toHaveBeenCalledWith('/profiles/profile-1');
-        });
+    it('should render ProfileHint for a non-active profile', () => {
+        mockProfiles.push(
+            { id: 'profile-1', name: 'Default' },
+            { id: 'profile-2', name: 'Work' },
+        );
+        mockExclusionsProfileId.value = 'profile-2';
+        const { container } = renderExclusions();
+        const hint = container.querySelector('.profile-hint');
+        expect(hint).not.toBeNull();
+        expect(hint!.textContent).toContain('Work');
     });
 
-    describe('Profile context (isProfileContext=true)', () => {
-        it('should not render ProfileHint even with 2+ profiles', () => {
-            mockProfiles.push(
-                { id: 'profile-1', name: 'Default' },
-                { id: 'profile-2', name: 'Work' },
-            );
-            const { container } = renderExclusions({ isProfileContext: true });
-            const hint = container.querySelector('.profile-hint');
-            expect(hint).toBeNull();
-        });
+    it('should not render ProfileHint for the active profile', () => {
+        mockProfiles.push(
+            { id: 'profile-1', name: 'Default' },
+            { id: 'profile-2', name: 'Work' },
+        );
+        const { container } = renderExclusions();
+        const hint = container.querySelector('.profile-hint');
+        expect(hint).toBeNull();
+    });
+
+    it('should not render ProfileHint when profiles <= 1', () => {
+        mockProfiles.push({ id: 'profile-1', name: 'Default' });
+        const { container } = renderExclusions();
+        const hint = container.querySelector('.profile-hint');
+        expect(hint).toBeNull();
+    });
+
+    it('should navigate to the profile route and send applies_to_profile_click on ProfileHint click', () => {
+        mockProfiles.push(
+            { id: 'profile-1', name: 'Default' },
+            { id: 'profile-2', name: 'Work' },
+        );
+        mockExclusionsProfileId.value = 'profile-2';
+        const { container } = renderExclusions();
+        const button = container.querySelector('.profile-hint--interactive');
+        expect(button).not.toBeNull();
+        fireEvent.click(button!);
+
+        expect(mockPush).toHaveBeenCalledWith('/profiles/profile-2');
+        expect(mockSendCustomEvent).toHaveBeenCalledWith(
+            'applies_to_profile_click',
+            'exclusions_screen',
+        );
+    });
+
+    it('should send the exclusions page view event', () => {
+        renderExclusions();
+
+        expect(mockSendPageViewEvent).toHaveBeenCalledWith('exclusions_screen');
     });
 });

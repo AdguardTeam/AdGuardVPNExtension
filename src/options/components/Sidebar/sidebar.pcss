@@ -2,12 +2,12 @@
     flex-shrink: 0;
     position: sticky;
     top: 0;
+    z-index: var(--sidebar-z);
     height: 100vh;
     /* Dynamic viewport height, if not supported fallbacks to vh */
     height: 100dvh;
 
     @media (--tablet) {
-        z-index: var(--sidebar-z);
         height: auto;
     }
 
@@ -71,7 +71,7 @@
         flex-direction: column;
         width: var(--sidebar-width);
         height: 100%;
-        padding: 24px 0;
+        padding: 24px 0 0;
         background-color: var(--fills-backgrounds-page-background-additional-default);
         transition: var(--t3) background-color;
 
@@ -79,8 +79,6 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 85%;
-            max-width: 300px;
             transform: translateX(-100%);
             transition: var(--t3) transform;
 

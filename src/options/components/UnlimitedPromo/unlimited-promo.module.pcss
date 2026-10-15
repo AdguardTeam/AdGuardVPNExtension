@@ -1,0 +1,92 @@
+.promo {
+    position: sticky;
+    bottom: 0;
+    container-type: inline-size;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 24px;
+    width: 100%;
+    padding: 32px 40px;
+    background-color: var(--fills-backgrounds-recent-activity-request-allowlisted-default);
+    margin-bottom: -40px;
+
+    @media (--tablet) {
+        margin-bottom: -32px;
+    }
+
+    @media (--tablet-sm) {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 16px;
+    }
+}
+
+/*
+ * The illustration is hidden when the block gets too narrow for the benefits text.
+ * The query measures the content box of the block.
+ */
+@container (max-width: 690px) {
+    .image {
+        display: none;
+    }
+}
+
+.image {
+    align-self: flex-end;
+    width: 215px;
+    height: 239px;
+    margin-bottom: -32px;
+    margin-top: -144px;
+    pointer-events: none;
+}
+
+.content {
+    flex: 1 1 auto;
+}
+
+.title {
+    color: var(--text-main-text-main-default);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.15;
+
+    @media (--tablet-sm) {
+        padding-right: 16px;
+    }
+}
+
+.features {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    margin-top: 16px;
+    color: var(--text-description-description-default);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.3;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+    min-height: 22px;
+}
+
+.button {
+    min-width: 200px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+
+    @media (--tablet-sm) {
+        width: 100%;
+        margin-top: 24px;
+    }
+}
+
+.close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}

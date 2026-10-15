@@ -9,11 +9,12 @@ import { type ProfileSettings } from './profileSettings';
 import { profileScheme } from './profile';
 
 /**
- * Default settings snapshot used when creating new profiles.
+ * Default settings snapshot used when creating new profiles
+ * and for the system default profile.
  */
 export const DEFAULT_PROFILE_SETTINGS: ProfileSettings = {
     selectedLocation: null,
-    quickConnect: QuickConnectSetting.FastestLocation,
+    quickConnect: QuickConnectSetting.LastUsedLocation,
     handleWebRtcEnabled: false,
     selectedDnsServer: DEFAULT_DNS_SERVER.id,
     customDnsServers: [],

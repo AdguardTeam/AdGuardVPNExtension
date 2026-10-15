@@ -147,8 +147,37 @@
     "privacy_policy": {
         "message": "Գաղտնիության քաղաքականություն"
     },
+    "settings_title": {
+        "message": "Կարգավորումներ"
+    },
     "settings_general_title": {
-        "message": "Ընդհանուր"
+        "message": "Ընդհանուր տեղադրված"
+    },
+    "settings_general_description": {
+        "message": "Դիմել բոլոր պրոֆիլներին: Եթե փոխեք պրոֆիլը, տեղադրվածները կմնան նույնը"
+    },
+    "settings_current_profile": {
+        "message": "Ընթացիկ պրոֆիլ՝ <b>%profile_name%</b>"
+    },
+    "settings_current_profile_description": {
+        "message": "Դիմել ընթացիկ պրոֆիլին: Եթե փոխեք պրոֆիլը, տեղադրվածները նույնպես կարող են փոխվել"
+    },
+    "settings_unlimited_promo_title": {
+        "message": "Ստացեք անսահմանափակ տարբերակը"
+    },
+    "settings_unlimited_promo_feature_speed": {
+        "message": "Հոսքային առանց արագության սահմանափակումների"
+    },
+    "settings_unlimited_promo_feature_locations": {
+        "message": "%count%+ անվտանգ վայր | %count%+ անվտանգ վայրեր",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_feature_devices": {
+        "message": "Մինչեւ %count% սարքը մեկ հաշվի վրա | Մինչեւ %count% սարքեր մեկ հաշվի վրա",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_upgrade_button": {
+        "message": "Արդիացնել"
     },
     "referral_get_free_traffic": {
         "message": "Ստացեք անվճար GB-ներ։"
@@ -428,8 +457,8 @@
     "settings_quick_connect_title": {
         "message": "Ապահով կապ"
     },
-    "settings_quick_connect_subtitle": {
-        "message": "VPN-ի վայր ընտրվեց, երբ դուք սեղմում եք միանալ"
+    "settings_quick_connect_description": {
+        "message": "Լռելյայն VPN տեղանք, երբ անցնում եք պրոֆիլին կամ բացում դիտարկիչը"
     },
     "settings_quick_connect_last_used": {
         "message": "Ավելի վաղ օգտագործված վայրը"
@@ -539,8 +568,11 @@
     "settings_exclusion_title": {
         "message": "Կառավարելբացառությունները"
     },
-    "settings_location_label": {
-        "message": "Տեղանք"
+    "settings_exclusion_general_state": {
+        "message": "VPN-ը աշխատում է բացառությամբ որոշակի կայքերում"
+    },
+    "settings_exclusion_selective_state": {
+        "message": "VPN-ը աշխատում է միայն ընտրված կայքերում"
     },
     "settings_location_fastest_title": {
         "message": "Արթնացնող վայրը"
@@ -548,14 +580,17 @@
     "settings_location_fastest_description": {
         "message": "Ավտոմատ կերպով միանալ ամենաարագ տեղանքին"
     },
-    "settings_profiles_title": {
-        "message": "Պրոֆիլներ"
+    "settings_location_last_used_description": {
+        "message": "Ավտոմատ կերպով միանալ վերջին օգտագործված տեղանքին"
     },
-    "settings_profiles_sidebar_title": {
-        "message": "Պրոֆիլ"
+    "settings_profiles_title": {
+        "message": "Կառավարել պրոֆիլները"
+    },
+    "settings_profiles_manage": {
+        "message": "Կառավարել պրոֆիլները"
     },
     "settings_profiles_subtitle": {
-        "message": "Թույլ է տալիս սահմանել DNS սերվերներ և տեղանքներ և պահել առանձին բացառությունների ցանկեր տարբեր օգտագործման դեպքերի համար, ինչպես աշխատանք, տուն կամ այլ"
+        "message": "Օգտագործեք VPN-ը տարբեր սցենարների համար, ինչպիսիք են աշխատանքը, տունը, երեխաները կամ այլն: Ստեղծեք պրոֆիլ և կարգավորեք դրա նախընտրելի տեղանքը, DNS սերվերը և բացառումները"
     },
     "settings_profiles_default_name": {
         "message": "Հիմնական"
@@ -573,7 +608,10 @@
         "message": "Ջնջել"
     },
     "settings_profiles_create": {
-        "message": "Ստեղծել"
+        "message": "Ստեղծել պրոֆիլ"
+    },
+    "settings_profiles_open_settings": {
+        "message": "Բացեք կարգավորումները"
     },
     "settings_profiles_create_modal_title": {
         "message": "Ստեղծել պրոֆիլ"
@@ -616,9 +654,6 @@
     },
     "settings_profiles_delete_modal_submit": {
         "message": "Ջնջել"
-    },
-    "settings_description_current": {
-        "message": "Ընթացիկ՝ %mode%"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Որտեղ VPN-ն է ակտիվ"
@@ -695,14 +730,23 @@
     "popup_settings_stats": {
         "message": "Վիճակագրություն"
     },
-    "popup_profiles_title": {
-        "message": "Պրոֆիլներ"
-    },
-    "popup_profiles_settings": {
-        "message": "Կարգավորումներ"
-    },
     "profile_apply_error": {
         "message": "Չհաջողվեց փոխել պրոֆիլները։ Փորձեք կրկին կամ կապվեք աջակցության հետ"
+    },
+    "profile_switched": {
+        "message": "Անցում %profile_name%-ին"
+    },
+    "profile_created": {
+        "message": "Պրոֆիլը ստեղծվել է"
+    },
+    "profile_deleted": {
+        "message": "Պրոֆիլը ջնջվել է"
+    },
+    "profile_deleted_switched": {
+        "message": "Պրոֆիլը ջնջվել է: Դուք անցել եք %profile_name%-ին"
+    },
+    "profile_name_updated": {
+        "message": "Պրոֆիլի անունը թարմացվել է"
     },
     "popup_settings_free_description": {
         "message": "Հասանելի է AdGuard VPN Unlimited-ում"
@@ -876,7 +920,7 @@
         "message": "Թողնել կարծիք"
     },
     "popup_compare_button": {
-        "message": "Ինչու է հավելվածը ավելի լավ"
+        "message": "Ինչու է աշխատասեղանի հավելվածը ավելի լավ"
     },
     "popup_rate_modal_title": {
         "message": "Որքան հրաշալի է AdGuard VPN-ը:"

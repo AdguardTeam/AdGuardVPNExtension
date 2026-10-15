@@ -147,8 +147,37 @@
     "privacy_policy": {
         "message": "Politique de confidentialité"
     },
+    "settings_title": {
+        "message": "Paramètres"
+    },
     "settings_general_title": {
-        "message": "Général"
+        "message": "Paramètres généraux"
+    },
+    "settings_general_description": {
+        "message": "Appliquer à tous les profils. Si vous changez de profil, les paramètres resteront inchangés"
+    },
+    "settings_current_profile": {
+        "message": "Profil actuel : <b>%profile_name%</b>"
+    },
+    "settings_current_profile_description": {
+        "message": "Appliquer au profil actuel. Si vous changez de profil, les paramètres peuvent aussi changer"
+    },
+    "settings_unlimited_promo_title": {
+        "message": "Obtenez la version illimitée"
+    },
+    "settings_unlimited_promo_feature_speed": {
+        "message": "Streaming sans limites de vitesse"
+    },
+    "settings_unlimited_promo_feature_locations": {
+        "message": "%count%+ emplacements sécurisés | %count%+ emplacement sécurisé | %count%+ emplacements sécurisés",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_feature_devices": {
+        "message": "Jusqu'à %count% appareils par compte | Jusqu'à %count% appareil par compte | Jusqu'à %count% appareils par compte",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_upgrade_button": {
+        "message": "Mise à niveau "
     },
     "referral_get_free_traffic": {
         "message": "Obtenez des Go gratuits !"
@@ -428,8 +457,8 @@
     "settings_quick_connect_title": {
         "message": "Connexion rapide"
     },
-    "settings_quick_connect_subtitle": {
-        "message": "Emplacement du VPN sélectionné lorsque vous cliquez sur Connecter"
+    "settings_quick_connect_description": {
+        "message": "Emplacement VPN par défaut lorsque vous passez au profil ou ouvrez le navigateur"
     },
     "settings_quick_connect_last_used": {
         "message": "Dernière localisation utilisée"
@@ -539,8 +568,11 @@
     "settings_exclusion_title": {
         "message": "Exclusions"
     },
-    "settings_location_label": {
-        "message": "Localisation"
+    "settings_exclusion_general_state": {
+        "message": "Le VPN est activé partout sauf pour des sites Web spécifiques"
+    },
+    "settings_exclusion_selective_state": {
+        "message": "Le VPN est activé uniquement pour les sites Web choisis"
     },
     "settings_location_fastest_title": {
         "message": "Connexion ultra-rapide"
@@ -548,14 +580,17 @@
     "settings_location_fastest_description": {
         "message": "Connectez-vous automatiquement à l’emplacement le plus rapide"
     },
-    "settings_profiles_title": {
-        "message": "Profils"
+    "settings_location_last_used_description": {
+        "message": "Connectez-vous automatiquement au dernier emplacement utilisé"
     },
-    "settings_profiles_sidebar_title": {
-        "message": "Profil"
+    "settings_profiles_title": {
+        "message": "Gérer les profils"
+    },
+    "settings_profiles_manage": {
+        "message": "Gérer les profils"
     },
     "settings_profiles_subtitle": {
-        "message": "Permet de configurer les serveurs DNS et les emplacements, et de conserver des listes d'exclusions séparées pour des différents cas d'utilisation, tels que le travail, le domicile ou autres"
+        "message": "Utilisez le VPN pour des situations différentes, comme au travail, à domicile, pour les enfants ou autres. Créez un profil et configurez un emplacement préféré, un serveur DNS et des exclusions pour celui-ci"
     },
     "settings_profiles_default_name": {
         "message": "Défaut"
@@ -573,7 +608,10 @@
         "message": "Supprimer"
     },
     "settings_profiles_create": {
-        "message": "Créer"
+        "message": "Créer un profil"
+    },
+    "settings_profiles_open_settings": {
+        "message": "Ouvrir les paramètres"
     },
     "settings_profiles_create_modal_title": {
         "message": "Créer un profil"
@@ -616,9 +654,6 @@
     },
     "settings_profiles_delete_modal_submit": {
         "message": "Supprimer"
-    },
-    "settings_description_current": {
-        "message": "Actuellement : %mode%"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Où le VPN est activé"
@@ -695,14 +730,23 @@
     "popup_settings_stats": {
         "message": "Statistiques"
     },
-    "popup_profiles_title": {
-        "message": "Profils"
-    },
-    "popup_profiles_settings": {
-        "message": "Paramètres"
-    },
     "profile_apply_error": {
         "message": "Échec du changement de profil. Réessayez ou contactez l'assistance"
+    },
+    "profile_switched": {
+        "message": "Passé à %profile_name%"
+    },
+    "profile_created": {
+        "message": "Profil créé"
+    },
+    "profile_deleted": {
+        "message": "Profil supprimé"
+    },
+    "profile_deleted_switched": {
+        "message": "Profil supprimé. Vous êtes passé à %profile_name%"
+    },
+    "profile_name_updated": {
+        "message": "Nom du profil mis à jour"
     },
     "popup_settings_free_description": {
         "message": "Disponible dans AdGuard VPN Illimité"
@@ -802,11 +846,11 @@
         "message": "Découvrez AdGuard VPN Illimité. Avec l'abonnement annuel, vous économisez 67 %%"
     },
     "popup_paywall_b_column_free": {
-        "message": "Gratuite",
+        "message": "Compte régulier gratuit",
         "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
     },
     "popup_paywall_b_column_unlimited": {
-        "message": "Illimitée",
+        "message": "Illimité",
         "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
     },
     "popup_paywall_b_row_vpn_data": {
@@ -876,7 +920,7 @@
         "message": "Envoyer un commentaire"
     },
     "popup_compare_button": {
-        "message": "Pourquoi l'app est meilleure"
+        "message": "Pourquoi l’app de bureau est meilleure"
     },
     "popup_rate_modal_title": {
         "message": "À quel point AdGuard VPN est-il génial ?"

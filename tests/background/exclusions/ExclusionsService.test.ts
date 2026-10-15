@@ -8,12 +8,20 @@ import {
 } from 'vitest';
 
 import { ExclusionsService } from '../../../src/background/exclusions/ExclusionsService';
+import { type PersistedExclusions } from '../../../src/background/schema';
 import { ExclusionsMode, ExclusionState, ExclusionsType } from '../../../src/common/exclusionsConstants';
+import { LANGUAGE_AUTO } from '../../../src/common/locale';
 import { notifier } from '../../../src/common/notifier';
 import { servicesManager } from '../../../src/background/exclusions/services/ServicesManager';
+import { profileStateService } from '../../../src/background/profiles';
+import { type ProfileStateService } from '../../../src/background/profiles/profileState/ProfileStateService';
+import { PROFILE_SESSION_STATE_DEFAULTS, StorageKey } from '../../../src/background/schema';
+import { stateStorage } from '../../../src/background/stateStorage';
 import { proxy } from '../../../src/background/proxy';
+import { type I18nMockModule } from '../../__mocks__/i18nMock';
+import { getMockCallCount } from '../../utils/mockHelpers';
 
-const stubProfileSettings = {
+const stubProfileSettings: { exclusions: PersistedExclusions } = {
     exclusions: {
         inverted: false,
         regular: [],
@@ -21,13 +29,17 @@ const stubProfileSettings = {
     },
 };
 
-vi.mock('../../../src/background/profiles', () => {
+vi.mock('../../../src/background/profiles', async () => {
+    const { ProfileStateService: ProfileStateServiceClass } = await vi.importActual<{
+        ProfileStateService: typeof ProfileStateService,
+    }>('../../../src/background/profiles/profileState/ProfileStateService');
     return {
         __esModule: true,
         profilesService: {
             getActiveProfileId: () => 'default',
             resolveProfileId: async (id?: string) => id ?? 'default',
             getProfileSettings: () => structuredClone(stubProfileSettings),
+            getActiveProfileSettings: () => structuredClone(stubProfileSettings),
             getProfileInfoList: async () => ({
                 profiles: [{ id: 'default', name: '' }],
                 activeProfileId: 'default',
@@ -42,6 +54,7 @@ vi.mock('../../../src/background/profiles', () => {
                 }
             },
         },
+        profileStateService: new ProfileStateServiceClass(),
     };
 });
 
@@ -67,10 +80,15 @@ vi.mock('../../../src/background/providers/vpnProvider', () => {
     return {
         __esModule: true,
         vpnProvider: {
-            getExclusionsServices: async () => Promise.resolve({}),
-            getExclusionsServicesDomains: async () => Promise.resolve({}),
+            getExclusionsServices: vi.fn(async () => ({})),
+            getExclusionsServicesDomains: vi.fn(async () => ({})),
         },
     };
+});
+
+vi.mock('../../../src/common/i18n', async () => {
+    const { createI18nMock } = await vi.importActual<I18nMockModule>('../../__mocks__/i18nMock');
+    return createI18nMock('de');
 });
 
 const SERVICE_DATA = {
@@ -107,8 +125,28 @@ getIndexedServicesMock.mockResolvedValue({
     'aliexpress.ru': 'aliexpress',
 });
 
+const updateServicesMock = vi.fn();
+servicesManager.updateServices = updateServicesMock;
+updateServicesMock.mockResolvedValue(true);
+
+const getLastUpdateLocaleMock = vi.fn();
+servicesManager.getLastUpdateLocale = getLastUpdateLocaleMock;
+getLastUpdateLocaleMock.mockResolvedValue(null);
+
 describe('ExclusionsService', () => {
     beforeEach(async () => {
+        stubProfileSettings.exclusions = {
+            inverted: false,
+            regular: [],
+            selective: [],
+        };
+        const cachedProfileIds = await profileStateService.exclusionsCache.getProfileIds();
+        await Promise.all(
+            cachedProfileIds.map((profileId) => profileStateService.exclusionsCache.delete(profileId)),
+        );
+        // @ts-ignore - clear tombstones to isolate tests (private member)
+        profileStateService.deletedProfileIds.clear();
+        await stateStorage.setItem(StorageKey.ProfileSessionState, PROFILE_SESSION_STATE_DEFAULTS);
         await proxy.init();
     });
 
@@ -123,6 +161,92 @@ describe('ExclusionsService', () => {
         const exclusionsData = await exclusionsService.getExclusions();
         expect(exclusionsData.children).toHaveLength(0);
         expect(await exclusionsService.getMode('default')).toBeTruthy();
+    });
+
+    it('returns active profile exclusions stats', async () => {
+        const exclusionsService = new ExclusionsService();
+
+        const emptyStats = await exclusionsService.getActiveProfileExclusionsStats();
+        expect(emptyStats).toEqual({
+            mode: ExclusionsMode.Regular,
+            hasEnabledExclusions: false,
+        });
+    });
+
+    it('detects enabled exclusions of the active mode', async () => {
+        stubProfileSettings.exclusions = {
+            inverted: false,
+            regular: [{ id: '1', hostname: 'example.org', state: ExclusionState.Enabled }],
+            selective: [],
+        };
+
+        const exclusionsService = new ExclusionsService();
+        const stats = await exclusionsService.getActiveProfileExclusionsStats();
+
+        expect(stats).toEqual({
+            mode: ExclusionsMode.Regular,
+            hasEnabledExclusions: true,
+        });
+    });
+
+    it('ignores exclusions stored in the inactive mode', async () => {
+        // General mode is active and empty, while selective mode holds
+        // exclusions - the result must still be false.
+        stubProfileSettings.exclusions = {
+            inverted: false,
+            regular: [],
+            selective: [
+                { id: '1', hostname: 'example.org', state: ExclusionState.Enabled },
+                { id: '2', hostname: 'example.com', state: ExclusionState.Enabled },
+            ],
+        };
+
+        const exclusionsService = new ExclusionsService();
+        const stats = await exclusionsService.getActiveProfileExclusionsStats();
+
+        expect(stats).toEqual({
+            mode: ExclusionsMode.Regular,
+            hasEnabledExclusions: false,
+        });
+    });
+
+    it('does not consider disabled exclusions as enabled', async () => {
+        stubProfileSettings.exclusions = {
+            inverted: true,
+            regular: [],
+            selective: [
+                { id: '1', hostname: 'example.org', state: ExclusionState.Disabled },
+            ],
+        };
+
+        const exclusionsService = new ExclusionsService();
+        const stats = await exclusionsService.getActiveProfileExclusionsStats();
+
+        expect(stats).toEqual({
+            mode: ExclusionsMode.Selective,
+            hasEnabledExclusions: false,
+        });
+    });
+
+    it('reports the in-memory mode while the persisted save has not caught up', async () => {
+        stubProfileSettings.exclusions = {
+            inverted: true,
+            regular: [],
+            selective: [],
+        };
+
+        const exclusionsService = new ExclusionsService();
+        await exclusionsService.init();
+
+        await exclusionsService.setMode('default', ExclusionsMode.Regular);
+
+        // The mock save does not update the persisted snapshot,
+        // so the live entry is the only source of the new mode.
+        const stats = await exclusionsService.getActiveProfileExclusionsStats();
+        expect(stats).toEqual({
+            mode: ExclusionsMode.Regular,
+            hasEnabledExclusions: false,
+        });
     });
 
     it('returns true if domains are not excluded ', async () => {
@@ -552,6 +676,18 @@ describe('ExclusionsService', () => {
         expect(restoredExclusions).toEqual(exclusions);
     });
 
+    it('should remove the undo snapshot when the profile is deleted', async () => {
+        const exclusionsService = new ExclusionsService();
+        await exclusionsService.init();
+        await exclusionsService.addUrlToExclusions('default', 'example.org');
+
+        await expect(profileStateService.exclusionsSnapshots.get('default')).resolves.toBeDefined();
+
+        await profileStateService.clearProfileData('default');
+
+        await expect(profileStateService.exclusionsSnapshots.get('default')).resolves.toBeUndefined();
+    });
+
     it('keep state of existing exclusions in service after new exclusion added to service', async () => {
         const exclusionsService = new ExclusionsService();
         await exclusionsService.init();
@@ -897,6 +1033,168 @@ describe('ExclusionsService', () => {
                 ([type]) => type === notifier.types.EXCLUSIONS_DATA_UPDATED,
             );
             expect(dataUpdatedCalls).toHaveLength(1);
+        });
+
+        it('forceUpdateServices rebuilds trees with updated service names', async () => {
+            const exclusionsService = new ExclusionsService();
+            await exclusionsService.init();
+
+            await exclusionsService.addUrlToExclusions('default', 'aliexpress.ru');
+
+            let exclusions = await exclusionsService.getExclusions();
+            expect(exclusions.children[0].type).toBe(ExclusionsType.Service);
+            expect(exclusions.children[0].hostname).toBe('Aliexpress');
+
+            // Simulate backend returning localized service names after a language change.
+            getServicesMock.mockResolvedValueOnce({
+                aliexpress: { ...SERVICE_DATA, serviceName: 'AliExpress Localized' },
+            });
+
+            await exclusionsService.forceUpdateServices();
+
+            // The force path must bypass the update timeout and fetch from the server.
+            expect(updateServicesMock).toHaveBeenCalledWith(true);
+
+            exclusions = await exclusionsService.getExclusions();
+            expect(exclusions.children[0].type).toBe(ExclusionsType.Service);
+            expect(exclusions.children[0].hostname).toBe('AliExpress Localized');
+        });
+
+        it('refreshServicesForCurrentLocale rebuilds trees and notifies the options page', async () => {
+            const exclusionsService = new ExclusionsService();
+            await exclusionsService.init();
+
+            await exclusionsService.addUrlToExclusions('default', 'aliexpress.ru');
+
+            getServicesMock.mockResolvedValueOnce({
+                aliexpress: { ...SERVICE_DATA, serviceName: 'AliExpress Localized' },
+            });
+
+            const notifySpy = vi.spyOn(notifier, 'notifyListeners');
+            await exclusionsService.refreshServicesForCurrentLocale('en');
+
+            expect(updateServicesMock).toHaveBeenLastCalledWith(true, 'en');
+            const exclusions = await exclusionsService.getExclusions();
+            expect(exclusions.children[0].hostname).toBe('AliExpress Localized');
+            expect(notifySpy).toHaveBeenCalledWith(notifier.types.EXCLUSIONS_DATA_UPDATED, 'default');
+        });
+
+        it('refreshServicesForCurrentLocale retries the fetch when it failed previously', async () => {
+            const exclusionsService = new ExclusionsService();
+            await exclusionsService.init();
+
+            updateServicesMock.mockResolvedValueOnce(false);
+            const notifySpy = vi.spyOn(notifier, 'notifyListeners');
+            const rebuildCallsBefore = getMockCallCount(getServicesMock);
+
+            await exclusionsService.refreshServicesForCurrentLocale('en');
+
+            expect(getMockCallCount(getServicesMock)).toBe(rebuildCallsBefore);
+            expect(notifySpy).not.toHaveBeenCalledWith(
+                notifier.types.EXCLUSIONS_DATA_UPDATED,
+                'default',
+            );
+
+            // The failed attempt must not update the stored services locale,
+            // so the next call with the same locale tries to fetch again.
+            const callsBefore = getMockCallCount(updateServicesMock);
+            await exclusionsService.refreshServicesForCurrentLocale('en');
+            expect(getMockCallCount(updateServicesMock)).toBe(callsBefore + 1);
+        });
+
+        it('refreshServicesForCurrentLocale skips the refetch when services were already fetched in the current locale', async () => {
+            const exclusionsService = new ExclusionsService();
+            await exclusionsService.init();
+
+            getLastUpdateLocaleMock.mockResolvedValueOnce('en');
+
+            const callsBefore = getMockCallCount(updateServicesMock);
+            const rebuildCallsBefore = getMockCallCount(getServicesMock);
+            const notifySpy = vi.spyOn(notifier, 'notifyListeners');
+            await exclusionsService.refreshServicesForCurrentLocale('en');
+
+            expect(getMockCallCount(updateServicesMock)).toBe(callsBefore);
+            expect(getMockCallCount(getServicesMock)).toBe(rebuildCallsBefore);
+            expect(notifySpy).not.toHaveBeenCalledWith(
+                notifier.types.EXCLUSIONS_DATA_UPDATED,
+                'default',
+            );
+        });
+
+        it('refreshServicesForCurrentLocale skips the second refetch after a successful fetch', async () => {
+            const exclusionsService = new ExclusionsService();
+            await exclusionsService.init();
+
+            getLastUpdateLocaleMock
+                .mockResolvedValueOnce(null)
+                .mockResolvedValueOnce('en');
+
+            const callsBefore = getMockCallCount(updateServicesMock);
+            await exclusionsService.refreshServicesForCurrentLocale('en');
+            await exclusionsService.refreshServicesForCurrentLocale('en');
+
+            expect(getMockCallCount(updateServicesMock)).toBe(callsBefore + 1);
+        });
+
+        it('refreshServicesForCurrentLocale refetches when the stored locale differs', async () => {
+            const exclusionsService = new ExclusionsService();
+            await exclusionsService.init();
+
+            getLastUpdateLocaleMock.mockResolvedValueOnce('de');
+
+            const callsBefore = getMockCallCount(updateServicesMock);
+            await exclusionsService.refreshServicesForCurrentLocale('en');
+
+            expect(getMockCallCount(updateServicesMock)).toBe(callsBefore + 1);
+        });
+
+        it('refreshServicesForCurrentLocale resolves the auto preference before comparing locales', async () => {
+            const exclusionsService = new ExclusionsService();
+            await exclusionsService.init();
+
+            getLastUpdateLocaleMock.mockResolvedValueOnce('en');
+
+            await exclusionsService.refreshServicesForCurrentLocale(LANGUAGE_AUTO);
+
+            expect(updateServicesMock).toHaveBeenLastCalledWith(true, 'de');
+        });
+
+        it('refreshServicesForCurrentLocale serializes locale checks with in-flight fetches', async () => {
+            const exclusionsService = new ExclusionsService();
+            await exclusionsService.init();
+
+            let resolveFetch: () => void = () => {};
+            const fetchCompleted = new Promise<void>((resolve) => {
+                resolveFetch = resolve;
+            });
+            let lastLocale = 'en';
+            const updateCallsBefore = getMockCallCount(updateServicesMock);
+            const localeCallsBefore = getMockCallCount(getLastUpdateLocaleMock);
+            const notifySpy = vi.spyOn(notifier, 'notifyListeners');
+
+            getLastUpdateLocaleMock.mockImplementation(() => Promise.resolve(lastLocale));
+            updateServicesMock.mockImplementationOnce(async (_force, locale) => {
+                await fetchCompleted;
+                lastLocale = locale;
+                return true;
+            });
+
+            const firstUpdate = exclusionsService.refreshServicesForCurrentLocale('de');
+            await vi.waitFor(() => {
+                expect(getMockCallCount(updateServicesMock)).toBe(updateCallsBefore + 1);
+            });
+
+            const secondUpdate = exclusionsService.refreshServicesForCurrentLocale('en');
+            expect(getMockCallCount(getLastUpdateLocaleMock)).toBe(localeCallsBefore + 1);
+
+            resolveFetch();
+            await Promise.all([firstUpdate, secondUpdate]);
+
+            expect(updateServicesMock.mock.calls.slice(updateCallsBefore)).toEqual([
+                [true, 'de'],
+                [true, 'en'],
+            ]);
+            expect(notifySpy).toHaveBeenCalledWith(notifier.types.EXCLUSIONS_DATA_UPDATED, 'default');
         });
     });
 });

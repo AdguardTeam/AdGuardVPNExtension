@@ -1,6 +1,6 @@
 import { action, computed, observable } from 'mobx';
 
-import { type VariantCache } from '../../background/abTestManager/ABTestManager';
+import { type ExperimentSlotValues } from '../../background/abTestManager/ABTestManager';
 import { messenger } from '../../common/messenger';
 import { ONBOARDING_GOALS, ONBOARDING_GOAL_FLAG, type OnboardingGoal } from '../../common/constants';
 import { AG55378_ONBOARDING_B_VERSION_NAME, AG55378_ONBOARDING_SLOT } from '../../background/abTestManager/constants';
@@ -72,7 +72,7 @@ export class UiStore {
     /**
      * Cached A/B experiment variant assignments.
      */
-    @observable private experimentVariants: VariantCache = {};
+    @observable private experimentVariants: ExperimentSlotValues = {};
 
     /**
      * Selected onboarding goal for the AG-55378 personalized onboarding.
@@ -219,7 +219,7 @@ export class UiStore {
      *
      * @param variants Variant cache from the background.
      */
-    @action public setExperimentVariants(variants: VariantCache): void {
+    @action public setExperimentVariants(variants: ExperimentSlotValues): void {
         this.experimentVariants = variants;
     }
 

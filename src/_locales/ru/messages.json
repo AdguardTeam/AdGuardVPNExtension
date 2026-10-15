@@ -147,8 +147,37 @@
     "privacy_policy": {
         "message": "Политика конфиденциальности"
     },
+    "settings_title": {
+        "message": "Настройки"
+    },
     "settings_general_title": {
-        "message": "Основные"
+        "message": "Основные настройки"
+    },
+    "settings_general_description": {
+        "message": "Применяются ко всем профилям. Если вы смените профиль, настройки останутся прежними"
+    },
+    "settings_current_profile": {
+        "message": "Текущий профиль: <b>%profile_name%</b>"
+    },
+    "settings_current_profile_description": {
+        "message": "Применяются к текущему профилю. Если вы смените профиль, настройки тоже могут измениться"
+    },
+    "settings_unlimited_promo_title": {
+        "message": "Получите неограниченную версию"
+    },
+    "settings_unlimited_promo_feature_speed": {
+        "message": "Стриминг без ограничений по скорости"
+    },
+    "settings_unlimited_promo_feature_locations": {
+        "message": "%count%+ безопасная локация | %count%+ безопасных локации | %count%+ безопасных локаций | %count%+ безопасных локаций",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_feature_devices": {
+        "message": "До %count% устройств в одном аккаунте | До %count% устройства в одном аккаунте | До %count% устройств в одном аккаунте | До %count% устройств в одном аккаунте",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_upgrade_button": {
+        "message": "Купить подписку"
     },
     "referral_get_free_traffic": {
         "message": "Получите бесплатные ГБ!"
@@ -297,7 +326,7 @@
         "message": "Выборочный режим"
     },
     "context_menu_general_mode": {
-        "message": "Основной режим"
+        "message": "Обычный режим"
     },
     "context_menu_export_logs": {
         "message": "Экспортировать логи"
@@ -428,8 +457,8 @@
     "settings_quick_connect_title": {
         "message": "Локация по кнопке «Подключить»"
     },
-    "settings_quick_connect_subtitle": {
-        "message": "К чему подключаться автоматически?"
+    "settings_quick_connect_description": {
+        "message": "Локация VPN по умолчанию когда вы переключаете профиль или открываете браузер"
     },
     "settings_quick_connect_last_used": {
         "message": "Последняя использованная"
@@ -441,7 +470,7 @@
         "message": "Добавить"
     },
     "settings_exclusion_add_website": {
-        "message": "Добавить веб-сайт"
+        "message": "Добавить сайт"
     },
     "settings_exclusion_actions": {
         "message": "Действия"
@@ -539,8 +568,11 @@
     "settings_exclusion_title": {
         "message": "Исключения"
     },
-    "settings_location_label": {
-        "message": "Местоположение"
+    "settings_exclusion_general_state": {
+        "message": "VPN включён везде, кроме определённых веб-сайтов"
+    },
+    "settings_exclusion_selective_state": {
+        "message": "VPN только для выбранных веб-сайтов"
     },
     "settings_location_fastest_title": {
         "message": "Самая быстрая"
@@ -548,14 +580,17 @@
     "settings_location_fastest_description": {
         "message": "Автоматически подключаться к самой быстрой локации"
     },
-    "settings_profiles_title": {
-        "message": "Профили"
+    "settings_location_last_used_description": {
+        "message": "Автоматически подключиться к последней использованной локации"
     },
-    "settings_profiles_sidebar_title": {
-        "message": "Профиль"
+    "settings_profiles_title": {
+        "message": "Управлять профилями"
+    },
+    "settings_profiles_manage": {
+        "message": "Управлять профилями"
     },
     "settings_profiles_subtitle": {
-        "message": "Позволяет задавать DNS-серверы и локации, а также вести отдельные списки исключений для различных сценариев использования, например, для работы, дома или других целей."
+        "message": "Используйте VPN для разных сценариев, таких как работа, дом, дети или другие. Создайте профиль и установите предпочитаемую локацию, сервер DNS, и исключения для них"
     },
     "settings_profiles_default_name": {
         "message": "Стандартный"
@@ -573,7 +608,10 @@
         "message": "Удалить"
     },
     "settings_profiles_create": {
-        "message": "Создать"
+        "message": "Создать профиль"
+    },
+    "settings_profiles_open_settings": {
+        "message": "Открыть настройки"
     },
     "settings_profiles_create_modal_title": {
         "message": "Создать профиль"
@@ -616,9 +654,6 @@
     },
     "settings_profiles_delete_modal_submit": {
         "message": "Удалить"
-    },
-    "settings_description_current": {
-        "message": "Текущий: %mode%"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Где включён VPN"
@@ -695,14 +730,23 @@
     "popup_settings_stats": {
         "message": "Статистика"
     },
-    "popup_profiles_title": {
-        "message": "Профили"
-    },
-    "popup_profiles_settings": {
-        "message": "Настройки"
-    },
     "profile_apply_error": {
         "message": "Не удалось переключить профили. Попробуйте снова или обратитесь в поддержку"
+    },
+    "profile_switched": {
+        "message": "Переключено на профиль: %profile_name%"
+    },
+    "profile_created": {
+        "message": "Профиль создан"
+    },
+    "profile_deleted": {
+        "message": "Профиль удалён"
+    },
+    "profile_deleted_switched": {
+        "message": "Профиль удалён. Вы были переключены на профиль: %profile_name%"
+    },
+    "profile_name_updated": {
+        "message": "Имя профиля обновлено"
     },
     "popup_settings_free_description": {
         "message": "Доступна в AdGuard VPN Unlimited"
@@ -876,7 +920,7 @@
         "message": "Оставить отзыв"
     },
     "popup_compare_button": {
-        "message": "Почему с приложением удобнее"
+        "message": "Почему приложение для компьютера лучше"
     },
     "popup_rate_modal_title": {
         "message": "Как вам AdGuard VPN?"

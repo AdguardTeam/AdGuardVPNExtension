@@ -8,6 +8,15 @@
     &--select {
         position: relative;
 
+        /*
+         * The list opens upwards: these rows sit in the lower half of the
+         * settings screen, so a downward list would cover the rows below.
+         */
+        .select__list {
+            top: auto;
+            bottom: calc(100% + 8px);
+        }
+
         .controls__content {
             flex: 1 1 0;
             min-width: 0;
@@ -77,5 +86,10 @@
         line-height: 1.3;
         margin-top: 2px;
         transition: var(--t3) color;
+    }
+
+    &__state {
+        color: var(--text-description-description-default);
+        font-weight: 600;
     }
 }

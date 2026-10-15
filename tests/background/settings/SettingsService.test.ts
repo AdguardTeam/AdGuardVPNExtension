@@ -9,11 +9,11 @@ import {
 
 import { SettingsService } from '../../../src/background/settings/SettingsService';
 import { type StorageInterface } from '../../../src/background/browserApi/storage';
-import { SETTINGS_IDS } from '../../../src/common/constants';
+import { SETTINGS_IDS, QuickConnectSetting } from '../../../src/common/constants';
 import { ExclusionsMode, ExclusionState } from '../../../src/common/exclusionsConstants';
 import { sleep } from '../../../src/common/helpers';
 
-const SCHEME_VERSION = '16';
+const SCHEME_VERSION = '17';
 
 vi.mock('../../../src/background/exclusions/services/ServicesManager', () => ({
     servicesManager: {
@@ -743,6 +743,138 @@ describe('SettingsService', () => {
 
             expect(newSettings.VERSION).toBe('16');
             expect(newSettings[SETTINGS_IDS.PROFILES_STATE].profiles[0].settings).toEqual({});
+        });
+    });
+
+    describe('migrateFrom16to17', () => {
+        beforeEach(() => {
+            settingsService = new SettingsService(storage, defaults);
+        });
+
+        afterEach(async () => {
+            await settingsService.clearSettings();
+        });
+
+        it('converts profiles with a picked location to the specific location strategy', () => {
+            const oldSettings = {
+                VERSION: '16',
+                [SETTINGS_IDS.PROFILES_STATE]: {
+                    activeProfileId: 'default',
+                    profiles: [
+                        {
+                            id: 'default',
+                            name: '',
+                            settings: {
+                                quickConnect: QuickConnectSetting.LastUsedLocation,
+                                selectedLocation: { id: 'loc-berlin' },
+                            },
+                        },
+                    ],
+                },
+            };
+
+            const newSettings = settingsService.migrateFrom16to17(oldSettings);
+            const { settings } = newSettings[SETTINGS_IDS.PROFILES_STATE].profiles[0];
+
+            expect(newSettings.VERSION).toBe('17');
+            expect(settings.quickConnect).toBe(QuickConnectSetting.SpecificLocation);
+            expect(settings.selectedLocation).toEqual({ id: 'loc-berlin' });
+        });
+
+        it('keeps the last used strategy for profiles without a stored location', () => {
+            const oldSettings = {
+                VERSION: '16',
+                [SETTINGS_IDS.PROFILES_STATE]: {
+                    activeProfileId: 'default',
+                    profiles: [
+                        {
+                            id: 'default',
+                            name: '',
+                            settings: {
+                                quickConnect: QuickConnectSetting.LastUsedLocation,
+                                selectedLocation: null,
+                            },
+                        },
+                    ],
+                },
+            };
+
+            const newSettings = settingsService.migrateFrom16to17(oldSettings);
+            const { settings } = newSettings[SETTINGS_IDS.PROFILES_STATE].profiles[0];
+
+            expect(settings.quickConnect).toBe(QuickConnectSetting.LastUsedLocation);
+        });
+
+        it('keeps the fastest strategy untouched', () => {
+            const oldSettings = {
+                VERSION: '16',
+                [SETTINGS_IDS.PROFILES_STATE]: {
+                    activeProfileId: 'default',
+                    profiles: [
+                        {
+                            id: 'default',
+                            name: '',
+                            settings: {
+                                quickConnect: QuickConnectSetting.FastestLocation,
+                                selectedLocation: { id: 'loc-berlin' },
+                            },
+                        },
+                    ],
+                },
+            };
+
+            const newSettings = settingsService.migrateFrom16to17(oldSettings);
+            const { settings } = newSettings[SETTINGS_IDS.PROFILES_STATE].profiles[0];
+
+            expect(settings.quickConnect).toBe(QuickConnectSetting.FastestLocation);
+        });
+
+        it('migrates profiles independently', () => {
+            const oldSettings = {
+                VERSION: '16',
+                [SETTINGS_IDS.PROFILES_STATE]: {
+                    activeProfileId: 'default',
+                    profiles: [
+                        {
+                            id: 'default',
+                            name: '',
+                            settings: {
+                                quickConnect: QuickConnectSetting.LastUsedLocation,
+                                selectedLocation: { id: 'loc-berlin' },
+                            },
+                        },
+                        {
+                            id: 'work',
+                            name: 'Work',
+                            settings: {
+                                quickConnect: QuickConnectSetting.LastUsedLocation,
+                                selectedLocation: null,
+                            },
+                        },
+                        {
+                            id: 'home',
+                            name: 'Home',
+                            settings: {
+                                quickConnect: QuickConnectSetting.FastestLocation,
+                                selectedLocation: { id: 'loc-tokyo' },
+                            },
+                        },
+                    ],
+                },
+            };
+
+            const newSettings = settingsService.migrateFrom16to17(oldSettings);
+            const { profiles } = newSettings[SETTINGS_IDS.PROFILES_STATE];
+
+            expect(profiles[0].settings.quickConnect).toBe(QuickConnectSetting.SpecificLocation);
+            expect(profiles[1].settings.quickConnect).toBe(QuickConnectSetting.LastUsedLocation);
+            expect(profiles[2].settings.quickConnect).toBe(QuickConnectSetting.FastestLocation);
+        });
+
+        it('bumps VERSION to 17 when profilesState is missing', () => {
+            const newSettings = settingsService.migrateFrom16to17({ VERSION: '16' });
+
+            expect(newSettings.VERSION).toBe('17');
         });
     });
 });

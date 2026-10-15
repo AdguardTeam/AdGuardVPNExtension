@@ -40,8 +40,7 @@ export const App = observer(() => {
 
     const {
         canControlProxy,
-        isCurrentTabExcluded,
-        canBeExcluded,
+        isSiteExcluded,
         isVpnBlocked,
         isLimitedOfferActive,
         isAndroidBrowser,
@@ -320,8 +319,7 @@ export const App = observer(() => {
             shouldShowRegionNotice,
             isVpnBlocked,
             isLimitedOfferActive,
-            isCurrentTabExcluded,
-            canBeExcluded,
+            isSiteExcluded,
             canControlProxy,
             premiumPromoEnabled,
         });

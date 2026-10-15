@@ -1,20 +1,15 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { reactTranslator } from '../../../../common/reactTranslator';
-import { AnimationEvent } from '../../../constants';
 import { rootStore } from '../../../stores';
+import { ProfileSwitcher } from '../../Profiles/ProfileSwitcher';
 import { SiteInfo } from '../SiteInfo';
 import { Status } from '../Status';
 import { BackgroundAnimation } from '../BackgroundAnimation';
-import { animationService } from '../BackgroundAnimation/animationStateMachine';
 
 export const ExclusionsScreen = observer(() => {
     const { settingsStore } = useContext(rootStore);
-
-    useEffect(() => {
-        animationService.send(AnimationEvent.ExclusionScreenDisplayed);
-    });
 
     const removeFromExclusions = async (): Promise<void> => {
         await settingsStore.enableVpnOnCurrentTab();
@@ -34,6 +29,7 @@ export const ExclusionsScreen = observer(() => {
             <div className="settings__animation-overlay" />
             <div className="settings__main">
                 <Status />
+                <ProfileSwitcher />
                 <button
                     onClick={onBtnClick}
                     type="button"

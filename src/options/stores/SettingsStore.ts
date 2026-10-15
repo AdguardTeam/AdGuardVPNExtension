@@ -139,9 +139,17 @@ export class SettingsStore {
 
     @action public hidePremiumFeatures = async (): Promise<void> => {
         await messenger.setSetting(SETTINGS_IDS.PREMIUM_FEATURES_SHOW, false);
-        runInAction(() => {
-            this.premiumFeatures = false;
-        });
+        this.setPremiumFeatures(false);
+    };
+
+    /**
+     * Updates the local premium promo visibility; the setting itself is
+     * persisted elsewhere.
+     *
+     * @param value Whether the premium promo should be visible.
+     */
+    @action public setPremiumFeatures = (value: boolean): void => {
+        this.premiumFeatures = value;
     };
 
     @action public disableProxy = async (): Promise<void> => {
@@ -218,8 +226,8 @@ export class SettingsStore {
         await messenger.openPremiumPromoPage();
     };
 
-    @action public openPromoteSocialsPage = async (): Promise<void> => {
-        await messenger.openPromoteSocialsPage();
+    @action public openPremiumPromoPageFromSettings = async (): Promise<void> => {
+        await messenger.openPremiumPromoPageFromSettings();
     };
 
     @action public openHelpUsImproveModal = (): void => {

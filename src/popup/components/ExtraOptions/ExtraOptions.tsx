@@ -13,7 +13,6 @@ import { Prefs } from '../../../common/prefs';
 import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { RatePopup } from '../RatePopup';
 import { StatsMenuItem } from '../Stats';
-import { ProfilesMenuItem } from '../Profiles/ProfilesMenuItem';
 
 import { Option } from './Option';
 
@@ -104,20 +103,22 @@ export const ExtraOptions = observer(() => {
             {shouldShouldMobileEdgePromoMenuItem
                 && renderOption('popup_mobile_edge_promo_text', handleMobileEdgePromoClick)}
 
+            {renderOption('popup_settings_open_settings', openSettings)}
+
             {renderOption('popup_settings_other_products', handleOtherProductsClick)}
 
-            <ProfilesMenuItem />
-
-            {renderOption('popup_settings_open_settings', openSettings)}
+            {hasDesktopAppForOs
+                && renderOption(
+                    'popup_compare_button',
+                    openComparePage,
+                    'extra-options__item--compare extra-options__item--divided',
+                )}
 
             <StatsMenuItem />
 
-            {hasDesktopAppForOs
-                && renderOption('popup_compare_button', openComparePage, 'extra-options__item--compare')}
-
             {isRateVisible
                 ? <RatePopup />
-                : renderOption('popup_settings_feedback', handleFeedback)}
+                : renderOption('popup_settings_feedback', handleFeedback, 'extra-options__item--divided')}
         </Modal>
     );
 });

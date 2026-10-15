@@ -15,14 +15,16 @@ import {
     within,
 } from '@testing-library/react';
 
+const mockMessenger = vi.hoisted(() => ({
+    createProfile: vi.fn(),
+}));
+
 const mockPush = vi.hoisted(() => vi.fn());
+const mockSendCustomEvent = vi.hoisted(() => vi.fn());
+const mockSendPageViewEvent = vi.hoisted(() => vi.fn());
 
 vi.mock('react-router-dom', () => ({
     useHistory: () => ({ push: mockPush }),
-}));
-
-const mockMessenger = vi.hoisted(() => ({
-    createProfile: vi.fn(),
 }));
 
 vi.mock('../../../../src/common/messenger', () => ({
@@ -40,10 +42,16 @@ vi.mock('../../../../src/options/components/ui/ReactPortal', () => ({
     ReactPortal: ({ children }: { children: React.ReactNode }) => children,
 }));
 
-const { mockGetOptionsData, mockProfiles, mockNotifyError } = vi.hoisted(() => ({
+const {
+    mockGetOptionsData,
+    mockProfiles,
+    mockNotifyError,
+    mockNotifySuccess,
+} = vi.hoisted(() => ({
     mockGetOptionsData: vi.fn(),
     mockProfiles: [] as Array<{ id: string; name: string }>,
     mockNotifyError: vi.fn(),
+    mockNotifySuccess: vi.fn(),
 }));
 
 vi.mock('../../../../src/options/stores', () => {
@@ -52,10 +60,13 @@ vi.mock('../../../../src/options/stores', () => {
     const store = {
         globalStore: { getOptionsData: mockGetOptionsData },
         profilesStore: { profiles: mockProfiles },
-        notificationsStore: { notifyError: mockNotifyError },
+        notificationsStore: {
+            notifyError: mockNotifyError,
+            notifySuccess: mockNotifySuccess,
+        },
         telemetryStore: {
-            sendCustomEvent: vi.fn(),
-            sendPageViewEvent: vi.fn(),
+            sendCustomEvent: mockSendCustomEvent,
+            sendPageViewEvent: mockSendPageViewEvent,
         },
     };
 
@@ -145,7 +156,7 @@ describe('CreateProfileModal', () => {
         });
     });
 
-    it('should call getOptionsData and navigate on success', async () => {
+    it('should show the created snackbar with the open settings action', async () => {
         mockMessenger.createProfile.mockResolvedValueOnce({
             result: ProfileNameValidationResult.Ok,
             profileId: 'new-id',
@@ -162,6 +173,17 @@ describe('CreateProfileModal', () => {
         });
 
         expect(onClose).toHaveBeenCalled();
+        expect(mockNotifySuccess).toHaveBeenCalledWith(
+            'profile_created',
+            {
+                action: 'settings_profiles_open_settings',
+                handler: expect.any(Function),
+            },
+        );
+
+        // The snackbar action opens the created profile's settings.
+        const [, notificationAction] = mockNotifySuccess.mock.calls[0];
+        notificationAction.handler();
         expect(mockPush).toHaveBeenCalledWith('/profiles/new-id');
     });
 
@@ -203,5 +225,27 @@ describe('CreateProfileModal', () => {
         typeInInput(container, 'Work2');
         expect(within(container).queryByText('settings_profiles_error_duplicate_name')).toBeNull();
         expect(getSubmitButton(container).disabled).toBe(false);
+    });
+
+    it('should send the dialog page view and the create click telemetry', async () => {
+        mockMessenger.createProfile.mockResolvedValueOnce({
+            result: ProfileNameValidationResult.Ok,
+            profileId: 'new-id',
+        });
+        mockGetOptionsData.mockResolvedValueOnce(undefined);
+
+        const { container } = renderModal();
+
+        expect(mockSendPageViewEvent).toHaveBeenCalledWith('dialog_create_profile');
+
+        typeInInput(container, 'Test');
+        fireEvent.click(getSubmitButton(container));
+
+        await waitFor(() => {
+            expect(mockSendCustomEvent).toHaveBeenCalledWith(
+                'add_name_profiles_click',
+                'dialog_create_profile',
+            );
+        });
     });
 });

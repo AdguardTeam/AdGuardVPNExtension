@@ -1,6 +1,6 @@
 import { type Runtime } from 'webextension-polyfill';
 
-import { type VariantCache } from '../abTestManager/ABTestManager';
+import { type ExperimentSlotValues } from '../abTestManager/ABTestManager';
 
 import {
     type TelemetryScreenName,
@@ -9,12 +9,8 @@ import {
     type TelemetryLicenseStatus,
     type TelemetrySubscriptionDuration,
     type TelemetryTheme,
+    type TelemetryWebsiteExclusion,
 } from './telemetryEnums';
-
-/**
- * Fixed Plausible Analytics custom property slot identifier for A/B experiments.
- */
-export type ExperimentSlot = 'experiment_1' | 'experiment_2' | 'experiment_3';
 
 /**
  * User agent info.
@@ -119,6 +115,13 @@ export interface TelemetryProps {
      * Assigned variant for A/B experiment slot 3.
      */
     experiment_3?: string;
+
+    /**
+     * Website exclusions mode: OFF if there are no enabled exclusions in the
+     * currently selected mode, otherwise GENERAL or SELECTIVE depending on
+     * the current mode. Omitted when exclusions stats could not be read.
+     */
+    websiteExclusions?: TelemetryWebsiteExclusion;
 }
 
 /**
@@ -251,6 +254,7 @@ export interface TelemetryApiEventData {
         experiment_1?: TelemetryProps['experiment_1'];
         experiment_2?: TelemetryProps['experiment_2'];
         experiment_3?: TelemetryProps['experiment_3'];
+        website_exclusions?: TelemetryProps['websiteExclusions'];
     };
 }
 
@@ -288,37 +292,12 @@ export interface SessionStartRequest {
         logged_in?: boolean;
         license_status?: string;
         subscription_duration?: string;
+        website_exclusions?: TelemetryProps['websiteExclusions'];
     };
 
     /**
      * Map of experiment slots to experiment IDs for which no variant is currently cached.
      * Only unassigned slots are included.
      */
-    tests: VariantCache;
-}
-
-/**
- * Variant assignment returned by the /api/v1/session_start endpoint.
- */
-export interface SessionStartVariantAssignment {
-    /**
-     * The experiment identifier (matches what was sent in tests).
-     */
-    experiment_name: string;
-
-    /**
-     * The assigned variant identifier, stored in client cache and sent in event props.
-     */
-    version_name: string;
-}
-
-/**
- * Response from the /api/v1/session_start endpoint.
- */
-export interface SessionStartResponse {
-    /**
-     * Map of experiment slots to assigned variant info.
-     * Empty object when no experiments are active or the service is unavailable.
-     */
-    versions: Partial<Record<ExperimentSlot, SessionStartVariantAssignment>>;
+    tests: ExperimentSlotValues;
 }

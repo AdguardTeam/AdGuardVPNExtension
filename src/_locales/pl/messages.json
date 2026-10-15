@@ -147,8 +147,37 @@
     "privacy_policy": {
         "message": "Polityka prywatności"
     },
+    "settings_title": {
+        "message": "Ustawienia"
+    },
     "settings_general_title": {
-        "message": "Ogólne"
+        "message": "Ustawienia główne"
+    },
+    "settings_general_description": {
+        "message": "Zastosuj do wszystkich profili. Jeśli zmienisz profil, ustawienia pozostaną takie same"
+    },
+    "settings_current_profile": {
+        "message": "Aktualny profil: <b>%profile_name%</b>"
+    },
+    "settings_current_profile_description": {
+        "message": "Zastosuj do aktualnego profilu. Jeśli zmienisz profil, ustawienia również mogą się zmienić"
+    },
+    "settings_unlimited_promo_title": {
+        "message": "Zdobądź wersję Unlimited"
+    },
+    "settings_unlimited_promo_feature_speed": {
+        "message": "Streaming bez ograniczeń prędkości"
+    },
+    "settings_unlimited_promo_feature_locations": {
+        "message": "%count%+ bezpieczne lokalizacje | %count%+ bezpieczne lokalizacje | %count%+ bezpieczne lokalizacje | %count%+ bezpieczne lokalizacje",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_feature_devices": {
+        "message": "Do %count% urządzeń na jednym koncie | Do %count% urządzeń na jednym koncie | Do %count% urządzeń na jednym koncie | Do %count% urządzeń na jednym koncie",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_upgrade_button": {
+        "message": "Uaktualnij"
     },
     "referral_get_free_traffic": {
         "message": "Zdobądź darmowe GB!"
@@ -297,7 +326,7 @@
         "message": "Tryb selektywny"
     },
     "context_menu_general_mode": {
-        "message": "Protokół AdGuard VPN"
+        "message": "Tryb ogólny"
     },
     "context_menu_export_logs": {
         "message": "Eksportuj logi"
@@ -428,8 +457,8 @@
     "settings_quick_connect_title": {
         "message": "Szybkie łączenie"
     },
-    "settings_quick_connect_subtitle": {
-        "message": "Lokalizacja VPN wybrana po kliknięciu Połącz"
+    "settings_quick_connect_description": {
+        "message": "Domyślna lokalizacja VPN po przełączeniu na profil lub otwarciu przeglądarki"
     },
     "settings_quick_connect_last_used": {
         "message": "Ostatnio używana lokalizacja"
@@ -441,7 +470,7 @@
         "message": "Dodaj"
     },
     "settings_exclusion_add_website": {
-        "message": "Dodaj stronę"
+        "message": "Dodaj stronę internetową"
     },
     "settings_exclusion_actions": {
         "message": "Akcje"
@@ -539,8 +568,11 @@
     "settings_exclusion_title": {
         "message": "Wyjątki"
     },
-    "settings_location_label": {
-        "message": "Lokalizacja"
+    "settings_exclusion_general_state": {
+        "message": "VPN jest włączony wszędzie z wyjątkiem określonych stron internetowych"
+    },
+    "settings_exclusion_selective_state": {
+        "message": "VPN jest włączony tylko dla wybranych stron internetowych"
     },
     "settings_location_fastest_title": {
         "message": "Najszybsza lokalizacja"
@@ -548,14 +580,17 @@
     "settings_location_fastest_description": {
         "message": "Automatycznie Połącz z najszybszą lokalizacją"
     },
-    "settings_profiles_title": {
-        "message": "Profile"
+    "settings_location_last_used_description": {
+        "message": "Automatycznie połącz z ostatnio używaną lokalizacją"
     },
-    "settings_profiles_sidebar_title": {
-        "message": "Profil"
+    "settings_profiles_title": {
+        "message": "Zarządzaj profilami"
+    },
+    "settings_profiles_manage": {
+        "message": "Zarządzaj profilami"
     },
     "settings_profiles_subtitle": {
-        "message": "Umożliwia ustawienie serwerów DNS i lokalizacji oraz utrzymywanie oddzielnych list wykluczeń dla różnych zastosowań, takich jak praca, dom lub inne"
+        "message": "Używaj VPN w różnych scenariuszach, takich jak praca, dom, dzieci czy inne. Utwórz profil i skonfiguruj dla niego preferowaną lokalizację, serwer DNS oraz wykluczenia"
     },
     "settings_profiles_default_name": {
         "message": "Tryb domyślny"
@@ -573,7 +608,10 @@
         "message": "Usuń"
     },
     "settings_profiles_create": {
-        "message": "Utwórz"
+        "message": "Utwórz profil"
+    },
+    "settings_profiles_open_settings": {
+        "message": "Otwórz ustawienia"
     },
     "settings_profiles_create_modal_title": {
         "message": "Utwórz profil"
@@ -616,9 +654,6 @@
     },
     "settings_profiles_delete_modal_submit": {
         "message": "Usuń"
-    },
-    "settings_description_current": {
-        "message": "Bieżące: %mode%"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Gdzie VPN jest włączony"
@@ -695,14 +730,23 @@
     "popup_settings_stats": {
         "message": "Statystyki"
     },
-    "popup_profiles_title": {
-        "message": "Profile"
-    },
-    "popup_profiles_settings": {
-        "message": "Ustawienia"
-    },
     "profile_apply_error": {
         "message": "Nie udało się przełączyć profilów. Spróbuj ponownie lub skontaktuj się ze wsparciem"
+    },
+    "profile_switched": {
+        "message": "Przełączono na %profile_name%"
+    },
+    "profile_created": {
+        "message": "Utworzono profil"
+    },
+    "profile_deleted": {
+        "message": "Profil usunięty"
+    },
+    "profile_deleted_switched": {
+        "message": "Profil usunięty. Przełączono na %profile_name%"
+    },
+    "profile_name_updated": {
+        "message": "Nazwa profilu została zaktualizowana"
     },
     "popup_settings_free_description": {
         "message": "Dostępne w AdGuard VPN Unlimited"
@@ -876,7 +920,7 @@
         "message": "Zostaw opinię"
     },
     "popup_compare_button": {
-        "message": "Dlaczego aplikacja jest lepsza"
+        "message": "Dlaczego aplikacja desktop jest lepsza"
     },
     "popup_rate_modal_title": {
         "message": "Jak niesamowity jest AdGuard VPN?"

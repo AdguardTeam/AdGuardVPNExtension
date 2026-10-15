@@ -147,8 +147,37 @@
     "privacy_policy": {
         "message": "Gizlilik Politikası"
     },
+    "settings_title": {
+        "message": "Ayarlar"
+    },
     "settings_general_title": {
-        "message": "Genel"
+        "message": "Genel ayarlar"
+    },
+    "settings_general_description": {
+        "message": "Tüm profillere uygulanır. Profili değiştirirseniz, ayarlar aynı kalır"
+    },
+    "settings_current_profile": {
+        "message": "Mevcut profil: <b>%profile_name%</b>"
+    },
+    "settings_current_profile_description": {
+        "message": "Mevcut profile uygulayın. Profili değiştirirseniz, ayarlar da değişebilir"
+    },
+    "settings_unlimited_promo_title": {
+        "message": "Sınırsız sürümü edinin"
+    },
+    "settings_unlimited_promo_feature_speed": {
+        "message": "Hız sınırı olmadan canlı yayın akışı"
+    },
+    "settings_unlimited_promo_feature_locations": {
+        "message": "%count%+ güvenli konumlar | %count%+ güvenli konum",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_feature_devices": {
+        "message": "Bir hesapta en fazla %count% cihaz | Bir hesapta en fazla %count% cihaz",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_upgrade_button": {
+        "message": "Yükselt"
     },
     "referral_get_free_traffic": {
         "message": "Ücretsiz GB'lar edinin!"
@@ -428,8 +457,8 @@
     "settings_quick_connect_title": {
         "message": "Hızlı bağlantı"
     },
-    "settings_quick_connect_subtitle": {
-        "message": "Bağlan öğesine tıkladığınızda seçilen VPN konumu"
+    "settings_quick_connect_description": {
+        "message": "Profile geçtiğinizde veya tarayıcıyı açtığınızda varsayılan VPN konumu"
     },
     "settings_quick_connect_last_used": {
         "message": "Son kullanılan konum"
@@ -539,8 +568,11 @@
     "settings_exclusion_title": {
         "message": "İstisnalar"
     },
-    "settings_location_label": {
-        "message": "Konum"
+    "settings_exclusion_general_state": {
+        "message": "VPN, belirli siteler dışında her yerde açık"
+    },
+    "settings_exclusion_selective_state": {
+        "message": "VPN, yalnızca seçili siteler için açık"
     },
     "settings_location_fastest_title": {
         "message": "En hızlı konum"
@@ -548,14 +580,17 @@
     "settings_location_fastest_description": {
         "message": "En hızlı konuma otomatik olarak bağlanır"
     },
-    "settings_profiles_title": {
-        "message": "Profiller"
+    "settings_location_last_used_description": {
+        "message": "En son kullanılan konuma otomatik olarak bağlan"
     },
-    "settings_profiles_sidebar_title": {
-        "message": "Profil"
+    "settings_profiles_title": {
+        "message": "Profilleri yönet"
+    },
+    "settings_profiles_manage": {
+        "message": "Profilleri yönet"
     },
     "settings_profiles_subtitle": {
-        "message": "DNS sunucularını ve konumlarını ayarlamanıza ve iş, ev veya diğer gibi farklı kullanım durumları için ayrı istisna listeleri belirlemenizi sağlar"
+        "message": "İş, ev, çocuklar veya diğerleri gibi farklı senaryolar için VPN kullanın. Bir profil oluşturun ve bunun için tercih edilen bir konum, DNS sunucusu ve istisnalar ayarlayın"
     },
     "settings_profiles_default_name": {
         "message": "Varsayılan"
@@ -573,7 +608,10 @@
         "message": "Sil"
     },
     "settings_profiles_create": {
-        "message": "Oluştur"
+        "message": "Profil oluştur"
+    },
+    "settings_profiles_open_settings": {
+        "message": "Ayarları aç"
     },
     "settings_profiles_create_modal_title": {
         "message": "Profil oluştur"
@@ -616,9 +654,6 @@
     },
     "settings_profiles_delete_modal_submit": {
         "message": "Sil"
-    },
-    "settings_description_current": {
-        "message": "Şu anki: %mode%"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "VPN'nin açık olduğu yer"
@@ -695,14 +730,23 @@
     "popup_settings_stats": {
         "message": "İstatistikler"
     },
-    "popup_profiles_title": {
-        "message": "Profiller"
-    },
-    "popup_profiles_settings": {
-        "message": "Ayarlar"
-    },
     "profile_apply_error": {
         "message": "Profil değiştirilemedi. Tekrar deneyin veya destek ile iletişime geçin"
+    },
+    "profile_switched": {
+        "message": "%profile_name% profiline geçildi"
+    },
+    "profile_created": {
+        "message": "Profil oluşturuldu"
+    },
+    "profile_deleted": {
+        "message": "Profil silindi"
+    },
+    "profile_deleted_switched": {
+        "message": "Profil silindi. %profile_name% profiline geçtiniz"
+    },
+    "profile_name_updated": {
+        "message": "Profil adı güncellendi"
     },
     "popup_settings_free_description": {
         "message": "AdGuard VPN Unlimited'da mevcuttur"
@@ -876,7 +920,7 @@
         "message": "Geri bildirimde bulun"
     },
     "popup_compare_button": {
-        "message": "Uygulama neden daha iyi"
+        "message": "Masaüstü uygulaması neden daha iyi"
     },
     "popup_rate_modal_title": {
         "message": "AdGuard VPN ne kadar harika?"

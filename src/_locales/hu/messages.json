@@ -147,8 +147,37 @@
     "privacy_policy": {
         "message": "Adatvédelmi irányelvek"
     },
+    "settings_title": {
+        "message": "Beállítások"
+    },
     "settings_general_title": {
-        "message": "Általános"
+        "message": "Általános beállítások"
+    },
+    "settings_general_description": {
+        "message": "Alkalmazás az összes profilra. Ha profilt vált, a beállítások változatlanok maradnak"
+    },
+    "settings_current_profile": {
+        "message": "Jelenlegi profil: <b>%profile_name%</b>"
+    },
+    "settings_current_profile_description": {
+        "message": "Alkalmazás a jelenlegi profilra. Ha profilt vált, a beállítások is megváltozhatnak"
+    },
+    "settings_unlimited_promo_title": {
+        "message": "Szerezze meg a korlátlan verziót"
+    },
+    "settings_unlimited_promo_feature_speed": {
+        "message": "Streamelés sebességkorlátozás nélkül"
+    },
+    "settings_unlimited_promo_feature_locations": {
+        "message": "%count%+ biztonságos helyek | %count%+ biztonságos hely | %count%+ biztonságos helyek",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_feature_devices": {
+        "message": "Akár %count% eszköz egy fiókon | Akár %count% eszköz egy fiókon | Akár %count% eszköz egy fiókon",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_upgrade_button": {
+        "message": "Frissítés"
     },
     "referral_get_free_traffic": {
         "message": "Szerezz ingyenes GB-okat!"
@@ -297,7 +326,7 @@
         "message": "Szelektív mód"
     },
     "context_menu_general_mode": {
-        "message": "Általános mód"
+        "message": " Szokásos mód"
     },
     "context_menu_export_logs": {
         "message": "Naplók exportálása"
@@ -428,8 +457,8 @@
     "settings_quick_connect_title": {
         "message": "Gyors csatlakozás"
     },
-    "settings_quick_connect_subtitle": {
-        "message": "A Csatlakozás gombra kattintva kiválasztott VPN-hely"
+    "settings_quick_connect_description": {
+        "message": "Alapértelmezett VPN-hely, amikor profilra vált vagy megnyitja a böngészőt"
     },
     "settings_quick_connect_last_used": {
         "message": "Utoljára használt hely"
@@ -539,8 +568,11 @@
     "settings_exclusion_title": {
         "message": "Kivételek"
     },
-    "settings_location_label": {
-        "message": "Helyzet"
+    "settings_exclusion_general_state": {
+        "message": "A VPN mindenhol be van kapcsolva, kivéve bizonyos weboldalakon"
+    },
+    "settings_exclusion_selective_state": {
+        "message": "A VPN csak a kiválasztott weboldalakon van bekapcsolva"
     },
     "settings_location_fastest_title": {
         "message": "Leggyorsabb hely"
@@ -548,14 +580,17 @@
     "settings_location_fastest_description": {
         "message": "Automatikus csatlakozás a leggyorsabb helyhez"
     },
-    "settings_profiles_title": {
-        "message": "Profilok"
+    "settings_location_last_used_description": {
+        "message": "Automatikus csatlakozás a legutóbb használt helyhez"
     },
-    "settings_profiles_sidebar_title": {
-        "message": "Profil"
+    "settings_profiles_title": {
+        "message": "Profilok kezelése"
+    },
+    "settings_profiles_manage": {
+        "message": "Profilok kezelése"
     },
     "settings_profiles_subtitle": {
-        "message": "Lehetővé teszi a DNS szerverek és helyek beállítását és külön kizárási listák fenntartását különböző felhasználási esetekhez, mint például munka, otthon vagy egyéb"
+        "message": "Használja a VPN-t különböző helyzetekben, például munkához, otthon, gyermekek számára vagy egyéb esetekben. Hozzon létre egy profilt, és állítson be hozzá egy előnyben részesített helyet, DNS-szervert és kivételeket"
     },
     "settings_profiles_default_name": {
         "message": "Alapértelmezett"
@@ -573,7 +608,10 @@
         "message": "Törlés"
     },
     "settings_profiles_create": {
-        "message": "Teremt"
+        "message": "Profil létrehozása"
+    },
+    "settings_profiles_open_settings": {
+        "message": "Beállítások megnyitása"
     },
     "settings_profiles_create_modal_title": {
         "message": "Profil létrehozása"
@@ -616,9 +654,6 @@
     },
     "settings_profiles_delete_modal_submit": {
         "message": "Törlés"
-    },
-    "settings_description_current": {
-        "message": "Jelenlegi: %mode%"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Ahol a VPN be van kapcsolva"
@@ -695,14 +730,23 @@
     "popup_settings_stats": {
         "message": "Statisztika"
     },
-    "popup_profiles_title": {
-        "message": "Profilok"
-    },
-    "popup_profiles_settings": {
-        "message": "Beállítások"
-    },
     "profile_apply_error": {
         "message": "Nem sikerült a profilok közötti váltás. Próbálja újra, vagy lépjen kapcsolatba az ügyfélszolgálattal"
+    },
+    "profile_switched": {
+        "message": "Átváltva erre: %profile_name%"
+    },
+    "profile_created": {
+        "message": "Profil létrehozva"
+    },
+    "profile_deleted": {
+        "message": "Profil törölve"
+    },
+    "profile_deleted_switched": {
+        "message": "Profil törölve. Átváltva erre: %profile_name%"
+    },
+    "profile_name_updated": {
+        "message": "Profilnév frissítve"
     },
     "popup_settings_free_description": {
         "message": "Elérhető az AdGuard VPN Unlimitedben"
@@ -876,7 +920,7 @@
         "message": "Visszajelzés küldése"
     },
     "popup_compare_button": {
-        "message": "Miért jobb az alkalmazás"
+        "message": "Miért jobb az asztali alkalmazás"
     },
     "popup_rate_modal_title": {
         "message": "Mennyire lenyűgöző az AdGuard VPN?"

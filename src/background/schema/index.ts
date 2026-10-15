@@ -70,9 +70,8 @@ export {
     exclusionsServicesManagerScheme,
     type ServicesManagerState,
     SERVICES_DEFAULTS,
-    exclusionsStateScheme,
-    type ExclusionsState,
-    EXCLUSIONS_STATE_DEFAULTS,
+    exclusionsSnapshotScheme,
+    type ExclusionsSnapshot,
 } from './exclusions';
 
 export {
@@ -102,6 +101,9 @@ export {
     type ProfilesState,
     PROFILES_STATE_DEFAULTS,
     DEFAULT_PROFILE_SETTINGS,
+    profileSessionStateScheme,
+    type ProfileSessionState,
+    PROFILE_SESSION_STATE_DEFAULTS,
 } from './profiles';
 
 export {

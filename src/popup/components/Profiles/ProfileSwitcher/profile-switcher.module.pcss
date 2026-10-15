@@ -1,0 +1,57 @@
+.root {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+    margin-bottom: 24px;
+}
+
+/*
+ * Passed to ProfileMenu: the menu grows upwards from the switcher and is capped
+ * by the screen height so it never goes off-screen. `100%` is the switcher
+ * height, the constant is the block below it (connect button, exclusion link)
+ * plus the free space above the switcher.
+ */
+.menu {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: var(--profile-menu-z-index);
+    max-height: calc(100dvh - 100% - 300px);
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+    max-width: 100%;
+    padding: 0px 16px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: var(--text-over-background);
+    font-family: var(--font-stack);
+    font-size: 1.4rem;
+    line-height: 1.3;
+    border-radius: 8px;
+    transition: var(--t3) background-color;
+
+    @media (--hover) {
+        &:hover {
+            background-color: var(--shadow-0-1);
+        }
+    }
+
+    &:active {
+        background-color: var(--shadow-0-1);
+    }
+}
+
+.name {
+    /* Allows the flex child to shrink so that the ellipsis works. */
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

@@ -147,8 +147,37 @@
     "privacy_policy": {
         "message": "Politică Intimitate"
     },
+    "settings_title": {
+        "message": "Setări"
+    },
     "settings_general_title": {
-        "message": "General"
+        "message": "Setări Generale"
+    },
+    "settings_general_description": {
+        "message": "Aplică pentru toate profilurile. Dacă schimbați profilul, setările vor rămâne aceleași"
+    },
+    "settings_current_profile": {
+        "message": "Profil curent: <b>%profile_name%</b>"
+    },
+    "settings_current_profile_description": {
+        "message": "Aplică pentru profilul curent. Dacă schimbați profilul, este posibil ca setările să se schimbe și ele"
+    },
+    "settings_unlimited_promo_title": {
+        "message": "Obțineți versiunea nelimitată"
+    },
+    "settings_unlimited_promo_feature_speed": {
+        "message": "Streaming fără limite de viteză"
+    },
+    "settings_unlimited_promo_feature_locations": {
+        "message": "%count%+ locații securizate | %count%+ locație securizată | %count%+ locații securizate | %count%+ locații securizate",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_feature_devices": {
+        "message": "Până la %count% dispozitive pe un singur cont | Până la %count% dispozitiv pe un singur cont | Până la %count% dispozitive pe un singur cont | Până la %count% dispozitive pe un singur cont",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_upgrade_button": {
+        "message": "Actualizați"
     },
     "referral_get_free_traffic": {
         "message": "Obțineți GB gratuit!"
@@ -428,8 +457,8 @@
     "settings_quick_connect_title": {
         "message": "Conectare rapidă"
     },
-    "settings_quick_connect_subtitle": {
-        "message": "Locația VPN se selecteaza atunci când faceți clic pe Conectare"
+    "settings_quick_connect_description": {
+        "message": "Locația VPN implicită când comutați la profil sau deschideți browserul"
     },
     "settings_quick_connect_last_used": {
         "message": "Ultima locație utilizată"
@@ -539,8 +568,11 @@
     "settings_exclusion_title": {
         "message": "Excluderi"
     },
-    "settings_location_label": {
-        "message": "Locația"
+    "settings_exclusion_general_state": {
+        "message": "VPN este activat peste tot, cu excepția unor site-uri web specifice"
+    },
+    "settings_exclusion_selective_state": {
+        "message": "VPN este activat numai pentru site-urile web selectate"
     },
     "settings_location_fastest_title": {
         "message": "Cea mai rapidă locație"
@@ -548,14 +580,17 @@
     "settings_location_fastest_description": {
         "message": "Conectează-te automat la cea mai rapidă locație"
     },
-    "settings_profiles_title": {
-        "message": "Profiluri"
+    "settings_location_last_used_description": {
+        "message": "Conectează-te automat la ultima locație utilizată"
     },
-    "settings_profiles_sidebar_title": {
-        "message": "Profil"
+    "settings_profiles_title": {
+        "message": "Gestionați profilurile"
+    },
+    "settings_profiles_manage": {
+        "message": "Gestionați profilurile"
     },
     "settings_profiles_subtitle": {
-        "message": "Vă permite să setați servere DNS și locații și să mențineți liste de excluderi separate pentru diferite cazuri de utilizare, cum ar fi serviciu, acasă sau altele"
+        "message": "Utilizați VPN pentru diferite scenarii, cum ar fi serviciu, acasă, copii sau altele. Creați un profil și setați o locație preferată, un server DNS și excluderi pentru acesta"
     },
     "settings_profiles_default_name": {
         "message": "Implicit"
@@ -573,7 +608,10 @@
         "message": "Ștergere"
     },
     "settings_profiles_create": {
-        "message": "Creați"
+        "message": "Creați profil"
+    },
+    "settings_profiles_open_settings": {
+        "message": "Accesați setările"
     },
     "settings_profiles_create_modal_title": {
         "message": "Creați profil"
@@ -616,9 +654,6 @@
     },
     "settings_profiles_delete_modal_submit": {
         "message": "Ștergere"
-    },
-    "settings_description_current": {
-        "message": "Curent: %mode%"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Unde este activat VPN-ul"
@@ -695,14 +730,23 @@
     "popup_settings_stats": {
         "message": "Statistici"
     },
-    "popup_profiles_title": {
-        "message": "Profiluri"
-    },
-    "popup_profiles_settings": {
-        "message": "Setări"
-    },
     "profile_apply_error": {
         "message": "Nu s-a reușit comutarea profilurilor. Încercați din nou sau contactați suportul"
+    },
+    "profile_switched": {
+        "message": "Comutat la %profile_name%"
+    },
+    "profile_created": {
+        "message": "Profil creat"
+    },
+    "profile_deleted": {
+        "message": "Profil șters"
+    },
+    "profile_deleted_switched": {
+        "message": "Profil șters. Ați fost comutat la %profile_name%"
+    },
+    "profile_name_updated": {
+        "message": "Numele profilului a fost actualizat"
     },
     "popup_settings_free_description": {
         "message": "Disponibil în AdGuard VPN Unlimited"
@@ -876,7 +920,7 @@
         "message": "Lasă-ți un feedback"
     },
     "popup_compare_button": {
-        "message": "De ce este mai bună aplicația"
+        "message": "De ce este mai bună aplicația desktop"
     },
     "popup_rate_modal_title": {
         "message": "Cât de grozav este AdGuard VPN?"

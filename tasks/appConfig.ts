@@ -92,6 +92,8 @@ const COMMON_URL_QUERIES = {
     EULA: 'action=eula&from=popup&app=vpn_extension',
     // Upgrade license
     UPGRADE_LICENSE: 'action=buy_license&from=popup&app=vpn_extension',
+    // Upgrade license from settings screens
+    UPGRADE_LICENSE_SETTINGS: 'action=buy_license&from=settings&app=vpn_extension',
     // Get subscription
     SUBSCRIBE: 'action=subscribe&from=popup_connections_limit&app=vpn_extension',
     // Limited Offer
@@ -124,8 +126,6 @@ const COMMON_URL_QUERIES = {
     // AG-25941
     VPN_BLOCKED_GET_APP: 'action=vpn_blocked_get_app&from=popup&app=vpn_extension',
     VPN_BLOCKED_GET_APP_LINUX: 'action=vpn_blocked_get_app_linux&from=popup&app=vpn_extension',
-    // Promote on socials
-    PROMOTE_SOCIALS: 'action=vpn_mentions_for_gbs&from=options_screen&app=vpn_extension',
 };
 
 /**

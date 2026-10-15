@@ -147,8 +147,37 @@
     "privacy_policy": {
         "message": "Politica sulla Riservatezza"
     },
+    "settings_title": {
+        "message": "Impostazioni"
+    },
     "settings_general_title": {
-        "message": "Generale"
+        "message": "Impostazioni generali"
+    },
+    "settings_general_description": {
+        "message": "Applica a tutti i profili. Se modifichi il profilo, le impostazioni rimarranno invariate"
+    },
+    "settings_current_profile": {
+        "message": "Profilo attuale: <b>%profile_name%</b>"
+    },
+    "settings_current_profile_description": {
+        "message": "Applica al profilo attuale. Se cambi il profilo, anche le impostazioni potrebbero cambiare"
+    },
+    "settings_unlimited_promo_title": {
+        "message": "Ottieni versione illimitata"
+    },
+    "settings_unlimited_promo_feature_speed": {
+        "message": "Streaming senza limiti di velocità"
+    },
+    "settings_unlimited_promo_feature_locations": {
+        "message": "%count%+ posizioni sicure | %count%+ posizione sicura | %count%+ posizioni sicure",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_feature_devices": {
+        "message": "Fino a %count% dispositivi per account | Fino a %count% dispositivo per account | Fino a %count% dispositivi per account",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_upgrade_button": {
+        "message": "Aggiorna"
     },
     "referral_get_free_traffic": {
         "message": "Ottieni GB gratuiti!"
@@ -428,8 +457,8 @@
     "settings_quick_connect_title": {
         "message": "Connessione rapida"
     },
-    "settings_quick_connect_subtitle": {
-        "message": "Posizione VPN selezionata quando fai clic su Connetti"
+    "settings_quick_connect_description": {
+        "message": "Posizione VPN predefinita quando si passa al profilo o si apre il browser"
     },
     "settings_quick_connect_last_used": {
         "message": "Ultima posizione utilizzata"
@@ -539,8 +568,11 @@
     "settings_exclusion_title": {
         "message": "Esclusioni"
     },
-    "settings_location_label": {
-        "message": "Locazione"
+    "settings_exclusion_general_state": {
+        "message": "La VPN è attiva ovunque eccetto i siti web specifici"
+    },
+    "settings_exclusion_selective_state": {
+        "message": "La VPN è attiva solo per alcuni siti web selezionati"
     },
     "settings_location_fastest_title": {
         "message": "Connessione ultraveloce"
@@ -548,14 +580,17 @@
     "settings_location_fastest_description": {
         "message": "Connessione automatica alla posizione più veloce"
     },
-    "settings_profiles_title": {
-        "message": "Profili"
+    "settings_location_last_used_description": {
+        "message": "Connessione automatica all'ultima posizione utilizzata"
     },
-    "settings_profiles_sidebar_title": {
-        "message": "Profilo"
+    "settings_profiles_title": {
+        "message": "Gestisci i profili"
+    },
+    "settings_profiles_manage": {
+        "message": "Gestisci i profili"
     },
     "settings_profiles_subtitle": {
-        "message": "Consente di impostare server DNS e posizioni e mantenere elenchi di esclusione separati per diversi casi d'uso, come lavoro, casa o altri"
+        "message": "Utilizza la VPN in diversi contesti, come il lavoro, la casa, i bambini o altro. Crea un profilo e configura la posizione preferita, il server DNS e le esclusioni per quel profilo"
     },
     "settings_profiles_default_name": {
         "message": "Predefinito"
@@ -573,7 +608,10 @@
         "message": "Elimina"
     },
     "settings_profiles_create": {
-        "message": "Crea"
+        "message": "Crea profilo"
+    },
+    "settings_profiles_open_settings": {
+        "message": "Apri impostazioni"
     },
     "settings_profiles_create_modal_title": {
         "message": "Crea profilo"
@@ -616,9 +654,6 @@
     },
     "settings_profiles_delete_modal_submit": {
         "message": "Elimina"
-    },
-    "settings_description_current": {
-        "message": "Attuale: %mode%"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Dove la VPN è attiva"
@@ -695,14 +730,23 @@
     "popup_settings_stats": {
         "message": "Statistiche"
     },
-    "popup_profiles_title": {
-        "message": "Profili"
-    },
-    "popup_profiles_settings": {
-        "message": "Impostazioni"
-    },
     "profile_apply_error": {
         "message": "Impossibile cambiare profilo. Riprova o contatta l'assistenza"
+    },
+    "profile_switched": {
+        "message": "Passato a %profile_name%"
+    },
+    "profile_created": {
+        "message": "Profilo creato"
+    },
+    "profile_deleted": {
+        "message": "Profilo eliminato"
+    },
+    "profile_deleted_switched": {
+        "message": "Profilo eliminato. Sei passato a %profile_name%"
+    },
+    "profile_name_updated": {
+        "message": "Nome del profilo aggiornato"
     },
     "popup_settings_free_description": {
         "message": "Disponibile in AdGuard VPN Unlimited"
@@ -802,7 +846,7 @@
         "message": "Controlla AdGuard VPN Unlimited. Con il piano annuale, risparmia il 67%%"
     },
     "popup_paywall_b_column_free": {
-        "message": "Gratis",
+        "message": "Gratuito",
         "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
     },
     "popup_paywall_b_column_unlimited": {
@@ -876,7 +920,7 @@
         "message": "Lascia feedback"
     },
     "popup_compare_button": {
-        "message": "Perché l'app è migliore"
+        "message": "Perché l'app desktop è migliore"
     },
     "popup_rate_modal_title": {
         "message": "AdGuard VPN e fantastico, vero?"

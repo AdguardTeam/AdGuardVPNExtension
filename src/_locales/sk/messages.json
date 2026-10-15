@@ -147,8 +147,37 @@
     "privacy_policy": {
         "message": "Pravidlá ochrany súkromia"
     },
+    "settings_title": {
+        "message": "Nastavenia"
+    },
     "settings_general_title": {
-        "message": "Všeobecné"
+        "message": "Všeobecné nastavenia"
+    },
+    "settings_general_description": {
+        "message": "Použiť na všetky profily. Ak zmeníte profil, nastavenia zostanú rovnaké"
+    },
+    "settings_current_profile": {
+        "message": "Aktuálny profil: <b>%profile_name%</b>"
+    },
+    "settings_current_profile_description": {
+        "message": "Použiť na aktuálny profil. Ak zmeníte profil, môžu sa zmeniť aj nastavenia"
+    },
+    "settings_unlimited_promo_title": {
+        "message": "Získajte neobmedzenú verziu"
+    },
+    "settings_unlimited_promo_feature_speed": {
+        "message": "Streamovanie bez obmedzenia rýchlosti"
+    },
+    "settings_unlimited_promo_feature_locations": {
+        "message": "%count%+ zabezpečené lokality | %count%+ zabezpečená lokalita | %count%+ zabezpečené lokality | %count%+ zabezpečené lokality",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_feature_devices": {
+        "message": "Až %count% zariadení na jednom účte | Až %count% zariadenie na jednom účte | Až %count% zariadení na jednom účte | Až %count% zariadení na jednom účte",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_upgrade_button": {
+        "message": "Aktualizácia"
     },
     "referral_get_free_traffic": {
         "message": "Získajte bezplatné GB!"
@@ -428,8 +457,8 @@
     "settings_quick_connect_title": {
         "message": "Rýchle pripojenie"
     },
-    "settings_quick_connect_subtitle": {
-        "message": "Lokalita VPN vybraná po kliknutí na tlačidlo Pripojiť"
+    "settings_quick_connect_description": {
+        "message": "Predvolená lokalita VPN, keď prepnete na profil alebo otvoríte prehliadač"
     },
     "settings_quick_connect_last_used": {
         "message": "Naposledy použitá lokalita"
@@ -441,7 +470,7 @@
         "message": "Pridať"
     },
     "settings_exclusion_add_website": {
-        "message": "Pridať výnimku"
+        "message": "Pridať webovú stránku"
     },
     "settings_exclusion_actions": {
         "message": "Akcie"
@@ -539,8 +568,11 @@
     "settings_exclusion_title": {
         "message": "Výnimky"
     },
-    "settings_location_label": {
-        "message": "Poloha"
+    "settings_exclusion_general_state": {
+        "message": "VPN je zapnutá všade okrem konkrétnych webových stránok"
+    },
+    "settings_exclusion_selective_state": {
+        "message": "VPN je zapnutá iba pre vybrané webové stránky"
     },
     "settings_location_fastest_title": {
         "message": "Najrýchlejšia lokalita"
@@ -548,14 +580,17 @@
     "settings_location_fastest_description": {
         "message": "Automatické pripojenie k najrýchlejšej lokalite"
     },
-    "settings_profiles_title": {
-        "message": "Profily"
+    "settings_location_last_used_description": {
+        "message": "Automatické pripojenie k naposledy použitej lokalite"
     },
-    "settings_profiles_sidebar_title": {
-        "message": "Profil"
+    "settings_profiles_title": {
+        "message": "Spravovať profily"
+    },
+    "settings_profiles_manage": {
+        "message": "Spravovať profily"
     },
     "settings_profiles_subtitle": {
-        "message": "Umožňuje nastaviť DNS servery a lokality a uchovávať samostatné zoznamy výnimiek pre rôzne prípady použitia, ako napríklad práca, domov alebo iné"
+        "message": "VPN môžete využívať v rôznych situáciách, napríklad v práci, doma, pre deti alebo v iných prípadoch. Vytvorte si profil a nastavte si v ňom preferovanú lokalitu, DNS server a výnimky"
     },
     "settings_profiles_default_name": {
         "message": "Predvolené"
@@ -573,7 +608,10 @@
         "message": "Vymazať"
     },
     "settings_profiles_create": {
-        "message": "Vytvoriť"
+        "message": "Vytvoriť profil"
+    },
+    "settings_profiles_open_settings": {
+        "message": "Otvoriť nastavenia"
     },
     "settings_profiles_create_modal_title": {
         "message": "Vytvoriť profil"
@@ -616,9 +654,6 @@
     },
     "settings_profiles_delete_modal_submit": {
         "message": "Vymazať"
-    },
-    "settings_description_current": {
-        "message": "Aktuálne: %mode%"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Kde je zapnutá sieť VPN"
@@ -695,14 +730,23 @@
     "popup_settings_stats": {
         "message": "Štatistiky"
     },
-    "popup_profiles_title": {
-        "message": "Profily"
-    },
-    "popup_profiles_settings": {
-        "message": "Nastavenia"
-    },
     "profile_apply_error": {
         "message": "Prepnutie profilu zlyhalo. Skúste to znova alebo kontaktujte podporu."
+    },
+    "profile_switched": {
+        "message": "Prepnuté na %profile_name%"
+    },
+    "profile_created": {
+        "message": "Profil bol vytvorený"
+    },
+    "profile_deleted": {
+        "message": "Profil bol odstránený"
+    },
+    "profile_deleted_switched": {
+        "message": "Profil bol odstránený. Prepli ste na%profile_name%"
+    },
+    "profile_name_updated": {
+        "message": "Názov profilu bol aktualizovaný"
     },
     "popup_settings_free_description": {
         "message": "Dostupné v AdGuard VPN Unlimited"
@@ -802,11 +846,11 @@
         "message": "Vyskúšajte AdGuard VPN Unlimited. S ročným plánom ušetríte až 67%%"
     },
     "popup_paywall_b_column_free": {
-        "message": "Bezplatný",
+        "message": "Štandardný účet",
         "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
     },
     "popup_paywall_b_column_unlimited": {
-        "message": "Prémiový",
+        "message": "Prémiový účet",
         "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
     },
     "popup_paywall_b_row_vpn_data": {
@@ -876,7 +920,7 @@
         "message": "Zanechajte spätnú väzbu"
     },
     "popup_compare_button": {
-        "message": "Prečo je aplikácia lepšia"
+        "message": "Prečo je desktopová aplikácia lepšia"
     },
     "popup_rate_modal_title": {
         "message": "Ako úžasná je AdGuard VPN?"

@@ -191,6 +191,10 @@ export class GlobalStore {
         } = rootStore;
 
         this.setInitStatus(RequestStatus.Pending);
+        // A profile switch can commit while the snapshot is loading: the popup
+        // re-reads the live state below, and the animation stays quiet until the
+        // initialization finishes.
+        settingsStore.startInit();
 
         // Used tab api because calling tab api from background returns wrong result
         const tab = await tabs.getCurrent();
@@ -206,6 +210,7 @@ export class GlobalStore {
 
             if (!isAuthenticatedPopupData(popupData)) {
                 await authStore.getAuthCacheFromBackground();
+                settingsStore.finishInit();
                 this.setInitStatus(RequestStatus.Done);
                 return;
             }
@@ -271,6 +276,7 @@ export class GlobalStore {
             authStore.setShowHintPopup(shouldShowHintPopup);
             authStore.setMarketingConsent(marketingConsent ?? false);
             settingsStore.setCanControlProxy(canControlProxy);
+            settingsStore.setIsExcluded(!isVpnEnabledByUrl);
             settingsStore.setConnectivityState(connectivityState);
             settingsStore.setIsRoutable(isRoutable);
             settingsStore.setIsVpnBlocked(isVpnBlocked);
@@ -295,12 +301,14 @@ export class GlobalStore {
             await settingsStore.checkRateStatus();
             await settingsStore.getExclusionsInverted(activeProfileId);
             await settingsStore.getCurrentTabHostname();
-            settingsStore.setIsExcluded(!isVpnEnabledByUrl);
+            await settingsStore.reconcileExclusionsWithActiveProfile(activeProfileId);
             uiStore.setExperimentVariants(experimentVariants);
+            settingsStore.finishInit();
 
             this.setInitStatus(RequestStatus.Done);
         } catch (e) {
             log.error('[vpn.GlobalStore.getPopupData]: ', e.message);
+            settingsStore.finishInit();
             this.setInitStatus(RequestStatus.Error);
             throw e;
         }

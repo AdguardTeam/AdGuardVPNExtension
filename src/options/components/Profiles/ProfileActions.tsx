@@ -1,13 +1,11 @@
-import React, { useContext, useState, type ReactElement } from 'react';
+import React, { useContext, type ReactElement } from 'react';
 import { observer } from 'mobx-react';
 
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { translator } from '../../../common/translator';
 import { isDefaultProfileId } from '../../../common/profiles';
 import { type ActionMenuItem, ActionMenu } from '../../../common/components/ActionMenu';
 import { rootStore } from '../../stores';
-
-import { RenameProfileModal } from './modal/RenameProfileModal';
-import { DeleteProfileModal } from './modal/DeleteProfileModal';
 
 import styles from './profiles.module.pcss';
 
@@ -51,6 +49,16 @@ type ProfileActionsProps = {
      * Profile ID.
      */
     profileId: string;
+
+    /**
+     * Called when the rename action is selected.
+     */
+    onRename: () => void;
+
+    /**
+     * Called when the delete action is selected.
+     */
+    onDelete: () => void;
 };
 
 /**
@@ -59,11 +67,10 @@ type ProfileActionsProps = {
  */
 export const ProfileActions = observer(({
     profileId,
+    onRename,
+    onDelete,
 }: ProfileActionsProps): ReactElement | null => {
-    const { profilesStore } = useContext(rootStore);
-
-    const [isRenameModalOpen, setIsRenameModalOpen] = useState(false);
-    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const { profilesStore, telemetryStore } = useContext(rootStore);
 
     const profile = profilesStore.profiles.find((p) => p.id === profileId);
 
@@ -82,10 +89,18 @@ export const ProfileActions = observer(({
                 await profilesStore.setActiveProfile(profileId);
                 break;
             case ProfileAction.Rename:
-                setIsRenameModalOpen(true);
+                telemetryStore.sendCustomEvent(
+                    TelemetryActionName.ActionsRenameProfileClick,
+                    TelemetryScreenName.ProfileSettingsScreen,
+                );
+                onRename();
                 break;
             case ProfileAction.Delete:
-                setIsDeleteModalOpen(true);
+                telemetryStore.sendCustomEvent(
+                    TelemetryActionName.ActionsDeleteProfileClick,
+                    TelemetryScreenName.ProfileSettingsScreen,
+                );
+                onDelete();
                 break;
             default:
                 break;
@@ -97,26 +112,11 @@ export const ProfileActions = observer(({
     }
 
     return (
-        <>
-            <ActionMenu
-                buttonClassName={styles.actionsButton}
-                label={translator.getMessage('settings_profiles_actions')}
-                items={actions}
-                onAction={handleAction}
-            />
-            <RenameProfileModal
-                isOpen={isRenameModalOpen}
-                profileId={profileId}
-                currentName={profile.name}
-                onClose={(): void => setIsRenameModalOpen(false)}
-            />
-            <DeleteProfileModal
-                isOpen={isDeleteModalOpen}
-                profileId={profileId}
-                profileName={profilesStore.getDisplayName(profile)}
-                isActive={isActive}
-                onClose={(): void => setIsDeleteModalOpen(false)}
-            />
-        </>
+        <ActionMenu
+            buttonClassName={styles.actionsButton}
+            label={translator.getMessage('settings_profiles_actions')}
+            items={actions}
+            onAction={handleAction}
+        />
     );
 });

@@ -108,7 +108,7 @@ export class PopupData {
         const isRoutable = this.nonRoutable.isUrlRoutable(url);
         const vpnInfo = await this.endpoints.getVpnInfo();
         const locations = await this.endpoints.getLocations();
-        const selectedLocation = await this.endpoints.getSelectedLocation();
+        const selectedLocation = await this.endpoints.getSelectedLocation({ persist: false });
         const canControlProxy = await appStatus.canControlProxy();
         const isProxyEnabled = settings.isProxyEnabled();
         const isPremiumToken = await this.credentials.isPremiumToken();

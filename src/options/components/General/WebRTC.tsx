@@ -6,10 +6,7 @@ import { translator } from '../../../common/translator';
 import { messenger } from '../../../common/messenger';
 import { log } from '../../../common/logger';
 import { rootStore } from '../../stores';
-import { useProfileRouteNavigation } from '../../hooks/useProfileRouteNavigation';
 import { ControlsSwitch } from '../ui/Controls';
-import { ProfileHint } from '../ui/ProfileHint';
-import { getProfileRoute } from '../Profiles/profileRoutes';
 
 interface WebRTCProps {
     /**
@@ -39,12 +36,17 @@ export const WebRTC = observer(({ profileId, isProfileContext }: WebRTCProps) =>
         pendingRef.current = true;
         try {
             const newValue = !isActive;
-            if (isProfileContext && !newValue) {
-                telemetryStore.sendCustomEvent(
-                    TelemetryActionName.TurnOffWebRTC,
-                    TelemetryScreenName.NewProfilesSettingsScreen,
-                );
-            }
+            const screenName = isProfileContext
+                ? TelemetryScreenName.ProfileSettingsScreen
+                : TelemetryScreenName.GeneralSettingsScreen;
+
+            telemetryStore.sendCustomEvent(
+                newValue
+                    ? TelemetryActionName.EnableWebRtcClick
+                    : TelemetryActionName.DisableWebRtcClick,
+                screenName,
+            );
+
             await messenger.setProfileWebRtc(profileId, newValue);
             profilesStore.updateWebRtcCache(profileId, newValue);
         } catch (e) {
@@ -53,8 +55,6 @@ export const WebRTC = observer(({ profileId, isProfileContext }: WebRTCProps) =>
             pendingRef.current = false;
         }
     };
-
-    const handleProfileHintClick = useProfileRouteNavigation(getProfileRoute);
 
     return (
         <ControlsSwitch
@@ -68,12 +68,6 @@ export const WebRTC = observer(({ profileId, isProfileContext }: WebRTCProps) =>
                     <span className="webrtc-warning">
                         {translator.getMessage('settings_webrtc_warning')}
                     </span>
-                    {!isProfileContext && (
-                        <ProfileHint
-                            profileId={profileId}
-                            onClick={handleProfileHintClick}
-                        />
-                    )}
                 </>
             )}
             isActive={isActive}

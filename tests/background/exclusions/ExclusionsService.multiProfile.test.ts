@@ -9,7 +9,12 @@ import {
 
 import { ExclusionsService } from '../../../src/background/exclusions/ExclusionsService';
 import { ExclusionsMode, ExclusionState } from '../../../src/common/exclusionsConstants';
+import { notifier } from '../../../src/common/notifier';
 import { servicesManager } from '../../../src/background/exclusions/services/ServicesManager';
+import { profileStateService } from '../../../src/background/profiles';
+import { type ProfileStateService } from '../../../src/background/profiles/profileState/ProfileStateService';
+import { PROFILE_SESSION_STATE_DEFAULTS, StorageKey } from '../../../src/background/schema';
+import { stateStorage } from '../../../src/background/stateStorage';
 import { proxy } from '../../../src/background/proxy';
 
 /**
@@ -26,7 +31,10 @@ const resetProfileSettings = (): void => {
     };
 };
 
-vi.mock('../../../src/background/profiles', () => {
+vi.mock('../../../src/background/profiles', async () => {
+    const { ProfileStateService: ProfileStateServiceClass } = await vi.importActual<{
+        ProfileStateService: typeof ProfileStateService,
+    }>('../../../src/background/profiles/profileState/ProfileStateService');
     return {
         __esModule: true,
         profilesService: {
@@ -52,6 +60,7 @@ vi.mock('../../../src/background/profiles', () => {
                 }
             },
         },
+        profileStateService: new ProfileStateServiceClass(),
     };
 });
 
@@ -68,8 +77,8 @@ vi.mock('../../../src/background/api/fallbackApi', () => ({
 vi.mock('../../../src/background/providers/vpnProvider', () => ({
     __esModule: true,
     vpnProvider: {
-        getExclusionsServices: async () => ({}),
-        getExclusionsServicesDomains: async () => ({}),
+        getExclusionsServices: vi.fn(async () => ({})),
+        getExclusionsServicesDomains: vi.fn(async () => ({})),
     },
 }));
 
@@ -89,10 +98,19 @@ servicesManager.getIndexedServices = vi.fn().mockResolvedValue({
     'aliexpress.com': 'aliexpress',
     'aliexpress.ru': 'aliexpress',
 });
+servicesManager.updateServices = vi.fn().mockResolvedValue(true);
+servicesManager.getLastUpdateLocale = vi.fn().mockResolvedValue('de');
 
 describe('ExclusionsService — multi-profile', () => {
     beforeEach(async () => {
         resetProfileSettings();
+        const cachedProfileIds = await profileStateService.exclusionsCache.getProfileIds();
+        await Promise.all(
+            cachedProfileIds.map((profileId) => profileStateService.exclusionsCache.delete(profileId)),
+        );
+        // @ts-ignore - clear tombstones to isolate tests (private member)
+        profileStateService.deletedProfileIds.clear();
+        await stateStorage.setItem(StorageKey.ProfileSessionState, PROFILE_SESSION_STATE_DEFAULTS);
         await proxy.init();
     });
 
@@ -363,5 +381,18 @@ describe('ExclusionsService — multi-profile', () => {
 
         const data = await service.getExclusionsDataForProfile('work');
         expect(data.isAllExclusionsListsEmpty).toBe(false);
+    });
+
+    it('refreshServicesForCurrentLocale notifies for every loaded profile', async () => {
+        const service = new ExclusionsService();
+        await service.init();
+        // Load the second profile so its tree exists in the service.
+        await service.getExclusionsDataForProfile('work');
+
+        const notifySpy = vi.spyOn(notifier, 'notifyListeners');
+        await service.refreshServicesForCurrentLocale('en');
+
+        expect(notifySpy).toHaveBeenCalledWith(notifier.types.EXCLUSIONS_DATA_UPDATED, 'default');
+        expect(notifySpy).toHaveBeenCalledWith(notifier.types.EXCLUSIONS_DATA_UPDATED, 'work');
     });
 });

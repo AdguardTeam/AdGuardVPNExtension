@@ -109,11 +109,6 @@ export class VpnStore {
     @observable public profileSwitchNotification = 0;
 
     /**
-     * Whether the profiles screen is open.
-     */
-    @observable public isProfilesScreenOpen = false;
-
-    /**
      * Set of saved location IDs.
      */
     @observable private savedLocationIds: Set<string> = new Set();
@@ -174,7 +169,18 @@ export class VpnStore {
 
     @computed
     public get activeProfileName(): string | undefined {
-        const profile = this.profiles.find((p) => p.id === this.activeProfileId);
+        return this.getProfileName(this.activeProfileId);
+    }
+
+    /**
+     * Resolves the display name of a profile by its ID.
+     *
+     * @param profileId Profile ID.
+     *
+     * @returns Profile display name, or undefined when the profile is unknown.
+     */
+    private getProfileName(profileId: string): string | undefined {
+        const profile = this.profiles.find((p) => p.id === profileId);
         if (!profile) {
             return undefined;
         }
@@ -201,7 +207,7 @@ export class VpnStore {
                 const enrichedLocation = this.enrichWithStateData(location);
                 const selected = this.selectedLocation && this.selectedLocation.id === location.id;
 
-                return <LocationData>{ ...enrichedLocation, selected };
+                return { ...enrichedLocation, selected };
             })
             .sort((a, b) => {
                 const compareCountryName = a.countryName.localeCompare(b.countryName);
@@ -232,7 +238,7 @@ export class VpnStore {
 
         const { ping, available } = pingData;
 
-        return <LocationData>{
+        return {
             ...location,
             ping,
             available,
@@ -401,13 +407,16 @@ export class VpnStore {
     @action
     public setIsPremiumToken(isPremiumToken: boolean): void {
         this.isPremiumToken = isPremiumToken;
+        if (isPremiumToken) {
+            this.rootStore.settingsStore.clearPremiumLocationPaywall();
+        }
     }
 
     @action
     public async requestIsPremiumToken(): Promise<void> {
         const isPremiumToken = await messenger.checkIsPremiumToken();
         runInAction(() => {
-            this.isPremiumToken = isPremiumToken;
+            this.setIsPremiumToken(isPremiumToken);
         });
     }
 
@@ -474,8 +483,8 @@ export class VpnStore {
      * @returns Promise of Forcibly updated locations list.
      */
     public forceUpdateLocations = async (): Promise<LocationData[]> => {
-        const locations = await messenger.forceUpdateLocations() as LocationData[];
-        return locations;
+        const locations = await messenger.forceUpdateLocations();
+        return locations ?? [];
     };
 
     /**
@@ -489,7 +498,8 @@ export class VpnStore {
 
     /**
      * Handles the ACTIVE_PROFILE_CHANGED event from the background.
-     * Updates profile state and shows a toast for manual switches.
+     * Updates profile state and shows the error toast for a failed switch:
+     * successful switches are reported by the options page only.
      *
      * @param payload Event payload with profile ID and success flag.
      */
@@ -514,7 +524,7 @@ export class VpnStore {
     };
 
     /**
-     * Clears the profile switch notification.
+     * Clears the profile switch error notification.
      */
     @action
     public clearProfileSwitchNotification = (): void => {
@@ -528,15 +538,6 @@ export class VpnStore {
      */
     @action public setProfiles = (profiles: ProfileInfo[]): void => {
         this.profiles = profiles;
-    };
-
-    /**
-     * Sets the profiles screen visibility.
-     *
-     * @param isOpen Whether the profiles screen should be open.
-     */
-    @action public setProfilesScreenOpen = (isOpen: boolean): void => {
-        this.isProfilesScreenOpen = isOpen;
     };
 
     /**

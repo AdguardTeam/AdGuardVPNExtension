@@ -147,8 +147,37 @@
     "privacy_policy": {
         "message": "개인정보처리방침"
     },
+    "settings_title": {
+        "message": "설정"
+    },
     "settings_general_title": {
-        "message": "일반"
+        "message": "일반 설정"
+    },
+    "settings_general_description": {
+        "message": "모든 프로필에 적용됩니다. 프로필을 바꿔도 설정은 그대로 유지됩니다."
+    },
+    "settings_current_profile": {
+        "message": "현재 프로필: <b>%profile_name%</b>"
+    },
+    "settings_current_profile_description": {
+        "message": "현재 프로필에만 적용됩니다. 프로필을 바꾸면 설정도 달라질 수 있습니다."
+    },
+    "settings_unlimited_promo_title": {
+        "message": "무제한 버전 이용하기"
+    },
+    "settings_unlimited_promo_feature_speed": {
+        "message": "속도 제한 없는 스트리밍"
+    },
+    "settings_unlimited_promo_feature_locations": {
+        "message": "%count%개 이상의 안전한 위치 | %count%개 이상의 안전한 위치",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_feature_devices": {
+        "message": "하나의 계정으로 최대 %count%대 기기 연결 | 하나의 계정으로 최대 %count%대 기기 연결\n\n",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_upgrade_button": {
+        "message": "업그레이드"
     },
     "referral_get_free_traffic": {
         "message": "무료 GB를 받으세요!"
@@ -428,8 +457,8 @@
     "settings_quick_connect_title": {
         "message": "빠른 연결"
     },
-    "settings_quick_connect_subtitle": {
-        "message": "연결 버튼을 클릭하면 VPN 위치가 선택됩니다."
+    "settings_quick_connect_description": {
+        "message": "프로필을 전환하거나 브라우저를 열 때 연결되는 기본 VPN 위치"
     },
     "settings_quick_connect_last_used": {
         "message": "마지막으로 사용한 위치"
@@ -441,7 +470,7 @@
         "message": "추가"
     },
     "settings_exclusion_add_website": {
-        "message": "웹사이트 추가"
+        "message": "웹 사이트 추가"
     },
     "settings_exclusion_actions": {
         "message": "가능한 동작"
@@ -539,8 +568,11 @@
     "settings_exclusion_title": {
         "message": "예외 목록"
     },
-    "settings_location_label": {
-        "message": "위치"
+    "settings_exclusion_general_state": {
+        "message": "특정 웹사이트를 제외한 모든 곳에서 VPN이 작동합니다."
+    },
+    "settings_exclusion_selective_state": {
+        "message": "선택한 웹사이트에서만 VPN이 작동합니다."
     },
     "settings_location_fastest_title": {
         "message": "가장 빠른 위치"
@@ -548,14 +580,17 @@
     "settings_location_fastest_description": {
         "message": "가장 빠른 위치에 자동으로 연결합니다."
     },
-    "settings_profiles_title": {
-        "message": "프로필"
+    "settings_location_last_used_description": {
+        "message": "마지막으로 사용한 위치에 자동으로 연결합니다."
     },
-    "settings_profiles_sidebar_title": {
-        "message": "프로필"
+    "settings_profiles_title": {
+        "message": "프로필 관리"
+    },
+    "settings_profiles_manage": {
+        "message": "프로필 관리"
     },
     "settings_profiles_subtitle": {
-        "message": "DNS 서버와 위치를 설정할 수 있으며, 업무용, 가정용 등 용도별로 예외 목록을 관리할 수 있습니다."
+        "message": "업무, 가정, 자녀 보호 등 다양한 상황에 맞춰 VPN을 사용해 보세요. 프로필을 만들고 원하는 위치, DNS 서버, 예외 목록을 설정하세요."
     },
     "settings_profiles_default_name": {
         "message": "기본"
@@ -573,7 +608,10 @@
         "message": "삭제"
     },
     "settings_profiles_create": {
-        "message": "생성"
+        "message": "프로필 생성"
+    },
+    "settings_profiles_open_settings": {
+        "message": "설정 열기"
     },
     "settings_profiles_create_modal_title": {
         "message": "프로필 생성"
@@ -616,9 +654,6 @@
     },
     "settings_profiles_delete_modal_submit": {
         "message": "삭제"
-    },
-    "settings_description_current": {
-        "message": "현재: %mode%"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "VPN이 켜져있는 곳"
@@ -695,14 +730,23 @@
     "popup_settings_stats": {
         "message": "통계"
     },
-    "popup_profiles_title": {
-        "message": "프로필"
-    },
-    "popup_profiles_settings": {
-        "message": "설정"
-    },
     "profile_apply_error": {
         "message": "프로필 전환에 실패했습니다. 다시 시도하거나 지원팀에 문의하세요"
+    },
+    "profile_switched": {
+        "message": "%profile_name% 프로필로 전환되었습니다."
+    },
+    "profile_created": {
+        "message": "프로필이 생성되었습니다."
+    },
+    "profile_deleted": {
+        "message": "프로필이 삭제되었습니다."
+    },
+    "profile_deleted_switched": {
+        "message": "프로필이 삭제되었습니다. %profile_name% 프로필로 전환되었습니다."
+    },
+    "profile_name_updated": {
+        "message": "프로필 이름이 변경되었습니다."
     },
     "popup_settings_free_description": {
         "message": "AdGuard VPN 무제한 버전에서 사용 가능"
@@ -806,7 +850,7 @@
         "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
     },
     "popup_paywall_b_column_unlimited": {
-        "message": "무제한 버전",
+        "message": "무제한 계정",
         "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
     },
     "popup_paywall_b_row_vpn_data": {
@@ -876,7 +920,7 @@
         "message": "피드백 남기기"
     },
     "popup_compare_button": {
-        "message": "앱이 더 좋은 이유"
+        "message": "데스크톱 앱의 장점 알아보기"
     },
     "popup_rate_modal_title": {
         "message": "AdGuard VPN은 얼마나 멋진가요?"

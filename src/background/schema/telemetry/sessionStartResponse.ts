@@ -2,17 +2,23 @@ import * as v from 'valibot';
 
 /**
  * Valid experiment slot identifiers.
+ * Slots are fixed Plausible custom-property slots available in the telemetry
+ * service: `experiment_1`..`experiment_3`.
  */
-const experimentSlotSchema = v.union([
-    v.literal('experiment_1'),
-    v.literal('experiment_2'),
-    v.literal('experiment_3'),
+export const experimentSlotSchema = v.picklist([
+    'experiment_1',
+    'experiment_2',
+    'experiment_3',
 ]);
 
 /**
  * Schema for a single variant assignment returned by the session_start endpoint.
+ * `experiment_name` must echo the experiment ID sent in the `tests` payload.
+ * `version_name` is not length-validated here so a malformed slot
+ * does not reject the whole response; each assignment is validated
+ * before being cached.
  */
-export const variantAssignmentSchema = v.object({
+const sessionStartVariantAssignmentSchema = v.object({
     experiment_name: v.string(),
     version_name: v.string(),
 });
@@ -25,10 +31,20 @@ export const variantAssignmentSchema = v.object({
  */
 export const sessionStartResponseSchema = v.object({
     versions: v.record(
-        experimentSlotSchema,
-        v.optional(variantAssignmentSchema),
+        v.string(),
+        v.optional(sessionStartVariantAssignmentSchema),
     ),
 });
 
+/**
+ * Schema for a valid variant assignment stored in the cache.
+ * Reuses the response assignment shape and requires a non-empty `version_name`.
+ */
+export const variantAssignmentSchema = v.object({
+    ...sessionStartVariantAssignmentSchema.entries,
+    version_name: v.pipe(v.string(), v.minLength(1)),
+});
+
+export type ExperimentSlot = v.InferOutput<typeof experimentSlotSchema>;
 export type VariantAssignment = v.InferOutput<typeof variantAssignmentSchema>;
-export type SessionStartResponseSchema = v.InferOutput<typeof sessionStartResponseSchema>;
+export type SessionStartResponse = v.InferOutput<typeof sessionStartResponseSchema>;

@@ -15,6 +15,7 @@ import {
     TelemetryLicenseStatus,
     TelemetrySubscriptionDuration,
     TelemetryTheme,
+    TelemetryWebsiteExclusion,
 } from '../../../src/background/telemetry/telemetryEnums';
 
 const fetchMocker = createFetchMock(vi);
@@ -40,6 +41,7 @@ const sampleBaseData: TelemetryBaseData = {
         licenseStatus: TelemetryLicenseStatus.Premium,
         subscriptionDuration: TelemetrySubscriptionDuration.Monthly,
         theme: TelemetryTheme.System,
+        websiteExclusions: TelemetryWebsiteExclusion.General,
     },
 };
 
@@ -105,6 +107,7 @@ describe('TelemetryApi.sendSessionStart', () => {
                 logged_in: true,
                 license_status: 'PREMIUM',
                 subscription_duration: 'MONTHLY',
+                website_exclusions: 'GENERAL',
                 theme: 'SYSTEM',
             },
             tests: {

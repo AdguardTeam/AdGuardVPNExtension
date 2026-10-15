@@ -233,8 +233,15 @@ All class methods and properties must have explicit access modifiers:
 
 ### Type Assertions
 
-- Avoid `as` type assertions. Use proper typing instead.
-- In tests, `as` is allowed when necessary, but prefer proper typing when possible.
+- Never use `as` type assertions (`as Type`, `<Type>value`) in production code.
+  Treat `as` as an escape hatch, not a tool: reach for proper typing, type
+  guards, or narrowing first. If a type assertion seems unavoidable, the types
+  around it are likely wrong — fix them instead of overriding the compiler.
+- In tests, `as` is allowed only when strictly necessary (for example, casting a
+  mock or a partially-typed fixture) and only if proper typing is genuinely
+  unavailable; prefer proper types, type guards, or a commented `@ts-ignore`.
+- In tests, `@ts-ignore` with a brief comment may be used to access private
+  members (for example, private methods) that are otherwise unreachable.
 
 ### Localization
 

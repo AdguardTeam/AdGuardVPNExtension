@@ -13,7 +13,6 @@ import { Title } from '../ui/Title';
 import { Button } from '../ui/Button';
 
 import { SignOutModal } from './SignOutModal';
-import { Features } from './Features';
 
 import './account.pcss';
 
@@ -26,7 +25,6 @@ export const Account = observer(() => {
     const {
         currentUsername,
         isPremiumToken,
-        premiumFeatures,
         subscriptionType,
         subscriptionTimeExpiresIso,
         forwarderDomain,
@@ -36,8 +34,6 @@ export const Account = observer(() => {
     const { maxDevicesCount } = authStore;
 
     const editAccountUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.EDIT_ACCOUNT);
-
-    const showGetSubscriptionButton = !isPremiumToken && !premiumFeatures;
 
     // `DialogLogOut` is rendered on top of this screen
     const canSendTelemetry = !isSignOutModalOpen;
@@ -52,20 +48,12 @@ export const Account = observer(() => {
         settingsStore.openSignOutModal();
     };
 
-    const handleHideFeatures = async (): Promise<void> => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.HideAdvantagesClick,
-            TelemetryScreenName.AccountScreen,
-        );
-        await settingsStore.hidePremiumFeatures();
-    };
-
     const handleUpgrade = async (): Promise<void> => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.GetSubscriptionClick,
             TelemetryScreenName.AccountScreen,
         );
-        await settingsStore.openPremiumPromoPage();
+        await settingsStore.openPremiumPromoPageFromSettings();
     };
 
     const handleOpenAccountSettings = (): void => {
@@ -150,7 +138,7 @@ export const Account = observer(() => {
                 )}
             />
             <div className="account__actions">
-                {showGetSubscriptionButton && (
+                {!isPremiumToken && (
                     <Button className="account__action" onClick={handleUpgrade}>
                         {translator.getMessage('account_get_subscription')}
                     </Button>
@@ -175,19 +163,6 @@ export const Account = observer(() => {
                     {translator.getMessage('account_sign_out')}
                 </Button>
             </div>
-            {!isPremiumToken && premiumFeatures && (
-                <div className="account__features">
-                    <Features />
-                    <div className="account__actions account__actions--features">
-                        <Button className="account__action" onClick={handleUpgrade}>
-                            {translator.getMessage('account_get_subscription')}
-                        </Button>
-                        <Button className="account__action" variant="outlined" onClick={handleHideFeatures}>
-                            {translator.getMessage('rate_hide')}
-                        </Button>
-                    </div>
-                </div>
-            )}
             <SignOutModal />
         </>
     );

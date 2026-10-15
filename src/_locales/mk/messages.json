@@ -147,8 +147,37 @@
     "privacy_policy": {
         "message": "Политика за приватност"
     },
+    "settings_title": {
+        "message": "Поставки"
+    },
     "settings_general_title": {
-        "message": "Општи"
+        "message": "Општи поставки"
+    },
+    "settings_general_description": {
+        "message": "Примени на сите профили. Ако го смените профилот, поставките ќе останат исти"
+    },
+    "settings_current_profile": {
+        "message": "Тековен профил: <b>%profile_name%</b>"
+    },
+    "settings_current_profile_description": {
+        "message": "Примени на тековниот профил. Ако го смените профилот, може да се променат и поставките"
+    },
+    "settings_unlimited_promo_title": {
+        "message": "Добијте ја неограничената верзија"
+    },
+    "settings_unlimited_promo_feature_speed": {
+        "message": "Стриминг без ограничувања на брзината"
+    },
+    "settings_unlimited_promo_feature_locations": {
+        "message": "%count%+ безбедни локации | %count%+ безбедна локација | %count%+ безбедни локации",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_feature_devices": {
+        "message": "До %count% уреди на една сметка | До %count% уред на една сметка | До %count% уреди на една сметка",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "settings_unlimited_promo_upgrade_button": {
+        "message": "Надгради"
     },
     "referral_get_free_traffic": {
         "message": "Добијте бесплатни ГБ!"
@@ -428,8 +457,8 @@
     "settings_quick_connect_title": {
         "message": "Брзо поврзување"
     },
-    "settings_quick_connect_subtitle": {
-        "message": "Избрана VPN локација кога ќе кликнете „Поврзи“"
+    "settings_quick_connect_description": {
+        "message": "Стандардна VPN-локација кога ќе се префрлите на профилот или ќе го отворите прелистувачот"
     },
     "settings_quick_connect_last_used": {
         "message": "Последно користена локација"
@@ -539,8 +568,11 @@
     "settings_exclusion_title": {
         "message": "Исклучоци"
     },
-    "settings_location_label": {
-        "message": "Локација"
+    "settings_exclusion_general_state": {
+        "message": "VPN е вклучен насекаде освен за одредени веб-страници"
+    },
+    "settings_exclusion_selective_state": {
+        "message": "VPN е вклучен само за избрани веб-страници"
     },
     "settings_location_fastest_title": {
         "message": "Најбрза локација"
@@ -548,14 +580,17 @@
     "settings_location_fastest_description": {
         "message": "Автоматски се поврзува со најбрзата локација"
     },
-    "settings_profiles_title": {
-        "message": "Профили"
+    "settings_location_last_used_description": {
+        "message": "Автоматски се поврзува со последно користената локација"
     },
-    "settings_profiles_sidebar_title": {
-        "message": "Профил"
+    "settings_profiles_title": {
+        "message": "Управувај со профили"
+    },
+    "settings_profiles_manage": {
+        "message": "Управувај со профили"
     },
     "settings_profiles_subtitle": {
-        "message": "Овозможува да поставите DNS сервери и локации и да водите посебни листи на исклучоци за различни случаи на употреба, како работа, дома или други"
+        "message": "Користете VPN за различни сценарија, како што се работа, дом, деца или друго. Создадете профил и поставете претпочитана локација, DNS-сервер и исклучоци за него"
     },
     "settings_profiles_default_name": {
         "message": "Стандардно"
@@ -573,7 +608,10 @@
         "message": "Избриши"
     },
     "settings_profiles_create": {
-        "message": "Создади"
+        "message": "Креирај профил"
+    },
+    "settings_profiles_open_settings": {
+        "message": "Отворете поставки"
     },
     "settings_profiles_create_modal_title": {
         "message": "Креирај профил"
@@ -616,9 +654,6 @@
     },
     "settings_profiles_delete_modal_submit": {
         "message": "Избриши"
-    },
-    "settings_description_current": {
-        "message": "Тековно: %mode%"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Каде што е вклучен VPN"
@@ -695,14 +730,23 @@
     "popup_settings_stats": {
         "message": "Статистика"
     },
-    "popup_profiles_title": {
-        "message": "Профили"
-    },
-    "popup_profiles_settings": {
-        "message": "Поставки"
-    },
     "profile_apply_error": {
         "message": "Не успеа префрлањето на профили. Обидете се повторно или контактирајте поддршка"
+    },
+    "profile_switched": {
+        "message": "Префрлено на %profile_name%"
+    },
+    "profile_created": {
+        "message": "Профилот е креиран"
+    },
+    "profile_deleted": {
+        "message": "Профилот е избришан"
+    },
+    "profile_deleted_switched": {
+        "message": "Профилот е избришан. Префрлени сте на %profile_name%"
+    },
+    "profile_name_updated": {
+        "message": "Името на профилот е ажурирано"
     },
     "popup_settings_free_description": {
         "message": "Достапно во AdGuard VPN Unlimited"
@@ -876,7 +920,7 @@
         "message": "Оставете повратни информации"
     },
     "popup_compare_button": {
-        "message": "Зошто апликацијата е подобра"
+        "message": "Зошто десктоп-апликацијата е подобра"
     },
     "popup_rate_modal_title": {
         "message": "Колку е одличен AdGuard VPN?"
