@@ -3,7 +3,7 @@ import _ from 'lodash';
 // @ts-expect-error - dns-js is not typed
 import { DNSPacket, DNSRecord } from 'dns-js';
 
-import pJSON from '../../../package.json';
+import { PACKAGE_VERSION } from '../version';
 import {
     AUTH_API_URL,
     TELEMETRY_API_URL,
@@ -19,10 +19,6 @@ import { StateData } from '../stateStorage';
 import { authService } from '../authentication/authService';
 import { credentialsService } from '../credentials/credentialsService';
 import { type FallbackInfo, StorageKey } from '../schema';
-
-// package.json carries no version on master (CI stamps it before building);
-// fall back for local dev builds.
-const packageVersion = (pJSON as { version?: string }).version || '0.0.0';
 
 /**
  * DNS over HTTPS (DoH) URLs.
@@ -350,15 +346,16 @@ export class FallbackApi {
      * where:
      * - `whoami_version` - version of whoami service {@link WHOAMI_VERSION}
      * - `application_type` - type of application {@link APPLICATION_TYPE}
-     * - `application_version` - version of application (from package.json)
-     *   in format `av-<major>-<minor>-<patch>`.
+     * - `application_version` - numeric version of application (from package.json)
+     *   in format `av<major>-<minor>-<patch>`; the zone resolves numeric versions only.
      *
      * For more details — AG-30618.
      *
      * @returns Prefix for api hostname.
      */
     private getBasePrefix = (): string => {
-        const applicationVersion = `${APPLICATION_VERSION_PREFIX}${packageVersion.replaceAll('.', '-')}`;
+        const numericVersion = PACKAGE_VERSION.split('-')[0].replaceAll('.', '-');
+        const applicationVersion = `${APPLICATION_VERSION_PREFIX}${numericVersion}`;
         return `${WHOAMI_VERSION}.${APPLICATION_TYPE}.${applicationVersion}`;
     };
 
