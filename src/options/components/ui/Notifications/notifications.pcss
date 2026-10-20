@@ -61,6 +61,11 @@
                 color: var(--text-links-link-default);
             }
 
+            .notifications__item-icon {
+                /* The tick glyph sits ~1.5px below the optical center of the icon box. */
+                transform: translateY(-2px);
+            }
+
             .notifications__item-action:hover,
             .notifications__item-action:focus-visible {
                 color: var(--text-links-link-hovered);

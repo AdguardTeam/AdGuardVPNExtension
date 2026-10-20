@@ -64,6 +64,10 @@ vi.mock('../../../../src/options/stores', () => {
     return { rootStore: React.createContext(store) };
 });
 
+vi.mock('../../../../src/options/components/Sidebar/ProfileSwitcher/profile-switcher.module.pcss', () => ({
+    default: { button: 'button', active: 'active' },
+}));
+
 // eslint-disable-next-line import/first
 import { ProfileSwitcher } from '../../../../src/options/components/Sidebar/ProfileSwitcher/ProfileSwitcher';
 
@@ -104,6 +108,38 @@ describe('Sidebar ProfileSwitcher', () => {
         const { container } = renderSwitcher();
 
         expect(container.querySelector('button')?.textContent).toContain('Default');
+    });
+
+    it('should highlight the button on the profiles screen', () => {
+        mockPathname.value = '/profiles';
+        const { container } = renderSwitcher();
+
+        expect(container.querySelector('button')?.getAttribute('aria-current')).toBe('page');
+        expect(container.querySelector('button')?.classList.contains('active')).toBe(true);
+    });
+
+    it('should highlight the button on the profile sub-screens', () => {
+        mockPathname.value = '/profiles/work/dns';
+        const { container } = renderSwitcher();
+
+        expect(container.querySelector('button')?.getAttribute('aria-current')).toBe('page');
+        expect(container.querySelector('button')?.classList.contains('active')).toBe(true);
+    });
+
+    it('should not highlight the button on other screens', () => {
+        mockPathname.value = '/';
+        const { container } = renderSwitcher();
+
+        expect(container.querySelector('button')?.getAttribute('aria-current')).toBeNull();
+        expect(container.querySelector('button')?.classList.contains('active')).toBe(false);
+    });
+
+    it('should not highlight the button on a path that only shares the profiles prefix', () => {
+        mockPathname.value = '/profiles-settings';
+        const { container } = renderSwitcher();
+
+        expect(container.querySelector('button')?.getAttribute('aria-current')).toBeNull();
+        expect(container.querySelector('button')?.classList.contains('active')).toBe(false);
     });
 
     it('should open the menu with the profile list and the manage entry', () => {

@@ -2,6 +2,8 @@ import React, { useContext, useRef, useState } from 'react';
 import { observer } from 'mobx-react';
 import { useHistory, useLocation } from 'react-router-dom';
 
+import classNames from 'classnames';
+
 import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
 import { Icon } from '../../../../common/components/Icons';
 import { ProfileMenu } from '../../../../common/components/ProfileMenu';
@@ -33,6 +35,9 @@ export const ProfileSwitcher = observer(({ onNavigate }: ProfileSwitcherProps) =
     const ref = useRef<HTMLDivElement>(null);
 
     const { profiles, activeProfileId } = profilesStore;
+
+    const isProfilesScreen = location.pathname === PROFILES_PATH
+        || location.pathname.startsWith(`${PROFILES_PATH}/`);
 
     useOutsideClick(ref, (): void => {
         setIsMenuOpen(false);
@@ -84,8 +89,9 @@ export const ProfileSwitcher = observer(({ onNavigate }: ProfileSwitcherProps) =
             )}
             <button
                 type="button"
-                className={styles.button}
+                className={classNames(styles.button, isProfilesScreen && styles.active)}
                 aria-expanded={isMenuOpen}
+                aria-current={isProfilesScreen ? 'page' : undefined}
                 onClick={handleToggle}
             >
                 <Icon name="profile" className={styles.avatar} />
