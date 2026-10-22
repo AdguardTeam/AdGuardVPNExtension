@@ -19,6 +19,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+[Unreleased]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.12.0-beta.2...HEAD
+
+## [2.12.0-beta.2] - 2026-10-22
+
+[2.12.0-beta.2]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.12.0-beta.1...v2.12.0-beta.2
+
 ## [2.12.0-beta.1] - 2026-10-15
 
 ### Added
@@ -46,6 +52,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Web authentication flow no longer fails when the authorization tab is moved or torn off into another window, or when the service worker is restarted mid-flight.
 
 [#252]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/252
+
+[2.12.0-beta.1]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.11.1...v2.12.0-beta.1
 
 ## [2.11.1] - 2026-08-13
 
@@ -348,6 +356,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [#149]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/149
 
 [@adguard/logger]: https://github.com/AdguardTeam/tsurlfilter/blob/master/packages/logger/CHANGELOG.md
-
-[Unreleased]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.12.0-beta.1...HEAD
-[2.12.0-beta.1]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.11.1...v2.12.0-beta.1
