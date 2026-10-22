@@ -8,8 +8,9 @@ name: Publish release
 # public mirror.
 # Firefox beta is signed via AMO (go-webext) in a separate job that may take
 # a long time; Chrome/CWS/GitHub Release are never blocked by it.
-# Beta tags (e.g. v1.2.0-beta.1) deploy to the beta channel.
-# Stable tags (e.g. v1.2.0) deploy to the release channel.
+# Beta tags (e.g. v1.2.0-beta.1) deploy to the beta channel. Tags stay
+# semver; the fourth component lives only in the manifest version
+# (v1.2.0 -> 1.2.0.N), so stores, static and the app agree.
 on:
   pull_request:
     types: [closed]
@@ -43,6 +44,8 @@ env:
   VPN_API_URL_PROD: ${{ vars.VPN_API_URL_PROD }}
   ACCOUNTS_API_URL_PROD: ${{ vars.ACCOUNTS_API_URL_PROD }}
   FORWARDER_DOMAIN_PROD: ${{ vars.FORWARDER_DOMAIN_PROD }}
+  NODE_VERSION: '22.22.0'
+  PNPM_VERSION: '10.33.4'
 
 jobs:
   resolve:
@@ -80,8 +83,8 @@ jobs:
             REF="${REF#refs/heads/}"
             REF="${REF#refs/tags/}"
             # Arbitrary SHAs/branches would run unreviewed Dockerfiles with
-            # CRX/AMO secrets mounted. Allow master and release tags only;
-            # the shared workflows only accept numbered betas (vX.Y.Z-beta.N).
+            # CRX/AMO secrets mounted. Allow master and version tags only
+            # (vX.Y.Z, optionally with a -beta.N suffix).
             if [[ "${REF}" != "master" && ! "${REF}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-beta\.[0-9]+)?$ ]]; then
               echo "::error::workflow_dispatch ref must be empty, master, or a vX.Y.Z[-beta.N] tag (got '${REF}')"
               exit 1
@@ -101,10 +104,8 @@ jobs:
           echo "ref=${REF}" >> "$GITHUB_OUTPUT"
 
   tag:
-    # Tag only on manual dispatch or a merged release-bump/* PR from the
-    # release bot (matched by immutable user id, so renames can't break it).
-    # The gate itself lives on the `resolve` job: when it is skipped (plain
-    # PR close), this job is skipped too.
+    # Shared tagging: parses the CHANGELOG, validates the semver tag and
+    # force-retags. The build number is resolved in the `version` job below.
     needs: [resolve]
     uses: AdGuardSoftwareLimited/actions/.github/workflows/tag-from-changelog.yml@master
     with:
@@ -113,6 +114,55 @@ jobs:
     # `contents: write` — create the git tag
     permissions:
       contents: write
+
+  version:
+    # Four-component manifest version for every job: a beta keeps its number,
+    # a release copies the last beta, so the two never diverge. The resolver
+    # also refuses a release when the build code changed since that beta.
+    needs: [resolve, tag]
+    runs-on: team-extensions
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    outputs:
+      version: ${{ steps.build.outputs.version }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.resolve.outputs.ref }}
+          fetch-depth: 0 # tags: the beta a release copies
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      # Re-publishing a tag created before AG-60991: such a tag has no
+      # tasks/release in its tree, so the resolver is taken from master.
+      - name: Use the resolver from master
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ ! -d tasks/release ]; then
+              git checkout "origin/master" -- tasks/release
+          fi
+
+      # The pnpm setup action is not in the organization Actions allowlist, so
+      # pnpm is installed the same way the Dockerfile does.
+      - name: Install pnpm
+        run: npm install -g "pnpm@${PNPM_VERSION}"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      - id: build
+        shell: bash
+        env:
+          VERSION: ${{ needs.tag.outputs.version }}
+        # The resolver prints `version=…` itself, so it goes to the output as is.
+        run: |
+          set -euo pipefail
+          pnpm -s ts-node tasks/release/resolve-version.ts "$VERSION" | tee -a "$GITHUB_OUTPUT"
 
   checks:
     # Pre-build gates, formerly the Bamboo "Checks" stage: lint, unit tests,
@@ -206,7 +256,7 @@ jobs:
 
   build:
     name: Build extension artifacts
-    needs: [resolve, tag, checks]
+    needs: [resolve, tag, version, checks]
     runs-on: team-extensions
     # Bound the whole job so a hung Docker build or stuck network call cannot
     # occupy the shared self-hosted runner indefinitely (the AMO-bound
@@ -221,18 +271,15 @@ jobs:
         with:
           ref: ${{ needs.resolve.outputs.ref }}
 
-      # Version is parsed from CHANGELOG by the tag job and injected
-      # here so the compiled extension carries the release version.
-      # The full version (e.g. 2.11.2-beta.1) is stamped into package.json;
-      # tasks/helpers.ts converts it per browser at build time: betas become
-      # the store-legal X.Y.Z.N (AMO no longer accepts letters in version
-      # strings), and releases/dev builds the numeric core.
+      # The version job resolved the four-component version (X.Y.Z.N) once;
+      # it goes into package.json and from there into the manifests,
+      # update.xml/update.json, the About screen and telemetry.
       # The value is passed via env (never interpolated into the shell
       # command) so a tag-derived value can never run as shell code.
       - name: Inject version into package.json
         run: npm pkg set version="$VERSION"
         env:
-          VERSION: ${{ needs.tag.outputs.version }}
+          VERSION: ${{ needs.version.outputs.version }}
 
       - name: Fetch CRX certificate from Vault
         id: vault-ext
@@ -394,7 +441,7 @@ jobs:
     # a long time. Release Firefox is uploaded to the AMO store listing via
     # publish-amo instead (no XPI in this job).
     name: Build Firefox beta artifacts (AMO sign)
-    needs: [resolve, tag, checks]
+    needs: [resolve, tag, version, checks]
     if: needs.tag.outputs.release-channel == 'beta'
     runs-on: team-extensions
     timeout-minutes: 180
@@ -407,13 +454,12 @@ jobs:
         with:
           ref: ${{ needs.resolve.outputs.ref }}
 
-      # Full version (e.g. 2.11.2-beta.1) goes into package.json;
-      # tasks/helpers.ts stamps the numeric beta form (X.Y.Z.N) into
-      # the XPI manifest and update.json at build time (see the build job).
+      # Same public version as the build job: the XPI manifest and
+      # update.json must match it exactly.
       - name: Inject version into package.json
         run: npm pkg set version="$VERSION"
         env:
-          VERSION: ${{ needs.tag.outputs.version }}
+          VERSION: ${{ needs.version.outputs.version }}
 
       - name: Fetch shared AMO credentials from Vault
         id: vault-amo

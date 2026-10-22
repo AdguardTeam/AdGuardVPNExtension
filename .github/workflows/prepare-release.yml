@@ -22,8 +22,57 @@ permissions:
   contents: write
   id-token: write
 
+env:
+  NODE_VERSION: '22.22.0'
+  PNPM_VERSION: '10.33.4'
+
 jobs:
+  check-version:
+    # A release reuses the build version of the last beta, so the build code
+    # must not change since that beta. Failing here stops the release before
+    # the CHANGELOG is closed and the PR is opened.
+    runs-on: team-extensions
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0 # tags: the beta a release copies
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      # The pnpm setup action is not in the organization Actions allowlist, so
+      # pnpm is installed the same way the Dockerfile does.
+      - name: Install pnpm
+        run: npm install -g "pnpm@${PNPM_VERSION}"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      # A dispatch from an older branch may predate the resolver.
+      - name: Use the resolver from master
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ ! -d tasks/release ]; then
+              git checkout "origin/master" -- tasks/release
+          fi
+
+      - name: Check the release version
+        shell: bash
+        env:
+          TAG: ${{ inputs.tag }}
+        run: |
+          set -euo pipefail
+          BUILD_VERSION="$(pnpm -s ts-node tasks/release/resolve-version.ts "$TAG")"
+          echo "Build version: ${BUILD_VERSION#version=}"
+
   create-release-pr:
+    needs: [check-version]
     uses: AdGuardSoftwareLimited/actions/.github/workflows/create-release-pr.yml@master
     with:
       tag: ${{ inputs.tag }}

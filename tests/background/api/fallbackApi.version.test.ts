@@ -1,10 +1,9 @@
 /**
  * Tests for the numeric version in the DoH hostname (AG-60710).
  *
- * The backup API zone resolves hostnames with a strictly numeric version only
- * (`av<major>-<minor>-<patch>`). Before the fix, a beta build queried
- * the zone with a prerelease version (`av2-12-0-beta-1`), the zone answered
- * SERVFAIL, and the fallback url was never cached.
+ * The backup API zone resolves hostnames with three numeric components only
+ * (`av<major>-<minor>-<patch>`). A prerelease version (`2.12.0-beta.1`) and a
+ * CI build number (`2.12.0.1`) must both be reduced to `av2-12-0`.
  */
 import {
     vi,
@@ -16,11 +15,11 @@ import {
 } from 'vitest';
 import axios from 'axios';
 
-import { FallbackApi } from '../../../src/background/api/fallbackApi';
+import { FallbackApi, toDohVersion } from '../../../src/background/api/fallbackApi';
 import { stateStorage } from '../../../src/background/stateStorage';
 
-// Simulates a beta build: CI stamps the version into package.json before building.
-const { BETA_PJSON_VERSION } = vi.hoisted(() => ({ BETA_PJSON_VERSION: '2.12.0-beta.1' }));
+// Simulates the version CI stamps into package.json before building.
+const { BETA_PJSON_VERSION } = vi.hoisted(() => ({ BETA_PJSON_VERSION: '2.12.0.1' }));
 
 vi.mock('../../../package.json', () => ({
     default: { version: BETA_PJSON_VERSION },
@@ -52,7 +51,7 @@ const parseQname = (packet: Buffer): string => {
     return labels.join('.');
 };
 
-describe('FallbackApi DoH hostname for a beta build', () => {
+describe('FallbackApi DoH hostname for a CI build', () => {
     afterEach(() => {
         vi.clearAllMocks();
         // @ts-expect-error - reset stateStorage to default
@@ -73,7 +72,25 @@ describe('FallbackApi DoH hostname for a beta build', () => {
         expect(qnames).toContain('v1.at-ext.av2-12-0.anon.bkp-api.adguard-vpn.online');
         expect(qnames).toContain('v1.at-ext.av2-12-0.anon.bkp-auth.adguard-vpn.online');
         qnames.forEach((qname) => {
-            expect(qname).toMatch(/^v1\.at-ext\.av\d+(-\d+)+\.(anon|free|pro)\.bkp-(api|auth)\.adguard-vpn\.online$/);
+            expect(qname).toMatch(/^v1\.at-ext\.av\d+-\d+-\d+\.(anon|free|pro)\.bkp-(api|auth)\.adguard-vpn\.online$/);
         });
+    });
+});
+
+describe('toDohVersion', () => {
+    it('drops the CI build number', () => {
+        expect(toDohVersion('2.12.0.1')).toBe('2-12-0');
+    });
+
+    it('drops the beta suffix', () => {
+        expect(toDohVersion('2.12.0-beta.1')).toBe('2-12-0');
+    });
+
+    it('keeps a plain version as is', () => {
+        expect(toDohVersion('2.12.0')).toBe('2-12-0');
+    });
+
+    it('handles the local dev fallback', () => {
+        expect(toDohVersion('0.0.0')).toBe('0-0-0');
     });
 });

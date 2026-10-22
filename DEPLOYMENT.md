@@ -9,10 +9,9 @@ stores, and creating a GitHub Release draft on the public
 > **Channel model:** Tags containing `-beta.N` (e.g. `v2.11.2-beta.1`) go
 > through the **beta** pipeline. Tags without a pre-release suffix
 > (e.g. `v2.11.2`) go through the **release** pipeline. This matches the
-> former Bamboo beta vs release plans. The build stamps the version per
-> browser (see [Version Tagging](#version-tagging)): betas use the
-> store-legal four-component `X.Y.Z.N`, releases the numeric `X.Y.Z`
-> core.
+> former Bamboo beta vs release plans. Both channels ship the same
+> store-legal four-component `X.Y.Z.N`: a release reuses the number of the
+> last beta it copies (see [Version Tagging](#version-tagging)).
 
 ## Table of Contents
 
@@ -214,12 +213,21 @@ Exact file lists live in the Dockerfile `*-output` stages and
 
 - **Beta:** `v<version>-beta.N` (e.g. `v2.11.2-beta.1`)
 - **Release:** `v<version>` (e.g. `v2.11.2`)
-- Version is parsed from `CHANGELOG.md`. The full version goes into
-  `package.json`; the build (`tasks/helpers.ts`) converts it per browser:
-  Chrome/Edge/Opera betas and Firefox betas become `X.Y.Z.N` (stores
-  reject pre-release suffixes and AMO no longer allows letters in version
-  strings; the four-component form keeps successive betas distinct for
-  CWS and `update.json`), and releases keep the numeric `X.Y.Z` core.
+- Tags stay semver. The four-component version used by the builds lives
+  only in the manifest: `N` is the build number inside `X.Y.Z` — the beta
+  number for betas (`2.11.2-beta.1` → `2.11.2.1`), and a release copies the
+  last beta build (`2.11.2` → `2.11.2.1`), so it never lands below the beta
+  it ships.
+- Version is parsed from `CHANGELOG.md` (three components). The `version`
+  job in `publish-release.yml` resolves the four-component build version
+  with `tasks/release/resolve-version.ts` and passes it to every build job,
+  so `package.json`, both manifests, `update.xml` / `update.json`, the
+  in-app About screen, telemetry and the stores share the same version.
+- A release only reuses the beta number when the build code did not change
+  since that beta; otherwise both `prepare-release` and `publish-release`
+  fail and ask for one more beta first.
+- `tasks/helpers.ts` converts semver input per browser for manual/dev
+  builds.
 - The Bamboo `build.txt`-driven tagging and the `increment` plan are
   gone — versions are managed through `prepare-release.yml` release PRs.
 

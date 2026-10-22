@@ -60,6 +60,26 @@ const WHOAMI_VERSION = 'v1';
 const APPLICATION_TYPE = 'at-ext';
 const APPLICATION_VERSION_PREFIX = 'av';
 
+/**
+ * Number of version components the backup API zone knows: `av2-12-0`.
+ */
+const VERSION_COMPONENTS_COUNT = 3;
+
+/**
+ * Builds the version label of the backup API DoH hostname. The zone knows
+ * three components only, so a beta suffix (`2.12.0-beta.1`) and a CI build
+ * number (`2.12.0.1`) are both dropped.
+ *
+ * @param version Version from package.json.
+ *
+ * @returns Version components joined with dashes, e.g. `2-12-0`.
+ */
+export const toDohVersion = (version: string): string => version
+    .split('-')[0]
+    .split('.')
+    .slice(0, VERSION_COMPONENTS_COUNT)
+    .join('-');
+
 export class FallbackApi {
     /**
      * Default fallback info, it may be used if doh returns none result
@@ -354,8 +374,7 @@ export class FallbackApi {
      * @returns Prefix for api hostname.
      */
     private getBasePrefix = (): string => {
-        const numericVersion = PACKAGE_VERSION.split('-')[0].replaceAll('.', '-');
-        const applicationVersion = `${APPLICATION_VERSION_PREFIX}${numericVersion}`;
+        const applicationVersion = `${APPLICATION_VERSION_PREFIX}${toDohVersion(PACKAGE_VERSION)}`;
         return `${WHOAMI_VERSION}.${APPLICATION_TYPE}.${applicationVersion}`;
     };
 
