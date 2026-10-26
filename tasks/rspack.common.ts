@@ -255,6 +255,11 @@ export const getCommonConfig = (browser: string): Configuration => {
                     },
                     {
                         context: 'src',
+                        from: 'assets/fonts/roboto-flex/OFL.txt',
+                        to: 'assets/fonts/roboto-flex/OFL.txt',
+                    },
+                    {
+                        context: 'src',
                         from: '_locales/',
                         to: '_locales/',
                         transform: (content: Buffer) => {
