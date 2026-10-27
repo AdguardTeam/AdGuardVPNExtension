@@ -192,6 +192,19 @@ export class SettingsStore {
         this.locations = data.locations;
     };
 
+    /**
+     * Replaces the locations list with the refreshed data.
+     *
+     * Called when the background refetches locations, e.g. after the
+     * interface language changes, so the location names are re-rendered
+     * in the new language without reloading the options page.
+     *
+     * @param locations Refreshed locations list.
+     */
+    @action public setLocations = (locations: LocationWithPingInterface[]): void => {
+        this.locations = locations;
+    };
+
     @action public updateCurrentUsername = async (): Promise<void> => {
         const currentUsername = await messenger.getUsername();
         runInAction(() => {

@@ -13,6 +13,7 @@ const NOTIFIER_EVENTS = [
     notifier.types.USER_DEAUTHENTICATED,
     notifier.types.SETTING_UPDATED,
     notifier.types.LANGUAGE_CHANGED,
+    notifier.types.LOCATIONS_UPDATED,
     notifier.types.PROFILE_LOCATION_UPDATED,
     notifier.types.ACTIVE_PROFILE_CHANGED,
     notifier.types.PROFILE_SWITCH_IN_PROGRESS,
@@ -65,6 +66,10 @@ export const useMessageHandler = (): void => {
             case notifier.types.LANGUAGE_CHANGED: {
                 settingsStore.setSelectedLanguage(message.data);
                 await translationStore.setLocalePreference(message.data);
+                break;
+            }
+            case notifier.types.LOCATIONS_UPDATED: {
+                settingsStore.setLocations(message.data);
                 break;
             }
             case notifier.types.PROFILE_LOCATION_UPDATED: {

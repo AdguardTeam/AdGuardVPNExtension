@@ -24,14 +24,14 @@ vi.mock('../../../src/common/messenger', () => ({
  */
 const rootStoreStub = {} as RootStore;
 
+let settingsStore: SettingsStore;
+
+beforeEach(() => {
+    vi.clearAllMocks();
+    settingsStore = new SettingsStore(rootStoreStub);
+});
+
 describe('SettingsStore purchase links', () => {
-    let settingsStore: SettingsStore;
-
-    beforeEach(() => {
-        vi.clearAllMocks();
-        settingsStore = new SettingsStore(rootStoreStub);
-    });
-
     it('should open the popup purchase link for the popup promo', async () => {
         await settingsStore.openPremiumPromoPage();
 
@@ -47,14 +47,25 @@ describe('SettingsStore purchase links', () => {
     });
 });
 
-describe('SettingsStore premium promo visibility', () => {
-    let settingsStore: SettingsStore;
+describe('SettingsStore locations', () => {
+    it('should replace the locations list with the refreshed data', () => {
+        const locations = [{
+            id: 'location-1',
+            countryName: 'Germany',
+            cityName: 'Berlin',
+            countryCode: 'DE',
+            pingBonus: 0,
+            premiumOnly: false,
+            virtual: false,
+        }];
 
-    beforeEach(() => {
-        vi.clearAllMocks();
-        settingsStore = new SettingsStore(rootStoreStub);
+        settingsStore.setLocations(locations);
+
+        expect(settingsStore.locations).toEqual(locations);
     });
+});
 
+describe('SettingsStore premium promo visibility', () => {
     it('should hide the premium promo and persist the setting', async () => {
         await settingsStore.hidePremiumFeatures();
 

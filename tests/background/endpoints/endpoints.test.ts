@@ -31,6 +31,7 @@ vi.mock('../../../src/background/profiles', () => ({
     profilesService: {
         getActiveProfileId: vi.fn().mockReturnValue('default'),
         getActiveProfileSettings: vi.fn().mockReturnValue({ selectedLocation: null }),
+        getProfilesDataStripped: vi.fn().mockResolvedValue({ activeProfileId: 'default', profiles: [] }),
         updateProfileSettings: vi.fn().mockResolvedValue(undefined),
     },
 }));

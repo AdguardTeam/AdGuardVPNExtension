@@ -11,18 +11,22 @@ import { renderHook, waitFor } from '@testing-library/react';
 
 const mockSetPremiumFeatures = vi.hoisted(() => vi.fn());
 const mockSetIsHelpUsImproveEnabled = vi.hoisted(() => vi.fn());
+const mockSetLocations = vi.hoisted(() => vi.fn());
 
 /**
- * Captured notifier callback registered by the hook through the messenger.
+ * Captured notifier callback and subscribed events registered by the hook
+ * through the messenger.
  */
 const capturedListener = vi.hoisted(() => ({
     callback: null as null | ((message: unknown) => void),
+    events: null as null | string[],
 }));
 
 vi.mock('../../../src/common/messenger', () => ({
     messenger: {
-        createEventListener: vi.fn(async (_events: unknown, callback: (message: unknown) => void) => {
+        createEventListener: vi.fn(async (events: string[], callback: (message: unknown) => void) => {
             capturedListener.callback = callback;
+            capturedListener.events = events;
             return vi.fn();
         }),
     },
@@ -37,6 +41,7 @@ vi.mock('../../../src/options/stores', () => {
             setPremiumFeatures: mockSetPremiumFeatures,
             updateCurrentUsername: vi.fn(),
             setSelectedLanguage: vi.fn(),
+            setLocations: mockSetLocations,
         },
         globalStore: {
             getOptionsData: vi.fn(),
@@ -82,6 +87,7 @@ describe('useMessageHandler settings updates', () => {
     beforeEach(() => {
         vi.clearAllMocks();
         capturedListener.callback = null;
+        capturedListener.events = null;
     });
 
     it('should apply the premium promo visibility changed in another options tab', async () => {
@@ -119,5 +125,24 @@ describe('useMessageHandler settings updates', () => {
 
         expect(mockSetIsHelpUsImproveEnabled).toHaveBeenCalledWith(true);
         expect(mockSetPremiumFeatures).not.toHaveBeenCalled();
+    });
+
+    it('should refresh the locations list and subscribe to locations updates', async () => {
+        await renderAndWaitForSubscription();
+
+        const locations = [{
+            id: 'location-1',
+            countryName: 'Germany',
+            cityName: 'Berlin',
+        }];
+
+        expect(capturedListener.events).toContain(notifier.types.LOCATIONS_UPDATED);
+
+        capturedListener.callback?.({
+            type: notifier.types.LOCATIONS_UPDATED,
+            data: locations,
+        });
+
+        expect(mockSetLocations).toHaveBeenCalledWith(locations);
     });
 });

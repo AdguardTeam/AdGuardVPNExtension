@@ -28,6 +28,7 @@ import * as helpers from '../../../src/common/helpers';
 import { settings } from '../../../src/background/settings';
 import { DEFAULT_PROFILE_SETTINGS } from '../../../src/background/schema';
 import { QuickConnectSetting } from '../../../src/common/constants';
+import { type ProfilesStateStripped } from '../../../src/common/profiles';
 
 vi.mock('../../../src/background/settings');
 vi.mock('../../../src/background/providers/vpnProvider');
@@ -47,6 +48,7 @@ vi.mock('../../../src/background/profiles', () => ({
             },
         ),
         getProfilesData: vi.fn().mockResolvedValue({ activeProfileId: 'default', profiles: [] }),
+        getProfilesDataStripped: vi.fn().mockResolvedValue({ activeProfileId: 'default', profiles: [] }),
     },
 }));
 
@@ -67,6 +69,8 @@ describe('location service', () => {
             selectedLocation: null,
             quickConnect: QuickConnectSetting.LastUsedLocation,
         });
+        vi.mocked(profilesService.getProfilesDataStripped)
+            .mockResolvedValue({ activeProfileId: 'default', profiles: [] });
     });
 
     it('by default it tries to connect to previously selected endpoint', async () => {
@@ -1674,6 +1678,101 @@ describe('location service', () => {
                     selectedLocation: expect.objectContaining({ id: 'loc-tokyo' }),
                 }),
             );
+        });
+    });
+
+    describe('profile location re-localization', () => {
+        const makeStoredLocation = (
+            id: string,
+            countryName: string,
+            cityName: string,
+        ): LocationInterface => ({
+            id,
+            countryName,
+            cityName,
+            countryCode: 'DE',
+            endpoints: [],
+            coordinates: [0, 0],
+            premiumOnly: false,
+            pingBonus: 0,
+            virtual: false,
+            ping: null,
+        });
+
+        const makeRefreshedLocation = (
+            id: string,
+            countryName: string,
+            cityName: string,
+        ): Location => new Location({
+            ...makeStoredLocation(id, countryName, cityName),
+            endpoints: [{
+                id: `${id}-endpoint`,
+                domainName: `${id}.endpoint.test`,
+                ipv4Address: '1.2.3.4',
+                ipv6Address: '::1',
+                publicKey: 'testkey=',
+            }],
+        });
+
+        const mockProfilesState = (
+            profiles: Array<{ id: string, selectedLocation: LocationInterface | null }>,
+        ): void => {
+            vi.mocked(profilesService.getProfilesDataStripped).mockResolvedValue({
+                activeProfileId: 'default',
+                profiles: profiles.map(({ id, selectedLocation }) => ({
+                    id,
+                    name: id,
+                    settings: {
+                        ...DEFAULT_PROFILE_SETTINGS,
+                        selectedLocation,
+                    },
+                })),
+            } as ProfilesStateStripped);
+        };
+
+        beforeEach(() => {
+            vi.spyOn(pingHelpers, 'measurePingWithinLimits').mockResolvedValue(42);
+            vi.mocked(profilesService.updateProfileSettings).mockClear();
+        });
+
+        afterEach(() => {
+            vi.restoreAllMocks();
+        });
+
+        it('should re-localize the selected location of a non-active profile', async () => {
+            mockProfilesState([
+                { id: 'default', selectedLocation: null },
+                { id: 'pinned', selectedLocation: makeStoredLocation('munich', 'Germany', 'Munich') },
+            ]);
+            const notifierSpy = vi.spyOn(notifier, 'notifyListeners');
+
+            await locationsService.setLocations([makeRefreshedLocation('munich', 'Deutschland', 'München')]);
+
+            expect(profilesService.updateProfileSettings).toHaveBeenCalledWith(
+                'pinned',
+                expect.objectContaining({
+                    selectedLocation: expect.objectContaining({
+                        id: 'munich',
+                        countryName: 'Deutschland',
+                        cityName: 'München',
+                    }),
+                }),
+            );
+            expect(notifierSpy).toHaveBeenCalledWith(
+                notifier.types.PROFILE_LOCATION_UPDATED,
+                'pinned',
+                expect.objectContaining({ id: 'munich' }),
+            );
+        });
+
+        it('should not write profiles whose names did not change', async () => {
+            mockProfilesState([
+                { id: 'pinned', selectedLocation: makeStoredLocation('munich', 'Germany', 'Munich') },
+            ]);
+
+            await locationsService.setLocations([makeRefreshedLocation('munich', 'Germany', 'Munich')]);
+
+            expect(profilesService.updateProfileSettings).not.toHaveBeenCalled();
         });
     });
 });

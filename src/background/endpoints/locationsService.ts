@@ -476,6 +476,46 @@ export class LocationsService implements LocationsServiceInterface {
         return null;
     };
 
+    /**
+     * Re-localizes the location names persisted for every profile.
+     *
+     * Profiles keep their own copy of the selected location, so the names
+     * go stale on a language change unless they are refreshed here.
+     * Profiles whose names did not change are left untouched.
+     *
+     * @param locations Refreshed locations list.
+     */
+    private relocalizeProfileLocations = async (locations: LocationInterface[]): Promise<void> => {
+        const locationsById = new Map(locations.map((location) => [location.id, location]));
+        const { profiles } = await profilesService.getProfilesDataStripped();
+
+        await Promise.all(profiles.map(async ({ id, settings: profileSettings }) => {
+            const storedLocation = profileSettings.selectedLocation;
+            if (!storedLocation) {
+                return;
+            }
+
+            const updatedLocation = locationsById.get(storedLocation.id);
+            if (!updatedLocation) {
+                return;
+            }
+
+            const namesChanged = updatedLocation.countryName !== storedLocation.countryName
+                || updatedLocation.cityName !== storedLocation.cityName;
+            if (!namesChanged) {
+                return;
+            }
+
+            await profilesService.updateProfileSettings(id, { selectedLocation: updatedLocation });
+
+            notifier.notifyListeners(
+                notifier.types.PROFILE_LOCATION_UPDATED,
+                id,
+                updatedLocation,
+            );
+        }));
+    };
+
     public setLocations = async (newLocations: LocationInterface[]): Promise<void> => {
         const { pingsCache } = await this.locationsState.get();
 
@@ -492,6 +532,14 @@ export class LocationsService implements LocationsServiceInterface {
         });
 
         await this.locationsState.update({ locations: updatedNewLocations });
+
+        // Must not block the locations update itself: stale profile names
+        // are refreshed on the next successful refetch anyway.
+        try {
+            await this.relocalizeProfileLocations(updatedNewLocations);
+        } catch (e) {
+            log.error('[vpn.LocationsService]: Failed to re-localize profile locations:', e.message);
+        }
 
         // populate pings cache with backend-provided pings before measuring
         const lastMeasurementTime = Date.now();
