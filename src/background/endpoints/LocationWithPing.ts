@@ -15,6 +15,8 @@ export class LocationWithPing implements LocationWithPingInterface {
 
     public ping?: number | null;
 
+    public pingBonus: number;
+
     public available?: boolean;
 
     public premiumOnly: boolean;
@@ -27,6 +29,7 @@ export class LocationWithPing implements LocationWithPingInterface {
         this.countryName = location.countryName;
         this.countryCode = location.countryCode;
         this.ping = location.ping;
+        this.pingBonus = location.pingBonus;
         this.available = location.available;
         this.premiumOnly = location.premiumOnly;
         this.virtual = location.virtual;

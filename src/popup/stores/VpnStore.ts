@@ -5,6 +5,7 @@ import {
     runInAction,
 } from 'mobx';
 
+import { compareByEffectivePing, isLocationAvailableForToken } from '../../common/helpers';
 import { messenger } from '../../common/messenger';
 import { translator } from '../../common/translator';
 import type { LocationWithPing } from '../../background/endpoints/LocationWithPing';
@@ -272,23 +273,25 @@ export class VpnStore {
      */
     private calculateFastestLocations = (locations: LocationData[]): LocationData[] => {
         const FASTEST_LOCATIONS_COUNT = 3;
-        const sortedLocations = locations
+        // Premium-only locations are not available to free users, so they must
+        // not occupy the fastest list, mirroring the background resolution.
+        const availableLocations = locations.filter((location) => {
+            return isLocationAvailableForToken(location, this.isPremiumToken);
+        });
+        const sortedLocations = availableLocations
             .map(this.enrichWithStateData)
-            .filter((location) => location.ping)
-            .sort((a, b) => Number(a.ping) - Number(b.ping))
+            .filter((location): location is LocationData & { ping: number } => !!location.ping)
+            .sort(compareByEffectivePing)
             .map((location) => {
                 if (this.selectedLocation && this.selectedLocation.id === location.id) {
                     return { ...location, selected: true };
                 }
                 return { ...location };
             });
-        // display fastest if
-        // pings number is equal to endpoints number
-        if (sortedLocations.length === locations.length) {
-            return sortedLocations.slice(0, FASTEST_LOCATIONS_COUNT);
-        }
-        // there are more than three pings ready
-        if (sortedLocations.length >= FASTEST_LOCATIONS_COUNT) {
+        // Display the fastest when the pings are calculated for every selectable
+        // location, or when at least three pings are ready.
+        if (sortedLocations.length === availableLocations.length
+            || sortedLocations.length >= FASTEST_LOCATIONS_COUNT) {
             return sortedLocations.slice(0, FASTEST_LOCATIONS_COUNT);
         }
         return [];

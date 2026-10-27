@@ -9,6 +9,8 @@ import {
 const mockGetSelectedLocation = vi.hoisted(() => vi.fn());
 const mockShouldResolveFastestLocation = vi.hoisted(() => vi.fn());
 const mockSelectFastestLocation = vi.hoisted(() => vi.fn());
+const mockConsumeDisplayedLocation = vi.hoisted(() => vi.fn());
+const mockClearDisplayedLocation = vi.hoisted(() => vi.fn());
 const mockGetEndpointByLocation = vi.hoisted(() => vi.fn());
 const mockConnectivitySend = vi.hoisted(() => vi.fn());
 
@@ -35,6 +37,8 @@ vi.mock('../../../src/background/endpoints/locationsService', () => ({
         getSelectedLocation: mockGetSelectedLocation,
         shouldResolveFastestLocation: mockShouldResolveFastestLocation,
         selectFastestLocation: mockSelectFastestLocation,
+        consumeDisplayedLocation: mockConsumeDisplayedLocation,
+        clearDisplayedLocation: mockClearDisplayedLocation,
         getEndpointByLocation: mockGetEndpointByLocation,
     },
 }));
@@ -44,6 +48,7 @@ vi.mock('../../../src/background/connectivity/index', () => ({
         endpointConnectivity: {
             setCredentials: vi.fn(),
             start: vi.fn(),
+            stop: vi.fn().mockResolvedValue(undefined),
         },
     },
 }));
@@ -81,6 +86,7 @@ describe('switcher connect flow', () => {
         vi.clearAllMocks();
         mockGetEndpointByLocation.mockResolvedValue(ENDPOINT);
         mockShouldResolveFastestLocation.mockResolvedValue(false);
+        mockConsumeDisplayedLocation.mockReturnValue(false);
     });
 
     it('should connect to the selected location when one is already selected', async () => {
@@ -124,6 +130,18 @@ describe('switcher connect flow', () => {
         expect(mockConnectivitySend).not.toHaveBeenCalledWith('connectionFail');
     });
 
+    it('should use the location displayed in the popup without resolving the fastest one', async () => {
+        mockGetSelectedLocation.mockResolvedValue(SELECTED_LOCATION);
+        mockConsumeDisplayedLocation.mockReturnValue(true);
+        mockShouldResolveFastestLocation.mockResolvedValue(true);
+
+        await switcher.turnOn();
+
+        expect(mockShouldResolveFastestLocation).not.toHaveBeenCalled();
+        expect(mockSelectFastestLocation).not.toHaveBeenCalled();
+        expect(mockGetEndpointByLocation).toHaveBeenCalledWith(SELECTED_LOCATION, false);
+    });
+
     it('should fail the connect when the fastest location cannot be resolved', async () => {
         mockGetSelectedLocation.mockResolvedValue(null);
         mockSelectFastestLocation.mockResolvedValue(null);
@@ -132,5 +150,19 @@ describe('switcher connect flow', () => {
 
         expect(mockConnectivitySend).toHaveBeenCalledWith('connectionFail');
         expect(mockGetEndpointByLocation).not.toHaveBeenCalled();
+    });
+
+    it('should clear the displayed location on an explicit disconnect', async () => {
+        await switcher.turnOff();
+
+        expect(mockClearDisplayedLocation).toHaveBeenCalledTimes(1);
+    });
+
+    it('should keep the displayed location on a retry', async () => {
+        mockGetSelectedLocation.mockResolvedValue(SELECTED_LOCATION);
+
+        await switcher.retryTurnOn();
+
+        expect(mockClearDisplayedLocation).not.toHaveBeenCalled();
     });
 });

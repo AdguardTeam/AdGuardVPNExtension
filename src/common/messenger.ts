@@ -23,6 +23,7 @@ import {
     type Message,
     type QuickConnectSetting,
     type OnboardingGoal,
+    type DisplayedLocation,
 } from './constants';
 import { type NotifierType } from './notifier';
 import { type NotifierMessage } from './notifierEvents';
@@ -368,9 +369,12 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    public async enableProxy(force: boolean): Promise<ExtractMessageResponse<MessageType.ENABLE_PROXY>> {
+    public async enableProxy(
+        force: boolean,
+        displayedLocation?: DisplayedLocation,
+    ): Promise<ExtractMessageResponse<MessageType.ENABLE_PROXY>> {
         const type = MessageType.ENABLE_PROXY;
-        return this.sendMessage(type, { force });
+        return this.sendMessage(type, { force, displayedLocation });
     }
 
     public async disableProxy(force: boolean): Promise<ExtractMessageResponse<MessageType.DISABLE_PROXY>> {

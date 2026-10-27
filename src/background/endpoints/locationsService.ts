@@ -1,10 +1,11 @@
 import isEmpty from 'lodash/isEmpty';
 
 import { log } from '../../common/logger';
-import { getLocationWithLowestPing, sleep } from '../../common/helpers';
+import { getLocationWithLowestPing, isLocationAvailableForToken, sleep } from '../../common/helpers';
 import { measurePingWithinLimits } from '../connectivity/pingHelpers';
 import { notifier } from '../../common/notifier';
-import { QuickConnectSetting } from '../../common/constants';
+import { QuickConnectSetting, type DisplayedLocation } from '../../common/constants';
+import { ConnectivityStateType } from '../../common/connectivityState';
 import { vpnProvider } from '../providers/vpnProvider';
 // eslint-disable-next-line import/no-cycle
 import { credentials } from '../credentials';
@@ -125,6 +126,17 @@ export class LocationsService implements LocationsServiceInterface {
     private locationsState = new StateData(StorageKey.LocationsService);
 
     private readonly PING_TTL_MS = 1000 * 60 * 10; // 10 minutes
+
+    /**
+     * How long the location displayed in the popup is applied to the next connect.
+     */
+    private static readonly DISPLAYED_LOCATION_TTL_MS = 1000 * 30;
+
+    /**
+     * When the location displayed in the popup was applied.
+     * Zero when no displayed location is pending.
+     */
+    private displayedLocationAppliedAt = 0;
 
     /**
      * Reconnects the VPN tunnel if it is currently active
@@ -403,6 +415,8 @@ export class LocationsService implements LocationsServiceInterface {
         }));
 
         this.isMeasuring = false;
+
+        await this.syncFastestLocationForDisplay();
     };
 
     /**
@@ -767,7 +781,7 @@ export class LocationsService implements LocationsServiceInterface {
         const filterCandidates = (locationsToFilter: LocationInterface[]): LocationInterface[] => {
             return isPremiumUser
                 ? locationsToFilter
-                : locationsToFilter.filter((location) => !location.premiumOnly);
+                : locationsToFilter.filter((location) => isLocationAvailableForToken(location, isPremiumUser));
         };
 
         const pingsCalculated = filterCandidates(locations).every((location) => {
@@ -866,11 +880,7 @@ export class LocationsService implements LocationsServiceInterface {
      * @returns True when the user can connect to the location.
      */
     private isLocationAvailableForUser = async (location: LocationInterface): Promise<boolean> => {
-        if (!location.premiumOnly) {
-            return true;
-        }
-
-        return credentials.isPremiumToken();
+        return isLocationAvailableForToken(location, await credentials.isPremiumToken());
     };
 
     /**
@@ -902,9 +912,9 @@ export class LocationsService implements LocationsServiceInterface {
      * @param options.waitForPings Whether to wait for in-flight ping
      *   measurements before ranking. See {@link resolveFastestLocation}.
      * @param options.persist Whether to store the resolved location in the
-     *   session and the active profile. Display-only callers pass false, so
-     *   a location ranked without waiting for pings is not used by the
-     *   connect flow.
+     *   session and the active profile. Display-only callers pass false: the
+     *   popup passes the displayed location to the connect flow separately,
+     *   even when it was ranked without waiting for pings.
      *
      * @returns The selected location, or null when it cannot be determined yet.
      *   A location picked by the user is returned as stored, with its cached
@@ -956,6 +966,126 @@ export class LocationsService implements LocationsServiceInterface {
         }
 
         return fastestLocation;
+    };
+
+    /**
+     * Keeps the displayed location in sync with the fastest location while the
+     * VPN is disabled: pings arrive progressively, and the popup header must
+     * show the same location that the "Fastest locations" list ranks first.
+     * A location picked by the user is not overridden.
+     */
+    private syncFastestLocationForDisplay = async (): Promise<void> => {
+        if (!this.doesUserPreferFastestLocation()) {
+            return;
+        }
+
+        // While the tunnel is active, the header shows the connected location.
+        if (!connectivityService.isVPNIdle() && !connectivityService.isVPNDisconnectedIdle()) {
+            return;
+        }
+
+        const {
+            locations,
+            selectedLocation,
+            isSelectedLocationUserPicked,
+        } = await this.locationsState.get();
+
+        // A pick is kept only while it is still offered and available: a
+        // location removed by the backend or turned premium-only after a
+        // downgrade cannot be connected to, and keeping it would show one
+        // location while the connect resolves another.
+        const isPickedLocationValid = isSelectedLocationUserPicked
+            && this.isLocationInList(selectedLocation, locations)
+            && !!selectedLocation
+            && await this.isLocationAvailableForUser(selectedLocation);
+
+        if (isPickedLocationValid) {
+            return;
+        }
+
+        const fastestLocation = await this.selectFastestLocation({
+            waitForPings: false,
+            persist: false,
+        });
+
+        if (!fastestLocation || fastestLocation.id === selectedLocation?.id) {
+            return;
+        }
+
+        await this.applySelectedLocation(fastestLocation, false);
+        notifier.notifyListeners(notifier.types.CURRENT_LOCATION_UPDATED, fastestLocation);
+    };
+
+    /**
+     * Applies the location displayed in the popup so the next connect uses it
+     * as is instead of resolving the fastest location again.
+     *
+     * The location is ignored when the profile has changed, the location is no
+     * longer available, or a connection is already in progress: the next
+     * connect then resolves the fastest location as usual.
+     *
+     * @param displayedLocation Location displayed in the popup and its profile.
+     *
+     * @returns True when the location was applied.
+     */
+    public applyDisplayedLocation = async (
+        { locationId, profileId }: DisplayedLocation,
+    ): Promise<boolean> => {
+        if (profileId !== profilesService.getActiveProfileId()) {
+            return false;
+        }
+
+        const connectivityState = connectivityService.state.value;
+        const isConnectInProgress = connectivityState === ConnectivityStateType.ConnectingIdle
+            || connectivityState === ConnectivityStateType.ConnectingRetrying;
+
+        if (connectivityService.isVPNConnected() || isConnectInProgress) {
+            return false;
+        }
+
+        const { locations } = await this.locationsState.get();
+        const location = locations.find((item) => item.id === locationId);
+
+        if (!location || !await this.isLocationAvailableForUser(location)) {
+            return false;
+        }
+
+        // A popup pick is session-only: it must not replace the location pinned
+        // to the profile.
+        const applied = await this.setSelectedLocation(profileId, locationId, {
+            reconnect: false,
+            persistToProfile: false,
+        });
+
+        if (!applied) {
+            return false;
+        }
+
+        this.displayedLocationAppliedAt = Date.now();
+
+        return true;
+    };
+
+    /**
+     * Consumes the location displayed in the popup.
+     *
+     * @returns True when the next connect must use the displayed location as is.
+     */
+    public consumeDisplayedLocation = (): boolean => {
+        const isFresh = this.displayedLocationAppliedAt !== 0
+            && Date.now() - this.displayedLocationAppliedAt <= LocationsService.DISPLAYED_LOCATION_TTL_MS;
+
+        this.displayedLocationAppliedAt = 0;
+
+        return isFresh;
+    };
+
+    /**
+     * Clears the location displayed in the popup, so the next connect resolves
+     * the fastest location again.
+     */
+    public clearDisplayedLocation = (): void => {
+        this.displayedLocationAppliedAt = 0;
     };
 
     /**

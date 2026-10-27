@@ -53,6 +53,20 @@ vi.mock('../../../src/background/profiles', () => ({
 describe('location service', () => {
     beforeEach(async () => {
         await connectivityService.start();
+
+        // Restore the default profile mocks: `restoreAllMocks` in the nested
+        // suites resets their implementations between tests.
+        vi.mocked(profilesService.getActiveProfileId).mockReturnValue('default');
+        vi.mocked(profilesService.getActiveProfileSettings).mockReturnValue({
+            ...DEFAULT_PROFILE_SETTINGS,
+            selectedLocation: null,
+            quickConnect: QuickConnectSetting.LastUsedLocation,
+        });
+        vi.mocked(profilesService.getProfileSettings).mockReturnValue({
+            ...DEFAULT_PROFILE_SETTINGS,
+            selectedLocation: null,
+            quickConnect: QuickConnectSetting.LastUsedLocation,
+        });
     });
 
     it('by default it tries to connect to previously selected endpoint', async () => {
@@ -628,6 +642,274 @@ describe('location service', () => {
                 expect.anything(),
                 expect.anything(),
             );
+        });
+    });
+
+    describe('displayed location from the popup', () => {
+        const makeEndpoint = (domain: string): EndpointInterface => ({
+            id: domain,
+            domainName: domain,
+            ipv4Address: '1.2.3.4',
+            ipv6Address: '::1',
+            publicKey: 'testkey=',
+        });
+
+        const freeLocation: LocationInterface = {
+            id: 'loc-berlin',
+            cityName: 'Berlin',
+            countryName: 'Germany',
+            countryCode: 'DE',
+            coordinates: [13.4, 52.52],
+            premiumOnly: false,
+            pingBonus: 0,
+            endpoints: [makeEndpoint('de.endpoint.test')],
+            virtual: false,
+        };
+
+        const premiumLocation: LocationInterface = {
+            ...freeLocation,
+            id: 'loc-premium',
+            cityName: 'Premium',
+            premiumOnly: true,
+        };
+
+        beforeEach(async () => {
+            vi.spyOn(pingHelpers, 'measurePingWithinLimits').mockResolvedValue(50);
+            await locationsService.setLocations([
+                new Location(freeLocation),
+                new Location(premiumLocation),
+            ]);
+            vi.mocked(profilesService.getActiveProfileId).mockReturnValue('default');
+            type ProfileSettings = ReturnType<typeof profilesService.getProfileSettings>;
+            vi.mocked(profilesService.getProfileSettings).mockReturnValue(
+                { quickConnect: QuickConnectSetting.SpecificLocation } as ProfileSettings,
+            );
+            vi.spyOn(credentials, 'isPremiumToken').mockResolvedValue(true);
+            // Clear the one-shot flag left by the previous tests.
+            locationsService.consumeDisplayedLocation();
+        });
+
+        afterEach(() => {
+            vi.restoreAllMocks();
+        });
+
+        it('should apply the displayed location', async () => {
+            const applied = await locationsService.applyDisplayedLocation({
+                locationId: 'loc-berlin',
+                profileId: 'default',
+            });
+
+            expect(applied).toBe(true);
+
+            const selectedLocation = await locationsService.getSelectedLocation();
+            expect(selectedLocation).toEqual(expect.objectContaining({ id: 'loc-berlin' }));
+        });
+
+        it('should consume the displayed location only once', async () => {
+            await locationsService.applyDisplayedLocation({
+                locationId: 'loc-berlin',
+                profileId: 'default',
+            });
+
+            expect(locationsService.consumeDisplayedLocation()).toBe(true);
+            expect(locationsService.consumeDisplayedLocation()).toBe(false);
+        });
+
+        it('should ignore the displayed location of another profile', async () => {
+            const applied = await locationsService.applyDisplayedLocation({
+                locationId: 'loc-berlin',
+                profileId: 'custom-profile',
+            });
+
+            expect(applied).toBe(false);
+            expect(locationsService.consumeDisplayedLocation()).toBe(false);
+        });
+
+        it('should not persist the displayed location to the profile', async () => {
+            vi.mocked(profilesService.updateProfileSettings).mockClear();
+
+            await locationsService.applyDisplayedLocation({
+                locationId: 'loc-berlin',
+                profileId: 'default',
+            });
+
+            expect(profilesService.updateProfileSettings).not.toHaveBeenCalled();
+        });
+
+        it('should ignore the displayed location after the ttl', async () => {
+            const now = Date.now();
+            const dateNowSpy = vi.spyOn(Date, 'now').mockReturnValue(now);
+
+            await locationsService.applyDisplayedLocation({
+                locationId: 'loc-berlin',
+                profileId: 'default',
+            });
+
+            dateNowSpy.mockReturnValue(now + 30_000 + 1);
+
+            expect(locationsService.consumeDisplayedLocation()).toBe(false);
+        });
+
+        it('should ignore an unknown displayed location', async () => {
+            const applied = await locationsService.applyDisplayedLocation({
+                locationId: 'loc-unknown',
+                profileId: 'default',
+            });
+
+            expect(applied).toBe(false);
+            expect(locationsService.consumeDisplayedLocation()).toBe(false);
+        });
+
+        it('should ignore a premium-only displayed location for a free user', async () => {
+            vi.mocked(credentials.isPremiumToken).mockResolvedValue(false);
+
+            const applied = await locationsService.applyDisplayedLocation({
+                locationId: 'loc-premium',
+                profileId: 'default',
+            });
+
+            expect(applied).toBe(false);
+            expect(locationsService.consumeDisplayedLocation()).toBe(false);
+        });
+    });
+
+    describe('fastest location display sync', () => {
+        const makeEndpoint = (domain: string): EndpointInterface => ({
+            id: domain,
+            domainName: domain,
+            ipv4Address: '1.2.3.4',
+            ipv6Address: '::1',
+            publicKey: 'testkey=',
+        });
+
+        const makeLocation = (id: string, ping: number): LocationInterface => ({
+            id,
+            cityName: id,
+            countryName: id,
+            countryCode: id.toUpperCase(),
+            coordinates: [13.4, 52.52],
+            premiumOnly: false,
+            pingBonus: 0,
+            endpoints: [makeEndpoint(`${id}.endpoint.test`)],
+            ping,
+            virtual: false,
+        });
+
+        beforeEach(() => {
+            type ActiveProfileSettings = ReturnType<typeof profilesService.getActiveProfileSettings>;
+            vi.mocked(profilesService.getActiveProfileSettings).mockReturnValue({
+                selectedLocation: null,
+                quickConnect: QuickConnectSetting.FastestLocation,
+            } as ActiveProfileSettings);
+            vi.spyOn(credentials, 'isPremiumToken').mockResolvedValue(true);
+        });
+
+        afterEach(() => {
+            vi.restoreAllMocks();
+        });
+
+        it('should notify the fastest location after pings are measured', async () => {
+            const notifySpy = vi.spyOn(notifier, 'notifyListeners');
+
+            await locationsService.setLocations([
+                new Location(makeLocation('loc-slow', 200)),
+                new Location(makeLocation('loc-fast', 50)),
+            ]);
+
+            expect(notifySpy).toHaveBeenCalledWith(
+                notifier.types.CURRENT_LOCATION_UPDATED,
+                expect.objectContaining({ id: 'loc-fast' }),
+            );
+        });
+
+        it('should not override a location picked by the user', async () => {
+            const notifySpy = vi.spyOn(notifier, 'notifyListeners');
+            const slowLocation = makeLocation('loc-slow', 200);
+            const fastLocation = makeLocation('loc-fast', 50);
+
+            await locationsService.setLocations([
+                new Location(slowLocation),
+                new Location(fastLocation),
+            ]);
+            await locationsService.setSelectedLocation('default', 'loc-slow', {
+                persistToProfile: false,
+                isUserPick: true,
+            });
+            notifySpy.mockClear();
+
+            await locationsService.setLocations([
+                new Location(slowLocation),
+                new Location(fastLocation),
+            ]);
+
+            expect(notifySpy).not.toHaveBeenCalledWith(
+                notifier.types.CURRENT_LOCATION_UPDATED,
+                expect.anything(),
+            );
+        });
+
+        it('should not change the displayed location while the VPN is connected', async () => {
+            vi.spyOn(connectivityService, 'isVPNIdle').mockReturnValue(false);
+            vi.spyOn(connectivityService, 'isVPNDisconnectedIdle').mockReturnValue(false);
+            const notifySpy = vi.spyOn(notifier, 'notifyListeners');
+
+            await locationsService.setLocations([
+                new Location(makeLocation('loc-slow', 200)),
+                new Location(makeLocation('loc-fast', 50)),
+            ]);
+
+            expect(notifySpy).not.toHaveBeenCalledWith(
+                notifier.types.CURRENT_LOCATION_UPDATED,
+                expect.anything(),
+            );
+        });
+
+        it('should replace a picked location that is no longer offered', async () => {
+            const slowLocation = makeLocation('loc-slow', 200);
+            const fastLocation = makeLocation('loc-fast', 50);
+
+            await locationsService.setLocations([
+                new Location(slowLocation),
+                new Location(fastLocation),
+            ]);
+            await locationsService.setSelectedLocation('default', 'loc-slow', {
+                persistToProfile: false,
+                isUserPick: true,
+            });
+
+            // The backend removed the picked location.
+            await locationsService.setLocations([new Location(fastLocation)]);
+
+            const selectedLocation = await locationsService.getSelectedLocation();
+            expect(selectedLocation).toEqual(expect.objectContaining({ id: 'loc-fast' }));
+        });
+
+        it('should replace a picked location that became premium-only', async () => {
+            const premiumLocation = {
+                ...makeLocation('loc-premium', 10),
+                premiumOnly: true,
+            };
+            const freeLocation = makeLocation('loc-free', 50);
+
+            await locationsService.setLocations([
+                new Location(premiumLocation),
+                new Location(freeLocation),
+            ]);
+            await locationsService.setSelectedLocation('default', 'loc-premium', {
+                persistToProfile: false,
+                isUserPick: true,
+            });
+
+            // The user downgraded: the picked location is no longer available.
+            vi.mocked(credentials.isPremiumToken).mockResolvedValue(false);
+
+            await locationsService.setLocations([
+                new Location(premiumLocation),
+                new Location(freeLocation),
+            ]);
+
+            const selectedLocation = await locationsService.getSelectedLocation();
+            expect(selectedLocation).toEqual(expect.objectContaining({ id: 'loc-free' }));
         });
     });
 

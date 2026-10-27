@@ -5,7 +5,13 @@ import {
     expect,
 } from 'vitest';
 
-import { lazyGet, formatBytes, getLocationWithLowestPing } from '../../src/common/helpers';
+import {
+    lazyGet,
+    formatBytes,
+    compareByEffectivePing,
+    getLocationWithLowestPing,
+    isLocationAvailableForToken,
+} from '../../src/common/helpers';
 import { type LocationInterface } from '../../src/background/schema';
 
 describe('lazyGet callback', () => {
@@ -77,4 +83,48 @@ it('getLocationWithLowestPing', () => {
         countryName: 'United Kingdom',
         cityName: 'London',
     });
+});
+
+it('getLocationWithLowestPing ignores locations pessimized by a negative ping bonus', () => {
+    const locations = [{
+        ping: 35,
+        pingBonus: -20,
+        countryName: 'Germany',
+        cityName: 'Frankfurt',
+    }, {
+        ping: 40,
+        pingBonus: 0,
+        countryName: 'Netherlands',
+        cityName: 'Amsterdam',
+    }];
+
+    const location = getLocationWithLowestPing(locations as LocationInterface[]);
+
+    expect(location).toEqual({
+        ping: 40,
+        pingBonus: 0,
+        countryName: 'Netherlands',
+        cityName: 'Amsterdam',
+    });
+});
+
+it('compareByEffectivePing', () => {
+    expect(compareByEffectivePing({ ping: 60, pingBonus: 30 }, { ping: 40, pingBonus: 0 }))
+        .toBeLessThan(0);
+    expect(compareByEffectivePing({ ping: 40, pingBonus: 0 }, { ping: 60, pingBonus: 30 }))
+        .toBeGreaterThan(0);
+    expect(compareByEffectivePing({ ping: 50, pingBonus: 10 }, { ping: 40, pingBonus: 0 }))
+        .toBe(0);
+});
+
+it('isLocationAvailableForToken', () => {
+    expect(isLocationAvailableForToken({ premiumOnly: true }, true)).toBe(true);
+    expect(isLocationAvailableForToken({ premiumOnly: false }, true)).toBe(true);
+    expect(isLocationAvailableForToken({ premiumOnly: true }, false)).toBe(false);
+    expect(isLocationAvailableForToken({ premiumOnly: false }, false)).toBe(true);
+
+    // The API response is not runtime-validated: a missing field must not make
+    // a location selectable for a free user.
+    // @ts-expect-error - premiumOnly is required by the type but may be absent at runtime
+    expect(isLocationAvailableForToken({ premiumOnly: undefined }, false)).toBe(false);
 });

@@ -14,6 +14,7 @@ import {
 
 import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
 import { QuickConnectSetting } from '../../../../common/constants';
+import { isLocationAvailableForToken } from '../../../../common/helpers';
 import { translator } from '../../../../common/translator';
 import { messenger } from '../../../../common/messenger';
 import { getFlagIconStyle } from '../../../../common/utils/flagIcon';
@@ -159,7 +160,7 @@ export const ProfileLocationSettings = observer(() => {
     const filteredLocations = locations
         .filter((loc) => {
             return loc.available !== false
-                && (isPremiumToken || !loc.premiumOnly)
+                && isLocationAvailableForToken(loc, isPremiumToken)
                 && (loc.countryName.toLowerCase().includes(normalizedSearch)
                     || loc.cityName.toLowerCase().includes(normalizedSearch));
         })

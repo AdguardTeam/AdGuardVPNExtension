@@ -34,13 +34,15 @@ function* turnOnProxy(forcePrevEndpoint = false): Generator<Promise<unknown>, vo
         yield credentials.trackInstallation();
         let selectedLocation: LocationInterface | null = yield locationsService.getSelectedLocation();
 
+        const useDisplayedLocation = locationsService.consumeDisplayedLocation();
+
         // Resolve the fastest location so the connect target matches the
         // location shown in the popup: "fastest location" profiles must not
         // reuse a location resolved earlier, and a profile without a stored
         // location (fresh install, new profile) has nothing else to connect to.
         // A location picked by the user is kept as is.
         const shouldResolveFastest = !selectedLocation
-            || (yield locationsService.shouldResolveFastestLocation());
+            || (!useDisplayedLocation && (yield locationsService.shouldResolveFastestLocation()));
 
         if (shouldResolveFastest) {
             const resolvedLocation: LocationInterface | null = yield locationsService.selectFastestLocation();
@@ -78,9 +80,15 @@ function* turnOnProxy(forcePrevEndpoint = false): Generator<Promise<unknown>, vo
 }
 
 /**
- * Turns off websocket
+ * Turns off websocket.
+ *
+ * @param clearDisplayedLocation Whether to drop the location displayed in
+ * the popup.
  */
-function* turnOffProxy(): Generator {
+function* turnOffProxy(clearDisplayedLocation = true): Generator {
+    if (clearDisplayedLocation) {
+        locationsService.clearDisplayedLocation();
+    }
     yield connectivity.endpointConnectivity.stop();
 }
 
@@ -109,13 +117,17 @@ class Switcher {
     /**
      * Turns off the VPN proxy connection.
      *
+     * @param clearDisplayedLocation Whether to drop the location displayed in
+     * the popup. Explicit disconnects clear it; retries keep it so the next
+     * attempt uses the location the user saw.
+     *
      * @returns Promise that resolves when the proxy connection is disconnected.
      */
-    public turnOff(): Promise<unknown> {
+    public turnOff(clearDisplayedLocation = true): Promise<unknown> {
         if (this.cancel) {
             this.cancel(FORCE_CANCELLED);
         }
-        const { promise, cancel } = runWithCancel(turnOffProxy);
+        const { promise, cancel } = runWithCancel(turnOffProxy, clearDisplayedLocation);
         this.cancel = cancel;
         this.promise = promise;
         return promise;
@@ -128,7 +140,9 @@ class Switcher {
      */
     public async retryTurnOn(refreshData?: boolean): Promise<void> {
         try {
-            await this.turnOff();
+            // A retry must keep the displayed location: clearing it here
+            // would make the next connect re-resolve the fastest one.
+            await this.turnOff(false);
             if (refreshData) {
                 await endpoints.refreshData();
             }

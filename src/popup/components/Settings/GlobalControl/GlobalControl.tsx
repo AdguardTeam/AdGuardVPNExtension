@@ -17,14 +17,29 @@ type ButtonStates = {
 };
 
 export const GlobalControl = observer(() => {
-    const { settingsStore, uiStore, telemetryStore } = useContext(rootStore);
+    const {
+        settingsStore,
+        uiStore,
+        telemetryStore,
+        vpnStore,
+    } = useContext(rootStore);
 
     const connectHandler = async (): Promise<void> => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.ConnectClick,
             TelemetryScreenName.HomeScreen,
         );
-        await settingsStore.setProxyState(true);
+
+        // Pass the location the popup shows, so the background connects to it
+        // instead of resolving the fastest location again.
+        const displayedLocation = vpnStore.selectedLocation
+            ? {
+                locationId: vpnStore.selectedLocation.id,
+                profileId: vpnStore.activeProfileId,
+            }
+            : undefined;
+
+        await settingsStore.setProxyState(true, displayedLocation);
     };
 
     const disconnectHandler = async (): Promise<void> => {

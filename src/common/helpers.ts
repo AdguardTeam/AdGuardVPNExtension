@@ -1,6 +1,5 @@
 import punycode from 'punycode';
 
-import { type LocationWithPingInterface } from '../background/endpoints/Location';
 import { type LocationInterface } from '../background/schema';
 
 /**
@@ -48,25 +47,72 @@ export const prepareUrl = (rawUrl: string): string => {
 };
 
 /**
- * Selects location with the lowest ping taking in consideration pingBonus
- * pingBonus is an number which comes from backend and it is used to
- * adjust default location selection.
- *
- * @returns Location with the lowest ping.
+ * Location data required to compare locations by effective ping.
  */
-export const getLocationWithLowestPing = (locations: LocationInterface[]): LocationInterface => {
-    // filter locations by ping,
-    // so array of filtered locations will be LocationInterfaceWithPing[] instead of LocationInterface[]
-    // @ts-ignore
-    const locationsWithPings: LocationWithPingInterface[] = locations
-        .filter((location) => location.ping && location.ping > 0);
-    const sortedByPing = locationsWithPings.sort((locationA, locationB) => {
-        const adjustedPingA = locationA.ping - locationA.pingBonus;
-        const adjustedPingB = locationB.ping - locationB.pingBonus;
-        return adjustedPingA - adjustedPingB;
-    });
-    return sortedByPing[0];
+interface LocationWithEffectivePing {
+    /**
+     * Real ping in milliseconds.
+     */
+    ping: number;
+
+    /**
+     * Backend-provided bonus subtracted from the real ping (ms).
+     */
+    pingBonus: number;
+}
+
+/**
+ * Compares locations by the effective ping used to choose the fastest location.
+ * The backend subtracts `pingBonus` from the real ping to promote or pessimize
+ * a location, so the effective ping is what drives the fastest-location choice.
+ * A negative bonus makes the effective ping greater than the real one.
+ *
+ * @param locationA First location.
+ * @param locationB Second location.
+ *
+ * @returns Negative when the first location is faster, positive when slower.
+ */
+export const compareByEffectivePing = (
+    locationA: LocationWithEffectivePing,
+    locationB: LocationWithEffectivePing,
+): number => {
+    const effectivePingA = locationA.ping - locationA.pingBonus;
+    const effectivePingB = locationB.ping - locationB.pingBonus;
+
+    return effectivePingA - effectivePingB;
 };
+
+/**
+ * Selects the location with the lowest effective ping, taking the backend
+ * ping bonus into account.
+ *
+ * @param locations Locations to choose from.
+ *
+ * @returns Location with the lowest effective ping, or undefined when no location has a ping.
+ */
+export const getLocationWithLowestPing = (locations: LocationInterface[]): LocationInterface | undefined => {
+    const locationsWithPings = locations.filter(
+        (location): location is LocationInterface & LocationWithEffectivePing => {
+            return !!location.ping && location.ping > 0;
+        },
+    );
+
+    return locationsWithPings.sort(compareByEffectivePing)[0];
+};
+
+/**
+ * Whether the location is selectable for the current token: premium-only
+ * locations are available only to premium users.
+ *
+ * @param location Location to check.
+ * @param isPremiumToken Whether the user has a premium token.
+ *
+ * @returns True when the location can be selected.
+ */
+export const isLocationAvailableForToken = (
+    location: { premiumOnly: boolean },
+    isPremiumToken: boolean,
+): boolean => isPremiumToken || location.premiumOnly === false;
 
 /**
  * Formats bytes into units.

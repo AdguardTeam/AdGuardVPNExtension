@@ -271,6 +271,10 @@ describe('Endpoints', () => {
 
             const closestLocation = endpoints.getClosestLocation(locations, targetLocation);
 
+            if (!closestLocation) {
+                throw new Error('Closest location is not resolved');
+            }
+
             expect(new LocationWithPing(closestLocation))
                 .toEqual(new LocationWithPing(targetLocation));
         });
@@ -313,6 +317,10 @@ describe('Endpoints', () => {
                 locations,
                 new Location(targetRawLocation),
             );
+
+            if (!closestLocation) {
+                throw new Error('Closest location is not resolved');
+            }
 
             const expectedLocation = new Location({
                 id: 'VVNfTmV3IFlvcms=',
@@ -429,7 +437,17 @@ describe('Endpoints', () => {
         it('reconnects if selected location is premiumOnly and token is not premium', async () => {
             vi.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ licenseKey: '' } as VpnTokenData);
             vi.spyOn(locationsService, 'getSelectedLocation').mockResolvedValue({ premiumOnly: true } as LocationInterface);
-            vi.spyOn(locationsService, 'getLocationsFromServer').mockResolvedValue(locations as Location[]);
+            const freeLocation: LocationInterface = {
+                ...locations[0],
+                id: 'free-location',
+                countryName: 'Germany',
+                cityName: 'Berlin',
+                countryCode: 'DE',
+                premiumOnly: false,
+                ping: 50,
+            };
+            vi.spyOn(locationsService, 'getLocationsFromServer')
+                .mockResolvedValue([...locations, freeLocation] as Location[]);
             vi.spyOn(locationsService, 'getEndpointByLocation').mockResolvedValue({} as EndpointInterface);
             vi.spyOn(endpoints, 'reconnectEndpoint').mockResolvedValue();
 

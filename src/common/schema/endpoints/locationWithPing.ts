@@ -29,6 +29,12 @@ export interface LocationWithPingInterface {
     ping?: number | null;
 
     /**
+     * Bonus subtracted from the real ping when ranking fastest locations (ms).
+     * Comes from the backend and is not displayed to the user.
+     */
+    pingBonus: number;
+
+    /**
      * Whether the location is currently reachable.
      */
     available?: boolean;

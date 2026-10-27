@@ -260,7 +260,14 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
             return appStatus.canControlProxy();
         }
         case MessageType.ENABLE_PROXY: {
-            const { force } = message.data;
+            const { force, displayedLocation } = message.data;
+            if (displayedLocation) {
+                try {
+                    await locationsService.applyDisplayedLocation(displayedLocation);
+                } catch (e) {
+                    log.error('[vpn.messaging]: Failed to apply the displayed location', e);
+                }
+            }
             return settings.enableProxy(force);
         }
         case MessageType.DISABLE_PROXY: {

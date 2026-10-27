@@ -7,7 +7,7 @@ import {
 } from 'vitest';
 
 // eslint-disable-next-line import/first
-import { VpnStore } from '../../../src/popup/stores/VpnStore';
+import { VpnStore, type LocationData } from '../../../src/popup/stores/VpnStore';
 // eslint-disable-next-line import/first
 import { type RootStore } from '../../../src/popup/stores/RootStore';
 
@@ -28,6 +28,95 @@ vi.mock('../../../src/common/messenger', () => ({
  * @returns Vpn store instance.
  */
 const makeStore = (): VpnStore => new VpnStore({} as unknown as RootStore);
+
+/**
+ * Creates a store whose settings store reports pings as calculated,
+ * which is required by the fastest locations getter.
+ *
+ * @returns Vpn store instance.
+ */
+const makeStoreWithSettings = (): VpnStore => new VpnStore({
+    settingsStore: { arePingsRecalculating: false },
+} as unknown as RootStore);
+
+describe('VpnStore fastest locations', () => {
+    let store: VpnStore;
+
+    /**
+     * Builds a location with the fields the popup uses.
+     *
+     * @param location Location fields.
+     *
+     * @returns Location data.
+     */
+    const makeLocation = ({
+        id,
+        ping,
+        pingBonus = 0,
+        premiumOnly = false,
+    }: {
+        id: string;
+        ping: number;
+        pingBonus?: number;
+        premiumOnly?: boolean;
+    }): LocationData => ({
+        id,
+        countryName: id,
+        cityName: id,
+        countryCode: id.toUpperCase(),
+        ping,
+        pingBonus,
+        premiumOnly,
+        virtual: false,
+    });
+
+    beforeEach(() => {
+        store = makeStoreWithSettings();
+        store.isPremiumToken = true;
+    });
+
+    it('should rank locations by ping minus the backend ping bonus', () => {
+        store.setLocations([
+            makeLocation({ id: 'pl', ping: 40 }),
+            makeLocation({ id: 'nl', ping: 60, pingBonus: 30 }),
+            makeLocation({ id: 'fr', ping: 50 }),
+        ]);
+
+        const fastestIds = store.fastestLocationsToDisplay.map((location) => location.id);
+
+        expect(fastestIds).toEqual(['nl', 'pl', 'fr']);
+    });
+
+    it('should keep displaying the real ping of a bonus-promoted location', () => {
+        store.setLocations([
+            makeLocation({ id: 'pl', ping: 40 }),
+            makeLocation({ id: 'nl', ping: 60, pingBonus: 30 }),
+        ]);
+
+        const fastest = store.fastestLocationsToDisplay;
+
+        expect(fastest[0].id).toBe('nl');
+        expect(fastest[0].ping).toBe(60);
+    });
+
+    it('should exclude premium-only locations for free users', () => {
+        store.isPremiumToken = false;
+        store.setLocations([
+            makeLocation({
+                id: 'nl',
+                ping: 60,
+                pingBonus: 30,
+                premiumOnly: true,
+            }),
+            makeLocation({ id: 'pl', ping: 40 }),
+            makeLocation({ id: 'fr', ping: 50 }),
+        ]);
+
+        const fastestIds = store.fastestLocationsToDisplay.map((location) => location.id);
+
+        expect(fastestIds).toEqual(['pl', 'fr']);
+    });
+});
 
 describe('VpnStore profile switch notifications', () => {
     let store: VpnStore;

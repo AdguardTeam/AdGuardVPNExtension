@@ -5,7 +5,7 @@ import qs from 'qs';
 import { getDomain } from 'tldts';
 
 import { log } from '../../common/logger';
-import { getForwarderUrl, getLocationWithLowestPing } from '../../common/helpers';
+import { getForwarderUrl, getLocationWithLowestPing, isLocationAvailableForToken } from '../../common/helpers';
 import { notifier } from '../../common/notifier';
 import { proxy } from '../proxy';
 import { vpnProvider } from '../providers/vpnProvider';
@@ -106,7 +106,7 @@ class Endpoints implements EndpointsInterface {
     public getClosestLocation = (
         locations: LocationInterface[],
         targetLocation: LocationInterface,
-    ): LocationInterface => {
+    ): LocationInterface | undefined => {
         const sameCityEndpoint = locations.find((endpoint) => {
             return endpoint.cityName === targetLocation.cityName;
         });
@@ -205,10 +205,7 @@ class Endpoints implements EndpointsInterface {
         isPremiumToken: boolean,
     ): LocationInterface[] => {
         const filteredLocations = locations.filter((location) => {
-            if (isPremiumToken) {
-                return true;
-            }
-            return location.premiumOnly === false;
+            return isLocationAvailableForToken(location, isPremiumToken);
         });
 
         return filteredLocations;
@@ -246,11 +243,15 @@ class Endpoints implements EndpointsInterface {
         const currentLocation = await locationsService.getSelectedLocation();
         const isPremiumToken = await credentials.isPremiumToken();
 
-        const doesLocationFitToken = isPremiumToken || currentLocation?.premiumOnly === false;
+        const doesLocationFitToken = !currentLocation
+            || isLocationAvailableForToken(currentLocation, isPremiumToken);
 
         if (!doesLocationFitToken && currentLocation) {
             const filteredLocations = this.filterLocationsMatchingToken(locations, isPremiumToken);
             const closestLocation = this.getClosestLocation(filteredLocations, currentLocation);
+            if (!closestLocation) {
+                return;
+            }
             try {
                 // eslint-disable-next-line max-len
                 const closestEndpoint = await locationsService.getEndpointByLocation(closestLocation);
@@ -283,6 +284,9 @@ class Endpoints implements EndpointsInterface {
                     locationsMatchingToken,
                     currentLocation,
                 );
+                if (!closestLocation) {
+                    return;
+                }
                 // eslint-disable-next-line max-len
                 const closestEndpoint = await locationsService.getEndpointByLocation(closestLocation);
                 if (!closestEndpoint) {

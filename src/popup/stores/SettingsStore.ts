@@ -7,7 +7,7 @@ import {
 
 import { tabs } from '../../common/tabs';
 import { log } from '../../common/logger';
-import { SETTINGS_IDS, AppearanceTheme } from '../../common/constants';
+import { SETTINGS_IDS, AppearanceTheme, type DisplayedLocation } from '../../common/constants';
 import { messenger } from '../../common/messenger';
 import { type PermissionsErrorData } from '../../common/notifierEvents';
 import { ConnectivityStateType } from '../../common/connectivityState';
@@ -128,8 +128,11 @@ export class SettingsStore {
         this.canControlProxy = canControlProxy;
     };
 
-    @action private enableProxy = async (force = false): Promise<void> => {
-        await messenger.enableProxy(force);
+    @action private enableProxy = async (
+        force = false,
+        displayedLocation?: DisplayedLocation,
+    ): Promise<void> => {
+        await messenger.enableProxy(force, displayedLocation);
     };
 
     @action public disableProxy = async (force = false): Promise<void> => {
@@ -141,9 +144,12 @@ export class SettingsStore {
         await this.enableProxy(true);
     };
 
-    @action public setProxyState = async (value: boolean): Promise<void> => {
+    @action public setProxyState = async (
+        value: boolean,
+        displayedLocation?: DisplayedLocation,
+    ): Promise<void> => {
         if (value) {
-            await this.enableProxy(true);
+            await this.enableProxy(true, displayedLocation);
         } else {
             await this.disableProxy(true);
         }

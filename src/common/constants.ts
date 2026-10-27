@@ -378,10 +378,24 @@ export type UpdateAuthCacheMessage = {
     };
 };
 
+/**
+ * Location displayed in the popup at the moment the user connects.
+ * The background applies it as is instead of resolving the fastest location again.
+ */
+export type DisplayedLocation = {
+    locationId: string;
+    profileId: string;
+};
+
 export type EnableProxyMessage = {
     type: MessageType.ENABLE_PROXY;
     data: {
         force: boolean;
+
+        /**
+         * Location the popup showed to the user, if any.
+         */
+        displayedLocation?: DisplayedLocation;
     };
 };
 

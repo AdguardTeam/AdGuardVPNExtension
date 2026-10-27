@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
 import { translator } from '../../../common/translator';
+import { isLocationAvailableForToken } from '../../../common/helpers';
 import { SearchHighlighter } from '../../../common/components/SearchHighlighter';
 import { Icon } from '../../../common/components/Icons';
 import { getFlagIconStyle } from '../../../common/utils/flagIcon';
@@ -64,7 +65,7 @@ export const Location = observer(({ location, onClick, onSaveClick }: LocationPr
         saved,
     } = location;
 
-    const locationFitsPremiumToken = vpnStore.isPremiumToken || !premiumOnly;
+    const locationFitsPremiumToken = isLocationAvailableForToken({ premiumOnly }, vpnStore.isPremiumToken);
 
     const virtualText = translator.getMessage('endpoints_location_virtual');
     const offlineText = translator.getMessage('offline_title');

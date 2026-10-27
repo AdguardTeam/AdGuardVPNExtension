@@ -24,12 +24,14 @@ const {
     mockEnableVpnByUrl,
     mockDisableVpnByUrl,
     mockTabsGetCurrent,
+    mockEnableProxy,
 } = vi.hoisted(() => ({
     mockGetExclusionsInverted: vi.fn(),
     mockIsVpnEnabledByUrl: vi.fn(),
     mockEnableVpnByUrl: vi.fn(),
     mockDisableVpnByUrl: vi.fn(),
     mockTabsGetCurrent: vi.fn(),
+    mockEnableProxy: vi.fn(),
 }));
 
 vi.mock('../../../src/common/messenger', () => ({
@@ -38,6 +40,7 @@ vi.mock('../../../src/common/messenger', () => ({
         isVpnEnabledByUrl: mockIsVpnEnabledByUrl,
         enableVpnByUrl: mockEnableVpnByUrl,
         disableVpnByUrl: mockDisableVpnByUrl,
+        enableProxy: mockEnableProxy,
     },
 }));
 
@@ -389,5 +392,16 @@ describe('SettingsStore background animation', () => {
             store.canBeExcluded = false;
         });
         expect(store.isSiteExcluded).toBe(false);
+    });
+});
+
+describe('SettingsStore proxy state', () => {
+    it('should pass the location displayed in the popup when connecting', async () => {
+        const { store } = makeStore();
+        const displayedLocation = { locationId: 'loc-1', profileId: 'default' };
+
+        await store.setProxyState(true, displayedLocation);
+
+        expect(mockEnableProxy).toHaveBeenCalledWith(true, displayedLocation);
     });
 });
