@@ -21,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [Unreleased]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.12.0...HEAD
 
-## [2.12.0] - 2026-10-22
+## [2.12.0-beta.3] - 2026-10-27
 
 ### Added
 
@@ -49,7 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [#252]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/252
 
-[2.12.0]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.12.0-beta.2...v2.12.0
+[2.12.0-beta.3]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.12.0...v2.12.0-beta.3
 
 ## [2.11.1] - 2026-08-13
 
