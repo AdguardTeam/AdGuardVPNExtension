@@ -99,7 +99,8 @@ the build mounts CRX/AMO secrets).
 4. **Static Chrome** — `deploy-to-static.yml` →
    `vpn-webext-chrome-{beta|release}`.
 5. **Chrome Web Store** — `deploy-to-chrome-web-store.yml` (beta or
-   release item id).
+   release item id), staged: after review, publish the version manually
+   from the Developer Dashboard and set the rollout percentage there.
 6. **Release AMO** — `deploy-to-firefox-addons.yml` (listed) with
    `firefox.zip` + `source.zip` + approval notes.
 7. **Release Edge** — `deploy-to-edge-addons.yml`.

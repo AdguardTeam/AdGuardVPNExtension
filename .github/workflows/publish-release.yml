@@ -598,6 +598,11 @@ jobs:
       # Beta is a separate unlisted listing; release is the public one.
       # listing-url is left empty — the workflow constructs it from item-id.
       item-id: ${{ needs.build.outputs.channel == 'beta' && 'kfjjacionkafnmnjhdghdfoinihnijgn' || 'hhdobjgopfphlmjbmnpglhfcgppchgje' }}
+      # Staged publishing needs the v2 API. The version waits for a manual
+      # publish in the CWS dashboard after review, so the rollout percentage
+      # is set by hand instead of going live at 100%.
+      api-version: v2
+      staged: true
       slack-channel: ''
       product: AdGuard VPN
       version-title: ${{ needs.tag.outputs.tag }}
@@ -734,6 +739,7 @@ jobs:
           message: >-
             :white_check_mark: *vpn-extension* *${{ needs.tag.outputs.tag }}*
             published (channel: ${{ needs.build.outputs.channel }}) —
+            CWS version waits for a manual publish after review —
             GitHub Release draft ready for manual publication —
             <${{ needs.create-release.outputs.release-url }}|draft> |
             <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|run>
