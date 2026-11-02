@@ -30,12 +30,12 @@
 
 <p align="center">
     <picture>
-        <source media="(prefers-color-scheme: dark)" srcset="https://cdn.adguard.com/public/Adguard/screenshots/extension/adguardvpn_ext_dark_disconnected.png" width="250"/>
-        <img src="https://cdn.adguard.com/public/Adguard/screenshots/extension/adguardvpn_disconnected.png" width="250">
+        <source media="(prefers-color-scheme: dark)" srcset="https://cdn.adguard.com/public/Adguard/screenshots/extension/adguardvpn_ext_dark_disconnected_new.png" width="250"/>
+        <img src="https://cdn.adguard.com/public/Adguard/screenshots/extension/adguardvpn_disconnected_new.png" width="250">
     </picture>
     <picture>
-        <source media="(prefers-color-scheme: dark)" srcset="https://cdn.adguard.com/public/Adguard/screenshots/extension/adguardvpn_ext_dark_connected.png" width="250"/>
-        <img src="https://cdn.adguard.com/public/Adguard/screenshots/extension/adguardvpn_connected.png" width="250">
+        <source media="(prefers-color-scheme: dark)" srcset="https://cdn.adguard.com/public/Adguard/screenshots/extension/adguardvpn_ext_dark_connected_new.png" width="250"/>
+        <img src="https://cdn.adguard.com/public/Adguard/screenshots/extension/adguardvpn_connected_new.png" width="250">
     </picture>
 </p>
 
