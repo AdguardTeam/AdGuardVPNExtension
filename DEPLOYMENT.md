@@ -74,7 +74,8 @@ Uploads dev archives and JUnit test reports as workflow artifacts.
 
 Triggered manually via `workflow_dispatch` with a `tag` input
 (`v2.11.2` or `v2.11.2-beta.1`). Calls `create-release-pr.yml` to open a
-release PR that finalizes `CHANGELOG.md`.
+release PR that finalizes `CHANGELOG.md`. A manual run shows the requested
+tag in the Actions run list (e.g. `Prepare release v2.11.2-beta.1`).
 
 When the release PR is merged to `master`, `publish-release.yml` takes
 over.

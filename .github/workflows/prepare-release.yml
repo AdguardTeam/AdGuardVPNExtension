@@ -1,5 +1,10 @@
 name: Prepare release
 
+# The run list shows the requested tag together with the workflow name.
+# `github.workflow` repeats the `name` value from one place, so a rename of the
+# workflow also updates the run name.
+run-name: '${{ github.workflow }} ${{ inputs.tag }}'
+
 # Opens a release PR that finalizes CHANGELOG.md for the given tag.
 # After merge, publish-release.yml takes over. Tags containing "-beta.N"
 # (e.g. v1.2.0-beta.1) deploy only to the beta channel; tags without it
