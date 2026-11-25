@@ -9,7 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `opera-<channel>` workflow artifact, so the Opera build can be downloaded
+  from the release run.
+
 ### Changed
+
+- `publish-release.yml`: workflow artifacts are named after the
+  distribution path and the channel, for example `chrome-<channel>` and
+  `chrome-standalone-<channel>`.
 
 ### Deprecated
 

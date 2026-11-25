@@ -81,7 +81,11 @@ Build outputs go to `build/<env>/<browser>/`.
 
 CI extracts Docker stage outputs to `output/<stage>/` in `ci.yml` (e.g.
 `output/dev-build/artifacts/`) and to `artifacts/` in
-`publish-release.yml`, then uploads them as workflow artifacts.
+`publish-release.yml`, then uploads them as workflow artifacts. Release
+uploads are named after the distribution and the channel, for example
+`chrome-<channel>` and `chrome-standalone-<channel>`. The test reports are
+`tests-reports`. [DEPLOYMENT.md](DEPLOYMENT.md#workflow-artifacts) lists
+the `publish-release.yml` uploads.
 
 ## Contribution Instructions
 

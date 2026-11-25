@@ -20,6 +20,7 @@ stores, and creating a GitHub Release draft on the public
   - [CI Workflow](#ci-workflow)
   - [Release Preparation](#release-preparation)
   - [Publish Workflow](#publish-workflow)
+    - [Workflow artifacts](#workflow-artifacts)
   - [Failure recovery](#failure-recovery)
   - [Mirror](#mirror)
 - [Pipeline Flow](#pipeline-flow)
@@ -40,7 +41,7 @@ stores, and creating a GitHub Release draft on the public
 | **Firefox AMO** (listed) | `firefox.zip` + `source.zip` | release only |
 | **Edge Add-ons** | `edge.zip` | release only |
 | **GitHub Release** (`AdguardTeam/AdGuardVPNExtension`) | Channel build assets (draft) | beta, release |
-| **Opera add-ons** | Manual upload (no store API) | release |
+| **Opera add-ons** | `opera.zip` from the `opera-<channel>` workflow artifact; manual upload (no store API) | release |
 
 Static uploads use the internal **deployer** service. Modules:
 
@@ -119,6 +120,28 @@ the build mounts CRX/AMO secrets).
     Release draft and publish it manually. Both channels stay in draft
     until this step; attaching signed Firefox beta assets also preserves
     the draft state.
+
+#### Workflow artifacts
+
+`publish-release.yml` uploads a workflow artifact for every distribution of
+every browser build, plus the GitHub Release bundles and the test reports.
+Names carry the distribution and the channel:
+
+| Artifact | Consumer |
+| --- | --- |
+| `chrome-<channel>` | Chrome Web Store (`publish-chrome-webstore`) |
+| `chrome-standalone-<channel>` | Static deploy, module `vpn-webext-chrome-<channel>` |
+| `firefox-release` | AMO (`publish-amo`) |
+| `firefox-standalone-<channel>` | Static deploy, module `vpn-webext-firefox-<channel>` |
+| `edge-release` | Edge Add-ons (`publish-edge`) |
+| `opera-<channel>` | A person, by manual download |
+| `release-assets-<channel>` | GitHub Release draft (`create-release`) |
+| `release-assets-firefox-beta` | GitHub Release draft (`create-release-firefox`) |
+| `tests-reports` | No automated consumer; a person reads the JUnit results in the Actions UI |
+
+The name describes the way of distribution, not the manifest version.
+`chrome-<channel>` and `chrome-standalone-<channel>` both carry the MV3
+`chrome.zip`.
 
 ### Failure recovery
 
@@ -289,9 +312,12 @@ These replace the former Bamboo plan variables (`devVpnApiUrl`,
   `UNTRUSTED_certificate-beta` and `UNTRUSTED_certificate-release`.
 - Set the six repository variables listed above.
 - GitHub Environments (provisioned via terraform-github):
-  `beta-static`, `production-static`, `chrome-webstore-beta`,
+  `chrome-static-beta`, `chrome-static-release`, `firefox-static-beta`,
+  `firefox-static-release`, `chrome-webstore-beta`,
   `chrome-webstore-release`, `firefox-amo-release`,
   `edge-addons-release`, `github-release`.
+- `beta-static` and `production-static` stay declared until the branches
+  `release/v2.12`–`release/v2.13` close. No new job references them.
 - After the first beta static deploy, confirm existing update URLs still
   resolve (`https://static.adtidy.net/extensions/adguardvpn/beta/update.xml`
   and `update.json`). Deployer module names changed; paths must not.

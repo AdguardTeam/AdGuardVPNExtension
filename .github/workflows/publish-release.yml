@@ -329,7 +329,7 @@ jobs:
         if: needs.tag.outputs.release-channel == 'beta'
         uses: actions/upload-artifact@v7
         with:
-          name: static-chrome-beta
+          name: chrome-standalone-beta
           path: |
             artifacts/out/chrome.zip
             artifacts/out/chrome.crx
@@ -342,7 +342,7 @@ jobs:
         if: needs.tag.outputs.release-channel == 'release'
         uses: actions/upload-artifact@v7
         with:
-          name: static-chrome-release
+          name: chrome-standalone-release
           path: artifacts/out/chrome.zip
           if-no-files-found: error
           retention-days: 7
@@ -350,7 +350,7 @@ jobs:
       - name: Upload Chrome Web Store artifact
         uses: actions/upload-artifact@v7
         with:
-          name: chrome-webstore-${{ needs.tag.outputs.release-channel }}
+          name: chrome-${{ needs.tag.outputs.release-channel }}
           path: artifacts/out/chrome.zip
           if-no-files-found: error
           retention-days: 7
@@ -359,7 +359,7 @@ jobs:
         if: needs.tag.outputs.release-channel == 'release'
         uses: actions/upload-artifact@v7
         with:
-          name: amo-release
+          name: firefox-release
           path: |
             artifacts/out/firefox.zip
             artifacts/out/source.zip
@@ -379,8 +379,16 @@ jobs:
         if: needs.tag.outputs.release-channel == 'release'
         uses: actions/upload-artifact@v7
         with:
-          name: static-firefox-release
+          name: firefox-standalone-release
           path: artifacts/out/firefox.zip
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Upload Opera artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: opera-${{ needs.tag.outputs.release-channel }}
+          path: artifacts/out/opera.zip
           if-no-files-found: error
           retention-days: 7
 
@@ -516,7 +524,7 @@ jobs:
       - name: Upload Firefox static artifact
         uses: actions/upload-artifact@v7
         with:
-          name: static-firefox-beta
+          name: firefox-standalone-beta
           path: |
             artifacts/ff/firefox.xpi
             artifacts/ff/firefox.zip
@@ -547,8 +555,8 @@ jobs:
     with:
       team: extensions
       deployer-module: vpn-webext-chrome-${{ needs.build.outputs.channel }}
-      artifact-name: static-chrome-${{ needs.build.outputs.channel }}
-      environment: ${{ needs.build.outputs.channel == 'beta' && 'beta-static' || 'production-static' }}
+      artifact-name: chrome-standalone-${{ needs.build.outputs.channel }}
+      environment: chrome-static-${{ needs.build.outputs.channel }}
     # `contents: read` — download artifact only
     # `id-token: write` — OIDC token for authenticated Deployer upload
     permissions:
@@ -564,8 +572,8 @@ jobs:
     with:
       team: extensions
       deployer-module: vpn-webext-firefox-beta
-      artifact-name: static-firefox-beta
-      environment: beta-static
+      artifact-name: firefox-standalone-beta
+      environment: firefox-static-beta
     permissions:
       contents: read
       id-token: write
@@ -578,8 +586,8 @@ jobs:
     with:
       team: extensions
       deployer-module: vpn-webext-firefox-release
-      artifact-name: static-firefox-release
-      environment: production-static
+      artifact-name: firefox-standalone-release
+      environment: firefox-static-release
     permissions:
       contents: read
       id-token: write
@@ -593,7 +601,7 @@ jobs:
     with:
       team: extensions
       environment: chrome-webstore-${{ needs.build.outputs.channel }}
-      artifact-name: chrome-webstore-${{ needs.build.outputs.channel }}
+      artifact-name: chrome-${{ needs.build.outputs.channel }}
       # Public CWS listing IDs (same constants the Bamboo deployer used).
       # Beta is a separate unlisted listing; release is the public one.
       # listing-url is left empty — the workflow constructs it from item-id.
@@ -621,7 +629,7 @@ jobs:
     with:
       team: extensions
       environment: firefox-amo-release
-      artifact-name: amo-release
+      artifact-name: firefox-release
       addon-id: adguard-vpn@adguard.com
       channel-type: listed
       approval-notes: ${{ needs.build.outputs.approval-notes }}
